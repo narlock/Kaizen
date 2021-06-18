@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.*;
@@ -30,9 +31,10 @@ public class GUI extends JFrame {
 	 * Components
 	 */
 	
-	private JPanel centerPanel, insideCenter1, bottomPanel;
+	private JLabel title;
+	private JPanel centerPanel, insideCenter1, topPanel, bottomPanel, taskPanel;
 	private JTextArea textArea;
-	private JButton testButton;
+	private JButton testButton, addTaskButton;
 	
 	private Date currentDate;
 	private SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
@@ -40,6 +42,8 @@ public class GUI extends JFrame {
 	
 	private File file;
 	private boolean existingFile;
+	
+	private ArrayList<Task> taskList;
 	
 	/*
 	 * Default Constructor
@@ -54,21 +58,28 @@ public class GUI extends JFrame {
 		
 		setUpGUI();
 		
-		this.setSize(600,400);
+		this.setSize(300,400);
 	}
 	
 	public void setUpFrame() {
-		this.setTitle("OpenLife indev 0.0.1");
-		this.setSize(600,399);
+		this.setTitle("OpenLife indev 0.0.2");
+		this.setSize(299,249);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	public void initComponents() {
+		taskList = new ArrayList<Task>();
+		
+		topPanel = new JPanel();
+		taskPanel = new JPanel();
 		centerPanel = new JPanel();
 		insideCenter1 = new JPanel();
 		bottomPanel = new JPanel();
+		
+		initPanelColors();
 		
 		textArea = new JTextArea();
 		textArea.setLineWrap(true);
@@ -79,6 +90,8 @@ public class GUI extends JFrame {
 		
 		currentDate = new Date();
 		currentDateString = formatter.format(currentDate);
+		
+		title = new JLabel("OpenLife —— " + currentDateString);
 		
 		file = new File("today/OpenLife-"+ currentDateString +".txt");
 		existingFile = file.exists();
@@ -100,6 +113,15 @@ public class GUI extends JFrame {
 		
 		
 		testButton = new JButton("Save Life");
+		addTaskButton = new JButton("+");
+	}
+	
+	public void initPanelColors() {
+		topPanel.setBackground(new Color(204,255,255));
+		taskPanel.setBackground(new Color(204,255,255));
+		centerPanel.setBackground(new Color(204,255,255));
+		insideCenter1.setBackground(new Color(204,255,255));
+		bottomPanel.setBackground(new Color(204,255,255));
 	}
 	
 	public void initComponentActions() {
@@ -120,19 +142,48 @@ public class GUI extends JFrame {
 				}
 			}
 		});
+		
+		
+		addTaskButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Task temp = new Task();
+				taskList.add(temp);
+				taskPanel.add(temp);
+				
+				System.out.println(getTaskList());
+				updateGUI();
+				
+			}
+			
+		});
 	}
 	
 	public void setUpGUI() {
-		this.add(centerPanel, BorderLayout.CENTER);
+		this.add(topPanel, BorderLayout.NORTH);
+		
+		this.add(taskPanel, BorderLayout.CENTER);
+		
 		this.add(bottomPanel, BorderLayout.SOUTH);
 		
+		topPanel.add(title);
 		
 		centerPanel.add(insideCenter1, BorderLayout.CENTER);
 		insideCenter1.add(textArea);
 		
 		bottomPanel.add(testButton);
+		bottomPanel.add(addTaskButton);
 		
+		for(int i = 0; i < taskList.size(); i++) {
+			taskPanel.add(taskList.get(i));
+		}
 		
+	}
+	
+	public void updateGUI() {
+		this.setSize(299,400);
+		this.setSize(300, 400);
 	}
 	
 	public void writeTextToNewFile() throws IOException {
@@ -152,7 +203,7 @@ public class GUI extends JFrame {
 		
 		if(ret == JFileChooser.APPROVE_OPTION) {
 			try (FileWriter writer = new FileWriter(SaveAs.getSelectedFile()+".txt")) {
-				writer.write(textArea.getText());
+				writer.write(getTaskList());
 				
 				writer.close();
 			} catch (Exception e){
@@ -164,7 +215,7 @@ public class GUI extends JFrame {
 	
 	public void saveCurrentFile(File file) {
 		File fnew = new File(file.getAbsolutePath());
-		String source = textArea.getText();
+		String source = getTaskList();
 		
 		try {
 			FileWriter f2 = new FileWriter(fnew, false);
@@ -178,11 +229,36 @@ public class GUI extends JFrame {
 	public void openFile(File file) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		
+		String info = "";
 		String line;
 		while ((line = (br.readLine())) != null) {
-			textArea.append(line);
-			textArea.append("\n");
+			info = info + line + "\n";
 		}
+		System.out.println(info);
+		String[] readTaskInfo = info.split("\n");
+		
+		for(int i = 0; i < readTaskInfo.length; i++) {
+			String[] specTaskInfo = readTaskInfo[i].split(",");
+			this.taskList.add(new Task(Integer.parseInt(specTaskInfo[0]), specTaskInfo[1]));
+			
+		}
+		
 		br.close();
+	}
+	
+	public String getTaskList() {
+		String taskListInfo = "";
+		for(int i = 0; i < taskList.size(); i++) {
+			if(i != taskList.size() - 1) {
+				String tempString = taskList.get(i).toString();
+				taskListInfo = taskListInfo + tempString + "\n";
+			}
+			else {
+				String tempString = taskList.get(i).toString();
+				taskListInfo = taskListInfo + tempString;
+			}
+		}
+		
+		return taskListInfo;
 	}
 }
