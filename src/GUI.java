@@ -31,8 +31,8 @@ public class GUI extends JFrame {
 	 * Components
 	 */
 	
-	private JLabel title;
-	private JPanel centerPanel, insideCenter1, topPanel, bottomPanel, taskPanel;
+	private JLabel title, habitTitle;
+	private JPanel centerPanel, insideCenter1, topPanel, bottomPanel, taskPanel, textPanel, habitPanel;
 	private JTextArea textArea;
 	private JButton testButton, addTaskButton;
 	
@@ -44,6 +44,7 @@ public class GUI extends JFrame {
 	private boolean existingFile;
 	
 	private ArrayList<Task> taskList;
+	private ArrayList<Task> habitList;
 	
 	/*
 	 * Default Constructor
@@ -58,12 +59,12 @@ public class GUI extends JFrame {
 		
 		setUpGUI();
 		
-		this.setSize(300,400);
+		this.setSize(600,400);
 	}
 	
 	public void setUpFrame() {
 		this.setTitle("OpenLife indev 0.0.2");
-		this.setSize(299,249);
+		this.setSize(599,249);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
@@ -72,12 +73,21 @@ public class GUI extends JFrame {
 	
 	public void initComponents() {
 		taskList = new ArrayList<Task>();
+		habitList = new ArrayList<Task>();
+		
+		//Temporary Habit List
+		habitList.add(new Task(0, "Workout: Weight/Cardio"));
+		habitList.add(new Task(0, ">2200 calories"));
+		habitList.add(new Task(0, "In Bed by 10:00 PM"));
+		
 		
 		topPanel = new JPanel();
 		taskPanel = new JPanel();
 		centerPanel = new JPanel();
 		insideCenter1 = new JPanel();
 		bottomPanel = new JPanel();
+		textPanel = new JPanel();
+		habitPanel = new JPanel();
 		
 		initPanelColors();
 		
@@ -92,6 +102,7 @@ public class GUI extends JFrame {
 		currentDateString = formatter.format(currentDate);
 		
 		title = new JLabel("OpenLife —— " + currentDateString);
+		habitTitle = new JLabel("Daily Habits");
 		
 		file = new File("today/OpenLife-"+ currentDateString +".txt");
 		existingFile = file.exists();
@@ -122,6 +133,8 @@ public class GUI extends JFrame {
 		centerPanel.setBackground(new Color(204,255,255));
 		insideCenter1.setBackground(new Color(204,255,255));
 		bottomPanel.setBackground(new Color(204,255,255));
+		textPanel.setBackground(new Color(204,255,255));
+		habitPanel.setBackground(new Color(204,255,255));
 	}
 	
 	public void initComponentActions() {
@@ -163,14 +176,27 @@ public class GUI extends JFrame {
 	public void setUpGUI() {
 		this.add(topPanel, BorderLayout.NORTH);
 		
-		this.add(taskPanel, BorderLayout.CENTER);
+		this.add(centerPanel, BorderLayout.CENTER);
+		
+		//this.add(taskPanel, BorderLayout.CENTER);
 		
 		this.add(bottomPanel, BorderLayout.SOUTH);
 		
 		topPanel.add(title);
 		
-		centerPanel.add(insideCenter1, BorderLayout.CENTER);
-		insideCenter1.add(textArea);
+		centerPanel.setLayout(new GridLayout(1,2));
+		centerPanel.add(taskPanel);
+		centerPanel.add(textPanel);
+		
+		textPanel.setLayout(new GridLayout(2,1));
+		textPanel.add(textArea);
+		textPanel.add(habitPanel);
+		
+		
+		habitPanel.add(habitTitle);
+		for(int i = 0; i < habitList.size(); i++) {
+			habitPanel.add(habitList.get(i));
+		}
 		
 		bottomPanel.add(testButton);
 		bottomPanel.add(addTaskButton);
@@ -182,8 +208,8 @@ public class GUI extends JFrame {
 	}
 	
 	public void updateGUI() {
-		this.setSize(299,400);
-		this.setSize(300, 400);
+		this.setSize(599,400);
+		this.setSize(600, 400);
 	}
 	
 	public void writeTextToNewFile() throws IOException {

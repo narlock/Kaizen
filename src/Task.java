@@ -61,7 +61,7 @@ public class Task extends JPanel {
 		completeButton = new JButton(new ImageIcon("assets/blue.png"));
 		completedStatus = 0;
 		
-		infoField = new JTextField(10);
+		infoField = new JTextField(15);
 		dueDate = new Date();
 		
 		
