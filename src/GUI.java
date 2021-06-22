@@ -86,9 +86,9 @@ public class GUI extends JFrame {
 		textScrollPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
 		
 		//Temporary Habit List
-		habitList.add(new Task(0, "Workout: Weight/Cardio"));
-		habitList.add(new Task(0, ">2200 calories"));
-		habitList.add(new Task(0, "In Bed by 10:00 PM"));
+		habitList.add(new Task(0, "Workout: Weight/Cardio", this));
+		habitList.add(new Task(0, ">2200 calories", this));
+		habitList.add(new Task(0, "In Bed by 10:00 PM", this));
 		
 		
 		topPanel = new JPanel();
@@ -280,7 +280,7 @@ public class GUI extends JFrame {
 		
 		for(int i = 0; i < readTaskInfo.length; i++) {
 			String[] specTaskInfo = readTaskInfo[i].split(",");
-			this.taskList.add(new Task(Integer.parseInt(specTaskInfo[0]), specTaskInfo[1]));
+			this.taskList.add(new Task(Integer.parseInt(specTaskInfo[0]), specTaskInfo[1], this));
 			
 		}
 		
@@ -301,5 +301,13 @@ public class GUI extends JFrame {
 		}
 		
 		return taskListInfo;
+	}
+	
+	public void removeTask(Task task) {
+		taskList.remove(task);
+		this.remove(task);
+		this.validate();
+		this.repaint();
+		this.revalidate();
 	}
 }

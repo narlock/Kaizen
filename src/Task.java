@@ -23,6 +23,8 @@ public class Task extends JPanel {
 	private String dateString;
 	private SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 	
+	private GUI gui;
+	
 	public Task() {
 		initComponents();
 		
@@ -41,7 +43,9 @@ public class Task extends JPanel {
 		setUpTaskPanel();
 	}
 	
-	public Task(int completionStatus, String title) {
+	public Task(int completionStatus, String title, GUI gui) {
+		this.gui = gui;
+		
 		initComponents();
 		
 		this.completedStatus = completionStatus;
@@ -92,7 +96,7 @@ public class Task extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO
+				//gui.removeTask(getTask());
 			}
 			
 		});
@@ -118,6 +122,10 @@ public class Task extends JPanel {
 	public String toString() {
 		String info = completedStatus + "," + infoField.getText();
 		return info;
+	}
+	
+	public Task getTask() {
+		return this;
 	}
 	
 }
