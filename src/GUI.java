@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.*;
+import static javax.swing.ScrollPaneConstants.*;
 
 /*
  * GUI
@@ -32,7 +33,10 @@ public class GUI extends JFrame {
 	 */
 	
 	private JLabel title, habitTitle;
-	private JPanel centerPanel, insideCenter1, topPanel, bottomPanel, taskPanel, textPanel, habitPanel;
+	private JPanel centerPanel, insideCenter1, topPanel, bottomPanel, textPanel, habitPanel;
+	private JPanel taskPanel;
+	private JScrollPane taskScrollPane, textScrollPane;
+	
 	private JTextArea textArea;
 	private JButton testButton, addTaskButton;
 	
@@ -59,21 +63,27 @@ public class GUI extends JFrame {
 		
 		setUpGUI();
 		
-		this.setSize(600,400);
+		this.setSize(600,600);
 	}
 	
 	public void setUpFrame() {
 		this.setTitle("OpenLife indev 0.0.2");
-		this.setSize(599,249);
+		this.setSize(599,600);
 		this.setResizable(false);
-		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	public void initComponents() {
 		taskList = new ArrayList<Task>();
 		habitList = new ArrayList<Task>();
+		
+		taskScrollPane = new JScrollPane();
+		taskScrollPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
+		
+		textScrollPane = new JScrollPane();
+		textScrollPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
 		
 		//Temporary Habit List
 		habitList.add(new Task(0, "Workout: Weight/Cardio"));
@@ -83,6 +93,8 @@ public class GUI extends JFrame {
 		
 		topPanel = new JPanel();
 		taskPanel = new JPanel();
+		taskPanel.setLayout(new BoxLayout(taskPanel, BoxLayout.Y_AXIS));
+		
 		centerPanel = new JPanel();
 		insideCenter1 = new JPanel();
 		bottomPanel = new JPanel();
@@ -138,6 +150,9 @@ public class GUI extends JFrame {
 	}
 	
 	public void initComponentActions() {
+		taskScrollPane.setViewportView(taskPanel);
+		textScrollPane.setViewportView(textArea);
+		
 		testButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -185,11 +200,11 @@ public class GUI extends JFrame {
 		topPanel.add(title);
 		
 		centerPanel.setLayout(new GridLayout(1,2));
-		centerPanel.add(taskPanel);
+		centerPanel.add(taskScrollPane);
 		centerPanel.add(textPanel);
 		
 		textPanel.setLayout(new GridLayout(2,1));
-		textPanel.add(textArea);
+		textPanel.add(textScrollPane);
 		textPanel.add(habitPanel);
 		
 		
@@ -208,8 +223,8 @@ public class GUI extends JFrame {
 	}
 	
 	public void updateGUI() {
-		this.setSize(599,400);
-		this.setSize(600, 400);
+		this.setSize(599,600);
+		this.setSize(600, 600);
 	}
 	
 	public void writeTextToNewFile() throws IOException {
