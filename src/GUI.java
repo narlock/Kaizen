@@ -32,6 +32,11 @@ public class GUI extends JFrame {
 	 * Components
 	 */
 	
+	private JMenu guiMenu;
+	private JMenuBar headMenuBar;
+	private JButton incrementButton;
+	
+	
 	private JLabel title, habitTitle;
 	private JPanel centerPanel, insideCenter1, topPanel, bottomPanel, textPanel, habitPanel;
 	private JPanel taskPanel;
@@ -69,13 +74,17 @@ public class GUI extends JFrame {
 	public void setUpFrame() {
 		this.setTitle("OpenLife indev 0.0.2");
 		this.setSize(599,600);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	public void initComponents() {
+		headMenuBar = new JMenuBar();
+		guiMenu = new JMenu("Menu");
+		incrementButton = new JButton("Increment");
+		
 		taskList = new ArrayList<Task>();
 		habitList = new ArrayList<Task>();
 		
@@ -87,8 +96,11 @@ public class GUI extends JFrame {
 		
 		//Temporary Habit List
 		habitList.add(new Task(0, "Workout: Weight/Cardio", this));
-		habitList.add(new Task(0, ">2200 calories", this));
+		habitList.add(new Task(0, "Eat Responsibly", this));
 		habitList.add(new Task(0, "In Bed by 10:00 PM", this));
+		habitList.add(new Task(0, "80oz of water", this));
+		habitList.add(new Task(0, "Take vitamins", this));
+		habitList.add(new Task(0, "10 pages of reading", this));
 		
 		
 		topPanel = new JPanel();
@@ -186,6 +198,17 @@ public class GUI extends JFrame {
 			}
 			
 		});
+		
+		incrementButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				incrementGUI incrementGUI = new incrementGUI();
+				hideWindow();
+				
+			}
+			
+		});
 	}
 	
 	public void setUpGUI() {
@@ -197,6 +220,9 @@ public class GUI extends JFrame {
 		
 		this.add(bottomPanel, BorderLayout.SOUTH);
 		
+		headMenuBar.add(guiMenu);
+		guiMenu.add(incrementButton);		
+		topPanel.add(headMenuBar);
 		topPanel.add(title);
 		
 		centerPanel.setLayout(new GridLayout(1,2));
@@ -309,5 +335,13 @@ public class GUI extends JFrame {
 		this.validate();
 		this.repaint();
 		this.revalidate();
+	}
+	
+	/*
+	 * Hides the window
+	 */
+	public void hideWindow() {
+		this.setVisible(false);
+		this.dispose();
 	}
 }
