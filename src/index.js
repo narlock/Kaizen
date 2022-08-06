@@ -26,7 +26,12 @@ app.use('/static', express.static('client'))
 // server listens on port set to value above for incoming connections
 app.listen(port, () => console.log('Listening on port', port));
 
-//Home Page - welcome.html
+//Home Page - openlife.html
 app.get('/',function(req, res) {
-    res.sendFile(__dirname + '/client/welcome.html');
-}); 
+    res.sendFile(__dirname + '/client/openlife.html');
+});
+
+//Any path will lead to openlife.html
+app.get('*', function(req, res) {
+    res.sendFile(__dirname + '/client/openlife.html');
+});
