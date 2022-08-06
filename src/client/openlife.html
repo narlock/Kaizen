@@ -7,8 +7,9 @@
     <title>OpenLife v0.1</title>
     <link rel="stylesheet" href="css/openlife.css">
 </head>
-<body>
-    <div class="dropdown">
+<body onload="startTime()">
+  <div id="clock"></div>
+  <div class="dropdown">
         <button onclick="myFunction()" class="dropbtn">Widgets</button>
         <div id="myDropdown" class="dropdown-content">
           <a id="incrementCounter">Increment/Decrement Counter</a>
@@ -24,6 +25,11 @@
         <div id="open" class="grid-item"></div>
         <div id="open" class="grid-item"></div>
         <div id="open" class="grid-item"></div>  
+      </div>
+
+      <div id="header">
+        <h1>OpenLife</h1>  
+        <p>created by narlock</p>
       </div>
     <script src="js/openlife.js"></script>
 </body>

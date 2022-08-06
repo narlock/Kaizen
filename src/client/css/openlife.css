@@ -2,17 +2,35 @@
   font-family: 'Poppins', 'Arial', 'Tahoma';
 }
 
+body {
+  background-color: lavender;
+}
+
+#header h1, p {
+  text-align: center;
+}
+
+#clock {
+  text-align: center;
+  font-size: xx-large;
+  font-weight: bold;
+  font-family: "Consolas", "Tahoma", "Arial";
+}
+
 .dropbtn {
-    background-color: #3498DB;
-    color: white;
+  background-color: #ffc72c;  
+  
+    color: black;
     padding: 16px;
     font-size: 16px;
+    font-weight: bold;
     border: none;
     cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0.8);
   }
   
   .dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
+    background-color: #ffa02c;
   }
   
   .dropdown {
@@ -44,7 +62,7 @@
   .grid-container {
     display: grid;
     grid-template-columns: auto auto auto;
-    background-color: #2196F3;
+    background-color: #ffc72c;
     padding: 10px;
   }
   .grid-item {
