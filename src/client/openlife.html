@@ -7,16 +7,21 @@
     <title>OpenLife v0.1</title>
     <link rel="stylesheet" href="css/openlife.css">
 </head>
-<body onload="startTime()">
-  <div id="clock"></div>
+<body>
+  <div id="header">
+    <h1 id="headerText">OpenLife</h1>  
+  </div>
+  <div class="kanban"></div>
+  
   <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">Widgets</button>
+        <button class="dropbtn">Widgets</button>
         <div id="myDropdown" class="dropdown-content">
           <a id="incrementCounter">Increment/Decrement Counter</a>
+          <a id="kanbanWidget">Kanban widget</a>
         </div>
       </div>
       <div class="grid-container">
-        <div id="" class="grid-item"></div>
+        <div id="increment" class="grid-item"></div>
         <div id="" class="grid-item"></div>
         <div id="" class="grid-item"></div>  
         <div id="" class="grid-item"></div>
@@ -26,11 +31,6 @@
         <div id="" class="grid-item"></div>
         <div id="" class="grid-item"></div>  
       </div>
-
-      <div id="header">
-        <h1>OpenLife</h1>  
-        <p>created by narlock</p>
-      </div>
-    <script src="js/openlife.js"></script>
+    <script src="js/openlife.js" type="module"></script>
 </body>
 </html>

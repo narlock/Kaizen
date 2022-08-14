@@ -1,3 +1,7 @@
+import Kanban from "./kanban/kanban.js";
+
+new Kanban
+
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 function myFunction() {
@@ -19,6 +23,7 @@ if (!event.target.matches('.dropbtn')) {
 }
 
 //Clock
+startTime();
 function startTime() {
     const today = new Date();
     let h = today.getHours();
@@ -26,17 +31,19 @@ function startTime() {
     let s = today.getSeconds();
     m = checkTime(m);
     s = checkTime(s);
-    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    document.getElementById('headerText').innerHTML = "OpenLife | " + h + ":" + m + ":" + s;
     setTimeout(startTime, 1000);
-  }
+}
   
-  function checkTime(i) {
+function checkTime(i) {
     if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
     return i;
-  }
+}
 
 //IncrementCounter
-document.getElementById("incrementCounter").addEventListener("click", addIncrementDecrementCounterWidget);
+// document.getElementById("incrementCounter").addEventListener("click", addIncrementDecrementCounterWidget);
+
+addIncrementDecrementCounterWidget();
 function addIncrementDecrementCounterWidget() {
     //Div
     const widgetDiv = document.createElement("div");
@@ -74,7 +81,8 @@ function addIncrementDecrementCounterWidget() {
     widgetDiv.appendChild(counterButton);
     widgetDiv.appendChild(descParagraph);
 
-    gridBox = document.querySelector(".grid-item");
+    // gridBox = document.querySelector(".grid-item");
+    gridBox = document.getElementById("increment");
     gridBox.removeAttribute("class");
     //Removing this attribute allows the next grid-item to be used
 
