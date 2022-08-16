@@ -6,9 +6,18 @@
  */
 
 const express = require('express');           //for server
-var mysql = require('mysql');                 //connecting to database
 var bodyparser = require('body-parser');      //helps in extracting body
 const url = require('url');                   //for splitting web addrs
+
+/**
+ * Connecting to OSLA database
+ */
+const sqlite3 = require('sqlite3').verbose();
+
+const db = new sqlite3.Database("./osladb.db", sqlite3.OPEN_READWRITE, (err) => {
+    if(err) return console.log("[OSLA] Database connection failure: " + err.message);
+    console.log("[OSLA] Database connection success");
+});
 
 /**
  * Server declarations & setup
