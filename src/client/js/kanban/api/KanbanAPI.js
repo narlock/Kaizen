@@ -78,6 +78,10 @@ export default class KanbanAPI {
 
 //read from local storage
 function read() {
+
+    //TODO get the information from the sql database, return as json object
+
+    //remove this code when I can get that here
     const json = localStorage.getItem('kanban-data');
 
     //first time using the kanban, we can return default data

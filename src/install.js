@@ -17,7 +17,10 @@ db.run('CREATE TABLE contacts(first_name, last_name, phone_number, email, addres
 db.run('CREATE TABLE kanban(column_id, item_id, item_content)');
 
 //Create Daily journal table
+//TODO
 
 //Create days since table
+db.run('CREATE TABLE daystracker(id, title, start_date)');
 
 //Create habit tracking table
+//TODO
