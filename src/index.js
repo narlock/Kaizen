@@ -43,6 +43,31 @@ app.get('/',function(req, res) {
     res.sendFile(__dirname + '/client/index.html');
 });
 
+//Kanban page - kanban.html
+app.get('/kanban',function(req, res) {
+    res.sendFile(__dirname + '/client/kanban.html');
+});
+
+//Habits page - habits.html
+app.get('/habits',function(req, res) {
+    res.sendFile(__dirname + '/client/habits.html');
+});
+
+//Health page - health.html
+app.get('/health',function(req, res) {
+    res.sendFile(__dirname + '/client/health.html');
+});
+
+//Journal page - journal.html
+app.get('/journal',function(req, res) {
+    res.sendFile(__dirname + '/client/journal.html');
+});
+
+//Relationships Page - relationships.html
+app.get('/relationships',function(req, res) {
+    res.sendFile(__dirname + '/client/relationships.html');
+});
+
 //Any path will lead to openlife.html
 app.get('*', function(req, res) {
     res.sendFile(__dirname + '/client/index.html');

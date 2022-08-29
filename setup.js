@@ -36,7 +36,6 @@
  * 
  * npm install mysql
  * npm install express
- * npm install body-parser
  */
 console.log("[OSLA/Setup] Beginning OSLA Setup...");
 
@@ -149,6 +148,27 @@ dbCon.connect(function (err) {
             throw err;
         }
         console.log("[OSLA/Setup] Creation of Journal Entry MySQL Table SUCCESS");
+    });
+
+    console.log("[OSLA/Setup] Creating Relationships MySQL Table...");
+    sql = `
+        CREATE TABLE relationships (
+            contact_id              INT NOT NULL AUTO_INCREMENT,
+            contact_name            VARCHAR(50),
+            contact_birthday        DATE,
+            contact_address         VARCHAR(255),
+            contact_phone           VARCHAR(50),
+            contact_email           VARCHAR(50),
+            contact_note            MEDIUMTEXT,
+            PRIMARY KEY(contact_id)
+        )
+    `;
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.log("[OSLA/Setup] Creation of Relationships MySQL Table FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/Setup] Creation of Relationships MySQL Table SUCCESS");
     });
 
     console.log("[OSLA/Setup] Closing database connection...");
