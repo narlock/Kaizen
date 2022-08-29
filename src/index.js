@@ -12,11 +12,14 @@ const url = require('url');                   //for splitting web addrs
 /**
  * Connecting to OSLA database
  */
-const sqlite3 = require('sqlite3').verbose();
+const mysql = require('mysql');
 
-const db = new sqlite3.Database("./osladb.db", sqlite3.OPEN_READWRITE, (err) => {
-    if(err) return console.log("[OSLA] Database connection failure: " + err.message);
-    console.log("[OSLA] Database connection success");
+//TODO replace these with your MySQL setup
+const dbCon = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "osla"
 });
 
 /**
@@ -37,10 +40,10 @@ app.listen(port, () => console.log('Listening on port', port));
 
 //Home Page - openlife.html
 app.get('/',function(req, res) {
-    res.sendFile(__dirname + '/client/openlife.html');
+    res.sendFile(__dirname + '/client/index.html');
 });
 
 //Any path will lead to openlife.html
 app.get('*', function(req, res) {
-    res.sendFile(__dirname + '/client/openlife.html');
+    res.sendFile(__dirname + '/client/index.html');
 });
