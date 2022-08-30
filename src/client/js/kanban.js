@@ -37,26 +37,62 @@ showTime();
 var createMode = false;
 
 window.onload = function() {
-    populateKanbanBoard();
+    populateKanbanBacklogBoard();
+    populateKanbanTodoBoard();
+    populateKanbanInprogBoard();
+    populateKanbanDoneBoard();
 }
 
-function populateKanbanBoard() {
+function populateKanbanBacklogBoard() {
     var xmlhttp = new XMLHttpRequest();
 
     //Populate backlog stories
     xmlhttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
-            populateKanbanSection(JSON.parse(this.responseText), "kanbanBacklog");
+            populateKanbanSection(JSON.parse(this.responseText), "backlog");
         }
     };
     xmlhttp.open("GET", "backlogKanbanStories", true);
     xmlhttp.send();
+}
+
+function populateKanbanTodoBoard() {
+    var xmlhttp = new XMLHttpRequest();
 
     //Populate todo stories
+    xmlhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            populateKanbanSection(JSON.parse(this.responseText), "todo");
+        }
+    };
+    xmlhttp.open("GET", "todoKanbanStories", true);
+    xmlhttp.send();
+}
+    
+function populateKanbanInprogBoard() {
+    var xmlhttp = new XMLHttpRequest();
 
     //Populate in progress stories
+    xmlhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            populateKanbanSection(JSON.parse(this.responseText), "inprog");
+        }
+    };
+    xmlhttp.open("GET", "inprogKanbanStories", true);
+    xmlhttp.send();
+}
+    
+function populateKanbanDoneBoard() {
+    var xmlhttp = new XMLHttpRequest();
 
     //Populate done stories
+    xmlhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            populateKanbanSection(JSON.parse(this.responseText), "done");
+        }
+    };
+    xmlhttp.open("GET", "doneKanbanStories", true);
+    xmlhttp.send();
 }
 
 function populateKanbanSection(stories, statusDivId) {
@@ -116,21 +152,20 @@ function getImageUrlFromId(id) {
 }
 
 function drag(ev) {
-    console.log(ev);
-    ev.dataTransfer.setData("text", ev.target.id);
+    ev.dataTransfer.setData("id", ev.target.id);
+    ev.dataTransfer.setData("status", ev.path[1].getAttribute('id'));
+    // console.log(ev.path[1].getAttribute('id'));
 }
 
 function allowDrop(ev) {
-    console.log(ev);
     ev.preventDefault();
 }
 
 function drop(ev) {
-    console.log(ev);
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    console.log(data);
-    console.log(ev.target);
+    var data = ev.dataTransfer.getData("id");
+    console.log("Dragged from " + ev.dataTransfer.getData("status"));
+    console.log("Dragged to " + ev.path[0].getAttribute('id'));
 
     if(ev.target.classList.contains("kanban__title") || 
     ev.target.classList.contains("kanban__story") ||
@@ -142,6 +177,18 @@ function drop(ev) {
     } else {
         ev.target.appendChild(document.getElementById(data));
         //TODO Update story status!!!
+        //should be able to get id of the div, which is id of the story
+        $.ajax({
+            type: 'POST',
+            url: 'updateKanbanStory',
+            data: {
+              'id': data,
+              'newStatus': ev.path[0].getAttribute('id')
+            },
+            success: function(msg) {
+              console.log(msg);
+            }
+        });
     }
 }
 

@@ -34,22 +34,22 @@
     font-weight: bold;
 }
 
-#kanbanBacklog {
+#backlog {
     background-color: rgb(176, 255, 229);
     border: 1px solid black;
 }
 
-#kanbanTodo {
+#todo {
     background-color: #ffe7ec;
     border: 1px solid black;
 }
 
-#kanbanInprog {
+#inprog {
     background-color: #ffd16d;
     border: 1px solid black;
 }
 
-#kanbanDone {
+#done {
     background-color: #a9ffa9;
     border: 1px solid black;
 }

@@ -93,7 +93,7 @@ app.get('/kanbanStories', function(req, res) {
  * @purpose to fill the backlog portion of kanban table
  */
  app.get('/todoKanbanStories', function(req, res) {
-    const sql = 'SELECT * FROM kanban WHERE story_status="\"todo\"';
+    const sql = 'SELECT * FROM kanban WHERE story_status=\"todo\"';
     dbCon.query(sql, function(err, stories) {
         if(err) {
             console.log("[OSLA/SERVER] GET todoKanbanStories FAILURE");
@@ -110,7 +110,7 @@ app.get('/kanbanStories', function(req, res) {
  * @purpose to fill the backlog portion of kanban table
  */
  app.get('/inprogKanbanStories', function(req, res) {
-    const sql = 'SELECT * FROM kanban WHERE story_status="\"inprog\"';
+    const sql = 'SELECT * FROM kanban WHERE story_status=\"inprog\"';
     dbCon.query(sql, function(err, stories) {
         if(err) {
             console.log("[OSLA/SERVER] GET inprogKanbanStories FAILURE");
@@ -127,7 +127,7 @@ app.get('/kanbanStories', function(req, res) {
  * @purpose to fill the backlog portion of kanban table
  */
  app.get('/doneKanbanStories', function(req, res) {
-    const sql = 'SELECT * FROM kanban WHERE story_status="\"done\"';
+    const sql = 'SELECT * FROM kanban WHERE story_status=\"done\"';
     dbCon.query(sql, function(err, stories) {
         if(err) {
             console.log("[OSLA/SERVER] GET doneKanbanStories FAILURE");
@@ -216,13 +216,26 @@ app.post('/addKanbanStory', function(req, res) {
 });
 
 /**
- * POST /updateKanbanStory
+ * POST /updateKanbanStoryById
  * @brief Updates kanban story to database
  * @purpose Updating information of a story if story requirements
  * are modified.
  */
 app.post('/updateKanbanStory', function(req, res) {
-
+    const sql = `
+        UPDATE  kanban
+        SET     story_status=\"${req.body.newStatus}\"
+        WHERE   story_id=${req.body.id}
+    `;
+    console.log(req.body);
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.log("[OSLA/SERVER] updateKanbanStory FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] updateKanbanStory SUCCESS");
+        res.send("success");
+    });
 });
 
 /**

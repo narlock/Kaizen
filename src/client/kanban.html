@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kanban • OpenLife</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/kanban.css">
 </head>
@@ -31,26 +32,16 @@
         <!-- TODO -->
         <div class="kanban__container">
             <div class="kanban__board">
-                <div id="kanbanBacklog" class="kanban__block" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div id="backlog" class="kanban__block" ondrop="drop(event)" ondragover="allowDrop(event)">
                     <div class="kanban__header">BACKLOG</div>
-                    <div class="story" id="1" draggable="true" ondragstart="drag(event)" onclick="viewStory(event)">
-                        <img src="assets/major.svg" alt="critical priority" class="kanban__priority">
-                        <strong class="kanban__points">5</strong>
-                        <span class="kanban__title">Finish Kanban Board</span>
-                    </div>
-                    <div class="story" id="2" draggable="true" ondragstart="drag(event)">
-                        <img src="assets/high.svg" alt="critical priority" class="kanban__priority">
-                        <strong class="kanban__points">1</strong>
-                        <span class="kanban__title">CSCI 4707 - Read Syllabus</span>
-                    </div>
                 </div>
-                <div id="kanbanTodo" class="kanban__block" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div id="todo" class="kanban__block" ondrop="drop(event)" ondragover="allowDrop(event)">
                     <div class="kanban__header">TODO</div>
                 </div>
-                <div id="kanbanInprog" class="kanban__block" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div id="inprog" class="kanban__block" ondrop="drop(event)" ondragover="allowDrop(event)">
                     <div class="kanban__header">IN PROGRESS</div>
                 </div>
-                <div id="kanbanDone" class="kanban__block" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div id="done" class="kanban__block" ondrop="drop(event)" ondragover="allowDrop(event)">
                     <div class="kanban__header">DONE</div>
                 </div>
             </div>
