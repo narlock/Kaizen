@@ -60,13 +60,80 @@ app.get('/kanban',function(req, res) {
  */
 app.get('/kanbanStories', function(req, res) {
     const sql = 'SELECT * FROM kanban';
-    console.log("[OSLA/SERVER] Attempting GET kanbanStories...");
     dbCon.query(sql, function(err, stories) {
         if(err) {
             console.log("[OSLA/SERVER] GET kanbanStories FAILURE");
             throw err;
         }
         console.log("[OSLA/SERVER] GET kanbanStories SUCCESS");
+        res.send(stories);
+    });
+});
+
+/**
+ * GET /backlogKanbanStories
+ * @brief Gets the backlog only kanban stories from database
+ * @purpose to fill the backlog portion of kanban table
+ */
+ app.get('/backlogKanbanStories', function(req, res) {
+    const sql = 'SELECT * FROM kanban WHERE story_status=\"backlog\"';
+    dbCon.query(sql, function(err, stories) {
+        if(err) {
+            console.log("[OSLA/SERVER] GET backlogKanbanStories FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] GET backlogKanbanStories SUCCESS");
+        res.send(stories);
+    });
+});
+
+/**
+ * GET /todoKanbanStories
+ * @brief Gets the backlog only kanban stories from database
+ * @purpose to fill the backlog portion of kanban table
+ */
+ app.get('/todoKanbanStories', function(req, res) {
+    const sql = 'SELECT * FROM kanban WHERE story_status="\"todo\"';
+    dbCon.query(sql, function(err, stories) {
+        if(err) {
+            console.log("[OSLA/SERVER] GET todoKanbanStories FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] GET todoKanbanStories SUCCESS");
+        res.send(stories);
+    });
+});
+
+/**
+ * GET /inprogKanbanStories
+ * @brief Gets the backlog only kanban stories from database
+ * @purpose to fill the backlog portion of kanban table
+ */
+ app.get('/inprogKanbanStories', function(req, res) {
+    const sql = 'SELECT * FROM kanban WHERE story_status="\"inprog\"';
+    dbCon.query(sql, function(err, stories) {
+        if(err) {
+            console.log("[OSLA/SERVER] GET inprogKanbanStories FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] GET inprogKanbanStories SUCCESS");
+        res.send(stories);
+    });
+});
+
+/**
+ * GET /doneKanbanStories
+ * @brief Gets the backlog only kanban stories from database
+ * @purpose to fill the backlog portion of kanban table
+ */
+ app.get('/doneKanbanStories', function(req, res) {
+    const sql = 'SELECT * FROM kanban WHERE story_status="\"done\"';
+    dbCon.query(sql, function(err, stories) {
+        if(err) {
+            console.log("[OSLA/SERVER] GET doneKanbanStories FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] GET doneKanbanStories SUCCESS");
         res.send(stories);
     });
 });
@@ -88,7 +155,8 @@ app.get('/kanbanStories', function(req, res) {
           console.log("[OSLA/Client]" + msg);
         }
       });
- * @param req.body.text used to get id, in form of 'id=1234'
+ * @param req.body.id represents the id of the story
+ * @return The story matching the provided id
  */
 app.get('/kanbanStory', function(req, res) {
     const id = req.body.id;
@@ -110,10 +178,13 @@ app.get('/kanbanStory', function(req, res) {
  * to this endpoint. The request body will be the details of the
  * form, which will be the story.
  * @param req.body the story to be added
+ * @return success message if successful addition, this can be
+ * used for providing some sort of message in response to call.
+ * May not be necessary...
  */
 app.post('/addKanbanStory', function(req, res) {
     var date_format = new Date();
-    var current_date = date_format.getMonth() + "/" + date_format.getDate() + "/" + date_format.getFullYear();
+    var current_date = date_format.getFullYear() + "-" + date_format.getMonth() + "-" + date_format.getDate(); //yyyy-mm-dd
     const sql = `
         INSERT INTO kanban (
             story_status,
@@ -134,24 +205,23 @@ app.post('/addKanbanStory', function(req, res) {
             $(req.story.duedate)
         )
     `
-
     dbCon.query(sql, function(err, result) {
         if(err) {
             console.log("[OSLA/SERVER] addKanbanStory FAILURE");
             throw err;
         }
         console.log("[OSLA/SERVER] addKanbanStory SUCCESS");
-        res.send("success");
+        res.send("success"); //May not be necessary, potentially remove
     });
 });
 
 /**
- * PATCH /updateKanbanStory
+ * POST /updateKanbanStory
  * @brief Updates kanban story to database
  * @purpose Updating information of a story if story requirements
  * are modified.
  */
-app.patch('/updateKanbanStory', function(req, res) {
+app.post('/updateKanbanStory', function(req, res) {
 
 });
 

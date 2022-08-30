@@ -2,3 +2,82 @@
 * {
     font-family: "Roboto";
 }
+
+.kanban__container {
+    width: 70%;
+    min-width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 0.3rem;
+    box-shadow: 5px 5px #888888;
+}
+
+.kanban__board {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: sans-serif;
+}
+  
+.kanban__block {
+    padding: 0.6rem;
+    width: 30.5%;
+    min-width: 14rem;
+    min-height: 4.5rem;
+    /* border-radius: 0.3rem; */
+}
+
+.kanban__header {
+    text-align: center;
+    font-weight: bold;
+}
+
+#kanbanBacklog {
+    background-color: rgb(176, 255, 229);
+    border: 1px solid black;
+}
+
+#kanbanTodo {
+    background-color: #ffe7ec;
+    border: 1px solid black;
+}
+
+#kanbanInprog {
+    background-color: #ffd16d;
+    border: 1px solid black;
+}
+
+#kanbanDone {
+    background-color: #a9ffa9;
+    border: 1px solid black;
+}
+
+.story {
+    background-color: white;
+    margin: 0.2rem 0rem 0.3rem 0rem;
+    border: 0.1rem solid black;
+    border-radius: 0.2rem;
+    padding: 0.5rem 0.2rem 0.5rem 2rem;
+    cursor: grab;
+}
+
+.kanban__points {
+    background-color: #a9ffa9;
+    border-radius: 0.2rem;
+    margin: 0.2rem 0.2rem 0.2rem 0.2rem;
+    padding: 0.2rem 0.4rem;
+}
+
+.kanban__priority {
+    width: 7.5%;
+    height: auto;
+}
+
+.kanban__create {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
