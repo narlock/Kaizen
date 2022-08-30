@@ -211,15 +211,83 @@ function viewStory(ev) {
     }
 
     if(createMode == false) {
-        //todo
-        //GET story by ID
-
         //get elements of the update story form and update
         //the story information
+        var xmlhttp = new XMLHttpRequest();
 
-        //create cancel button
-        
+        //Populate done stories
+        xmlhttp.onreadystatechange = function() {
+            if(this.readyState == 4 && this.status == 200) {
+                enterUpdateMode(JSON.parse(this.responseText), id);
+            }
+        };
+        xmlhttp.open("POST", "kanbanStory");
+        xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xmlhttp.send(JSON.stringify({ "id": id } ));
     }
+}
+
+function enterUpdateMode(story, id) {
+    var idElement = document.getElementById('idInput');
+    idElement.setAttribute('value', id);
+    idElement.readOnly = true;
+    document.getElementById("idInputDiv").style.display = "none";
+    
+    var titleElement = document.getElementById('updateTitle');
+    console.log(titleElement);
+    titleElement.value = story.story_title;
+
+    if(story.story_status == "backlog") {
+        document.getElementById("updateStatus").selectedIndex = 0;
+    } else if(story.story_status == "todo") {
+        document.getElementById("updateStatus").selectedIndex = 1;
+    } else if(story.story_status == "inprog") {
+        document.getElementById("updateStatus").selectedIndex = 2;
+    } else {
+        document.getElementById("updateStatus").selectedIndex = 2;
+    }
+    
+    console.log(story.story_priority);
+    if(story.story_priority == 4) {
+        document.getElementById("updatePriority").selectedIndex = 0;
+    } else if(story.story_priority == 3) {
+        document.getElementById("updatePriority").selectedIndex = 1;
+    } else if(story.story_priority == 2) {
+        document.getElementById("updatePriority").selectedIndex = 2;
+    } else if(story.story_priority == 1) {
+        document.getElementById("updatePriority").selectedIndex = 3;
+    }
+
+    if(story.story_points == 1) {
+        document.getElementById("updatePoints").selectedIndex = 0;
+    } else if(story.story_points == 2) {
+        document.getElementById("updatePoints").selectedIndex = 1;
+    } else if(story.story_points == 3) {
+        document.getElementById("updatePoints").selectedIndex = 2;
+    } else if(story.story_points == 4) {
+        document.getElementById("updatePoints").selectedIndex = 3;
+    } else if(story.story_points == 5) {
+        document.getElementById("updatePoints").selectedIndex = 4;
+    }
+
+    document.getElementById('updateDesc').textContent = story.story_desc;
+
+    //Make delete button
+    var updateButtonsDiv = document.getElementById('updateButtons');
+    if(updateButtonsDiv.childNodes.length >= 3) {
+        for(var i = 2; i < updateButtonsDiv.childNodes.length; i++) {
+            $(updateButtonsDiv).children().eq(i).remove();
+        }
+    }
+
+    var deleteByIdButton = document.createElement('a');
+        deleteByIdButton.classList.add("btn");
+        deleteByIdButton.classList.add("btn-danger");
+        deleteByIdButton.setAttribute('id', 'deleteButtonElement')
+        deleteByIdButton.setAttribute('onclick', `deleteStory(${story.story_id})`);
+        deleteByIdButton.style.color = "white";
+        deleteByIdButton.textContent = "Delete";
+    updateButtonsDiv.appendChild(deleteByIdButton);
 }
 
 function enterCreateStoryMode() {
@@ -235,7 +303,28 @@ function exitCreateStoryMode() {
     document.getElementById('createStory').style.display = 'flex';
 }
 
-function openUpdateDialog(story) {
-    console.log("openupdatedialog ");
-    console.log(story);
+function exitUpdateStoryMode() {
+    document.getElementById('kanbanUpdateForm').style.display = 'none';
+    document.getElementById('createStory').style.display = 'flex';
+}
+
+function deleteStory(id) {
+    console.log(id);
+
+    $.ajax({
+        type: 'POST',
+        url: 'deleteKanbanStory',
+        data: {
+          'id': id
+        },
+        success: function(msg) {
+            updateAfterDelete(msg);
+        }
+    });
+}
+
+function updateAfterDelete(id) {
+    document.getElementById('kanbanUpdateForm').style.display = 'none';
+    document.getElementById('createStory').style.display = 'flex';
+    document.getElementById(id.toString()).remove();
 }

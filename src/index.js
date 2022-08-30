@@ -139,26 +139,21 @@ app.get('/kanbanStories', function(req, res) {
 });
 
 /**
- * GET /kanbanStory
+ * POST /kanbanStory
  * @brief Gets a specific kanban story from database
  * @purpose Used to get a specific kanban story, perhaps after
  * updating the story, we can use this get to update it on page.
  * The use of this method will be in a post request made something
  * like the following with AJAX:
- * $.ajax({
-        type: 'GET',
-        url: 'kanbanStory',
-        data: {
-          'id': storyId
-        },
-        success: function(msg) {
-          console.log("[OSLA/Client]" + msg);
-        }
-      });
+ * 
+ * Note: This is a post request since using ajax to call
+ * this method will result in an undefined request body
+ * if using HTTP GET request...
+ * 
  * @param req.body.id represents the id of the story
  * @return The story matching the provided id
  */
-app.get('/kanbanStory', function(req, res) {
+app.post('/kanbanStory', function(req, res) {
     console.log(req.body);
     const id = req.body.id;
     const sql = 'SELECT * FROM kanban WHERE story_id=\"' + id + '\";';
@@ -169,7 +164,7 @@ app.get('/kanbanStory', function(req, res) {
             throw err;
         }
         console.log("[OSLA/SERVER] GET kanbanStory SUCCESS");
-        res.send(story);
+        res.send(story[0]);
     });
 });
 
@@ -226,7 +221,7 @@ function getStoryPriorityFromBody(priorityString) {
 }
 
 /**
- * POST /updateKanbanStoryById
+ * POST /updateKanbanStoryStatus
  * @brief Updates kanban story to database
  * @purpose Updating information of a story if story requirements
  * are modified.
@@ -249,14 +244,54 @@ app.post('/updateKanbanStory', function(req, res) {
 });
 
 /**
- * DELETE /deleteKanbanStory
+ * POST /updateKanbanStoryInfor
+ * @brief Updates kanban story info to database
+ * @purpose Updating information of a story if story requirements
+ * are modified.
+ */
+ app.post('/updateKanbanStoryInfo', function(req, res) {
+    var storyPriority = getStoryPriorityFromBody(req.body.priority);
+    const sql = `
+        UPDATE  kanban
+        SET
+                story_status=\"${req.body.status}\",
+                story_title=\"${req.body.title}\",
+                story_priority=${storyPriority},
+                story_points=${req.body.points},
+                story_desc=\"${req.body.desc}\"
+        WHERE   story_id=${req.body.id}
+    `;
+    console.log(sql);
+    console.log(req.body);
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.log("[OSLA/SERVER] updateKanbanStory FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] updateKanbanStory SUCCESS");
+        res.redirect(302, '/kanban');
+    });
+});
+
+/**
+ * POST /deleteKanbanStory
  * @brief Deletes kanban story from database
  * @purpose If a user wants to remove a story, or will be used if a 
  * story has been in 'done/completed' category for longer than
  * 3 days.
  */
-app.delete('/deleteKanbanStory', function(req, res) {
-
+app.post('/deleteKanbanStory', function(req, res) {
+    const sql = `
+        DELETE FROM kanban WHERE story_id=${req.body.id}
+    `
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.log("[OSLA/SERVER] deleteKanbanStory FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] deleteKanbanStory SUCCESS");
+        res.send(req.body.id);
+    });
 });
 
 /* =========== HABITS RELATED METHODS =========== */
