@@ -212,3 +212,10 @@ function viewStory(ev) {
 
     }
 }
+
+function enterCreateStoryMode() {
+    console.log("Hello");
+    createMode = true;
+    document.getElementById('kanbanForm').style.display = 'block';
+    document.getElementById('createStory').style.display = 'none';
+}

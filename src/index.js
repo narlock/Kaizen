@@ -183,6 +183,8 @@ app.get('/kanbanStory', function(req, res) {
  * May not be necessary...
  */
 app.post('/addKanbanStory', function(req, res) {
+    console.log(req.body);
+    var storyPriority = getStoryPriorityFromBody(req.body.priority);
     var date_format = new Date();
     var current_date = date_format.getFullYear() + "-" + date_format.getMonth() + "-" + date_format.getDate(); //yyyy-mm-dd
     const sql = `
@@ -192,17 +194,15 @@ app.post('/addKanbanStory', function(req, res) {
             story_priority,
             story_points,
             story_desc,
-            story_creation_date,
-            story_due_date
+            story_creation_date
         )
         VALUES (
-            $(req.body.status),
-            $(req.body.title),
-            $(req.body.priority),
-            $(req.body.points),
-            $(req.story.desc),
-            $(current_date),
-            $(req.story.duedate)
+            \"${req.body.status}\",
+            \"${req.body.title}\",
+            ${storyPriority},
+            ${req.body.points},
+            \"${req.body.desc}\",
+            \"${current_date}\"
         )
     `
     dbCon.query(sql, function(err, result) {
@@ -211,9 +211,17 @@ app.post('/addKanbanStory', function(req, res) {
             throw err;
         }
         console.log("[OSLA/SERVER] addKanbanStory SUCCESS");
-        res.send("success"); //May not be necessary, potentially remove
+        res.redirect(302, '/kanban');
     });
 });
+
+function getStoryPriorityFromBody(priorityString) {
+    if(priorityString == "critical") { return 4; }
+    else if(priorityString == "high") { return 3; }
+    else if(priorityString == "medium") { return 2; }
+    else if(priorityString == "low") { return 1; }
+    else { return 2; }
+}
 
 /**
  * POST /updateKanbanStoryById

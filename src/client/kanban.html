@@ -29,7 +29,6 @@
         </ul>
     </nav>
     <div class="kanban__main">
-        <!-- TODO -->
         <div class="kanban__container">
             <div class="kanban__board">
                 <div id="backlog" class="kanban__block" ondrop="drop(event)" ondragover="allowDrop(event)">
@@ -47,40 +46,62 @@
             </div>
         </div>
         <div id="createStory" class="kanban__create">
-            <button id="createStoryButton" class="btn btn-primary">Create New Story</button>
+            <button id="createStoryButton" class="btn btn-primary" onclick="enterCreateStoryMode()">Create New Story</button>
         </div>
-        <!-- <div id="addStory">
-            <form action="addKanbanStory" method="post">
-                <label for="status">Status</label>
-                <select name="status" id="status" required>
-                    <option value="backlog">Backlog</option>
-                    <option value="todo">Todo</option>
-                    <option value="inprog">In progress</option>
-                </select>
-                <label for="title">Title</label>
-                <input type="text" name="title" required>
-                <label for="priority">Priority</label>
-                <select name="priority" id="priority" required>
-                    <option value="critical">Critical</option>
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                </select>
-                <label for="points">Points</label>
-                <select name="points" id="points" required>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-                <label for="desc">Description</label>
-                <textarea name="desc" id="desc" cols="10" rows="10"></textarea>
-                <label for="due">Due Date</label>
-                <input type="date">
-                <button type="submit">Add Story</button>
-            </form>
-        </div> -->
+        <article class="kanban__create__form" id="kanbanForm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <form action="addKanbanStory" method="post" class="kanban__create__story__form bg-light">
+                            <div class="form-group">
+                                <label for="title">Story Title</label>
+                                <input type="text" name="title" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Story Status</label>
+                                <select name="status" id="status" class="form-control" required>
+                                    <option value="backlog">Backlog</option>
+                                    <option value="todo">Todo</option>
+                                    <option value="inprog">In progress</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="priority">Priority</label>
+                                <select name="priority" id="priority" class="form-control" required>
+                                    <option value="critical">Critical</option>
+                                    <option value="high">High</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="low">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="points">Story Points</label>
+                                <select name="points" id="points" class="form-control" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="desc">Description</label>
+                                <textarea name="desc" id="desc" cols="5" rows="3" class="form-control"></textarea>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="due">Due Date</label>
+                                <input type="date" data-date-format="yyyy-m-dd" name="duedate" class="form-control">
+                            </div> -->
+                            <div>
+                                <button type="submit" class="btn btn-primary">Create Story</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-4"></div>
+                </div>
+            </div>
+        </article>
         <div id="viewStory"></div>
     </div>
     <script src="js/kanban.js"></script>

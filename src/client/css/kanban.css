@@ -81,3 +81,16 @@
     align-items: center;
     margin-top: 2rem;
 }
+
+.kanban__create__form {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: none;
+}
+
+.kanban__create__story__form {
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 2px solid black;
+    box-shadow: 5px 5px #888888;
+}
