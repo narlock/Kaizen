@@ -11,7 +11,7 @@
     flex-direction: column;
     border: 2px solid black;
     border-radius: 0.3rem;
-    box-shadow: 5px 5px #888888;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;   
 }
 
 .kanban__board {
@@ -82,6 +82,10 @@
     margin-top: 2rem;
 }
 
+.kanban__create button {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
 .kanban__create__form {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -92,7 +96,7 @@
     padding: 2rem;
     border-radius: 0.5rem;
     border: 2px solid black;
-    box-shadow: 5px 5px #888888;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .kanban__update__form {

@@ -286,6 +286,7 @@ function enterUpdateMode(story, id) {
         deleteByIdButton.setAttribute('id', 'deleteButtonElement')
         deleteByIdButton.setAttribute('onclick', `deleteStory(${story.story_id})`);
         deleteByIdButton.style.color = "white";
+        deleteByIdButton.style.cursor = "pointer";
         deleteByIdButton.textContent = "Delete";
     updateButtonsDiv.appendChild(deleteByIdButton);
 }
