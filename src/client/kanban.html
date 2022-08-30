@@ -48,7 +48,7 @@
         <div id="createStory" class="kanban__create">
             <button id="createStoryButton" class="btn btn-primary" onclick="enterCreateStoryMode()">Create New Story</button>
         </div>
-        <article class="kanban__create__form" id="kanbanForm">
+        <article class="kanban__create__form" id="kanbanCreateForm">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4"></div>
@@ -89,12 +89,9 @@
                                 <label for="desc">Description</label>
                                 <textarea name="desc" id="desc" cols="5" rows="3" class="form-control"></textarea>
                             </div>
-                            <!-- <div class="form-group">
-                                <label for="due">Due Date</label>
-                                <input type="date" data-date-format="yyyy-m-dd" name="duedate" class="form-control">
-                            </div> -->
                             <div>
                                 <button type="submit" class="btn btn-primary">Create Story</button>
+                                <button class="btn btn-secondary" onclick="exitCreateStoryMode()">Cancel</button>
                             </div>
                         </form>
                     </div>
@@ -102,7 +99,57 @@
                 </div>
             </div>
         </article>
-        <div id="viewStory"></div>
+        <article class="kanban__update__form" id="kanbanUpdateForm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <form action="updateKanbanStory" method="post" class="kanban__create__story__form bg-light">
+                            <div class="form-group">
+                                <label for="title">Story Title</label>
+                                <input type="text" name="title" class="form-control" id="updateTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Story Status</label>
+                                <select name="status" id="updateStatus" class="form-control" required>
+                                    <option value="backlog">Backlog</option>
+                                    <option value="todo">Todo</option>
+                                    <option value="inprog">In progress</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="priority">Priority</label>
+                                <select name="priority" id="updatePriority" class="form-control" required>
+                                    <option value="critical">Critical</option>
+                                    <option value="high">High</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="low">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="points">Story Points</label>
+                                <select name="points" id="updatePoints" class="form-control" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="desc">Description</label>
+                                <textarea name="desc" id="updateDesc" cols="5" rows="3" class="form-control"></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Create Story</button>
+                                
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-4"></div>
+                </div>
+            </div>
+        </article>
     </div>
     <script src="js/kanban.js"></script>
 </body>

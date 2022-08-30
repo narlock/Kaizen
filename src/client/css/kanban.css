@@ -94,3 +94,9 @@
     border: 2px solid black;
     box-shadow: 5px 5px #888888;
 }
+
+.kanban__update__form {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: none;
+}

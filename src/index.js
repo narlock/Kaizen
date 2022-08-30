@@ -159,8 +159,10 @@ app.get('/kanbanStories', function(req, res) {
  * @return The story matching the provided id
  */
 app.get('/kanbanStory', function(req, res) {
+    console.log(req.body);
     const id = req.body.id;
     const sql = 'SELECT * FROM kanban WHERE story_id=\"' + id + '\";';
+    console.log(sql);
     dbCon.query(sql, function(err, story) {
         if(err) {
             console.log("[OSLA/SERVER] GET kanbanStory FAILURE");

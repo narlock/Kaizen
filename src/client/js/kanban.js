@@ -115,19 +115,25 @@ function populateKanbanSection(stories, statusDivId) {
         //Priority
         newStoryPriorityImg = document.createElement('img');
             newStoryPriorityImg.classList.add("kanban__priority");
+            newStoryPriorityImg.setAttribute("id", story.story_id);
             newStoryPriorityImg.setAttribute("src", getImageUrlFromId(story.story_priority));
             newStoryPriorityImg.setAttribute("alt", "Priority Image");
+            newStoryPriorityImg.setAttribute("onclick", "viewStory(event)");
         newStoryDiv.appendChild(newStoryPriorityImg);
 
         //Story Points
         newStoryPoints = document.createElement('strong');
             newStoryPoints.classList.add("kanban__points");
+            newStoryPoints.setAttribute("id", story.story_id);
+            newStoryPoints.setAttribute("onclick", "viewStory(event)");
             newStoryPoints.textContent = story.story_points;
         newStoryDiv.appendChild(newStoryPoints);
 
         //Story Title
         newStoryTitle = document.createElement('span');
             newStoryTitle.classList.add("kanban__title");
+            newStoryTitle.setAttribute("id", story.story_id);
+            newStoryTitle.setAttribute("onclick", "viewStory(event)");
             newStoryTitle.textContent = story.story_title;
         newStoryDiv.appendChild(newStoryTitle);
 
@@ -193,29 +199,43 @@ function drop(ev) {
 }
 
 function viewStory(ev) {
-    //Get div of story
-    var story;
-    if(ev.path[1].classList.contains("story")) {
-        //Clicked by either priority, points, or title
-        story = ev.path[1];
-    } else {
-        story = ev.path[0];
+    if(createMode == true) { return; }
+    document.getElementById('kanbanUpdateForm').style.display = 'block';
+    document.getElementById('createStory').style.display = 'none';
+
+    var id = ev.path[0].getAttribute('id');
+    console.log(id);
+
+    params = {
+        "id": id
     }
-    console.log(story);
 
-    //Update display to display contents
-    //Will only display if not in create Mode
-    //TODO User can update the story through this
     if(createMode == false) {
-        var viewStoryDiv = document.getElementById('viewStory');
-        //Send AJAX request to get story from database
+        //todo
+        //GET story by ID
 
+        //get elements of the update story form and update
+        //the story information
+
+        //create cancel button
+        
     }
 }
 
 function enterCreateStoryMode() {
     console.log("Hello");
     createMode = true;
-    document.getElementById('kanbanForm').style.display = 'block';
+    document.getElementById('kanbanCreateForm').style.display = 'block';
     document.getElementById('createStory').style.display = 'none';
+}
+
+function exitCreateStoryMode() {
+    createMode = false;
+    document.getElementById('kanbanCreateForm').style.display = null;
+    document.getElementById('createStory').style.display = 'flex';
+}
+
+function openUpdateDialog(story) {
+    console.log("openupdatedialog ");
+    console.log(story);
 }
