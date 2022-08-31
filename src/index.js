@@ -299,14 +299,14 @@ app.post('/deleteKanbanStory', function(req, res) {
  * @brief Gets all haibts from database
  * @purpose Used to fill the kanban table
  */
-app.get('/kanbanStories', function(req, res) {
+app.get('/dbHabits', function(req, res) {
     const sql = 'SELECT * FROM habits';
     dbCon.query(sql, function(err, habits) {
         if(err) {
-            console.log("[OSLA/SERVER] GET kanbanStories FAILURE");
+            console.log("[OSLA/SERVER] GET dbHabits FAILURE");
             throw err;
         }
-        console.log("[OSLA/SERVER] GET kanbanStories SUCCESS");
+        console.log("[OSLA/SERVER] GET dbHabits SUCCESS");
         res.send(habits);
     });
 });
@@ -316,18 +316,18 @@ app.get('/kanbanStories', function(req, res) {
  * @brief Gets the backlog only kanban stories from database
  * @purpose to fill the backlog portion of kanban table
  */
- app.get('/backlogKanbanStories', function(req, res) {
+ app.get('/dailyDbHabits', function(req, res) {
     var days = ['u', 'm', 't', 'w', 'h', 'f', 's'];
     var d = new Date();
     var dayName = days[d.getDay()]; 
 
-    const sql = `SELECT * FROM kanban WHERE story_status CONAINS \"${dayName}\"`;
+    const sql = `SELECT * FROM habits WHERE habit_occurrence LIKE \"%${dayName}%\"`;
     dbCon.query(sql, function(err, stories) {
         if(err) {
-            console.log("[OSLA/SERVER] GET backlogKanbanStories FAILURE");
+            console.log("[OSLA/SERVER] GET dailyDbHabits FAILURE");
             throw err;
         }
-        console.log("[OSLA/SERVER] GET backlogKanbanStories SUCCESS");
+        console.log("[OSLA/SERVER] GET dailyDbHabits SUCCESS");
         res.send(stories);
     });
 });

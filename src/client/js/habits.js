@@ -45,6 +45,48 @@ function populateHabitsTable() {
      * If a habit is already complete, make sure it is checked and the
      * attribute 'onclick' = 'false' is added, so it cannot be re-updated.
      */
+     var xmlhttp = new XMLHttpRequest();
+
+     xmlhttp.onreadystatechange = function() {
+         if(this.readyState == 4 && this.status == 200) {
+            createHabitElements(JSON.parse(this.responseText));
+         }
+     };
+     xmlhttp.open("GET", "dailyDbHabits", true);
+     xmlhttp.send();
+}
+
+function createHabitElements(habits) {
+    table = document.getElementById('habitsTableBody');
+
+    //Create Table Row
+    habits.forEach(function(habit) {
+        //habitRow
+        habitRow = document.createElement('tr');
+
+        //checkbox th
+        checkBoxTh = document.createElement('th');
+            checkBoxTh.setAttribute('scope', 'row');
+        checkBox = document.createElement('input');
+            checkBox.setAttribute('type', 'checkbox');
+            checkBox.setAttribute('id', habit.habit_id);
+            checkBox.classList.add('habits__checkbox');
+            checkBox.setAttribute('onclick', 'updateHabit(event)');
+        checkBoxTh.appendChild(checkBox);
+        habitRow.appendChild(checkBoxTh);
+
+        //td habit title
+        habitTitle = document.createElement('td');
+            habitTitle.textContent = habit.habit_title;
+        habitRow.appendChild(habitTitle);
+
+        //Streak Number
+        streakElement = document.createElement('td');
+            streakElement.textContent = "🔥 " + habit.habit_streak;
+        habitRow.appendChild(streakElement);
+
+        table.appendChild(habitRow);
+    });
 }
 
 function updateHabit(event) {
