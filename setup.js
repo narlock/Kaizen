@@ -85,8 +85,9 @@ dbCon.connect(function (err) {
             habit_id                INT NOT NULL AUTO_INCREMENT,
             habit_title             VARCHAR(100),
             habit_streak            INT UNSIGNED,
-            habit_selected_days     VARCHAR(20),
-            habit_completion_status INT UNSIGNED,
+            habit_occurrence        VARCHAR(20),
+            habit_status            INT UNSIGNED,
+            habit_date              DATE,
             PRIMARY KEY (habit_id)
         )
     `;

@@ -11,6 +11,7 @@
     font-family: sans-serif;
     min-width: 400px;
     background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;  
 }
 .stable thead tr {
     /*background-color: #009879;*/
@@ -46,7 +47,34 @@
     margin-top: 2rem;
 }
 
+.habits__menu button {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;  
+}
+
+.habits__menu a {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
 .habits__checkbox {
     width: 32px;
     height: 32px;
+}
+
+.habit__create__form {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: none;
+}
+
+.habit__update__form {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: none;
+}
+
+.habit__create__story__form {
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 2px solid black;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }

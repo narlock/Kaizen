@@ -10,7 +10,7 @@
 </head>
 <body>
     <header class="p-5 text-center bg-light">
-        <h2 id="mainHeader" class="">Habits</h2>
+        <h2 id="mainHeader" class="">Anthony's Habits</h2>
         <h5 id="clock" class="text-muted" onload="showTime()"></h5>
     </header>
     <nav class="navbar navbar-expanded navbar-light bg-light mb-5 shadow-sm">
@@ -24,17 +24,17 @@
             </ul>
         </div>
         <ul class="nav nav-pills justify-content-end">
-            <li class="nav-item text-muted">OpenLife v0.0.1 • <a href="http://narlock.dev">narlock.dev</a></li>
+            <li class="nav-item text-muted"><a href="https://github.com/narlock/OpenLife" target="_blank">OpenLife</a> • <a href="http://narlock.dev" target="_blank">narlock.dev</a></li>
         </ul>
     </nav>
     <div class="habits__main">
         <h4 class="text-center habits__heading">All Habits</h4>
         <table class="stable table-bordered">
-            <thead>
+            <thead class="bg-light">
               <tr>
-                <th scope="col">Name</th>
+                <th scope="col">Habit</th>
                 <th scope="col">Streak</th>
-                <th scope="col">Selected Days</th>
+                <th scope="col">Occurrence</th>
                 <th scope="col">Options</th>
               </tr>
             </thead>
@@ -44,7 +44,7 @@
                 <td>🔥30</td>
                 <td>Everyday</td>
                 <td>
-                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-primary">Update</button>
                     <button class="btn btn-danger">Delete</button>
                 </td>
               </tr>
@@ -53,7 +53,7 @@
                 <td>🔥4</td>
                 <td>Everyday</td>
                 <td>
-                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-primary">Update</button>
                     <button class="btn btn-danger">Delete</button>
                 </td>
               </tr>
@@ -62,7 +62,7 @@
                 <td>🔥12</td>
                 <td>Weekdays</td>
                 <td>
-                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-primary">Update</button>
                     <button class="btn btn-danger">Delete</button>
                 </td>
               </tr>
@@ -71,7 +71,7 @@
                 <td>🔥12</td>
                 <td>Monday, Wednesday, Friday</td>
                 <td>
-                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-primary">Update</button>
                     <button class="btn btn-danger">Delete</button>
                 </td>
               </tr>
@@ -80,7 +80,7 @@
                 <td>🔥12</td>
                 <td>Weekends</td>
                 <td>
-                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-primary">Update</button>
                     <button class="btn btn-danger">Delete</button>
                 </td>
               </tr>
@@ -91,6 +91,108 @@
         <button id="createHabitButton" class="btn btn-primary mr-1" onclick="enterCreateHabitMode()">New Habit</button>
         <a href="/habits" class="btn btn-success">View Daily</a>
     </div>
-    <script src="js/habits.js"></script>
+    <article class="habit__create__form" id="habitCreateForm">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <form action="addHabit" method="post" class="habit__create__story__form bg-light">
+                        <div class="form-group">
+                            <label for="title">Habit</label>
+                            <input type="text" name="title" id="habitTitle" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="occurrence">Habit Occurrence</label>
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="monday" name="monday">
+                            <label class="form-check-label" for="monday">Monday</label>
+                          </div>
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="tuesday" name="tuesday">
+                            <label class="form-check-label" for="tuesday">Tuesday</label>
+                          </div>
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="wednesday" name="wednesday">
+                            <label class="form-check-label" for="wednesday">Wednesday</label>
+                          </div>
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="thursday" name="thursday">
+                            <label class="form-check-label" for="thursday">Thursday</label>
+                          </div>
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="friday" name="friday">
+                            <label class="form-check-label" for="friday">Friday</label>
+                          </div>
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="saturday" name="saturday">
+                            <label class="form-check-label" for="saturday">Saturday</label>
+                          </div>
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="sunday" name="sunday">
+                            <label class="form-check-label" for="sunday">Sunday</label>
+                          </div>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Create Habit</button>
+                            <button type="button" class="btn btn-secondary" onclick="exitCreateHabitMode()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4"></div>
+            </div>
+        </div>
+    </article>
+    <article class="habit__update__form" id="habitUpdateForm">
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-4"></div>
+              <div class="col-sm-4">
+                  <form action="updateHabit" method="post" class="habit__create__story__form bg-light">
+                      <div class="form-group">
+                          <label for="title">Habit</label>
+                          <input type="text" name="title" id="habitTitle" class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="occurrence">Habit Occurrence</label>
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="monday">
+                          <label class="form-check-label" for="monday">Monday</label>
+                        </div>
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="tuesday">
+                          <label class="form-check-label" for="tuesday">Tuesday</label>
+                        </div>
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="wednesday">
+                          <label class="form-check-label" for="wednesday">Wednesday</label>
+                        </div>
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="thursday">
+                          <label class="form-check-label" for="thursday">Thursday</label>
+                        </div>
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="friday">
+                          <label class="form-check-label" for="friday">Friday</label>
+                        </div>
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="saturday">
+                          <label class="form-check-label" for="saturday">Saturday</label>
+                        </div>
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="sunday">
+                          <label class="form-check-label" for="sunday">Sunday</label>
+                        </div>
+                      </div>
+                      <div>
+                          <button type="submit" class="btn btn-primary">Update Habit</button>
+                          <button type="button" class="btn btn-secondary" onclick="exitUpdateHabitMode()">Cancel</button>
+                      </div>
+                  </form>
+              </div>
+              <div class="col-sm-4"></div>
+          </div>
+      </div>
+  </article>
+    <script src="js/allHabits.js"></script>
 </body>
 </html>

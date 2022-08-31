@@ -175,9 +175,7 @@ app.post('/kanbanStory', function(req, res) {
  * to this endpoint. The request body will be the details of the
  * form, which will be the story.
  * @param req.body the story to be added
- * @return success message if successful addition, this can be
- * used for providing some sort of message in response to call.
- * May not be necessary...
+ * @return redirects to kanban board
  */
 app.post('/addKanbanStory', function(req, res) {
     console.log(req.body);
@@ -244,7 +242,7 @@ app.post('/updateKanbanStory', function(req, res) {
 });
 
 /**
- * POST /updateKanbanStoryInfor
+ * POST /updateKanbanStoryInfo
  * @brief Updates kanban story info to database
  * @purpose Updating information of a story if story requirements
  * are modified.
@@ -295,6 +293,64 @@ app.post('/deleteKanbanStory', function(req, res) {
 });
 
 /* =========== HABITS RELATED METHODS =========== */
+
+/**
+ * POST /addHabit
+ * @brief Adds habit to database
+ * @purpose Using a form, we can make the method of this form go
+ * to this endpoint. The request body will be the details of the
+ * form, which will be the habit.
+ * @param req.body the habit to be added
+ * @return success will redirect to all habits
+ */
+ app.post('/addHabit', function(req, res) {
+    console.log(req.body);
+    
+    //Gets the occurrence
+    let occurrence = "";
+    let bodyToString = JSON.stringify(req.body);
+    if(bodyToString.includes("monday")) { occurrence = occurrence.concat("m"); }
+    if(bodyToString.includes("tuesday")) { occurrence = occurrence.concat("t"); }
+    if(bodyToString.includes("wednesday")) { occurrence = occurrence.concat("w"); }
+    if(bodyToString.includes("thursday")) { occurrence = occurrence.concat("h"); }
+    if(bodyToString.includes("friday")) { occurrence = occurrence.concat("f"); }
+    if(bodyToString.includes("saturday")) { occurrence = occurrence.concat("s"); }
+    if(bodyToString.includes("sunday")) { occurrence = occurrence.concat("u"); }
+    if(occurrence == "") { occurrence = "mtwhfsu"; } //If none are selected, default to everyday
+
+    //Gets new date
+    var date_format = new Date();
+    var current_date = date_format.getFullYear() + "-" + date_format.getMonth() + "-" + date_format.getDate(); //yyyy-mm-dd
+    
+    const sql = `
+        INSERT INTO habits (
+            habit_title,
+            habit_streak,
+            habit_occurrence,
+            habit_status,
+            habit_date
+        )
+        VALUES (
+            \"${req.body.title}\",
+            0,
+            \"${occurrence}\",
+            0,
+            \"${current_date}\"
+        )
+    `
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.log("[OSLA/SERVER] addHabit FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] addHabit SUCCESS");
+        res.redirect(302, '/allHabits');
+    });
+});
+
+function getOccurrence(body) {
+    
+}
 
 //All Habits page - habits.html
 app.get('/allHabits',function(req, res) {

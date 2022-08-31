@@ -28,3 +28,45 @@ function showTime(){
 }
 
 showTime();
+
+window.onload = function() {
+    populateHabitsTable();
+}
+
+function populateHabitsTable() {
+    /**
+     * TODO
+     * Populate the habits table
+     * 
+     * Check/update the streak status of daily habits
+     * 
+     * Add only the habits that correspond to the current day
+     * 
+     * If a habit is already complete, make sure it is checked and the
+     * attribute 'onclick' = 'false' is added, so it cannot be re-updated.
+     */
+}
+
+function updateHabit(event) {
+    //Get the checkbox
+    checkBox = event.path[0];
+
+    //Once a habit is checked, it cannot be unchecked!
+    checkBox.setAttribute('onclick', 'return false');
+
+    //Id of checkbox corresponds to habit_id in db
+    id = checkBox.getAttribute('id');
+    console.log(id);
+
+    /*
+     *  Will update the status of the event to complete
+     *
+     *  Will check previous day with current day, if they
+     *  are less than 24 hours apart and do not appear on
+     *  the same calendar day, then the streak will be incremented
+     * 
+     *  If the previous day is more than 24 hours apart,
+     *  the streak will equal 0.
+     */
+    
+}

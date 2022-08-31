@@ -292,7 +292,6 @@ function enterUpdateMode(story, id) {
 }
 
 function enterCreateStoryMode() {
-    console.log("Hello");
     createMode = true;
     document.getElementById('kanbanCreateForm').style.display = 'block';
     document.getElementById('createStory').style.display = 'none';
