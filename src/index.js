@@ -295,6 +295,44 @@ app.post('/deleteKanbanStory', function(req, res) {
 /* =========== HABITS RELATED METHODS =========== */
 
 /**
+ * GET /dbHabits
+ * @brief Gets all haibts from database
+ * @purpose Used to fill the kanban table
+ */
+app.get('/kanbanStories', function(req, res) {
+    const sql = 'SELECT * FROM habits';
+    dbCon.query(sql, function(err, habits) {
+        if(err) {
+            console.log("[OSLA/SERVER] GET kanbanStories FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] GET kanbanStories SUCCESS");
+        res.send(habits);
+    });
+});
+
+/**
+ * GET /dailyDbHabits
+ * @brief Gets the backlog only kanban stories from database
+ * @purpose to fill the backlog portion of kanban table
+ */
+ app.get('/backlogKanbanStories', function(req, res) {
+    var days = ['u', 'm', 't', 'w', 'h', 'f', 's'];
+    var d = new Date();
+    var dayName = days[d.getDay()]; 
+
+    const sql = `SELECT * FROM kanban WHERE story_status CONAINS \"${dayName}\"`;
+    dbCon.query(sql, function(err, stories) {
+        if(err) {
+            console.log("[OSLA/SERVER] GET backlogKanbanStories FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] GET backlogKanbanStories SUCCESS");
+        res.send(stories);
+    });
+});
+
+/**
  * POST /addHabit
  * @brief Adds habit to database
  * @purpose Using a form, we can make the method of this form go
@@ -304,7 +342,6 @@ app.post('/deleteKanbanStory', function(req, res) {
  * @return success will redirect to all habits
  */
  app.post('/addHabit', function(req, res) {
-    console.log(req.body);
     
     //Gets the occurrence
     let occurrence = "";
