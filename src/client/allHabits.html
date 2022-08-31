@@ -28,45 +28,60 @@
         </ul>
     </nav>
     <div class="habits__main">
-        <h4 class="text-center habits__heading">Daily Habits</h4>
+        <h4 class="text-center habits__heading">All Habits</h4>
         <table class="stable table-bordered">
             <thead>
               <tr>
-                <th scope="col"></th>
                 <th scope="col">Name</th>
                 <th scope="col">Streak</th>
+                <th scope="col">Selected Days</th>
                 <th scope="col">Options</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th scope="row">
-                    <input type="checkbox" class="habits__checkbox">
-                </th>
                 <td>Brush Teeth (morning)</td>
                 <td>🔥30</td>
+                <td>Everyday</td>
                 <td>
                     <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
                 </td>
               </tr>
               <tr>
-                <th scope="row">
-                    <input type="checkbox" class="habits__checkbox">
-                </th>
                 <td>Fill Apple Watch Exercise Ring</td>
                 <td>🔥4</td>
+                <td>Everyday</td>
                 <td>
                     <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
                 </td>
               </tr>
               <tr>
-                <th scope="row">
-                    <input type="checkbox" class="habits__checkbox">
-                </th>
                 <td>Read a chapter of a book</td>
                 <td>🔥12</td>
+                <td>Weekdays</td>
                 <td>
                     <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Read a chapter of a book</td>
+                <td>🔥12</td>
+                <td>Monday, Wednesday, Friday</td>
+                <td>
+                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Read a chapter of a book</td>
+                <td>🔥12</td>
+                <td>Weekends</td>
+                <td>
+                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
                 </td>
               </tr>
             </tbody>
@@ -74,7 +89,7 @@
     </div>
     <div id="buttonMenu" class="habits__menu">
         <button id="createHabitButton" class="btn btn-primary mr-1" onclick="enterCreateHabitMode()">New Habit</button>
-        <a href="/allHabits" class="btn btn-success">View Habits</a>
+        <a href="/habits" class="btn btn-success">View Daily</a>
     </div>
     <script src="js/habits.js"></script>
 </body>

@@ -2,3 +2,51 @@
 * {
     font-family: "Roboto";
 }
+
+.stable {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    background-color: white;
+}
+.stable thead tr {
+    /*background-color: #009879;*/
+    color: black;
+    text-align: left;
+}
+
+.stable th,
+.stable td {
+    padding: 12px 15px;
+}
+
+.stable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.stable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.stable tbody tr:last-of-type {
+    border-bottom: 2px solid #0d6efd;
+}
+
+.habits__heading {
+    margin-bottom: 2rem;
+}
+
+.habits__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.habits__checkbox {
+    width: 32px;
+    height: 32px;
+}

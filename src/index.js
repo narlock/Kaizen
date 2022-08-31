@@ -296,6 +296,11 @@ app.post('/deleteKanbanStory', function(req, res) {
 
 /* =========== HABITS RELATED METHODS =========== */
 
+//All Habits page - habits.html
+app.get('/allHabits',function(req, res) {
+    res.sendFile(__dirname + '/client/allHabits.html');
+});
+
 //Habits page - habits.html
 app.get('/habits',function(req, res) {
     res.sendFile(__dirname + '/client/habits.html');
