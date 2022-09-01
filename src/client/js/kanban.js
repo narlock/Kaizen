@@ -326,3 +326,26 @@ function updateAfterDelete(id) {
     document.getElementById('createStory').style.display = 'flex';
     document.getElementById(id.toString()).remove();
 }
+
+function deleteDone() {
+    if (confirm("Are you sure you would like to delete all DONE stories?") == true) {
+        
+        $.ajax({
+            type: 'GET',
+            url: 'doneKanbanStories',
+            success: function(stories) {
+                stories.forEach(function(story) {
+                    document.getElementById(story.story_id.toString()).remove();
+                });
+
+                  $.ajax({
+                    type: 'GET',
+                    url: 'deleteDone',
+                    success: function(done) {
+                        console.log("success");
+                    }
+                });
+            }
+        });
+    } 
+}

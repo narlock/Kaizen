@@ -292,6 +292,24 @@ app.post('/deleteKanbanStory', function(req, res) {
     });
 });
 
+/**
+ * GET /deleteDone
+ * @brief deletes all completed stories
+ */
+app.get('/deleteDone', function(req, res) {
+    const sql = `
+        DELETE FROM kanban WHERE story_status=\"done\"
+    `;
+    dbCon.query(sql, function(err, stories) {
+        if(err) {
+            console.log("[OSLA/SERVER] deleteDone FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] deleteDone SUCCESS");
+        res.send(stories);
+    })
+});
+
 /* =========== HABITS RELATED METHODS =========== */
 
 /**
