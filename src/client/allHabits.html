@@ -104,38 +104,47 @@
               <div class="col-sm-4"></div>
               <div class="col-sm-4">
                   <form action="updateHabit" method="post" class="habit__create__story__form bg-light">
+                      <div class="form-group updateFormId">
+                        <input type="text" name="id" id="updateIdInput">
+                      </div>
+                      <div class="form-group updateFormId">
+                        <input type="text" name="streak" id="updateStreakInput">
+                      </div>
+                      <div class="form-group updateFormId">
+                        <input type="text" name="status" id="updateStatusInput">
+                      </div>
                       <div class="form-group">
                           <label for="title">Habit</label>
-                          <input type="text" name="title" id="habitTitle" class="form-control" required>
+                          <input type="text" name="title" id="updateHabitTitle" class="form-control" required>
                       </div>
                       <div class="form-group">
                         <label for="occurrence">Habit Occurrence</label>
                         <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="monday">
+                          <input type="checkbox" class="form-check-input" id="updateMonday" name="monday">
                           <label class="form-check-label" for="monday">Monday</label>
                         </div>
                         <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="tuesday">
+                          <input type="checkbox" class="form-check-input" id="updateTuesday" name="tuesday">
                           <label class="form-check-label" for="tuesday">Tuesday</label>
                         </div>
                         <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="wednesday">
+                          <input type="checkbox" class="form-check-input" id="updateWednesday" name="wednesday">
                           <label class="form-check-label" for="wednesday">Wednesday</label>
                         </div>
                         <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="thursday">
+                          <input type="checkbox" class="form-check-input" id="updateThursday" name="thursday">
                           <label class="form-check-label" for="thursday">Thursday</label>
                         </div>
                         <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="friday">
+                          <input type="checkbox" class="form-check-input" id="updateFriday" name="friday">
                           <label class="form-check-label" for="friday">Friday</label>
                         </div>
                         <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="saturday">
+                          <input type="checkbox" class="form-check-input" id="updateSaturday" name="saturday">
                           <label class="form-check-label" for="saturday">Saturday</label>
                         </div>
                         <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="sunday">
+                          <input type="checkbox" class="form-check-input" id="updateSunday" name="sunday">
                           <label class="form-check-label" for="sunday">Sunday</label>
                         </div>
                       </div>

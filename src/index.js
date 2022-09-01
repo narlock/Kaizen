@@ -403,6 +403,43 @@ app.post('/habitById', function(req, res) {
 });
 
 /**
+ * POST /updateHabit
+ * @brief Update habit to database
+ */
+ app.post('/updateHabit', function(req, res) {
+    console.log(req.body);
+    //Gets the occurrence
+    let occurrence = "";
+    let bodyToString = JSON.stringify(req.body);
+    if(bodyToString.includes("monday")) { occurrence = occurrence.concat("m"); }
+    if(bodyToString.includes("tuesday")) { occurrence = occurrence.concat("t"); }
+    if(bodyToString.includes("wednesday")) { occurrence = occurrence.concat("w"); }
+    if(bodyToString.includes("thursday")) { occurrence = occurrence.concat("h"); }
+    if(bodyToString.includes("friday")) { occurrence = occurrence.concat("f"); }
+    if(bodyToString.includes("saturday")) { occurrence = occurrence.concat("s"); }
+    if(bodyToString.includes("sunday")) { occurrence = occurrence.concat("u"); }
+    if(occurrence == "") { occurrence = "mtwhfsu"; } //If none are selected, default to everyday
+
+    const sql = `
+            UPDATE  habits
+            SET
+                    habit_title=\"${req.body.title}\",
+                    habit_streak=${req.body.streak},
+                    habit_occurrence=\"${occurrence}\",
+                    habit_status=${req.body.status}
+            WHERE   habit_id=${req.body.id}
+    `
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.log("[OSLA/SERVER] updateHabit FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] updateHabit SUCCESS");
+        res.redirect(302, '/allHabits');
+    });
+});
+
+/**
  * POST /deleteHabit
  * @brief Deletes habit
  */

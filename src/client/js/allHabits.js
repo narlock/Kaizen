@@ -138,10 +138,17 @@ function enterUpdateHabitMode(id) {
         console.log("Cannot update... In create mode...");
         return; 
     }
-    document.getElementById('updateHabitForm').style.display = 'block';
+    document.getElementById('habitUpdateForm').style.display = 'block';
     document.getElementById('buttonMenu').style.display = 'none';
 
-    
+    document.getElementById('updateMonday').checked = false;
+    document.getElementById('updateTuesday').checked = false;
+    document.getElementById('updateWednesday').checked = false; 
+    document.getElementById('updateThursday').checked = false;
+    document.getElementById('updateFriday').checked = false;
+    document.getElementById('updateSaturday').checked = false;
+    document.getElementById('updateSunday').checked = false;
+
     $.ajax({
         type: 'POST',
         url: 'habitById',
@@ -156,10 +163,22 @@ function enterUpdateHabitMode(id) {
 
 function fillUpdateAttributes(habit) {
     console.log(habit);
+    document.getElementById('updateIdInput').value = habit.habit_id;
+    document.getElementById('updateStreakInput').value = habit.habit_streak;
+    document.getElementById('updateStatusInput').value = habit.habit_status;
+    document.getElementById('updateHabitTitle').value = habit.habit_title;
+    if(habit.habit_occurrence.includes("m")) { document.getElementById('updateMonday').checked = true; }
+    if(habit.habit_occurrence.includes("t")) { document.getElementById('updateTuesday').checked = true; }
+    if(habit.habit_occurrence.includes("w")) { document.getElementById('updateWednesday').checked = true; }
+    if(habit.habit_occurrence.includes("h")) { document.getElementById('updateThursday').checked = true; }
+    if(habit.habit_occurrence.includes("f")) { document.getElementById('updateFriday').checked = true; }
+    if(habit.habit_occurrence.includes("s")) { document.getElementById('updateSaturday').checked = true; }
+    if(habit.habit_occurrence.includes("u")) { document.getElementById('updateSunday').checked = true; }
 }
 
 function exitUpdateHabitMode() {
-
+    document.getElementById('habitUpdateForm').style.display = null;
+    document.getElementById('buttonMenu').style.display = 'flex';
 }
 
 function deleteHabit(id) {
