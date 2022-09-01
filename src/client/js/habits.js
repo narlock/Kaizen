@@ -82,7 +82,11 @@ function createHabitElements(habits) {
 
         //Streak Number
         streakElement = document.createElement('td');
-            streakElement.textContent = "🔥 " + habit.habit_streak;
+            if(habit.habit_streak > 0) {
+                streakElement.textContent = "🔥 " + habit.habit_streak;
+            } else {
+                streakElement.textContent = "None";
+            }
         habitRow.appendChild(streakElement);
 
         table.appendChild(habitRow);
