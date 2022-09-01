@@ -385,9 +385,23 @@ app.get('/dbHabits', function(req, res) {
     });
 });
 
-function getOccurrence(body) {
-    
-}
+/**
+ * POST /deleteHabit
+ * @brief Deletes habit
+ */
+ app.post('/deleteHabit', function(req, res) {
+    const sql = `
+        DELETE FROM habits WHERE habit_id=${req.body.id}
+    `
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.log("[OSLA/SERVER] deleteHabit FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] deleteHabit SUCCESS");
+        res.send(req.body.id);
+    });
+});
 
 //All Habits page - habits.html
 app.get('/allHabits',function(req, res) {

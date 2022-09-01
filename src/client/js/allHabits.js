@@ -59,6 +59,7 @@ function createHabitElements(habits) {
     habits.forEach(function(habit) {
         //habitRow
         habitRow = document.createElement('tr');
+            habitRow.setAttribute('id', habit.habit_id);
 
         //td habit title
         habitTitle = document.createElement('td');
@@ -137,4 +138,15 @@ function enterUpdateHabitMode(id) {
 
 function deleteHabit(id) {
     console.log(id);
+    $.ajax({
+        type: 'POST',
+        url: 'deleteHabit',
+        data: {
+          'id': id
+        },
+        success: function(msg) {
+            document.getElementById(id.toString()).remove();
+        }
+    });
+
 }
