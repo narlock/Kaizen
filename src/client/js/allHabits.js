@@ -91,6 +91,7 @@ function createHabitElements(habits) {
             updateButton.textContent = "Update";
             updateButton.classList.add('btn');
             updateButton.classList.add('btn-primary');
+            updateButton.style.marginRight = "0.5rem";
             updateButton.setAttribute('onclick', `enterUpdateHabitMode(${habit.habit_id})`);
         optionsTd.appendChild(updateButton);
         deleteButton = document.createElement('button');
