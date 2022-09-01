@@ -30,22 +30,31 @@ function showTime(){
 showTime();
 
 window.onload = function() {
-    updateHabitStreaks(); //Updates the habit streaks in db
-    checkDateForHabit(); //Updates the dates in db, setting status to incomplete
-                         //For each if the day is new
-    populateHabitsTable(); //Populates the table
+    updateHabitStreaks(); 
+    //Updates the habit streaks in db
+    //Updates the dates in db, setting status to incomplete
+    //For each if the day is new
+    //Populates the table
+    
+    /**
+     * updateHabitStreaks is called, upon returning
+     * it will call checkDateForHabit, upon returning
+     * it will call populateHabitsTable. This is
+     * to ensure that everything is called in order.
+     */
 }
 
 function updateHabitStreaks() {
     var xmlhttp = new XMLHttpRequest();
 
-     xmlhttp.onreadystatechange = function() {
-         if(this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
-         }
-     };
-     xmlhttp.open("GET", "updateHabitStreaks", true);
-     xmlhttp.send();
+    xmlhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            console.log("Update Habit Streaks SUCCESS Response");
+            checkDateForHabit();
+        }
+    };
+    xmlhttp.open("GET", "updateHabitStreaks", true);
+    xmlhttp.send();
 }
 
 function checkDateForHabit() {
@@ -53,7 +62,8 @@ function checkDateForHabit() {
 
      xmlhttp.onreadystatechange = function() {
          if(this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            console.log("Check Date Habit SUCCESS Response");
+            populateHabitsTable(); 
          }
      };
      xmlhttp.open("GET", "checkDateForHabits", true);

@@ -489,17 +489,16 @@ app.get('/checkDateForHabits', function(req, res) {
             console.log("[OSLA/SERVER] checkDateForHabits:SelectAllHabits FAILURE");
             throw err;
         }
-        console.log(habits);
+        //console.log(habits);
         habits.forEach(function(habit) {
             habitDate = new Date(habit.habit_date);
             habitDateString = habitDate.getFullYear() + '-'
                  + ('0' + (habitDate.getMonth()+1)).slice(-2) + '-'
                  + ('0' + habitDate.getDate()).slice(-2);
-            console.log(habitDateString);
-            console.log(current_date);
-            console.log(habitDateString != current_date);
+            //console.log(habitDateString);
+            //console.log(current_date);
+            //console.log(habitDateString != current_date);
             if(habitDateString != current_date) {
-                console.log("here");
                 //Uncheck the habit
                 sql = `
                     UPDATE habits
@@ -526,13 +525,77 @@ app.get('/checkDateForHabits', function(req, res) {
  * Will remove the streak if occurrence criteria is not satisfied
  * Will increment streak if occurrence criteria is satisfied
  */
-    //use moment.js to compare the dates in form of yyyy-mm-dd
-    //https://stackoverflow.com/questions/35987262/difference-in-days-between-two-days-in-yyyy-mm-dd-format
-app.post('/updateHabitStreaks', function(req, res) {
+app.get('/updateHabitStreaks', function(req, res) {
     //Compare today's date with the habit date
-    //If the habit date is exactly one day behind the current date, increment habit streak
+    
     //If the habit date is the SAME as the current date, don't do anything to habit streak
     //If the habit date is more than one day behind the current date, set habit streak to zero
+    currentDate = new Date();
+    currentDateFormatted = currentDate.getFullYear() + "-" + currentDate.getMonth() + "-" + currentDate.getDate(); //yyyy-mm-dd
+    currentDateCompare = new Date(currentDateFormatted);
+
+    var days = ['u', 'm', 't', 'w', 'h', 'f', 's'];
+    var d = new Date();
+    var dayName = days[d.getDay()]; 
+
+    selectSql = `SELECT * FROM habits WHERE habit_occurrence LIKE \"%${dayName}%\"`;
+    dbCon.query(selectSql, function(err, habits) {
+        if(err) {
+            console.log("[OSLA/SERVER] updateHabitStreaks:SelectHabits FAILURE");
+            throw err;
+        }
+        habits.forEach(function(habit) {
+            habitDate = new Date(habit.habit_date);
+            habitDateFormatted = habitDate.getFullYear() + "-" + (habitDate.getMonth()+1) + "-" + habitDate.getDate(); //yyyy-mm-dd
+            habitDateCompare = new Date(habitDateFormatted);
+
+            diffTime = Math.abs(Date.parse(habitDateCompare) - Date.parse(currentDateCompare));
+            diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+            console.log(diffDays);
+            
+            //If the habit date is exactly one day behind the current date AND status is complete, increment habit streak
+            //TODO Add logic so that streaks are kept depending on
+            //Occurrence and not dependent on everyday... This will work only for everyday
+            //Need logic perhaps in a table to check if thurs, check that diffDays is 7 or something...
+
+            everydayHabit = 'mtwhfsu'; //Difference is 1 for increment Streak
+            weeklyHabit = ['m', 't', 'w', 'h', 'f', 's', 'u']; //Difference is 7 for increment Streak
+            
+            if(diffDays == 1 && habit.habit_status == 1 && everydayHabit == habit.habit_occurrence) {
+                updateSql = `
+                    UPDATE  habits
+                    SET     habit_streak=${(habit.habit_streak + 1)}
+                    WHERE   habit_id=${habit.habit_id}
+                `
+                dbCon.query(updateSql, function(err, result) {
+                    if(err) { throw err; }
+                });
+            } else if(diffDays == 7 && habit.habit_status == 1 && weeklyHabit.includes(habit.habit_occurrence)) {
+                console.log("here");
+                updateSql = `
+                    UPDATE  habits
+                    SET     habit_streak=${(habit.habit_streak + 1)}
+                    WHERE   habit_id=${habit.habit_id}
+                `
+                dbCon.query(updateSql, function(err, result) {
+                    if(err) { throw err; }
+                });
+            } else if(diffDays == 0) {
+                //Do Nothing! Same Day.
+            } else {
+                updateSql = `
+                    UPDATE  habits
+                    SET     habit_streak=0
+                    WHERE   habit_id=${habit.habit_id}
+                `
+                dbCon.query(updateSql, function(err, result) {
+                    if(err) { throw err; }
+                });
+            }
+        });
+        console.log(`[OSLA/SERVER] updateHabitStreaks SUCCESS`);
+        res.send(habits);
+    });
 });
 
 /**

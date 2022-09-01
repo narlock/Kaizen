@@ -67,9 +67,13 @@ function createHabitElements(habits) {
         habitRow.appendChild(habitTitle);
 
         //Streak Number
+        suitableStreakHabits = ['m', 't', 'w', 'h', 'f', 's', 'u', 'mtwhfsu'];
+
         streakElement = document.createElement('td');
             if(habit.habit_streak > 0) {
                 streakElement.textContent = "🔥 " + habit.habit_streak;
+            } else if(!suitableStreakHabits.includes(habit.habit_occurrence)) {
+                streakElement.textContent = "N/A";
             } else {
                 streakElement.textContent = "None";
             }
