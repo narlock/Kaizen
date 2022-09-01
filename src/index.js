@@ -322,13 +322,13 @@ app.get('/dbHabits', function(req, res) {
     var dayName = days[d.getDay()]; 
 
     const sql = `SELECT * FROM habits WHERE habit_occurrence LIKE \"%${dayName}%\"`;
-    dbCon.query(sql, function(err, stories) {
+    dbCon.query(sql, function(err, habits) {
         if(err) {
             console.log("[OSLA/SERVER] GET dailyDbHabits FAILURE");
             throw err;
         }
         console.log("[OSLA/SERVER] GET dailyDbHabits SUCCESS");
-        res.send(stories);
+        res.send(habits);
     });
 });
 
@@ -375,7 +375,9 @@ app.post('/habitById', function(req, res) {
     //Gets new date
     var date_format = new Date();
     var current_date = date_format.getFullYear() + "-" + date_format.getMonth() + "-" + date_format.getDate(); //yyyy-mm-dd
-    
+    console.log("Date being added...");
+    console.log(current_date);
+
     const sql = `
         INSERT INTO habits (
             habit_title,
@@ -437,6 +439,100 @@ app.post('/habitById', function(req, res) {
         console.log("[OSLA/SERVER] updateHabit SUCCESS");
         res.redirect(302, '/allHabits');
     });
+});
+
+/**
+ * POST checkHabit
+ * @brief This will update the status of
+ * a habit to complete
+ */
+app.post('/checkHabit', function(req, res) {
+    const sql = `
+        UPDATE habits
+        SET    habit_status=1
+        WHERE  habit_id=${req.body.id}
+    `
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.log("[OSLA/SERVER] checkHabit FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] checkHabit SUCCESS");
+        res.send(req.body.id);
+    });
+});
+
+/**
+ * GET checkDateForHabits
+ * @brief will check date for each habit, if it is a
+ * new day from previous day, the status will be set to incomplete
+ */
+app.get('/checkDateForHabits', function(req, res) {
+    var days = ['u', 'm', 't', 'w', 'h', 'f', 's'];
+    var d = new Date();
+    var dayName = days[d.getDay()]; 
+
+    //Gets new date
+    var date = new Date();
+
+    var current_date_formatted = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate(); //yyyy-mm-dd
+    current_date = date.getFullYear() + '-'
+                + ('0' + (date.getMonth())).slice(-2) + '-'
+                 + ('0' + date.getDate()).slice(-2);
+
+    //var current_date = date_format.getFullYear() + "-" + date_format.getMonth() + "-" + date_format.getDate(); //yyyy-mm-dd
+    
+
+    selectSql = `SELECT * FROM habits WHERE habit_occurrence LIKE \"%${dayName}%\"`;
+    dbCon.query(selectSql, function(err, habits) {
+        if(err) {
+            console.log("[OSLA/SERVER] checkDateForHabits:SelectAllHabits FAILURE");
+            throw err;
+        }
+        console.log(habits);
+        habits.forEach(function(habit) {
+            habitDate = new Date(habit.habit_date);
+            habitDateString = habitDate.getFullYear() + '-'
+                 + ('0' + (habitDate.getMonth()+1)).slice(-2) + '-'
+                 + ('0' + habitDate.getDate()).slice(-2);
+            console.log(habitDateString);
+            console.log(current_date);
+            console.log(habitDateString != current_date);
+            if(habitDateString != current_date) {
+                console.log("here");
+                //Uncheck the habit
+                sql = `
+                    UPDATE habits
+                    SET    habit_status=0,
+                           habit_date=\"${current_date_formatted}\"
+                    WHERE  habit_id=${habit.habit_id}
+                `
+                dbCon.query(sql, function(err, result) {
+                    if(err) {
+                        console.log(`[OSLA/SERVER] checkDateForHabits:UpdateStatus:id=${habit.habit_id} FAILURE`);
+                        throw err;
+                    }
+                });
+            } 
+        });
+        console.log(`[OSLA/SERVER] checkDateForHabits SUCCESS`);
+        res.send(habits);
+    });
+});
+
+/**
+ * POST updateHabitStreaks
+ * @brief Will update the streaks of all habits
+ * Will remove the streak if occurrence criteria is not satisfied
+ * Will increment streak if occurrence criteria is satisfied
+ */
+    //use moment.js to compare the dates in form of yyyy-mm-dd
+    //https://stackoverflow.com/questions/35987262/difference-in-days-between-two-days-in-yyyy-mm-dd-format
+app.post('/updateHabitStreaks', function(req, res) {
+    //Compare today's date with the habit date
+    //If the habit date is exactly one day behind the current date, increment habit streak
+    //If the habit date is the SAME as the current date, don't do anything to habit streak
+    //If the habit date is more than one day behind the current date, set habit streak to zero
 });
 
 /**

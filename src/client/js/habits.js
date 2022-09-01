@@ -30,7 +30,34 @@ function showTime(){
 showTime();
 
 window.onload = function() {
-    populateHabitsTable();
+    updateHabitStreaks(); //Updates the habit streaks in db
+    checkDateForHabit(); //Updates the dates in db, setting status to incomplete
+                         //For each if the day is new
+    populateHabitsTable(); //Populates the table
+}
+
+function updateHabitStreaks() {
+    var xmlhttp = new XMLHttpRequest();
+
+     xmlhttp.onreadystatechange = function() {
+         if(this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+         }
+     };
+     xmlhttp.open("GET", "updateHabitStreaks", true);
+     xmlhttp.send();
+}
+
+function checkDateForHabit() {
+    var xmlhttp = new XMLHttpRequest();
+
+     xmlhttp.onreadystatechange = function() {
+         if(this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+         }
+     };
+     xmlhttp.open("GET", "checkDateForHabits", true);
+     xmlhttp.send();
 }
 
 function populateHabitsTable() {
@@ -71,7 +98,13 @@ function createHabitElements(habits) {
             checkBox.setAttribute('type', 'checkbox');
             checkBox.setAttribute('id', habit.habit_id);
             checkBox.classList.add('habits__checkbox');
-            checkBox.setAttribute('onclick', 'updateHabit(event)');
+            if(habit.habit_status == 0) {
+                checkBox.setAttribute('onclick', 'updateHabit(event)');
+            } else {
+                checkBox.setAttribute('onclick', 'return false');
+                checkBox.checked = true;
+            }
+            
         checkBoxTh.appendChild(checkBox);
         habitRow.appendChild(checkBoxTh);
 
@@ -114,5 +147,14 @@ function updateHabit(event) {
      *  If the previous day is more than 24 hours apart,
      *  the streak will equal 0.
      */
-    
+    $.ajax({
+        type: 'POST',
+        url: 'checkHabit',
+        data: {
+          'id': id
+        },
+        success: function(habit) {
+            console.log("SUCCESSful Update in DB");
+        }
+    });
 }
