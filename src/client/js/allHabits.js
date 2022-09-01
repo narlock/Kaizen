@@ -138,15 +138,16 @@ function enterUpdateHabitMode(id) {
 
 function deleteHabit(id) {
     console.log(id);
-    $.ajax({
-        type: 'POST',
-        url: 'deleteHabit',
-        data: {
-          'id': id
-        },
-        success: function(msg) {
-            document.getElementById(id.toString()).remove();
-        }
-    });
-
+    if (confirm("Are you sure?") == true) {
+        $.ajax({
+            type: 'POST',
+            url: 'deleteHabit',
+            data: {
+              'id': id
+            },
+            success: function(msg) {
+                document.getElementById(id.toString()).remove();
+            }
+        });
+     } 
 }
