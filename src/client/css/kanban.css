@@ -35,22 +35,22 @@
 }
 
 #backlog {
-    background-color: rgb(176, 255, 229);
+    background-color: rgb(148, 214, 255);
     border: 1px solid black;
 }
 
 #todo {
-    background-color: #ffe7ec;
+    background-color: rgb(255, 100, 100);
     border: 1px solid black;
 }
 
 #inprog {
-    background-color: #ffd16d;
+    background-color: #ffa76d;
     border: 1px solid black;
 }
 
 #done {
-    background-color: #a9ffa9;
+    background-color: #ffdd62;
     border: 1px solid black;
 }
 
