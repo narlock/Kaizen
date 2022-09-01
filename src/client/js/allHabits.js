@@ -128,17 +128,43 @@ function enterCreateHabitMode() {
 }
 
 function exitCreateHabitMode() {
+    createMode = false;
     document.getElementById('habitCreateForm').style.display = null;
     document.getElementById('buttonMenu').style.display = 'flex';
 }
 
 function enterUpdateHabitMode(id) {
-    console.log(id);
+    if(createMode == true) { 
+        console.log("Cannot update... In create mode...");
+        return; 
+    }
+    document.getElementById('updateHabitForm').style.display = 'block';
+    document.getElementById('buttonMenu').style.display = 'none';
+
+    
+    $.ajax({
+        type: 'POST',
+        url: 'habitById',
+        data: {
+          'id': id
+        },
+        success: function(habit) {
+            fillUpdateAttributes(habit);
+        }
+    });
+}
+
+function fillUpdateAttributes(habit) {
+    console.log(habit);
+}
+
+function exitUpdateHabitMode() {
+
 }
 
 function deleteHabit(id) {
     console.log(id);
-    if (confirm("Are you sure?") == true) {
+    if (confirm("Are you sure you would like to delete this habit?") == true) {
         $.ajax({
             type: 'POST',
             url: 'deleteHabit',

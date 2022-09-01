@@ -333,6 +333,23 @@ app.get('/dbHabits', function(req, res) {
 });
 
 /**
+ * /habitById
+ * @brief Gets a habit by id
+ */
+app.post('/habitById', function(req, res) {
+    const id = req.body.id;
+    const sql = 'SELECT * FROM habits WHERE habit_id=\"' + id + '\";';
+    dbCon.query(sql, function(err, story) {
+        if(err) {
+            console.log("[OSLA/SERVER] GET habitById FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] GET habitById SUCCESS");
+        res.send(story[0]);
+    });
+});
+
+/**
  * POST /addHabit
  * @brief Adds habit to database
  * @purpose Using a form, we can make the method of this form go

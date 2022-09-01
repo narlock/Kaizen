@@ -309,8 +309,6 @@ function exitUpdateStoryMode() {
 }
 
 function deleteStory(id) {
-    console.log(id);
-
     $.ajax({
         type: 'POST',
         url: 'deleteKanbanStory',
