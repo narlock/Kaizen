@@ -7,6 +7,15 @@
     margin-bottom: 2rem;
 }
 
+.journal__form {
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 2px solid black;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
 img {
     width: 50px;
     height: auto;
@@ -33,3 +42,25 @@ img {
 [type=radio]:checked + img {
     outline: 2px solid #f00;
 }
+
+.col1 {
+    display: block;
+    float: left;
+    line-height: 30px;
+    width: 301px;
+    height: 30px;
+    background-color: #f00;
+    border: 0;
+ }
+ 
+ .col2 {
+    position: relative;
+    top: -30px;
+    display: block;
+    float: right;
+    line-height: 30px;
+    width: 299px;
+    height: 30px;
+    background-color: #ff0;
+    border: 0;
+ }

@@ -34,51 +34,57 @@
             <strong>Select Journal Date</strong>
             <input type="date" id="datePicker" name="date" onchange="populateJournalEntry(event)">
         </div>
-        <form action="updateJournalEntry" method="post" class="bg-light">
-            <input type="text" id="dateEntry" name="date" class="hidden">
-            <div>
-                <label>How was your day?</label>
-                <div class="form-group">
-                    <label>
-                        <input type="radio" name="howWasDay" id="dayGreat" value="5">
-                        <img src="assets/great.png" alt="Great">
-                    </label>
-                    <label>
-                        <input type="radio" name="howWasDay" id="dayGood" value="4">
-                        <img src="assets/good.png" alt="Good">
-                    </label>
-                    <label>
-                        <input type="radio" name="howWasDay" id="dayNeutral" value="3">
-                        <img src="assets/neutral.png" alt="Neutral">
-                    </label>
-                    <label>
-                        <input type="radio" name="howWasDay" id="dayMeh" value="2">
-                        <img src="assets/meh.png" alt="Meh">
-                    </label>
-                    <label>
-                        <input type="radio" name="howWasDay" id="dayBad" value="1">
-                        <img src="assets/bad.png" alt="Bad">
-                    </label>
+        <div class="container">
+                <div class="">
+                    <form action="updateJournalEntry" method="post" class="journal__form bg-light">
+                        <input type="text" id="dateEntry" name="date" class="hidden">
+                        <div class="">
+                            <label>How was your day?</label>
+                            <div class="form-group">
+                                <label>
+                                    <input type="radio" name="howWasDay" id="dayGreat" value="5">
+                                    <img src="assets/great.png" alt="Great">
+                                </label>
+                                <label>
+                                    <input type="radio" name="howWasDay" id="dayGood" value="4">
+                                    <img src="assets/good.png" alt="Good">
+                                </label>
+                                <label>
+                                    <input type="radio" name="howWasDay" id="dayNeutral" value="3">
+                                    <img src="assets/neutral.png" alt="Neutral">
+                                </label>
+                                <label>
+                                    <input type="radio" name="howWasDay" id="dayMeh" value="2">
+                                    <img src="assets/meh.png" alt="Meh">
+                                </label>
+                                <label>
+                                    <input type="radio" name="howWasDay" id="dayBad" value="1">
+                                    <img src="assets/bad.png" alt="Bad">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventsOfDay">What events occurred today?</label>
+                            <textarea name="eventsOfDay" id="eventsOfDay" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="stresses">Any problems or stresses today?</label>
+                            <textarea name="stresses" id="stresses" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="gratefulness">What are you grateful for today?</label>
+                            <textarea name="gratefulness" id="gratefulness" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group ">
+                            <label for="goals">What are your goals for tomorrow?</label>
+                            <textarea name="goals" id="goals" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Entry</button>
+                    </form>
                 </div>
+                <div class="col-sm-4"></div>
             </div>
-            <div class="form-group">
-                <label for="eventsOfDay">What events occurred today?</label>
-                <textarea name="eventsOfDay" id="eventsOfDay" cols="30" rows="10" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="stresses">Any problems or stresses today?</label>
-                <textarea name="stresses" id="stresses" cols="30" rows="10" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="gratefulness">What are you grateful for today?</label>
-                <textarea name="gratefulness" id="gratefulness" cols="30" rows="10" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="goals">What are your goals for tomorrow?</label>
-                <textarea name="goals" id="goals" cols="30" rows="10" class="form-control"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Save Entry</button>
-        </form>
+        </div>
     </div>
     <script src="js/journal.js"></script>
 </body>
