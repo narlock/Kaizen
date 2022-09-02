@@ -637,7 +637,6 @@ app.get('/updateHabitStreaks', function(req, res) {
 /* =========== JOURNAL RELATED METHODS =========== */
 
 app.post('/getJournalEntryByDate', function(req, res) {
-    console.log(req.body.date); // The date
 
     //write sql to get the date
     sql = `
@@ -654,7 +653,55 @@ app.post('/getJournalEntryByDate', function(req, res) {
 });
 
 app.post('/updateJournalEntry', function(req, res) {
-    console.log(req.body);
+    
+    sql = `
+    SELECT * FROM journal WHERE entry_date=\"${req.body.date}\"
+    `
+    dbCon.query(sql, function(err, entries) {
+        if(err) {
+            console.error("[OSLA/SERVER] updateJournalEntry:searchEntry FAILURE");
+            throw err;
+        }
+        if(entries[0] == undefined) {
+            //check if journal entry is new, if it is, use insert
+            insertSql = `
+                INSERT INTO journal
+                SET     entry_date=\"${req.body.date}\",
+                        entry_how_was_day=\"${req.body.howWasDay}\",
+                        entry_events=\"${req.body.eventsOfDay}\",
+                        entry_stresses=\"${req.body.stresses}\",
+                        entry_gratefulness=\"${req.body.gratefulness}\",
+                        entry_goals=\"${req.body.goals}\"
+            `
+            dbCon.query(insertSql, function(err, result) {
+                if(err) {
+                    console.error("[OSLA/SERVER] updateJournalEntry:insert FAILURE");
+                    throw err;
+                }
+                console.log("[OSLA/SERVER] updateJournalEntry SUCCESS");
+                res.redirect(302, '/journal');
+            });
+        } else {
+            //if not, update journal entry
+            updateSql = `
+                UPDATE journal
+                SET entry_how_was_day=\"${req.body.howWasDay}\",
+                    entry_events=\"${req.body.eventsOfDay}\",
+                    entry_stresses=\"${req.body.stresses}\",
+                    entry_gratefulness=\"${req.body.gratefulness}\",
+                    entry_goals=\"${req.body.goals}\"
+                WHERE entry_date=\"${req.body.date}\"
+            `
+            dbCon.query(updateSql, function(err, result) {
+                if(err) {
+                    console.error("[OSLA/SERVER] updateJournalEntry:update FAILURE");
+                    throw err;
+                }
+                console.log("[OSLA/SERVER] updateJournalEntry SUCCESS");
+                res.redirect(302, '/journal');
+            });
+        }
+    });
 });
 
 
