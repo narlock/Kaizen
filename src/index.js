@@ -653,6 +653,10 @@ app.post('/getJournalEntryByDate', function(req, res) {
     });
 });
 
+app.post('/updateJournalEntry', function(req, res) {
+    console.log(req.body);
+});
+
 
 //All Habits page - habits.html
 app.get('/allHabits',function(req, res) {

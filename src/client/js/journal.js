@@ -35,7 +35,7 @@ window.onload = function() {
     var current_date = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate(); //yyyy-mm-dd
 
     //Set the current value of the journal to today's date
-    var setDate = current_date.replace(/(^|\D)(\d)(?!\d)/g, '$10$2');
+    let setDate = current_date.replace(/(^|\D)(\d)(?!\d)/g, '$10$2');
     document.getElementById('datePicker').value = setDate;
 
     /**
@@ -63,12 +63,25 @@ function populateJournalEntry(e) {
           'date': e.target.value
         },
         success: function(entry) {
-            setJournalInputValues(entry);
+            setJournalInputValues(entry, e.target.value);
         }
     });
 }
 
 function setJournalInputValues(entry, setDate) {
+    console.log(setDate);
+    //Reset before applying entry changes
+    document.getElementById('dayGreat').checked = false;
+    document.getElementById('dayGood').checked = false;
+    document.getElementById('dayNeutral').checked = false;
+    document.getElementById('dayMeh').checked = false;
+    document.getElementById('dayBad').checked = false;
+
+    document.getElementById('eventsOfDay').value = "";
+    document.getElementById('stresses').value = "";
+    document.getElementById('gratefulness').value = "";
+    document.getElementById('goals').value = "";
+
     /**
      * If there is not an entry for the specified date,
      * the entry variable will be equal to the empty string.
@@ -86,7 +99,20 @@ function setJournalInputValues(entry, setDate) {
     if(entry == "") {
         //Entry does not exist in database, only set hidden date to
         //date from setDate
+        document.getElementById('dateEntry').value = setDate;
     } else {
         //Entry exists in database and is stored as entry
+        document.getElementById('dateEntry').value = setDate;
+
+        if(entry.entry_how_was_day == 5) { document.getElementById('dayGreat').checked = true; }
+        if(entry.entry_how_was_day == 4) { document.getElementById('dayGood').checked = true; }
+        if(entry.entry_how_was_day == 3) { document.getElementById('dayNeutral').checked = true; }
+        if(entry.entry_how_was_day == 2) { document.getElementById('dayMeh').checked = true; }
+        if(entry.entry_how_was_day == 1) { document.getElementById('dayBad').checked = true; }
+
+        document.getElementById('eventsOfDay').value = entry.entry_events;
+        document.getElementById('stresses').value = entry.entry_stresses;
+        document.getElementById('gratefulness').value = entry.entry_gratefulness;
+        document.getElementById('goals').value = entry.entry_goals;
     }
 }
