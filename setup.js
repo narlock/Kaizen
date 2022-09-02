@@ -65,7 +65,7 @@ dbCon.connect(function (err) {
             story_title             VARCHAR(100),
             story_priority          INT UNSIGNED,
             story_points            INT UNSIGNED,
-            story_desc              VARCHAR(255),
+            story_desc              LONGTEXT,
             story_creation_date     DATE NOT NULL,
             story_due_date          DATE,
             PRIMARY KEY (story_id)
@@ -137,10 +137,10 @@ dbCon.connect(function (err) {
         CREATE TABLE journal (
             entry_date              DATE NOT NULL,
             entry_how_was_day       INT UNSIGNED,
-            entry_events            MEDIUMTEXT,
-            entry_stresses          MEDIUMTEXT,
-            entry_gratefullness     MEDIUMTEXT,
-            entry_goals             MEDIUMTEXT
+            entry_events            LONGTEXT,
+            entry_stresses          LONGTEXT,
+            entry_gratefulness      LONGTEXT,
+            entry_goals             LONGTEXT
         )
     `;
     dbCon.query(sql, function(err, result) {

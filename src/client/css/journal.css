@@ -2,3 +2,7 @@
 * {
     font-family: "Roboto";
 }
+
+.journal__heading {
+    margin-bottom: 2rem;
+}

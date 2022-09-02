@@ -28,3 +28,9 @@ function showTime(){
 }
 
 showTime();
+
+window.onload = function() {
+    $('date').datepicker({
+        format: "yyyy-mm-dd",
+    });
+}

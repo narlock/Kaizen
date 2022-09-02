@@ -634,6 +634,17 @@ app.get('/updateHabitStreaks', function(req, res) {
     });
 });
 
+/* =========== JOURNAL RELATED METHODS =========== */
+
+app.post('/displayJournalEntryByDate', function(req, res) {
+    console.log(req.body.date); // The date
+
+    //write sql to get the date
+
+    //return the date and display it in actual journal part
+});
+
+
 //All Habits page - habits.html
 app.get('/allHabits',function(req, res) {
     res.sendFile(__dirname + '/client/allHabits.html');
