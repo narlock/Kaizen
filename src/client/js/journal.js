@@ -34,6 +34,10 @@ window.onload = function() {
     var date = new Date();
     var current_date = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate(); //yyyy-mm-dd
 
+    //Set the current value of the journal to today's date
+    var setDate = current_date.replace(/(^|\D)(\d)(?!\d)/g, '$10$2');
+    document.getElementById('datePicker').value = setDate;
+
     /**
      * Check if there is a journal entry for the current
      * day, if there is, grab it from mysql and populate
@@ -46,7 +50,7 @@ window.onload = function() {
           'date': current_date
         },
         success: function(entry) {
-            setJournalInputValues(entry);
+            setJournalInputValues(entry, setDate);
         }
     });
 }
@@ -64,6 +68,25 @@ function populateJournalEntry(e) {
     });
 }
 
-function setJournalInputValues(entry) {
-    console.log(entry);
+function setJournalInputValues(entry, setDate) {
+    /**
+     * If there is not an entry for the specified date,
+     * the entry variable will be equal to the empty string.
+     * 
+     * The journal will simply just be a blank journal entry,
+     * but the date will remain the same date so if it is
+     * updated, the entry will be updated as well.
+     * 
+     * If the entry is already in the database, the form
+     * fields will be populated with its corresponding
+     * fields. The user will then be able to edit the journal
+     * entry.
+     */
+    
+    if(entry == "") {
+        //Entry does not exist in database, only set hidden date to
+        //date from setDate
+    } else {
+        //Entry exists in database and is stored as entry
+    }
 }
