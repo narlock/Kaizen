@@ -140,7 +140,8 @@ dbCon.connect(function (err) {
             entry_events            LONGTEXT,
             entry_stresses          LONGTEXT,
             entry_gratefulness      LONGTEXT,
-            entry_goals             LONGTEXT
+            entry_goals             LONGTEXT,
+            PRIMARY KEY (entry_date)
         )
     `;
     dbCon.query(sql, function(err, result) {

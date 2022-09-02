@@ -636,12 +636,21 @@ app.get('/updateHabitStreaks', function(req, res) {
 
 /* =========== JOURNAL RELATED METHODS =========== */
 
-app.post('/displayJournalEntryByDate', function(req, res) {
+app.post('/getJournalEntryByDate', function(req, res) {
     console.log(req.body.date); // The date
 
     //write sql to get the date
-
-    //return the date and display it in actual journal part
+    sql = `
+        SELECT * FROM journal WHERE entry_date=\"${req.body.date}\"
+    `
+    dbCon.query(sql, function(err, entries) {
+        if(err) {
+            console.error("[OSLA/SERVER] getJournalEntryByDate FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] getJorunalEntryByDate SUCCESS");
+        res.send(entries[0]);
+    });
 });
 
 

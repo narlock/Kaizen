@@ -30,7 +30,40 @@ function showTime(){
 showTime();
 
 window.onload = function() {
-    $('date').datepicker({
-        format: "yyyy-mm-dd",
+    //Set hidden form div to today's date, noting that that will be updated
+    var date = new Date();
+    var current_date = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate(); //yyyy-mm-dd
+
+    /**
+     * Check if there is a journal entry for the current
+     * day, if there is, grab it from mysql and populate
+     * the journal.
+     */
+     $.ajax({
+        type: 'POST',
+        url: 'getJournalEntryByDate',
+        data: {
+          'date': current_date
+        },
+        success: function(entry) {
+            setJournalInputValues(entry);
+        }
     });
+}
+
+function populateJournalEntry(e) {
+    $.ajax({
+        type: 'POST',
+        url: 'getJournalEntryByDate',
+        data: {
+          'date': e.target.value
+        },
+        success: function(entry) {
+            setJournalInputValues(entry);
+        }
+    });
+}
+
+function setJournalInputValues(entry) {
+    console.log(entry);
 }

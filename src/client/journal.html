@@ -30,14 +30,18 @@
     </nav>
     <div class="journal__main">
         <h4 class="text-center journal__heading">Daily Journal</h4>
-        <div id="dateSelectionDiv">
-            <form action="/displayJournalEntryByDate" method="post" class="text-center">
-                <input type="date" id="date" name="date">
-                <button type="submit" class="btn btn-primary">Go to Date</button>
-            </form>
-            
+        <div id="dateSelectionDiv" class="text-center">
+            <strong>Select Journal Date</strong>
+            <input type="date" id="datePicker" name="date" onchange="populateJournalEntry(event)">
         </div>
+        <article class="journal" id="journalEntryForm">
+            <div class="container">
+                <form action="/updateJournalEntry">
+
+                </form>
+            </div>
+        </article>
     </div>
-    <script src="js/kanban.js"></script>
+    <script src="js/journal.js"></script>
 </body>
 </html>
