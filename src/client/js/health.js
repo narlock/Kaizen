@@ -28,3 +28,25 @@ function showTime(){
 }
 
 showTime();
+
+var i = 0;
+function move(current, percent) {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myBar");
+    var width = current;
+    var id = setInterval(frame, 60);
+    function frame() {
+      if (width >= percent) {
+        clearInterval(id);
+        i = 0;
+      } else {
+        width++;
+        elem.style.width = width + "%";
+        elem.innerHTML = width + "%";
+      }
+    }
+  }
+}
+
+move(0, 45);
