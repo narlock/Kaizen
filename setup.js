@@ -158,9 +158,11 @@ dbCon.connect(function (err) {
             contact_id              INT NOT NULL AUTO_INCREMENT,
             contact_name            VARCHAR(50),
             contact_birthday        DATE,
-            contact_address         VARCHAR(255),
             contact_phone           VARCHAR(50),
-            contact_email           VARCHAR(50),
+            contact_email           VARCHAR(100),
+            contact_fb              VARCHAR(50),
+            contact_whatsapp        VARCHAR(50),
+            contact_discord         VARCHAR(50),
             contact_note            MEDIUMTEXT,
             PRIMARY KEY(contact_id)
         )
