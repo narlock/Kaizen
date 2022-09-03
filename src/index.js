@@ -844,6 +844,20 @@ app.post('/getContact', function(req, res) {
     });
 });
 
+app.post('/deleteContactById', function(req, res) {
+    sql = `
+        DELETE FROM relationships WHERE contact_id=${req.body.id}
+    `
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.error("[OSLA/SERVER] deleteContactById FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] deleteContactById SUCCESS");
+        res.send(result);
+    });
+});
+
 /* =========== HTML PAGE RELATED METHODS =========== */
 
 //Create Form for Relationship - createForm.html

@@ -24,7 +24,6 @@ function showTime(){
     document.getElementById("clock").textContent = time;
     
     setTimeout(showTime, 1000);
-    
 }
 
 showTime();
@@ -52,6 +51,7 @@ function populateBirthdayContacts(contacts) {
 
     contacts.forEach(function(contact) {
         tableRow = document.createElement('tr');
+            tableRow.classList.add(contact.contact_id);
 
         nameElement = document.createElement('td');
             nameElement.textContent = contact.contact_name;
@@ -108,6 +108,14 @@ function populateBirthdayContacts(contacts) {
 
         tableBody.appendChild(tableRow);
     });
+
+    if(document.getElementById('birthdayContactsBody').childElementCount == 0) {
+        //Display that there are no upcoming birthdays
+        noBirthdaysElement = document.createElement('strong');
+            noBirthdaysElement.textContent = "No upcoming birthdays";
+            noBirthdaysElement.style.color = "red";
+        tableBody.appendChild(noBirthdaysElement);
+    }
 }
 
 function getAllContacts() {
@@ -128,6 +136,7 @@ function populateAllContacts(contacts) {
 
     contacts.forEach(function(contact) {
         tableRow = document.createElement('tr');
+            tableRow.classList.add(contact.contact_id);
 
         nameElement = document.createElement('td');
             nameElement.textContent = contact.contact_name;
@@ -148,6 +157,7 @@ function populateAllContacts(contacts) {
         if(contact.contact_fb != "") {
             messengerElement = document.createElement('a');
             messengerElement.setAttribute('href', 'https://m.me/' + contact.contact_fb);
+            messengerElement.setAttribute('target', '_blank');
             messengerImgElement = document.createElement('img');
                 messengerImgElement.setAttribute('src', '../assets/fb.png');
             messengerElement.appendChild(messengerImgElement);
@@ -158,6 +168,7 @@ function populateAllContacts(contacts) {
         if(contact.contact_whatsapp != "") {
             messengerElement = document.createElement('a');
             messengerElement.setAttribute('href', 'https://wa.me/' + contact.contact_whatsapp);
+            messengerElement.setAttribute('target', '_blank');
             messengerImgElement = document.createElement('img');
                 messengerImgElement.setAttribute('src', '../assets/whatsapp.png');
             messengerElement.appendChild(messengerImgElement);
@@ -168,6 +179,7 @@ function populateAllContacts(contacts) {
         if(contact.contact_discord != "") {
             messengerElement = document.createElement('a');
             messengerElement.setAttribute('href', 'https://discordapp.com/users/' + contact.contact_discord);
+            messengerElement.setAttribute('target', '_blank');
             messengerImgElement = document.createElement('img');
                 messengerImgElement.setAttribute('src', '../assets/discord.svg');
             messengerElement.appendChild(messengerImgElement);
@@ -194,4 +206,19 @@ function populateAllContacts(contacts) {
 
 function deleteUser(id) {
     console.log(id);
+    $.ajax({
+        type: 'POST',
+        url: 'deleteContactById',
+        data: {
+          'id': id
+        },
+        success: function(entry) {
+            elementsToDelete = document.getElementsByClassName(id.toString());
+            var arr = Array.prototype.slice.call( elementsToDelete )
+            console.log(arr);
+            arr.forEach(function(element) {
+                element.remove();
+            });
+        }
+    });
 }
