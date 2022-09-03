@@ -57,7 +57,7 @@
                         <form action="addKanbanStory" method="post" class="kanban__create__story__form bg-light">
                             <div class="form-group">
                                 <label for="title">Story Title</label>
-                                <input type="text" name="title" class="form-control" required>
+                                <input type="text" name="title" class="form-control" required maxlength="99">
                             </div>
                             <div class="form-group">
                                 <label for="status">Story Status</label>
@@ -88,7 +88,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="desc">Description</label>
-                                <textarea name="desc" id="desc" cols="5" rows="3" class="form-control"></textarea>
+                                <textarea name="desc" id="desc" cols="5" rows="3" class="form-control" maxlength="4000000000"></textarea>
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-primary">Create Story</button>
@@ -111,7 +111,7 @@
                             </div>
                             <div class="form-group">
                                 <label id="updateStoryTitle" for="title">Story Title</label>
-                                <input type="text" name="title" class="form-control" id="updateTitle" required>
+                                <input type="text" name="title" class="form-control" id="updateTitle" required maxlength="99">
                             </div>
                             <div class="form-group">
                                 <label for="status">Story Status</label>
@@ -142,7 +142,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="desc">Description</label>
-                                <textarea name="desc" id="updateDesc" cols="5" rows="3" class="form-control"></textarea>
+                                <textarea name="desc" id="updateDesc" cols="5" rows="3" class="form-control" maxlength="4000000000"></textarea>
                             </div>
                             <div id="updateButtons">
                                 <button type="submit" class="btn btn-primary">Update</button>
