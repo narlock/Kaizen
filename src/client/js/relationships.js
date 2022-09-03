@@ -28,3 +28,7 @@ function showTime(){
 }
 
 showTime();
+
+window.onload = function() {
+}
+

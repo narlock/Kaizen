@@ -8,6 +8,7 @@
 const express = require('express');           //for server
 var bodyparser = require('body-parser');      //helps in extracting body
 const url = require('url');                   //for splitting web addrs
+const querystring = require('querystring');
 
 /**
  * Connecting to OSLA database
@@ -713,6 +714,43 @@ app.post('/updateJournalEntry', function(req, res) {
     });
 });
 
+/* =========== HEALTH RELATED METHODS =========== */
+
+/* =========== RELATIONSHIP RELATED METHODS =========== */
+
+app.post('/createUpdateRelationship', function(req, res) {
+    //If an id exists, then we know we are updating
+    if(req.body.id) {
+        //Update
+        console.log("updating");
+    } else {
+        //Creating
+        console.log("creating");
+    }
+    res.redirect(302, '/relationships');
+});
+
+app.post('/getContact', function(req, res) {
+    //req.body.contactName is contact name
+    sql = `
+        SELECT * FROM relationships WHERE contact_name=\"${req.body.contactName}\"
+    `
+    dbCon.query(sql, function(err, contacts) {
+        if(err) {
+            console.error("[OSLA/SERVER] getContact FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] getContact SUCCESS");
+        res.send(contacts[0]);
+    });
+});
+
+/* =========== HTML PAGE RELATED METHODS =========== */
+
+//Create Form for Relationship - createForm.html
+app.get('/contactForm', function(req, res) {
+    res.sendFile(__dirname + '/client/contactForm.html');
+});
 
 //All Habits page - habits.html
 app.get('/allHabits',function(req, res) {
