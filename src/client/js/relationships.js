@@ -205,20 +205,22 @@ function populateAllContacts(contacts) {
 }
 
 function deleteUser(id) {
-    console.log(id);
-    $.ajax({
-        type: 'POST',
-        url: 'deleteContactById',
-        data: {
-          'id': id
-        },
-        success: function(entry) {
-            elementsToDelete = document.getElementsByClassName(id.toString());
-            var arr = Array.prototype.slice.call( elementsToDelete )
-            console.log(arr);
-            arr.forEach(function(element) {
-                element.remove();
-            });
-        }
-    });
+    if (confirm("Are you sure you would like to delete this contact?") == true) {
+        $.ajax({
+            type: 'POST',
+            url: 'deleteContactById',
+            data: {
+              'id': id
+            },
+            success: function(entry) {
+                elementsToDelete = document.getElementsByClassName(id.toString());
+                var arr = Array.prototype.slice.call( elementsToDelete )
+                console.log(arr);
+                arr.forEach(function(element) {
+                    element.remove();
+                });
+            }
+        });
+    }
+    
 }

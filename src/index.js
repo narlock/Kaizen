@@ -755,7 +755,6 @@ app.get('/getContactsUpcomingBirthday', function(req, res) {
 
             diffTime = (Date.parse(contactBirthdayCompare) - Date.parse(futureDateCompare));
             diffDays = (diffTime / (1000 * 60 * 60 * 24)); 
-            console.log(diffDays);
 
             if(diffDays >= -30 && diffDays <= 0) {
                 //Contact is in date range to be on upcoming birthdays
