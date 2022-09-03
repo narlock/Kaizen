@@ -182,6 +182,9 @@ app.post('/addKanbanStory', function(req, res) {
     var storyPriority = getStoryPriorityFromBody(req.body.priority);
     var date_format = new Date();
     var current_date = date_format.getFullYear() + "-" + date_format.getMonth() + "-" + date_format.getDate(); //yyyy-mm-dd
+    kanbanTitle = addEscapeCharacters(req.body.title);
+    kanbanDesc = addEscapeCharacters(req.body.desc);
+
     const sql = `
         INSERT INTO kanban (
             story_status,
@@ -193,10 +196,10 @@ app.post('/addKanbanStory', function(req, res) {
         )
         VALUES (
             \"${req.body.status}\",
-            \"${req.body.title}\",
+            \"${kanbanTitle}\",
             ${storyPriority},
             ${req.body.points},
-            \"${req.body.desc}\",
+            \"${kanbanDesc}\",
             \"${current_date}\"
         )
     `
@@ -249,14 +252,16 @@ app.post('/updateKanbanStory', function(req, res) {
  */
  app.post('/updateKanbanStoryInfo', function(req, res) {
     var storyPriority = getStoryPriorityFromBody(req.body.priority);
+    kanbanTitle = addEscapeCharacters(req.body.title);
+    kanbanDesc = addEscapeCharacters(req.body.desc);
     const sql = `
         UPDATE  kanban
         SET
                 story_status=\"${req.body.status}\",
-                story_title=\"${req.body.title}\",
+                story_title=\"${kanbanTitle}\",
                 story_priority=${storyPriority},
                 story_points=${req.body.points},
-                story_desc=\"${req.body.desc}\"
+                story_desc=\"${kanbanDesc}\"
         WHERE   story_id=${req.body.id}
     `;
     console.log(sql);
@@ -390,6 +395,8 @@ app.post('/habitById', function(req, res) {
     if(bodyToString.includes("sunday")) { occurrence = occurrence.concat("u"); }
     if(occurrence == "") { occurrence = "mtwhfsu"; } //If none are selected, default to everyday
 
+    habitTitle = addEscapeCharacters(req.body.title);
+
     //Gets new date
     var date_format = new Date();
     var current_date = date_format.getFullYear() + "-" + date_format.getMonth() + "-" + date_format.getDate(); //yyyy-mm-dd
@@ -405,7 +412,7 @@ app.post('/habitById', function(req, res) {
             habit_date
         )
         VALUES (
-            \"${req.body.title}\",
+            \"${habitTitle}\",
             0,
             \"${occurrence}\",
             0,
@@ -440,10 +447,12 @@ app.post('/habitById', function(req, res) {
     if(bodyToString.includes("sunday")) { occurrence = occurrence.concat("u"); }
     if(occurrence == "") { occurrence = "mtwhfsu"; } //If none are selected, default to everyday
 
+    habitTitle = addEscapeCharacters(req.body.title);
+
     const sql = `
             UPDATE  habits
             SET
-                    habit_title=\"${req.body.title}\",
+                    habit_title=\"${habitTitle}\",
                     habit_streak=${req.body.streak},
                     habit_occurrence=\"${occurrence}\",
                     habit_status=${req.body.status}
@@ -668,10 +677,10 @@ app.post('/updateJournalEntry', function(req, res) {
                 INSERT INTO journal
                 SET     entry_date=\"${req.body.date}\",
                         entry_how_was_day=\"${req.body.howWasDay}\",
-                        entry_events=\"${req.body.eventsOfDay}\",
-                        entry_stresses=\"${req.body.stresses}\",
-                        entry_gratefulness=\"${req.body.gratefulness}\",
-                        entry_goals=\"${req.body.goals}\"
+                        entry_events=\"${addEscapeCharacters(req.body.eventsOfDay)}\",
+                        entry_stresses=\"${addEscapeCharacters(req.body.stresses)}\",
+                        entry_gratefulness=\"${addEscapeCharacters(req.body.gratefulness)}\",
+                        entry_goals=\"${addEscapeCharacters(req.body.goals)}\"
             `
             dbCon.query(insertSql, function(err, result) {
                 if(err) {
@@ -686,10 +695,10 @@ app.post('/updateJournalEntry', function(req, res) {
             updateSql = `
                 UPDATE journal
                 SET entry_how_was_day=\"${req.body.howWasDay}\",
-                    entry_events=\"${req.body.eventsOfDay}\",
-                    entry_stresses=\"${req.body.stresses}\",
-                    entry_gratefulness=\"${req.body.gratefulness}\",
-                    entry_goals=\"${req.body.goals}\"
+                    entry_events=\"${addEscapeCharacters(req.body.eventsOfDay)}\",
+                    entry_stresses=\"${addEscapeCharacters(req.body.stresses)}\",
+                    entry_gratefulness=\"${addEscapeCharacters(req.body.gratefulness)}\",
+                    entry_goals=\"${addEscapeCharacters(req.body.goals)}\"
                 WHERE entry_date=\"${req.body.date}\"
             `
             dbCon.query(updateSql, function(err, result) {
@@ -734,3 +743,14 @@ app.get('/relationships',function(req, res) {
 app.get('*', function(req, res) {
     res.sendFile(__dirname + '/client/index.html');
 });
+
+/* =========== SERVER-SIDE HELPER METHODS =========== */
+
+/**
+ * addEscapeCharacter
+ * @param {} str 
+ * @returns str with escape sequence characters
+ */
+function addEscapeCharacters( str ) {
+    return (str + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+}
