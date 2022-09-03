@@ -30,14 +30,89 @@ function showTime(){
 showTime();
 
 window.onload = function() {
-    // getUpcomingBirthdayContacts();
+    getUpcomingBirthdayContacts();
     getAllContacts();
+}
+
+function getUpcomingBirthdayContacts() {
+    xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            populateBirthdayContacts(JSON.parse(this.responseText));
+        }
+    };
+    xmlhttp.open("GET", "getContactsUpcomingBirthday", true);
+    xmlhttp.send();
+}
+
+function populateBirthdayContacts(contacts) {
+    console.log(contacts);
+    tableBody = document.getElementById('birthdayContactsBody');
+
+    contacts.forEach(function(contact) {
+        tableRow = document.createElement('tr');
+
+        nameElement = document.createElement('td');
+            nameElement.textContent = contact.contact_name;
+        tableRow.appendChild(nameElement);
+
+        daysUntilElement = document.createElement('td');
+        daysUntilBirthday = Math.abs(contact.diffDays - 30);
+        if(daysUntilBirthday == 0) {
+            //Birthday is today!
+            daysUntilElement.textContent = "Today!";
+        } else {
+            //Birthday is in x days
+            daysUntilElement.textContent = "In " + daysUntilBirthday + " days.";
+        }
+        tableRow.appendChild(daysUntilElement);
+
+        birthday = new Date(contact.contact_birthday);
+        birthdayString = birthday.getFullYear() + "-" + (birthday.getMonth()+1) + "-" + birthday.getDate(); //yyyy-mm-dd
+        birthdayElement = document.createElement('td');
+            birthdayElement.textContent = birthdayString;
+        tableRow.appendChild(birthdayElement);
+
+        contactElement = document.createElement('td');
+        //If the user has facebook, add messenger link
+        if(contact.contact_fb != "") {
+            messengerElement = document.createElement('a');
+            messengerElement.setAttribute('href', 'https://m.me/' + contact.contact_fb);
+            messengerImgElement = document.createElement('img');
+                messengerImgElement.setAttribute('src', '../assets/fb.png');
+            messengerElement.appendChild(messengerImgElement);
+            contactElement.appendChild(messengerElement);
+        }
+
+        //If the user has whatsapp, add whatsapp link
+        if(contact.contact_whatsapp != "") {
+            messengerElement = document.createElement('a');
+            messengerElement.setAttribute('href', 'https://wa.me/' + contact.contact_whatsapp);
+            messengerImgElement = document.createElement('img');
+                messengerImgElement.setAttribute('src', '../assets/whatsapp.png');
+            messengerElement.appendChild(messengerImgElement);
+            contactElement.appendChild(messengerElement);
+        }
+
+        //If the user has discord, add discord user link
+        if(contact.contact_discord != "") {
+            messengerElement = document.createElement('a');
+            messengerElement.setAttribute('href', 'https://discordapp.com/users/' + contact.contact_discord);
+            messengerImgElement = document.createElement('img');
+                messengerImgElement.setAttribute('src', '../assets/discord.svg');
+            messengerElement.appendChild(messengerImgElement);
+            contactElement.appendChild(messengerElement);
+        }
+        tableRow.appendChild(contactElement);
+
+        tableBody.appendChild(tableRow);
+    });
 }
 
 function getAllContacts() {
     xmlhttp = new XMLHttpRequest();
 
-    //Populate backlog stories
     xmlhttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
             populateAllContacts(JSON.parse(this.responseText));

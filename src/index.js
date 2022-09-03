@@ -741,6 +741,29 @@ app.get('/getContactsUpcomingBirthday', function(req, res) {
         //add contacts to the list that have upcoming birthday
         //(within 30 days of current day)
         contactsWithUpcomingBirthday = [];
+
+        futureDate = new Date();
+        futureDate.setDate(futureDate.getDate() + 30);
+        futureDateFormatted = futureDate.getFullYear() + "-" + (futureDate.getMonth()+1) + "-" + futureDate.getDate(); //yyyy-mm-dd
+        futureDateCompare = new Date(futureDateFormatted);
+
+        contacts.forEach(function(contact) {
+            contactBirthday = new Date(contact.contact_birthday);
+            contactBirthday.setFullYear(futureDate.getFullYear());
+            contactBirthdayFormatted = contactBirthday.getFullYear() + "-" + (contactBirthday.getMonth()+1) + "-" + contactBirthday.getDate(); //yyyy-mm-dd
+            contactBirthdayCompare = new Date(contactBirthdayFormatted);
+
+            diffTime = (Date.parse(contactBirthdayCompare) - Date.parse(futureDateCompare));
+            diffDays = (diffTime / (1000 * 60 * 60 * 24)); 
+            console.log(diffDays);
+
+            if(diffDays >= -30 && diffDays <= 0) {
+                //Contact is in date range to be on upcoming birthdays
+                contact['diffDays'] = Math.abs(diffDays);
+                contactsWithUpcomingBirthday.push(contact);
+            }
+        });
+
         res.send(contactsWithUpcomingBirthday);
     });
 });
