@@ -45,7 +45,7 @@
                         <input type="text" name="id" id="contactId" class="form-control hidden">
                         <div class="form-group">
                             <label for="title">Contact Name</label>
-                            <input type="text" name="title" id="contactName" class="form-control" required maxlength="50">
+                            <input type="text" name="name" id="contactName" class="form-control" required maxlength="50">
                         </div>
                         <div class="form-group">
                             <label for="birthday">Contact Birthday</label>
@@ -70,6 +70,10 @@
                         <div class="form-group">
                             <label for="email">Contact Email</label>
                             <input type="email" name="email" id="contactEmail" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="note">Contact Note</label>
+                            <textarea name="note" id="contactNote" cols="10" rows="5" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary" id="submitButton">Create Contact</button>

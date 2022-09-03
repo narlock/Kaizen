@@ -718,15 +718,91 @@ app.post('/updateJournalEntry', function(req, res) {
 
 /* =========== RELATIONSHIP RELATED METHODS =========== */
 
+app.get('/getAllContacts', function(req, res) {
+    sql = `SELECT * FROM relationships`;
+    dbCon.query(sql, function(err, contacts) {
+        if(err) {
+            console.error("[OSLA/SERVER] getAllContacts FAILURE");
+            throw err;
+        }
+        res.send(contacts);
+    });
+});
+
+app.get('/getContactsUpcomingBirthday', function(req, res) {
+    sql = `SELECT * FROM relationships`;
+    dbCon.query(sql, function(err, contacts) {
+        if(err) {
+            console.error("[OSLA/SERVER] getAllContacts FAILURE");
+            throw err;
+        }
+        //Now contacts is an object with all of the users
+        //create new array, iterate through each contact,
+        //add contacts to the list that have upcoming birthday
+        //(within 30 days of current day)
+        contactsWithUpcomingBirthday = [];
+        res.send(contactsWithUpcomingBirthday);
+    });
+});
+
 app.post('/createUpdateRelationship', function(req, res) {
     //If an id exists, then we know we are updating
     if(req.body.id) {
         //Update
-        console.log("updating");
+        sql = `
+            UPDATE relationships
+            SET contact_name=\"${addEscapeCharacters(req.body.name)}\",
+                contact_birthday=\"${req.body.birthday}\",
+                contact_phone=\"${req.body.phone}\",
+                contact_email=\"${req.body.email}\",
+                contact_fb=\"${req.body.messenger}\",
+                contact_whatsapp=\"${req.body.whatsapp}\",
+                contact_discord=\"${req.body.discord}\",
+                contact_note=\"${addEscapeCharacters(req.body.note)}\"
+            WHERE contact_id=${req.body.id}
+        `;
+        dbCon.query(sql, function(err, result) {
+            if(err) {
+                console.error("[OSLA/SERVER] createUpdateRelationship FAILURE");
+                throw err;
+            }
+        });
     } else {
         //Creating
-        console.log("creating");
+        selectSql = `
+            SELECT * FROM relationships WHERE contact_name=\"${req.body.name}\"
+        `
+        sql = `
+            INSERT INTO relationships
+            SET contact_name=\"${addEscapeCharacters(req.body.name)}\",
+                contact_birthday=\"${req.body.birthday}\",
+                contact_phone=\"${req.body.phone}\",
+                contact_email=\"${req.body.email}\",
+                contact_fb=\"${req.body.messenger}\",
+                contact_whatsapp=\"${req.body.whatsapp}\",
+                contact_discord=\"${req.body.discord}\",
+                contact_note=\"${addEscapeCharacters(req.body.note)}\"
+        `;
+        //Check if a user already exists with the username, if it does, then return errorMessage
+        dbCon.query(selectSql, function(err, contact) {
+            if(err) {
+                console.error("[OSLA/SERVER] createUpdateRelationship FAILURE");
+                throw err;
+            }
+            if(contact.length == 0) {
+                console.log("here");
+                dbCon.query(sql, function(err, result) {
+                    if(err) {
+                        console.error("[OSLA/SERVER] createUpdateRelationship FAILURE");
+                        throw err;
+                    }
+                });
+            } else {
+                console.error("[OSLA/SERVER] Contact was not added since they already exist.");
+            }
+        });
     }
+    console.error("[OSLA/SERVER] createUpdateRelationship SUCCESS");
     res.redirect(302, '/relationships');
 });
 

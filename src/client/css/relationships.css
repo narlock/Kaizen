@@ -69,3 +69,12 @@
 .error {
     color: red;
 }
+
+textarea {
+    resize: none;
+}
+
+img {
+    width: 30px;
+    height: auto;
+}

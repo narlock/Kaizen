@@ -30,5 +30,93 @@ function showTime(){
 showTime();
 
 window.onload = function() {
+    // getUpcomingBirthdayContacts();
+    getAllContacts();
 }
 
+function getAllContacts() {
+    xmlhttp = new XMLHttpRequest();
+
+    //Populate backlog stories
+    xmlhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            populateAllContacts(JSON.parse(this.responseText));
+        }
+    };
+    xmlhttp.open("GET", "getAllContacts", true);
+    xmlhttp.send();
+}
+
+function populateAllContacts(contacts) {
+    console.log(contacts);
+    tableBody = document.getElementById('allContactsBody');
+
+    contacts.forEach(function(contact) {
+        tableRow = document.createElement('tr');
+
+        nameElement = document.createElement('td');
+            nameElement.textContent = contact.contact_name;
+        tableRow.appendChild(nameElement);
+
+        birthday = new Date(contact.contact_birthday);
+        birthdayString = birthday.getFullYear() + "-" + (birthday.getMonth()+1) + "-" + birthday.getDate(); //yyyy-mm-dd
+        birthdayElement = document.createElement('td');
+            birthdayElement.textContent = birthdayString;
+        tableRow.appendChild(birthdayElement);
+
+        phoneElement = document.createElement('td');
+            phoneElement.textContent = contact.contact_phone;
+        tableRow.appendChild(phoneElement);
+        
+        contactElement = document.createElement('td');
+        //If the user has facebook, add messenger link
+        if(contact.contact_fb != "") {
+            messengerElement = document.createElement('a');
+            messengerElement.setAttribute('href', 'https://m.me/' + contact.contact_fb);
+            messengerImgElement = document.createElement('img');
+                messengerImgElement.setAttribute('src', '../assets/fb.png');
+            messengerElement.appendChild(messengerImgElement);
+            contactElement.appendChild(messengerElement);
+        }
+
+        //If the user has whatsapp, add whatsapp link
+        if(contact.contact_whatsapp != "") {
+            messengerElement = document.createElement('a');
+            messengerElement.setAttribute('href', 'https://wa.me/' + contact.contact_whatsapp);
+            messengerImgElement = document.createElement('img');
+                messengerImgElement.setAttribute('src', '../assets/whatsapp.png');
+            messengerElement.appendChild(messengerImgElement);
+            contactElement.appendChild(messengerElement);
+        }
+
+        //If the user has discord, add discord user link
+        if(contact.contact_discord != "") {
+            messengerElement = document.createElement('a');
+            messengerElement.setAttribute('href', 'https://discordapp.com/users/' + contact.contact_discord);
+            messengerImgElement = document.createElement('img');
+                messengerImgElement.setAttribute('src', '../assets/discord.svg');
+            messengerElement.appendChild(messengerImgElement);
+            contactElement.appendChild(messengerElement);
+        }
+        tableRow.appendChild(contactElement);
+
+        noteElement = document.createElement('td');
+            noteElement.textContent = contact.contact_note;
+        tableRow.appendChild(noteElement);
+
+        optionsElement = document.createElement('td');
+            optionsDeleteButton = document.createElement('button');
+            optionsDeleteButton.classList.add('btn');
+            optionsDeleteButton.classList.add('btn-danger');
+            optionsDeleteButton.textContent = "Delete";
+            optionsDeleteButton.setAttribute('onclick', 'deleteUser(' + contact.contact_id + ')');
+        optionsElement.appendChild(optionsDeleteButton);
+        tableRow.appendChild(optionsElement);
+
+        tableBody.appendChild(tableRow);
+    });
+}
+
+function deleteUser(id) {
+    console.log(id);
+}

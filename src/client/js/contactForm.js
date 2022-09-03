@@ -58,12 +58,13 @@ function setFormInputValues(contact) {
 
         //POPULATES WITH BLANK
         document.getElementById('contactName').value = "";
-        //For birthday, this will require some manipulation
+        document.getElementById('contactBirthday').value = "";
         document.getElementById('contactPhone').value = "";
         document.getElementById('contactMessenger').value = "";
         document.getElementById('contactWhatsapp').value = "";
         document.getElementById('contactDiscord').value = "";
         document.getElementById('contactEmail').value = "";
+        document.getElementById('contactNote').value = "";
     } 
     //If contact was found, then create contact with given information
     else {
@@ -75,13 +76,18 @@ function setFormInputValues(contact) {
 
         //POPULATES WITH CONTACT FIELD
         document.getElementById('contactName').value = contact.contact_name;
+
+        birthdayDate = new Date(contact.contact_birthday);
+        birthdayDateString = birthdayDate.getFullYear() + "-" + (birthdayDate.getMonth()+1) + "-" + birthdayDate.getDate(); //yyyy-mm-dd
+        setDate = birthdayDateString.replace(/(^|\D)(\d)(?!\d)/g, '$10$2');
+        document.getElementById('contactBirthday').value = setDate;
+
         //For birthday, this will require some manipulation
         document.getElementById('contactPhone').value = contact.contact_phone;
         document.getElementById('contactMessenger').value = contact.contact_fb;
         document.getElementById('contactWhatsapp').value = contact.contact_whatsapp;
         document.getElementById('contactDiscord').value = contact.contact_discord;
         document.getElementById('contactEmail').value = contact.contact_email;
+        document.getElementById('contactNote').value = contact.contact_note;
     }
-
-    
 }
