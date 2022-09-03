@@ -47,13 +47,38 @@
 #myBar {
     width: 30px;
     height: 30px;
-    background-color: #04AA6D;
     text-align: center; /* To center it horizontally (if you want) */
     line-height: 30px; /* To center it vertically */
     color: white;
 }
 
+.waterColor {
+    background-color: blue;
+}
+
+.calorieColor {
+    background-color: orange;
+}
+
+.sleepColor {
+    background-color: green;
+}
+
 #myProgress {
     border: 2px solid;
     width: 300px;
+}
+
+.add__menu {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.units__label {
+    margin-right: 1rem;
+}
+
+.goal__complete {
+    color: green;
+    display: none;
 }

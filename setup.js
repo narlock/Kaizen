@@ -132,6 +132,54 @@ dbCon.connect(function (err) {
         console.log("[OSLA/Setup] Creation of Health Goals MySQL Table SUCCESS");
     });
 
+    console.log("Creating Water Goal");
+    sql = `
+        INSERT INTO hgoals
+        SET     goal_title = \"Water Goal\",
+                goal_type = \"water\",
+                goal_units_to_complete = 80,
+                goal_units = \"oz\"
+    `;
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.log("[OSLA/Setup] Creation of Health Goals MySQL Table FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/Setup] Creation of Health Goals MySQL Table SUCCESS");
+    });
+
+    console.log("Creating Calories Goal");
+    sql = `
+        INSERT INTO hgoals
+        SET     goal_title = \"Calories Goal\",
+                goal_type = \"calories\",
+                goal_units_to_complete = 2000,
+                goal_units = \"kcal\"
+    `;
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.log("[OSLA/Setup] Creation of Health Goals MySQL Table FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/Setup] Creation of Health Goals MySQL Table SUCCESS");
+    });
+
+    console.log("Creating Sleep Goal");
+    sql = `
+        INSERT INTO hgoals
+        SET     goal_title = \"Sleep Goal\",
+                goal_type = \"sleep\",
+                goal_units_to_complete = 8,
+                goal_units = \"hours\"
+    `;
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.log("[OSLA/Setup] Creation of Health Goals MySQL Table FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/Setup] Creation of Health Goals MySQL Table SUCCESS");
+    });
+
     console.log("[OSLA/Setup] Creating Journal Entry MySQL Table...");
     sql = `
         CREATE TABLE journal (

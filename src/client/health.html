@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health • OpenLife</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/health.css">
 </head>
@@ -27,6 +28,9 @@
             <li class="nav-item text-muted"><a href="https://github.com/narlock/OpenLife" target="_blank">OpenLife</a> • <a href="http://narlock.dev" target="_blank">narlock.dev</a></li>
         </ul>
     </nav>
+    <div class="container text-center">
+        <h3 id="todayDate"></h3>
+    </div>
     <table id="healthTable" class="stable table-bordered">
         <thead class="bg-light">
             <tr class="text-center">
@@ -39,28 +43,69 @@
             <tr>
                 <td>
                     <!-- Water goal -->
-                    <!-- <img src="assets/good.png" alt=""> -->
+                    <div id="waterGoalComplete" class="text-center goal__complete">
+                        <strong>Goal Completed!</strong>
+                    </div>
                     <div id="myProgress">
-                        <div id="myBar">10%</div>
+                        <div id="myBar" class="waterColor">10%</div>
+                    </div>
+                    <div id="waterTextProgress" class="text-center">
+                        <span><strong id="todayEntryWater">40 oz</strong> / <strong id="goalWater">80 oz</strong></span>
+                    </div>
+                    <div id="addWaterDiv" class="text-center add__menu">
+                        <input type="text" placeholder="# (e.g. 8)" style="width: 80px">
+                        <strong class="units__label">oz</strong>
+                        <button class="btn btn-primary">Add</button>
+                    </div>
+                    <div id="waterAverageDiv" class="text-center">
+                        <strong id="waterAverage">Average: 75 oz</strong>
                     </div>
                 </td>
                 <td>
                     <!-- Calorie goal -->
-                    <div id="myProgress">
-                        <div id="myBar">10%</div>
+                    <div id="calorieGoalComplete" class="text-center goal__complete">
+                        <strong>Goal Completed!</strong>
+                    </div>
+                    <div id="myProgress" >
+                        <div id="myBar" class="calorieColor">10%</div>
+                    </div>
+                    <div id="calorieTextProgress" class="text-center">
+                        <span><strong id="todayEntryCalorie">40 oz</strong> / <strong id="goalCalorie">80 oz</strong></span>
+                    </div>
+                    <div id="addCalorieDiv" class="text-center add__menu">
+                        <input type="text" placeholder="# (e.g. 400)" style="width: 80px">
+                        <strong class="units__label">kcal</strong>
+                        <button class="btn btn-primary">Add</button>
+                    </div>
+                    <div id="calorieAverageDiv" class="text-center">
+                        <strong id="waterAverage">Average: 2900 kcal</strong>
                     </div>
                 </td>
                 <td>
                     <!-- Sleep goal -->
+                    <div id="sleepGoalComplete" class="text-center goal__complete">
+                        <strong>Goal Completed!</strong>
+                    </div>
                     <div id="myProgress">
-                        <div id="myBar">10%</div>
+                        <div id="myBar" class="sleepColor">10%</div>
+                    </div>
+                    <div id="calorieTextProgress" class="text-center">
+                        <span><strong id="todayEntrySleep">40 oz</strong> / <strong id="goalSleep">80 oz</strong></span>
+                    </div>
+                    <div id="addSleepDiv" class="text-center add__menu">
+                        <input type="text" placeholder="# (e.g. 8)" style="width: 80px">
+                        <strong class="units__label">hours</strong>
+                        <button class="btn btn-primary">Add</button>
+                    </div>
+                    <div id="sleepAverageDiv" class="text-center">
+                        <strong id="waterAverage">Average: 7.6 hours</strong>
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
     <div id="buttonMenu" class="button__menu">
-        <a href="/modifyHealthGoals" class="btn btn-success">Modify Health Goals</a>a
+        <a href="/heathGoals" class="btn btn-success">Modify Health Goals</a>
         <button onclick="move(45, 60)">test</button>
     </div>
     <script src="js/health.js"></script>

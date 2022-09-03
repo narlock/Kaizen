@@ -716,6 +716,214 @@ app.post('/updateJournalEntry', function(req, res) {
 
 /* =========== HEALTH RELATED METHODS =========== */
 
+app.get('/getHealthWaterGoal', function(req, res) {
+    sql = `
+        SELECT * FROM hgoals WHERE goal_type=\"water\"
+    `
+    dbCon.query(sql, function(err, goal) {
+        if(err) {
+            console.error("[OSLA/SERVER] getHealthWaterGoal FAILURE");
+            throw err;
+        }
+        console.error("[OSLA/SERVER] getHealthWaterGoal SUCCESS");
+        console.log(goal[0]);
+        res.send(goal[0]);
+    });
+});
+
+app.get('/getHealthCalorieGoal', function(req, res) {
+    sql = `
+        SELECT * FROM hgoals WHERE goal_type=\"calorie\"
+    `
+    dbCon.query(sql, function(err, goal) {
+        if(err) {
+            console.error("[OSLA/SERVER] getHealthCalorieGoal FAILURE");
+            throw err;
+        }
+        console.error("[OSLA/SERVER] getHealthCalorieGoal SUCCESS");
+        res.send(goal[0]);
+    });
+});
+
+app.get('/getHealthSleepGoal', function(req, res) {
+    sql = `
+        SELECT * FROM hgoals WHERE goal_type=\"sleep\"
+    `
+    dbCon.query(sql, function(err, goal) {
+        if(err) {
+            console.error("[OSLA/SERVER] getHealthSleepGoal FAILURE");
+            throw err;
+        }
+        console.error("[OSLA/SERVER] getHealthSleepGoal SUCCESS");
+        res.send(goal[0]);
+    });
+});
+
+app.get('/getHealthWaterEntries', function(req, res) {
+    sql = `
+        SELECT * FROM hentry WHERE entry_type=\"water\"
+    `
+    dbCon.query(sql, function(err, entries) {
+        if(err) {
+            console.error("[OSLA/SERVER] getHealthWaterEntries FAILURE");
+            throw err;
+        }
+        console.error("[OSLA/SERVER] getHealthWaterEntries SUCCESS");
+        res.send(entries);
+    });
+});
+
+app.get('/getHealthCalorieEntries', function(req, res) {
+    sql = `
+        SELECT * FROM hentry WHERE entry_type=\"calorie\"
+    `
+    dbCon.query(sql, function(err, entries) {
+        if(err) {
+            console.error("[OSLA/SERVER] getHealthCalorieEntries FAILURE");
+            throw err;
+        }
+        console.error("[OSLA/SERVER] getHealthCalorieEntries SUCCESS");
+        res.send(entries);
+    });
+});
+
+app.get('/getHealthSleepEntries', function(req, res) {
+    sql = `
+        SELECT * FROM hentry WHERE entry_type=\"sleep\"
+    `
+    dbCon.query(sql, function(err, entries) {
+        if(err) {
+            console.error("[OSLA/SERVER] getHealthSleepGoal FAILURE");
+            throw err;
+        }
+        console.error("[OSLA/SERVER] getHealthSleepGoal SUCCESS");
+        res.send(entries);
+    });
+});
+
+app.post('/getTodayHealthEntryWater', function(req, res) {
+    sql = `
+        SELECT * FROM hentry WHERE entry_date=\"${req.body.date}\" AND entry_type=\"water\"
+    `
+    dbCon.query(sql, function(err, entry) {
+        if(err) {
+            console.error("[OSLA/SERVER] getTodayHealthEntry FAILURE");
+            throw err;
+        }
+        if(entry.length == 0) {
+            console.log("[OSLA/SERVER] Creating new Health entry...");
+            //If the entry doesn't exist, create one and return it
+            createSql = `
+                INSERT INTO hentry
+                SET     entry_type=\"water\",
+                        entry_date=\"${req.body.date}\",
+                        entry_units_completed=0
+            `
+            dbCon.query(createSql, function(err, newEntry) {
+                if(err) {
+                    console.error("[OSLA/SERVER] getTodayHealthEntryWater:createSql FAILURE");
+                    throw err;
+                }
+                console.log("[OSLA/SERVER] getTodayHealthEntryWater:createSql SUCCESS");
+                dbCon.query(sql, function(err, theEntry) {
+                    if(err) {
+                        console.error("[OSLA/SERVER] getTodayHealthEntryWater:create/select FAILURE");
+                        throw err;
+                    }
+                    res.send(theEntry[0]);
+                });
+            });
+        } else {
+            console.log("[OSLA/SERVER] Sending Found Health entry...");
+            //Select todays entry and return
+            console.log("[OSLA/SERVER] getTodayHealthEntryWater SUCCESS");
+            res.send(entry[0]);
+        }
+    });
+});
+
+app.post('/getTodayHealthEntryCalorie', function(req, res) {
+    sql = `
+        SELECT * FROM hentry WHERE entry_date=\"${req.body.date}\" AND entry_type=\"calorie\"
+    `
+    dbCon.query(sql, function(err, entry) {
+        if(err) {
+            console.error("[OSLA/SERVER] getTodayHealthEntry FAILURE");
+            throw err;
+        }
+        if(entry.length == 0) {
+            console.log("[OSLA/SERVER] Creating new Health entry...");
+            //If the entry doesn't exist, create one and return it
+            createSql = `
+                INSERT INTO hentry
+                SET     entry_type=\"calorie\",
+                        entry_date=\"${req.body.date}\",
+                        entry_units_completed=0
+            `
+            dbCon.query(createSql, function(err, newEntry) {
+                if(err) {
+                    console.error("[OSLA/SERVER] getTodayHealthEntryCalorie:createSql FAILURE");
+                    throw err;
+                }
+                console.log("[OSLA/SERVER] getTodayHealthEntryCalorie:createSql SUCCESS");
+                dbCon.query(sql, function(err, theEntry) {
+                    if(err) {
+                        console.error("[OSLA/SERVER] getTodayHealthEntryCalorie:create/select FAILURE");
+                        throw err;
+                    }
+                    res.send(theEntry[0]);
+                });
+            });
+        } else {
+            console.log("[OSLA/SERVER] Sending Found Health entry...");
+            //Select todays entry and return
+            console.log("[OSLA/SERVER] getTodayHealthEntryCalorie SUCCESS");
+            res.send(entry[0]);
+        }
+    });
+});
+
+app.post('/getTodayHealthEntrySleep', function(req, res) {
+    sql = `
+        SELECT * FROM hentry WHERE entry_date=\"${req.body.date}\" AND entry_type=\"sleep\"
+    `
+    dbCon.query(sql, function(err, entry) {
+        if(err) {
+            console.error("[OSLA/SERVER] getTodayHealthEntrySleep FAILURE");
+            throw err;
+        }
+        if(entry.length == 0) {
+            console.log("[OSLA/SERVER] Creating new Health entry...");
+            //If the entry doesn't exist, create one and return it
+            createSql = `
+                INSERT INTO hentry
+                SET     entry_type=\"sleep\",
+                        entry_date=\"${req.body.date}\",
+                        entry_units_completed=0
+            `
+            dbCon.query(createSql, function(err, newEntry) {
+                if(err) {
+                    console.error("[OSLA/SERVER] getTodayHealthEntrySleep:createSql FAILURE");
+                    throw err;
+                }
+                console.log("[OSLA/SERVER] getTodayHealthEntrySleep:createSql SUCCESS");
+                dbCon.query(sql, function(err, theEntry) {
+                    if(err) {
+                        console.error("[OSLA/SERVER] getTodayHealthEntrySleep:create/select FAILURE");
+                        throw err;
+                    }
+                    res.send(theEntry[0]);
+                });
+            });
+        } else {
+            console.log("[OSLA/SERVER] Sending Found Health entry...");
+            //Select todays entry and return
+            console.log("[OSLA/SERVER] getTodayHealthEntrySleep SUCCESS");
+            res.send(entry[0]);
+        }
+    });
+});
+
 /* =========== RELATIONSHIP RELATED METHODS =========== */
 
 app.get('/getAllContacts', function(req, res) {
@@ -858,6 +1066,11 @@ app.post('/deleteContactById', function(req, res) {
 });
 
 /* =========== HTML PAGE RELATED METHODS =========== */
+
+//Health Goals - healthGoals.html
+app.get('/heathGoals', function(req, res) {
+    res.sendFile(__dirname + '/client/healthGoals.html');
+});
 
 //Create Form for Relationship - createForm.html
 app.get('/contactForm', function(req, res) {
