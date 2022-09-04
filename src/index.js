@@ -726,7 +726,6 @@ app.get('/getHealthWaterGoal', function(req, res) {
             throw err;
         }
         console.error("[OSLA/SERVER] getHealthWaterGoal SUCCESS");
-        console.log(goal[0]);
         res.send(goal[0]);
     });
 });
@@ -921,6 +920,57 @@ app.post('/getTodayHealthEntrySleep', function(req, res) {
             console.log("[OSLA/SERVER] getTodayHealthEntrySleep SUCCESS");
             res.send(entry[0]);
         }
+    });
+});
+
+app.post('/updateTodayWaterEntry', function(req, res) {
+    sql = `
+        UPDATE  hentry
+        SET     entry_units_completed=${req.body.entry.entry_units_completed}
+        WHERE   entry_date=\"${req.body.dateString}\"
+        AND     entry_type=\"water\"
+    `
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.error("[OSLA/SERVER] updateTodayWaterEntry FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] updateTodayWaterEntry SUCCESS");
+        res.send(result);
+    });
+});
+
+app.post('/updateTodayCalorieEntry', function(req, res) {
+    sql = `
+        UPDATE  hentry
+        SET     entry_units_completed=${req.body.entry.entry_units_completed}
+        WHERE   entry_date=\"${req.body.dateString}\"
+        AND     entry_type=\"calorie\"
+    `
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.error("[OSLA/SERVER] updateTodayCalorieEntry FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] updateTodayCalorieEntry SUCCESS");
+        res.send(result);
+    });
+});
+
+app.post('/updateTodaySleepEntry', function(req, res) {
+    sql = `
+        UPDATE  hentry
+        SET     entry_units_completed=${req.body.entry.entry_units_completed}
+        WHERE   entry_date=\"${req.body.dateString}\"
+        AND     entry_type=\"sleep\"
+    `
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.error("[OSLA/SERVER] updateTodaySleepEntry FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] updateTodaySleepEntry SUCCESS");
+        res.send(result);
     });
 });
 

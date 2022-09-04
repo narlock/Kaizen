@@ -176,6 +176,25 @@ function setWaterProgressBar() {
      * Then will call Move function based off of
      * the current percentage completed as an integer.
      */
+
+    $.ajax({
+        type: 'GET',
+        url: 'getHealthWaterGoal',
+        success: function(localWaterGoal) {
+            $.ajax({
+                type: 'POST',
+                url: 'getTodayHealthEntryWater',
+                data: {
+                  'date': todaysDateFormatted
+                },
+                success: function(localWaterEntry) {
+                    progressNow = Math.floor((localWaterEntry.entry_units_completed / localWaterGoal.goal_units_to_complete) * 100);
+                    moveWaterProgressBar(0, progressNow);
+                    checkWaterCompletion(localWaterEntry, localWaterGoal);
+                }
+            });
+        }
+    });
 }
 
 function setCalorieProgressBar() {
@@ -184,6 +203,24 @@ function setCalorieProgressBar() {
      * Then will call Move function based off of
      * the current percentage completed as an integer.
      */
+     $.ajax({
+        type: 'GET',
+        url: 'getHealthCalorieGoal',
+        success: function(localGoal) {
+            $.ajax({
+                type: 'POST',
+                url: 'getTodayHealthEntryCalorie',
+                data: {
+                  'date': todaysDateFormatted
+                },
+                success: function(localEntry) {
+                    progressNow = Math.floor((localEntry.entry_units_completed / localGoal.goal_units_to_complete) * 100);
+                    moveCalorieProgressBar(0, progressNow);
+                    checkCalorieCompletion(localEntry, localGoal);
+                }
+            });
+        }
+    });
 }
 
 function setSleepProgressBar() {
@@ -192,6 +229,24 @@ function setSleepProgressBar() {
      * Then will call Move function based off of
      * the current percentage completed as an integer.
      */
+     $.ajax({
+        type: 'GET',
+        url: 'getHealthSleepGoal',
+        success: function(localGoal) {
+            $.ajax({
+                type: 'POST',
+                url: 'getTodayHealthEntrySleep',
+                data: {
+                  'date': todaysDateFormatted
+                },
+                success: function(localEntry) {
+                    progressNow = Math.floor((localEntry.entry_units_completed / localGoal.goal_units_to_complete) * 100);
+                    moveSleepProgressBar(0, progressNow);
+                    checkSleepCompletion(localEntry, localGoal);
+                }
+            });
+        }
+    });
 }
 
 /* =========== ACTION FUNCTIONS =========== */
@@ -226,7 +281,27 @@ function changeWaterEntryNumber(event) {
  * and move the water progress bar.
  */
 function addToWaterEntry(unitsToAdd) {
-    console.log(unitsToAdd);
+    progressBefore = Math.floor((todayWaterEntry.entry_units_completed / waterGoal.goal_units_to_complete) * 100);
+    console.log(progressBefore);
+
+    todayWaterEntry.entry_units_completed += unitsToAdd;
+    $.ajax({
+        type: 'POST',
+        url: 'updateTodayWaterEntry',
+        data: {
+          'entry': todayWaterEntry,
+          'dateString': document.getElementById('todayDate').textContent
+        },
+        success: function(entry) {
+            document.getElementById('todayEntryWater').textContent =
+                todayWaterEntry.entry_units_completed;
+
+            progressAfter = Math.floor((todayWaterEntry.entry_units_completed / waterGoal.goal_units_to_complete) * 100);
+            console.log(progressAfter);
+            moveWaterProgressBar(progressBefore, progressAfter);
+            checkWaterCompletion(todayWaterEntry, waterGoal);
+        }
+    });
 }
 
 /**
@@ -259,7 +334,27 @@ function changeCalorieEntryNumber(event) {
  * and move the calorie progress bar.
  */
 function addToCalorieEntry(unitsToAdd) {
-    console.log(unitsToAdd);
+    progressBefore = Math.floor((todayCalorieEntry.entry_units_completed / calorieGoal.goal_units_to_complete) * 100);
+    console.log(progressBefore);
+
+    todayCalorieEntry.entry_units_completed += unitsToAdd;
+    $.ajax({
+        type: 'POST',
+        url: 'updateTodayCalorieEntry',
+        data: {
+          'entry': todayCalorieEntry,
+          'dateString': document.getElementById('todayDate').textContent
+        },
+        success: function(entry) {
+            document.getElementById('todayEntryCalorie').textContent =
+                todayCalorieEntry.entry_units_completed;
+
+            progressAfter = Math.floor((todayCalorieEntry.entry_units_completed / calorieGoal.goal_units_to_complete) * 100);
+            console.log(progressAfter);
+            moveCalorieProgressBar(progressBefore, progressAfter);
+            checkCalorieCompletion(todayCalorieEntry, calorieGoal);
+        }
+    });
 }
 
 /**
@@ -292,7 +387,45 @@ function changeSleepEntryNumber(event) {
  * and move the sleep progress bar.
  */
 function addToSleepEntry(unitsToAdd) {
-    console.log(unitsToAdd);
+    progressBefore = Math.floor((todaySleepEntry.entry_units_completed / sleepGoal.goal_units_to_complete) * 100);
+    console.log(progressBefore);
+
+    todaySleepEntry.entry_units_completed += unitsToAdd;
+    $.ajax({
+        type: 'POST',
+        url: 'updateTodaySleepEntry',
+        data: {
+          'entry': todaySleepEntry,
+          'dateString': document.getElementById('todayDate').textContent
+        },
+        success: function(entry) {
+            document.getElementById('todayEntrySleep').textContent =
+                todaySleepEntry.entry_units_completed;
+
+            progressAfter = Math.floor((todaySleepEntry.entry_units_completed / sleepGoal.goal_units_to_complete) * 100);
+            console.log(progressAfter);
+            moveSleepProgressBar(progressBefore, progressAfter);
+            checkSleepCompletion(todaySleepEntry, sleepGoal);
+        }
+    });
+}
+
+function checkWaterCompletion(entry, goal) {
+    if(entry.entry_units_completed >= goal.goal_units_to_complete) {
+        document.getElementById('waterGoalComplete').style.display = 'flex';
+    }
+}
+
+function checkCalorieCompletion(entry, goal) {
+    if(entry.entry_units_completed >= goal.goal_units_to_complete) {
+        document.getElementById('calorieGoalComplete').style.display = 'flex';
+    }
+}
+
+function checkSleepCompletion(entry, goal) {
+    if(entry.entry_units_completed >= goal.goal_units_to_complete) {
+        document.getElementById('sleepGoalComplete').style.display = 'flex';
+    }
 }
 
 /**
@@ -329,19 +462,17 @@ function moveWaterProgressBar(current, percent) {
   }
 }
 
-moveWaterProgressBar(0, 45);
-
-var i = 0;
+var j = 0;
 function moveCalorieProgressBar(current, percent) {
-  if (i == 0) {
-    i = 1;
+  if (j == 0) {
+    j = 1;
     var elem = document.getElementById("myCalorieBar");
     var width = current;
     var id = setInterval(frame, 45);
     function frame() {
       if (width >= percent) {
         clearInterval(id);
-        i = 0;
+        j = 0;
       } else {
         //Prevents bar going further than 100 percent
         if(!(width >= 100)) {
@@ -355,4 +486,26 @@ function moveCalorieProgressBar(current, percent) {
   }
 }
 
-moveCalorieProgressBar(0, 45);
+var k = 0;
+function moveSleepProgressBar(current, percent) {
+  if (k == 0) {
+    k = 1;
+    var elem = document.getElementById("mySleepBar");
+    var width = current;
+    var id = setInterval(frame, 45);
+    function frame() {
+      if (width >= percent) {
+        clearInterval(id);
+        k = 0;
+      } else {
+        //Prevents bar going further than 100 percent
+        if(!(width >= 100)) {
+            width++;
+        }
+        
+        elem.style.width = width + "%";
+        elem.innerHTML = width + "%";
+      }
+    }
+  }
+}
