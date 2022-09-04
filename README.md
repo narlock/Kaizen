@@ -1,14 +1,13 @@
-<h1 align="center"><img src="https://i.imgur.com/qBUFRLO.png"></h1>
-<p align="center">OpenLife is a Life Hub application with the goal of providing productivity essentials to help users achieve their goals.</p>
+<p align="center">A Life Hub application with the goal of providing productivity essentials to help users achieve their goals.</p>
 
 <br>
 
-<h2 align="center">Application Information</h2>
+<h2 align="center">Application Dependencies</h2>
 <p align="center">
   • Local web server with Node.js, requiring npm, express, mysql <br>
-  • MySQL for database connection and storing information<br>
-  • A web browser, OpenLife has been tested in Google Chrome, Firefox, and Safari <br>
-  • OpenLife has been tested on Linux, Windows <br>
+  • MySQL Server for database connection and storing OSLA table and table entries<br>
+  • A web browser, OpenLife has been tested in Google Chrome, Mozilla Firefox, and Microsoft Edge<br>
+  • OpenLife has been tested on Linux and Windows 11<br>
 </p>
 
 <br>
@@ -19,3 +18,5 @@
  <br><br>
   I plan for this application to be essentially a local web server that I can run on any computer. The only requirements for this application are Node.js and MySQL server. The core of the application will be purely the front-end side, while all of the data that needs to be saved will be stored on the MySQL database.
 </p>
+
+<p align="center"><i>OSLA (Open Source Life Application), also referred to as OpenLife, was created on August 6th, 2022</i></p>
