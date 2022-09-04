@@ -35,6 +35,9 @@ let todaysDateFormatted = todaysDate.getFullYear() + "-" + (todaysDate.getMonth(
 var waterGoal;
 var calorieGoal;
 var sleepGoal;
+var todayWaterEntry;
+var todayCalorieEntry;
+var todaySleepEntry;
 
 window.onload = function() {
 
@@ -50,8 +53,15 @@ window.onload = function() {
     getTodayHealthEntryWater();
     getTodayHealthEntryCalorie();
     getTodayHealthEntrySleep();
+
+    //Set the progress bars
+    setWaterProgressBar();
+    setCalorieProgressBar();
+    setSleepProgressBar();
     
 }
+
+/* =========== SETUP FUNCTIONS =========== */
 
 function getWaterGoal() {
     $.ajax({
@@ -59,7 +69,12 @@ function getWaterGoal() {
         url: 'getHealthWaterGoal',
         success: function(entry) {
             waterGoal = entry;
-            console.log(waterGoal);
+
+            //Set health attributes corresponding to waterGoal
+            document.getElementById('goalWater').textContent = 
+                (waterGoal.goal_units_to_complete + " " + waterGoal.goal_units);
+            document.getElementById('goalUnitsWater').textContent = 
+                (" " + waterGoal.goal_units);
         }
     });
 }
@@ -70,7 +85,12 @@ function getCalorieGoal() {
         url: 'getHealthCalorieGoal',
         success: function(entry) {
             calorieGoal = entry;
-            console.log(waterGoal);
+
+            //Set health attributes corresponding to calorieGoal
+            document.getElementById('goalCalorie').textContent =
+                (calorieGoal.goal_units_to_complete + " " + calorieGoal.goal_units);
+            document.getElementById('goalUnitsCalorie').textContent = 
+                (" " + calorieGoal.goal_units);
         }
     });
 }
@@ -81,7 +101,12 @@ function getSleepGoal() {
         url: 'getHealthSleepGoal',
         success: function(entry) {
             sleepGoal = entry;
-            console.log(waterGoal);
+
+            //Set health attributes corresponding to sleepGoal
+            document.getElementById('goalSleep').textContent = 
+                (sleepGoal.goal_units_to_complete + " " + sleepGoal.goal_units);
+            document.getElementById('goalUnitsSleep').textContent =
+                (" " + sleepGoal.goal_units);
         }
     });
 }
@@ -94,7 +119,11 @@ function getTodayHealthEntryWater() {
           'date': todaysDateFormatted
         },
         success: function(entry) {
-            console.log(entry);
+            todayWaterEntry = entry;
+
+            //Set health attributes corresponding to waterEntry
+            document.getElementById('todayEntryWater').textContent =
+                todayWaterEntry.entry_units_completed;
         }
     });
 }
@@ -107,7 +136,11 @@ function getTodayHealthEntryCalorie() {
           'date': todaysDateFormatted
         },
         success: function(entry) {
-            console.log(entry);
+            todayCalorieEntry = entry;
+
+            //Set health attributes corresponding to calorieEntry
+            document.getElementById('todayEntryCalorie').textContent =
+                todayCalorieEntry.entry_units_completed;
         }
     });
 }
@@ -120,9 +153,146 @@ function getTodayHealthEntrySleep() {
           'date': todaysDateFormatted
         },
         success: function(entry) {
-            console.log(entry);
+            todaySleepEntry = entry;
+
+            //Set health attributes corresponding to sleepEntry
+            document.getElementById('todayEntrySleep').textContent =
+                todaySleepEntry.entry_units_completed;
         }
     });
+}
+
+/**
+ * The initialization of the progress bars will require
+ * calling the server to get the goal and the entry.
+ * 
+ * This is done to prevent potential race conditions when
+ * setting a global entry and goal variable.
+ */
+
+function setWaterProgressBar() {
+    /**
+     * Will call getGoal, then will call getTodayEntry
+     * Then will call Move function based off of
+     * the current percentage completed as an integer.
+     */
+}
+
+function setCalorieProgressBar() {
+    /**
+     * Will call getGoal, then will call getTodayEntry
+     * Then will call Move function based off of
+     * the current percentage completed as an integer.
+     */
+}
+
+function setSleepProgressBar() {
+    /**
+     * Will call getGoal, then will call getTodayEntry
+     * Then will call Move function based off of
+     * the current percentage completed as an integer.
+     */
+}
+
+/* =========== ACTION FUNCTIONS =========== */
+
+/**
+ * changeWaterEntryNumber
+ * @param {} event 
+ * @brief Will change the "onclick" number of the
+ * add button to the number that is in the text field.
+ * 
+ * It will remove the onclick event to an error message
+ * if a value that is not an integer is passed into
+ * the text field
+ */
+function changeWaterEntryNumber(event) {
+    unitsToAdd = parseInt(event.target.value);
+
+    if(Number.isInteger(unitsToAdd)) {
+        document.getElementById('waterAddButton').setAttribute
+            ('onclick', 'addToWaterEntry(' + unitsToAdd + ')');
+    } else {
+        alert("You have entered an invalid entry.");
+        document.getElementById('waterEntryText').value = "";
+    }
+}
+
+/**
+ * addToWaterEntry
+ * @param {} event 
+ * @brief Add number of units to water entry.
+ * This will also update the entry numbers
+ * and move the water progress bar.
+ */
+function addToWaterEntry(unitsToAdd) {
+    console.log(unitsToAdd);
+}
+
+/**
+ * changeCalorieEntryNumber
+ * @param {} event 
+ * @brief Will change the "onclick" number of the
+ * add button to the number that is in the text field.
+ * 
+ * It will remove the onclick event to an error message
+ * if a value that is not an integer is passed into
+ * the text field
+ */
+function changeCalorieEntryNumber(event) {
+    unitsToAdd = parseInt(event.target.value);
+
+    if(Number.isInteger(unitsToAdd)) {
+        document.getElementById('calorieAddButton').setAttribute
+            ('onclick', 'addToCalorieEntry(' + unitsToAdd + ')');
+    } else {
+        alert("You have entered an invalid entry.");
+        document.getElementById('calorieEntryText').value = "";
+    }
+}
+
+/**
+ * addToCalorieEntry
+ * @param {} event 
+ * @brief Add number of units to calorie entry.
+ * This will also update the entry numbers
+ * and move the calorie progress bar.
+ */
+function addToCalorieEntry(unitsToAdd) {
+    console.log(unitsToAdd);
+}
+
+/**
+ * changeSleepEntryNumber
+ * @param {} event 
+ * @brief Will change the "onclick" number of the
+ * add button to the number that is in the text field.
+ * 
+ * It will remove the onclick event to an error message
+ * if a value that is not an integer is passed into
+ * the text field
+ */
+function changeSleepEntryNumber(event) {
+    unitsToAdd = parseInt(event.target.value);
+
+    if(Number.isInteger(unitsToAdd)) {
+        document.getElementById('sleepAddButton').setAttribute
+            ('onclick', 'addToSleepEntry(' + unitsToAdd + ')');
+    } else {
+        alert("You have entered an invalid entry.");
+        document.getElementById('sleepEntryText').value = "";
+    }
+}
+
+/**
+ * addToSleepEntry
+ * @param {} event 
+ * @brief Add number of units to sleep entry.
+ * This will also update the entry numbers
+ * and move the sleep progress bar.
+ */
+function addToSleepEntry(unitsToAdd) {
+    console.log(unitsToAdd);
 }
 
 /**
@@ -136,10 +306,10 @@ function getTodayHealthEntrySleep() {
  * move(currentPercentage, currentPercentage + 45) if we added 45% of our goal.
  */
 var i = 0;
-function move(current, percent) {
+function moveWaterProgressBar(current, percent) {
   if (i == 0) {
     i = 1;
-    var elem = document.getElementById("myBar");
+    var elem = document.getElementById("myWaterBar");
     var width = current;
     var id = setInterval(frame, 45);
     function frame() {
@@ -159,4 +329,30 @@ function move(current, percent) {
   }
 }
 
-move(0, 45);
+moveWaterProgressBar(0, 45);
+
+var i = 0;
+function moveCalorieProgressBar(current, percent) {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myCalorieBar");
+    var width = current;
+    var id = setInterval(frame, 45);
+    function frame() {
+      if (width >= percent) {
+        clearInterval(id);
+        i = 0;
+      } else {
+        //Prevents bar going further than 100 percent
+        if(!(width >= 100)) {
+            width++;
+        }
+        
+        elem.style.width = width + "%";
+        elem.innerHTML = width + "%";
+      }
+    }
+  }
+}
+
+moveCalorieProgressBar(0, 45);

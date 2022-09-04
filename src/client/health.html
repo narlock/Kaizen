@@ -46,16 +46,16 @@
                     <div id="waterGoalComplete" class="text-center goal__complete">
                         <strong>Goal Completed!</strong>
                     </div>
-                    <div id="myProgress">
-                        <div id="myBar" class="waterColor">10%</div>
+                    <div id="myWaterProgress" class="progress__bar">
+                        <div id="myWaterBar" class="waterColor">10%</div>
                     </div>
                     <div id="waterTextProgress" class="text-center">
-                        <span><strong id="todayEntryWater">40 oz</strong> / <strong id="goalWater">80 oz</strong></span>
+                        <span><strong id="todayEntryWater"></strong><strong id="goalUnitsWater"></strong> / <strong id="goalWater"></strong></span>
                     </div>
                     <div id="addWaterDiv" class="text-center add__menu">
-                        <input type="text" placeholder="# (e.g. 8)" style="width: 80px">
+                        <input type="text" id="waterEntryText" placeholder="Enter an int" style="width: 80px" onchange="changeWaterEntryNumber(event)">
                         <strong class="units__label">oz</strong>
-                        <button class="btn btn-primary">Add</button>
+                        <button id="waterAddButton" class="btn btn-primary">Add</button>
                     </div>
                     <div id="waterAverageDiv" class="text-center">
                         <strong id="waterAverage">Average: 75 oz</strong>
@@ -66,16 +66,16 @@
                     <div id="calorieGoalComplete" class="text-center goal__complete">
                         <strong>Goal Completed!</strong>
                     </div>
-                    <div id="myProgress" >
-                        <div id="myBar" class="calorieColor">10%</div>
+                    <div id="myCalorieProgress" class="progress__bar">
+                        <div id="myCalorieBar" class="calorieColor">10%</div>
                     </div>
                     <div id="calorieTextProgress" class="text-center">
-                        <span><strong id="todayEntryCalorie">40 oz</strong> / <strong id="goalCalorie">80 oz</strong></span>
+                        <span><strong id="todayEntryCalorie"></strong><strong id="goalUnitsCalorie"></strong> / <strong id="goalCalorie">80 oz</strong></span>
                     </div>
                     <div id="addCalorieDiv" class="text-center add__menu">
-                        <input type="text" placeholder="# (e.g. 400)" style="width: 80px">
+                        <input type="text" id="calorieEntryText" placeholder="Enter an int" style="width: 80px" onchange="changeCalorieEntryNumber(event)">
                         <strong class="units__label">kcal</strong>
-                        <button class="btn btn-primary">Add</button>
+                        <button id="calorieAddButton" class="btn btn-primary">Add</button>
                     </div>
                     <div id="calorieAverageDiv" class="text-center">
                         <strong id="waterAverage">Average: 2900 kcal</strong>
@@ -86,16 +86,16 @@
                     <div id="sleepGoalComplete" class="text-center goal__complete">
                         <strong>Goal Completed!</strong>
                     </div>
-                    <div id="myProgress">
-                        <div id="myBar" class="sleepColor">10%</div>
+                    <div id="mySleepProgress" class="progress__bar">
+                        <div id="mySleepBar" class="sleepColor">10%</div>
                     </div>
                     <div id="calorieTextProgress" class="text-center">
-                        <span><strong id="todayEntrySleep">40 oz</strong> / <strong id="goalSleep">80 oz</strong></span>
+                        <span><strong id="todayEntrySleep"></strong><strong id="goalUnitsSleep"></strong> / <strong id="goalSleep">80 oz</strong></span>
                     </div>
                     <div id="addSleepDiv" class="text-center add__menu">
-                        <input type="text" placeholder="# (e.g. 8)" style="width: 80px">
+                        <input type="text" id="sleepEntryText" placeholder="Enter an int" style="width: 80px" onchange="changeSleepEntryNumber(event)">
                         <strong class="units__label">hours</strong>
-                        <button class="btn btn-primary">Add</button>
+                        <button id="sleepAddButton" class="btn btn-primary">Add</button>
                     </div>
                     <div id="sleepAverageDiv" class="text-center">
                         <strong id="waterAverage">Average: 7.6 hours</strong>
@@ -106,7 +106,6 @@
     </table>
     <div id="buttonMenu" class="button__menu">
         <a href="/heathGoals" class="btn btn-success">Modify Health Goals</a>
-        <button onclick="move(45, 60)">test</button>
     </div>
     <script src="js/health.js"></script>
 </body>
