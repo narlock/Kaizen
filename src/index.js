@@ -974,6 +974,57 @@ app.post('/updateTodaySleepEntry', function(req, res) {
     });
 });
 
+app.post('/updateWaterGoal', function(req, res) {
+    sql = `
+        UPDATE  hgoals
+        SET     goal_units=\"${req.body.units}\",
+                goal_units_to_complete=${req.body.unitsToComplete}
+        WHERE   goal_type=\"water\"
+    `
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.error("[OSLA/SERVER] updateWaterGoal FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] updateWaterGoal SUCCESS");
+        res.redirect(302, '/health');
+    });
+});
+
+app.post('/updateCalorieGoal', function(req, res) {
+    sql = `
+        UPDATE  hgoals
+        SET     goal_units=\"${req.body.units}\",
+                goal_units_to_complete=${req.body.unitsToComplete}
+        WHERE   goal_type=\"calorie\"
+    `
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.error("[OSLA/SERVER] updateCalorieGoal FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] updateCalorieGoal SUCCESS");
+        res.redirect(302, '/health');
+    });
+});
+
+app.post('/updateSleepGoal', function(req, res) {
+    sql = `
+        UPDATE  hgoals
+        SET     goal_units=\"${req.body.units}\",
+                goal_units_to_complete=${req.body.unitsToComplete}
+        WHERE   goal_type=\"sleep\"
+    `
+    dbCon.query(sql, function(err, result) {
+        if(err) {
+            console.error("[OSLA/SERVER] updateSleepGoal FAILURE");
+            throw err;
+        }
+        console.log("[OSLA/SERVER] updateSleepGoal SUCCESS");
+        res.redirect(302, '/health');
+    });
+});
+
 /* =========== RELATIONSHIP RELATED METHODS =========== */
 
 app.get('/getAllContacts', function(req, res) {

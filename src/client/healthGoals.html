@@ -27,5 +27,70 @@
             <li class="nav-item text-muted"><a href="https://github.com/narlock/OpenLife" target="_blank">OpenLife</a> • <a href="http://narlock.dev" target="_blank">narlock.dev</a></li>
         </ul>
     </nav>
+    <table id="healthGoalsTable" class="stable table-bordered">
+        <thead class="bg-light">
+            <tr class="text-center">
+                <th scope="col">Update Water Goal</th>
+                <th scope="col">Update Calorie Goal</th>
+                <th scope="col">Update Sleep Goal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <!-- Water Goal Form -->
+                <td>
+                    <form action="updateWaterGoal" method="post">
+                        <div class="form-group">
+                            <label for="units">Units</label>
+                            <input type="text" name="units" id="waterUnits" placeholder="oz" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="unitsToComplete">Units To Complete</label>
+                            <input type="number" name="unitsToComplete" id="waterUnitsComplete" placeholder="80" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Update Water Goal</button>
+                        </div>
+                    </form>
+                </td>
+                <!-- Calorie Goal Form -->
+                <td>
+                    <form action="updateCalorieGoal" method="post">
+                        <div class="form-group">
+                            <label for="units">Units</label>
+                            <input type="text" name="units" id="calorieUnits" placeholder="kcal" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="unitsToComplete">Units To Complete</label>
+                            <input type="number" name="unitsToComplete" id="calorieUnitsComplete" placeholder="80" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Update Calorie Goal</button>
+                        </div>
+                    </form>
+                </td>
+                <!-- Sleep Goal Form -->
+                <td>
+                    <form action="updateSleepGoal" method="post">
+                        <div class="form-group">
+                            <label for="units">Units</label>
+                            <input type="text" name="units" id="sleepUnits" placeholder="hours" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="unitsToComplete">Units To Complete</label>
+                            <input type="number" name="unitsToComplete" id="sleepUnitsComplete" placeholder="8" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Update Sleep Goal</button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="button__menu">
+        <a href="/health" class="btn btn-success">Health</a>
+    </div>
+    <script src="js/healthGoals.js"></script>
 </body>
 </html>
