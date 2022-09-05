@@ -1,4 +1,18 @@
-<p align="center">A Life Hub application with the goal of providing productivity essentials to help users achieve their goals.</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/narlock/Kaizen/main/src/client/assets/logo.png">
+</p>
+<p align="center">Kaizen is an application that provides productivity essentials to help users continuously improve their life.</p>
+
+<br>
+
+<!-- GitHub Shields-->
+<p align="center">
+  <a href="https://github.com/narlock/Kaizen/releases/"><img src="https://img.shields.io/github/downloads/narlock/Kaizen/total.svg"></a>
+  <a href="https://github.com/narlock/Kaizen/releases/"><img src="https://img.shields.io/github/v/release/narlock/Kaizen"></a>
+  <a href="https://github.com/narlock/Kaizen/commits/main"><img src="https://img.shields.io/github/last-commit/narlock/Kaizen"></a>
+  <a href="https://discord.gg/eEbEYbXaNS"><img src="https://discordapp.com/api/guilds/821757961830793236/widget.png?style=shield"></a>
+</p>
 
 <br>
 
