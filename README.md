@@ -19,4 +19,4 @@
   I plan for this application to be essentially a local web server that I can run on any computer. The only requirements for this application are Node.js and MySQL server. The core of the application will be purely the front-end side, while all of the data that needs to be saved will be stored on the MySQL database.
 </p>
 
-<p align="center"><i>OSLA (Open Source Life Application), also referred to as OpenLife, was created on August 6th, 2022</i></p>
+<p align="center"><i>Kaizen / OSLA (Open Source Life Application), also referred to as OpenLife, was created on August 6th, 2022</i></p>
