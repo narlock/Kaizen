@@ -808,36 +808,28 @@ app.post('/getTodayHealthEntryWater', function(req, res) {
         if(err) {
             console.error("[OSLA/SERVER] getTodayHealthEntry FAILURE");
             throw err;
+        }  
+        //Select todays entry and return
+        console.log("[OSLA/SERVER] getTodayHealthEntryWater SUCCESS");
+        res.send(entry[0]);
+    });
+});
+
+app.post('/createTodayHealthEntryWater', function(req, res) {
+    //If the entry doesn't exist, create one and return it
+    createSql = `
+    INSERT INTO hentry
+    SET     entry_type=\"water\",
+            entry_date=\"${req.body.date}\",
+            entry_units_completed=0
+    `
+    dbCon.query(createSql, function(err, newEntry) {
+        if(err) {
+            console.error("[OSLA/SERVER] getTodayHealthEntryWater:createSql FAILURE");
+            throw err;
         }
-        if(entry.length == 0) {
-            console.log("[OSLA/SERVER] Creating new Health entry...");
-            //If the entry doesn't exist, create one and return it
-            createSql = `
-                INSERT INTO hentry
-                SET     entry_type=\"water\",
-                        entry_date=\"${req.body.date}\",
-                        entry_units_completed=0
-            `
-            dbCon.query(createSql, function(err, newEntry) {
-                if(err) {
-                    console.error("[OSLA/SERVER] getTodayHealthEntryWater:createSql FAILURE");
-                    throw err;
-                }
-                console.log("[OSLA/SERVER] getTodayHealthEntryWater:createSql SUCCESS");
-                dbCon.query(sql, function(err, theEntry) {
-                    if(err) {
-                        console.error("[OSLA/SERVER] getTodayHealthEntryWater:create/select FAILURE");
-                        throw err;
-                    }
-                    res.send(theEntry[0]);
-                });
-            });
-        } else {
-            console.log("[OSLA/SERVER] Sending Found Health entry...");
-            //Select todays entry and return
-            console.log("[OSLA/SERVER] getTodayHealthEntryWater SUCCESS");
-            res.send(entry[0]);
-        }
+        console.log("[OSLA/SERVER] getTodayHealthEntryWater:createSql SUCCESS");
+        res.send(newEntry);
     });
 });
 
@@ -850,35 +842,26 @@ app.post('/getTodayHealthEntryCalorie', function(req, res) {
             console.error("[OSLA/SERVER] getTodayHealthEntry FAILURE");
             throw err;
         }
-        if(entry.length == 0) {
-            console.log("[OSLA/SERVER] Creating new Health entry...");
-            //If the entry doesn't exist, create one and return it
-            createSql = `
+        //Select todays entry and return
+        console.log("[OSLA/SERVER] getTodayHealthEntryCalorie SUCCESS");
+        res.send(entry[0]);
+    });
+});
+
+app.post('/createTodayHealthEntryCalorie', function(req, res) {
+    createSql = `
                 INSERT INTO hentry
                 SET     entry_type=\"calorie\",
                         entry_date=\"${req.body.date}\",
                         entry_units_completed=0
             `
-            dbCon.query(createSql, function(err, newEntry) {
-                if(err) {
-                    console.error("[OSLA/SERVER] getTodayHealthEntryCalorie:createSql FAILURE");
-                    throw err;
-                }
-                console.log("[OSLA/SERVER] getTodayHealthEntryCalorie:createSql SUCCESS");
-                dbCon.query(sql, function(err, theEntry) {
-                    if(err) {
-                        console.error("[OSLA/SERVER] getTodayHealthEntryCalorie:create/select FAILURE");
-                        throw err;
-                    }
-                    res.send(theEntry[0]);
-                });
-            });
-        } else {
-            console.log("[OSLA/SERVER] Sending Found Health entry...");
-            //Select todays entry and return
-            console.log("[OSLA/SERVER] getTodayHealthEntryCalorie SUCCESS");
-            res.send(entry[0]);
+    dbCon.query(createSql, function(err, newEntry) {
+        if(err) {
+            console.error("[OSLA/SERVER] getTodayHealthEntryCalorie:createSql FAILURE");
+            throw err;
         }
+        console.log("[OSLA/SERVER] getTodayHealthEntryCalorie SUCCESS");
+        res.send(newEntry);
     });
 });
 
@@ -891,35 +874,26 @@ app.post('/getTodayHealthEntrySleep', function(req, res) {
             console.error("[OSLA/SERVER] getTodayHealthEntrySleep FAILURE");
             throw err;
         }
-        if(entry.length == 0) {
-            console.log("[OSLA/SERVER] Creating new Health entry...");
-            //If the entry doesn't exist, create one and return it
-            createSql = `
-                INSERT INTO hentry
-                SET     entry_type=\"sleep\",
-                        entry_date=\"${req.body.date}\",
-                        entry_units_completed=0
-            `
-            dbCon.query(createSql, function(err, newEntry) {
-                if(err) {
-                    console.error("[OSLA/SERVER] getTodayHealthEntrySleep:createSql FAILURE");
-                    throw err;
-                }
-                console.log("[OSLA/SERVER] getTodayHealthEntrySleep:createSql SUCCESS");
-                dbCon.query(sql, function(err, theEntry) {
-                    if(err) {
-                        console.error("[OSLA/SERVER] getTodayHealthEntrySleep:create/select FAILURE");
-                        throw err;
-                    }
-                    res.send(theEntry[0]);
-                });
-            });
-        } else {
-            console.log("[OSLA/SERVER] Sending Found Health entry...");
-            //Select todays entry and return
-            console.log("[OSLA/SERVER] getTodayHealthEntrySleep SUCCESS");
-            res.send(entry[0]);
+        //Select todays entry and return
+        console.log("[OSLA/SERVER] getTodayHealthEntrySleep SUCCESS");
+        res.send(entry[0]);
+    });
+});
+
+app.post('/createTodayHealthEntrySleep', function(req, res) {
+    createSql = `
+        INSERT INTO hentry
+        SET     entry_type=\"sleep\",
+                entry_date=\"${req.body.date}\",
+                entry_units_completed=0
+    `
+    dbCon.query(createSql, function(err, newEntry) {
+        if(err) {
+            console.error("[OSLA/SERVER] getTodayHealthEntrySleep:createSql FAILURE");
+            throw err;
         }
+        console.log("[OSLA/SERVER] getTodayHealthEntrySleep:createSql SUCCESS");
+        res.send(newEntry);
     });
 });
 

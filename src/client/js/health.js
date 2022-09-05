@@ -119,11 +119,43 @@ function getTodayHealthEntryWater() {
           'date': todaysDateFormatted
         },
         success: function(entry) {
-            todayWaterEntry = entry;
+            if(entry.length == 0) {
+                console.log("Creating new Health Entry");
+                //Create a water entry
+                $.ajax({
+                    type: 'POST',
+                    url: 'createTodayHealthEntryWater',
+                    data: {
+                        'date': todaysDateFormatted
+                    },
+                    success: function(entry) {
+                        //Upon creating, get the entry
+                        $.ajax({
+                            type: 'POST',
+                            url: 'getTodayHealthEntryWater',
+                            data: {
+                                'date': todaysDateFormatted
+                            },
+                            success: function(entry) {
+                                console.log("Got created health entry");
+                                console.log(entry);
+                                todayWaterEntry = entry;
 
-            //Set health attributes corresponding to waterEntry
-            document.getElementById('todayEntryWater').textContent =
-                todayWaterEntry.entry_units_completed;
+                                //Set health attributes corresponding to waterEntry
+                                document.getElementById('todayEntryWater').textContent =
+                                todayWaterEntry.entry_units_completed;
+                            }
+                        });
+                    }
+                });
+            } else {
+                console.log("Loaded health entry");
+                todayWaterEntry = entry;
+
+                //Set health attributes corresponding to waterEntry
+                document.getElementById('todayEntryWater').textContent =
+                    todayWaterEntry.entry_units_completed;
+            }
         }
     });
 }
@@ -136,11 +168,42 @@ function getTodayHealthEntryCalorie() {
           'date': todaysDateFormatted
         },
         success: function(entry) {
-            todayCalorieEntry = entry;
+            if(entry.length == 0) {
+                console.log("Creating new Calorie Entry");
+                //Create calorie entry
+                $.ajax({
+                    type: 'POST',
+                    url: 'createTodayHealthEntryCalorie',
+                    data: {
+                        'date': todaysDateFormatted
+                    },
+                    success: function(entry) {
+                        //Upon creating, get the entry
+                        $.ajax({
+                            type: 'POST',
+                            url: 'getTodayHealthEntryCalorie',
+                            data: {
+                                'date': todaysDateFormatted
+                            },
+                            success: function(entry) {
+                                console.log("Got created calorie entry");
+                                console.log(entry);
+                                todayCalorieEntry = entry;
 
-            //Set health attributes corresponding to calorieEntry
-            document.getElementById('todayEntryCalorie').textContent =
-                todayCalorieEntry.entry_units_completed;
+                                //Set health attributes corresponding to healthEntry
+                                document.getElementById('todayEntryCalorie').textContent =
+                                    todayCalorieEntry.entry_units_completed;
+                            }
+                        });
+                    }
+                });
+            } else {
+                todayCalorieEntry = entry;
+
+                //Set health attributes corresponding to calorieEntry
+                document.getElementById('todayEntryCalorie').textContent =
+                    todayCalorieEntry.entry_units_completed;
+            }
         }
     });
 }
@@ -153,6 +216,35 @@ function getTodayHealthEntrySleep() {
           'date': todaysDateFormatted
         },
         success: function(entry) {
+            if(entry.length == 0) {
+                console.log("Creating new health entry");
+                //Create a sleep entry
+                $.ajax({
+                    type: 'POST',
+                    url: 'createTodayHealthEntrySleep',
+                    data: {
+                        'date': todaysDateFormatted
+                    },
+                    success: function(entry) {
+                        //Upon creating, get the entry
+                        $.ajax({
+                            type: 'POST',
+                            url: 'getTodayHealthEntrySleep',
+                            data: {
+                                'date': todaysDateFormatted
+                            },
+                            success: function(entry) {
+                                console.log("Got created health entry");
+                                todaySleepEntry = entry;
+
+                                //Set health attributes correpsonding to sleepEntry
+                                document.getElementById('todayEntrySleep').textContent =
+                                    todaySleepEntry.entry_units_completed;
+                            }
+                        });
+                    }
+                });
+            }
             todaySleepEntry = entry;
 
             //Set health attributes corresponding to sleepEntry
@@ -387,6 +479,7 @@ function changeSleepEntryNumber(event) {
  * and move the sleep progress bar.
  */
 function addToSleepEntry(unitsToAdd) {
+    console.log(todaySleepEntry.entry_units_completed);
     progressBefore = Math.floor((todaySleepEntry.entry_units_completed / sleepGoal.goal_units_to_complete) * 100);
     console.log(progressBefore);
 
