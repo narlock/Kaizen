@@ -37,3 +37,71 @@
 .stable tbody tr:last-of-type {
     border-bottom: 2px solid #0d6efd;
 }
+
+.story {
+    background-color: white;
+    margin: 0.2rem 0rem 0.3rem 0rem;
+    border: 0.1rem solid black;
+    border-radius: 0.2rem;
+    padding: 0.5rem 0.2rem 0.5rem 2rem;
+    width: 25rem;
+}
+
+.kanban__points {
+    background-color: #a9ffa9;
+    border-radius: 0.2rem;
+    margin: 0.2rem 0.2rem 0.2rem 0.2rem;
+    padding: 0.2rem 0.4rem;
+}
+
+.kanban__priority {
+    width: 7.5%;
+    height: auto;
+}
+
+.habits__checkbox {
+    width: 32px;
+    height: 32px;
+}
+
+.relationships__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.relationships__form {
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 2px solid black;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.relationships__form__article {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.updateDialog {
+    margin-bottom: 2rem;
+}
+
+.error {
+    color: red;
+}
+
+textarea {
+    resize: none;
+}
+
+.social__img {
+    width: 30px;
+    height: auto;
+}
+
+.logo__img {
+    width: auto;
+    height: auto;
+}

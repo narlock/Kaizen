@@ -31,39 +31,47 @@
     <table id="" class="stable table-bordered">
         <thead class="bg-light">
             <tr class="text-center">
-            <th scope="col">In progress stories (Kanban)</th>
+            <th scope="col">In progress stories • <a href="/kanban">Kanban</a></th>
             <th scope="col">Today's Habits</th>
             </tr>
         </thead>
         <tbody id="healthTableBody">
             <tr>
-                <td>
+                <td id="kanbanInProgress">
                     <!-- In prog Kanban -->
-                    Coming Soon
                 </td>
                 <td>
                     <!-- Today's Habits -->
-                    Coming Soon
-                </td>
-            </tr>
-            <tr class="text-center">
-                <th scope="col">Health Goals</th>
-                <th scope="col">Upcoming Birthdays</th>
-                </tr>
-            <tr>
-                <td>
-                    <!-- Health Goals -->
-                    Coming Soon
-                </td>
-                <td>
-                    <!-- Upcoming Birthdays -->
-                    Coming Soon
+                    <table id="habitsTable" class="stable table-bordered">
+                        <thead class="bg-light">
+                          <tr>
+                            <th scope="col"><input type="checkbox" class="habits__checkbox" onclick="return false" checked></th>
+                            <th scope="col">Habit</th>
+                            <th scope="col">Streak</th>
+                          </tr>
+                        </thead>
+                        <tbody id="habitsTableBody">
+                        </tbody>
+                      </table>
                 </td>
             </tr>
         </tbody>
     </table>
+    <h6 class="text-center relationships__heading"><b>Upcoming Birthdays</b></h6>
+    <table id="" class="stable table-bordered">
+        <thead>
+            <tr class="text-center">
+                <th scope="col">Name</th>
+                <th scope="col">Days Until</th>
+                <th scope="col">Birthday</th>
+                <th scope="col">Contact</th>
+            </tr>
+        </thead>
+        <tbody id="birthdayContactsBody">
+        </tbody>
+    </table>
     <div class="text-center">
-        <img src="assets/logo.png" alt="Kaizen Logo">
+        <img src="assets/logo.png" alt="Kaizen Logo" class="logo__img">
     </div>
     <script src="js/index.js"></script>
 </body>
