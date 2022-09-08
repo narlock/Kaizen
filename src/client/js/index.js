@@ -30,9 +30,23 @@ function showTime(){
 showTime();
 
 window.onload = function() {
+    populateKanbanTodoBoard();
     populateKanbanInprogBoard();
     updateHabitStreaks();
     getUpcomingBirthdayContacts();
+}
+
+function populateKanbanTodoBoard() {
+    var xmlhttp = new XMLHttpRequest();
+
+    //Populate in progress stories
+    xmlhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            populateKanbanSection(JSON.parse(this.responseText), "kanbanTodo");
+        }
+    };
+    xmlhttp.open("GET", "todoKanbanStories", true);
+    xmlhttp.send();
 }
 
 function populateKanbanInprogBoard() {
