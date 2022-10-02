@@ -26,7 +26,7 @@ const dbCon = mysql.createConnection({
 /**
  * Server declarations & setup
  */
-const port = 8080;                            //The port for server
+const port = 8091;                            //The port for server
 const app = express();                        //creating express app
 app.use(bodyparser());                        //apply bodyparser to all reqs
 
