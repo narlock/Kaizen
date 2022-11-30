@@ -4,3 +4,7 @@ node_modules
 package-lock.json
 src/package-lock.json
 src/package.json
+.DS_Store
+package-lock.json
+src/package-lock.json
+src/package.json
