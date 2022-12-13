@@ -21,7 +21,7 @@
   • Local web server with <a href="https://nodejs.org/">Node.js</a>, requiring npm, express, mysql <br>
   • <a href="https://dev.mysql.com/downloads/mysql/">MySQL Server</a> for database connection and storing OSLA table and table entries<br>
   • A web browser, Kaizen has been tested in Google Chrome, Mozilla Firefox, and Microsoft Edge<br>
-  • Kaizen has been tested on Linux (<i>namely, Ubuntu</i>) and Windows 10, and Windows 11<br>
+  • Kaizen has been tested on Linux (<i>namely, Ubuntu</i>), Windows 10, Windows 11, and macOS Ventura<br>
 </p>
 
 <br>
