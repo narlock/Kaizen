@@ -8,3 +8,4 @@ src/package.json
 package-lock.json
 src/package-lock.json
 src/package.json
+*.class
