@@ -182,7 +182,7 @@ app.post('/addKanbanStory', function(req, res) {
     console.log(req.body);
     var storyPriority = getStoryPriorityFromBody(req.body.priority);
     var date_format = new Date();
-    var current_date = date_format.getFullYear() + "-" + date_format.getMonth() + "-" + date_format.getDate(); //yyyy-mm-dd
+    var current_date = formatDate(date_format);
     kanbanTitle = addEscapeCharacters(req.body.title);
     kanbanDesc = addEscapeCharacters(req.body.desc);
 
@@ -400,7 +400,7 @@ app.post('/habitById', function(req, res) {
 
     //Gets new date
     var date_format = new Date();
-    var current_date = date_format.getFullYear() + "-" + date_format.getMonth() + "-" + date_format.getDate(); //yyyy-mm-dd
+    var current_date = formatDate(date_format);
     console.log("Date being added...");
     console.log(current_date);
 
@@ -503,7 +503,7 @@ app.get('/checkDateForHabits', function(req, res) {
     //Gets new date
     var date = new Date();
 
-    var current_date_formatted = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate(); //yyyy-mm-dd
+    var current_date_formatted = formatDate(date);
     current_date = date.getFullYear() + '-'
                 + ('0' + (date.getMonth())).slice(-2) + '-'
                  + ('0' + date.getDate()).slice(-2);
@@ -523,8 +523,8 @@ app.get('/checkDateForHabits', function(req, res) {
             habitDateString = habitDate.getFullYear() + '-'
                  + ('0' + (habitDate.getMonth()+1)).slice(-2) + '-'
                  + ('0' + habitDate.getDate()).slice(-2);
-            //console.log(habitDateString);
-            //console.log(current_date);
+            console.log(habitDateString);
+            console.log(current_date);
             //console.log(habitDateString != current_date);
             if(habitDateString != current_date) {
                 //Uncheck the habit
@@ -559,7 +559,7 @@ app.get('/updateHabitStreaks', function(req, res) {
     //If the habit date is the SAME as the current date, don't do anything to habit streak
     //If the habit date is more than one day behind the current date, set habit streak to zero
     currentDate = new Date();
-    currentDateFormatted = currentDate.getFullYear() + "-" + currentDate.getMonth() + "-" + currentDate.getDate(); //yyyy-mm-dd
+    currentDateFormatted = formatDate(currentDate);
     currentDateCompare = new Date(currentDateFormatted);
 
     var days = ['u', 'm', 't', 'w', 'h', 'f', 's'];
@@ -574,7 +574,7 @@ app.get('/updateHabitStreaks', function(req, res) {
         }
         habits.forEach(function(habit) {
             habitDate = new Date(habit.habit_date);
-            habitDateFormatted = habitDate.getFullYear() + "-" + (habitDate.getMonth()+1) + "-" + habitDate.getDate(); //yyyy-mm-dd
+            habitDateFormatted = formatDate(habitDate);
             habitDateCompare = new Date(habitDateFormatted);
 
             diffTime = Math.abs(Date.parse(habitDateCompare) - Date.parse(currentDateCompare));
@@ -1027,13 +1027,13 @@ app.get('/getContactsUpcomingBirthday', function(req, res) {
 
         futureDate = new Date();
         futureDate.setDate(futureDate.getDate() + 30);
-        futureDateFormatted = futureDate.getFullYear() + "-" + (futureDate.getMonth()+1) + "-" + futureDate.getDate(); //yyyy-mm-dd
+        futureDateFormatted = formatDate(futureDate);
         futureDateCompare = new Date(futureDateFormatted);
 
         contacts.forEach(function(contact) {
             contactBirthday = new Date(contact.contact_birthday);
             contactBirthday.setFullYear(futureDate.getFullYear());
-            contactBirthdayFormatted = contactBirthday.getFullYear() + "-" + (contactBirthday.getMonth()+1) + "-" + contactBirthday.getDate(); //yyyy-mm-dd
+            contactBirthdayFormatted = formatDate(contactBirthday);
             contactBirthdayCompare = new Date(contactBirthdayFormatted);
 
             diffTime = (Date.parse(contactBirthdayCompare) - Date.parse(futureDateCompare));
@@ -1191,4 +1191,23 @@ app.get('*', function(req, res) {
  */
 function addEscapeCharacters( str ) {
     return (str + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+}
+
+/**
+ * formatDate
+ * @param {} date to format
+ * @returns formatted date in YYYY-MM-DD for mysql
+ */
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
 }
