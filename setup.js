@@ -2,7 +2,7 @@
  * @author Anthony Narlock
  * @github narlock
  * 
- * This is the setup file for OSLA.
+ * This is the setup file for Kaizen.
  * 
  * Before starting, you will need to create
  * a MySQL database. You can do this by opening

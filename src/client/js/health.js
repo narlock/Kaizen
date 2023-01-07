@@ -30,7 +30,7 @@ function showTime(){
 showTime();
 
 let todaysDate = new Date();
-let todaysDateFormatted = todaysDate.getFullYear() + "-" + (todaysDate.getMonth()+1) + "-" + todaysDate.getDate(); //yyyy-mm-dd
+let todaysDateFormatted = formatDate(todaysDate);
 
 var waterGoal;
 var calorieGoal;
@@ -601,4 +601,23 @@ function moveSleepProgressBar(current, percent) {
       }
     }
   }
+}
+
+/**
+ * formatDate
+ * @param {} date to format
+ * @returns formatted date in YYYY-MM-DD for mysql
+ */
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
 }

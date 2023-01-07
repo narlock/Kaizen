@@ -717,21 +717,21 @@ app.get('/getHealthWaterGoal', function(req, res) {
             console.error("[OSLA/SERVER] getHealthWaterGoal FAILURE");
             throw err;
         }
-        console.error("[OSLA/SERVER] getHealthWaterGoal SUCCESS");
+        console.log("[OSLA/SERVER] getHealthWaterGoal SUCCESS");
         res.send(goal[0]);
     });
 });
 
 app.get('/getHealthCalorieGoal', function(req, res) {
     sql = `
-        SELECT * FROM hgoals WHERE goal_type=\"calorie\"
+        SELECT * FROM hgoals WHERE goal_type=\"calories\"
     `
     dbCon.query(sql, function(err, goal) {
         if(err) {
             console.error("[OSLA/SERVER] getHealthCalorieGoal FAILURE");
             throw err;
         }
-        console.error("[OSLA/SERVER] getHealthCalorieGoal SUCCESS");
+        console.log("[OSLA/SERVER] getHealthCalorieGoal SUCCESS");
         res.send(goal[0]);
     });
 });
@@ -745,7 +745,7 @@ app.get('/getHealthSleepGoal', function(req, res) {
             console.error("[OSLA/SERVER] getHealthSleepGoal FAILURE");
             throw err;
         }
-        console.error("[OSLA/SERVER] getHealthSleepGoal SUCCESS");
+        console.log("[OSLA/SERVER] getHealthSleepGoal SUCCESS");
         res.send(goal[0]);
     });
 });
@@ -759,7 +759,7 @@ app.get('/getHealthWaterEntries', function(req, res) {
             console.error("[OSLA/SERVER] getHealthWaterEntries FAILURE");
             throw err;
         }
-        console.error("[OSLA/SERVER] getHealthWaterEntries SUCCESS");
+        console.log("[OSLA/SERVER] getHealthWaterEntries SUCCESS");
         res.send(entries);
     });
 });
@@ -773,7 +773,7 @@ app.get('/getHealthCalorieEntries', function(req, res) {
             console.error("[OSLA/SERVER] getHealthCalorieEntries FAILURE");
             throw err;
         }
-        console.error("[OSLA/SERVER] getHealthCalorieEntries SUCCESS");
+        console.log("[OSLA/SERVER] getHealthCalorieEntries SUCCESS");
         res.send(entries);
     });
 });
@@ -787,7 +787,7 @@ app.get('/getHealthSleepEntries', function(req, res) {
             console.error("[OSLA/SERVER] getHealthSleepGoal FAILURE");
             throw err;
         }
-        console.error("[OSLA/SERVER] getHealthSleepGoal SUCCESS");
+        console.log("[OSLA/SERVER] getHealthSleepGoal SUCCESS");
         res.send(entries);
     });
 });
@@ -962,7 +962,7 @@ app.post('/updateCalorieGoal', function(req, res) {
         UPDATE  hgoals
         SET     goal_units=\"${req.body.units}\",
                 goal_units_to_complete=${req.body.unitsToComplete}
-        WHERE   goal_type=\"calorie\"
+        WHERE   goal_type=\"calories\"
     `
     dbCon.query(sql, function(err, result) {
         if(err) {
