@@ -504,12 +504,6 @@ app.get('/checkDateForHabits', function(req, res) {
     var date = new Date();
 
     var current_date_formatted = formatDate(date);
-    current_date = date.getFullYear() + '-'
-                + ('0' + (date.getMonth())).slice(-2) + '-'
-                 + ('0' + date.getDate()).slice(-2);
-
-    //var current_date = date_format.getFullYear() + "-" + date_format.getMonth() + "-" + date_format.getDate(); //yyyy-mm-dd
-    
 
     selectSql = `SELECT * FROM habits WHERE habit_occurrence LIKE \"%${dayName}%\"`;
     dbCon.query(selectSql, function(err, habits) {
@@ -520,14 +514,12 @@ app.get('/checkDateForHabits', function(req, res) {
         //console.log(habits);
         habits.forEach(function(habit) {
             habitDate = new Date(habit.habit_date);
-            habitDateString = habitDate.getFullYear() + '-'
-                 + ('0' + (habitDate.getMonth()+1)).slice(-2) + '-'
-                 + ('0' + habitDate.getDate()).slice(-2);
-            console.log(habitDateString);
-            console.log(current_date);
-            //console.log(habitDateString != current_date);
-            if(habitDateString != current_date) {
-                //Uncheck the habit
+            // console.log("[debug1] " + formatDate(habitDate));
+            // console.log("[debug2] " + current_date_formatted);
+            habitDateString = formatDate(habitDate)
+
+            if(habitDateString != current_date_formatted) {
+                //Uncheck the habit if the date is not the same
                 sql = `
                     UPDATE habits
                     SET    habit_status=0,
