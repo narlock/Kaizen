@@ -1,6 +1,5 @@
-/gui/
-/db/
 /util/
 /state/
-/domain/
 /panel/
+/domain/
+/gui/

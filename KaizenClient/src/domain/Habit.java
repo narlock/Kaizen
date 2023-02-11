@@ -3,28 +3,18 @@ package domain;
 import java.util.Date;
 
 public class Habit {
-	private int id;
 	private String title;
 	private int streak;
 	private String occurrence;
 	private int status;
 	private Date date;
 	
-	public Habit(int id, String title, int streak, String occurrence, int status, Date date) {
-		this.id = id;
+	public Habit(String title, int streak, String occurrence, int status, Date date) {
 		this.title = title;
 		this.streak = streak;
 		this.occurrence = occurrence;
 		this.status = status;
 		this.date = date;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getTitle() {
@@ -65,5 +55,10 @@ public class Habit {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	
+	public boolean isCompleted() {
+		if(status == 0) { return false; }
+		else return true;
 	}
 }

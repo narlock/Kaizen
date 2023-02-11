@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 public abstract class State extends JPanel {
 	public State() {
-		this.setBackground(Color.DARK_GRAY);
+		this.setBackground(new Color(20, 20, 20));
 		initPanelComponents();
 		initPanelComponentActions();
 		initPanel();
