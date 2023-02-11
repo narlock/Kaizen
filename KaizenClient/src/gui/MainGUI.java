@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import panel.HabitsPanel;
 import state.HabitsState;
 import state.HomeState;
 import state.State;
@@ -87,6 +86,8 @@ public class MainGUI extends JFrame {
 		this.setTitle("Kaizen Alpha v0.1");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(800, 600);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		this.setVisible(true);
 	}
 	

@@ -24,10 +24,18 @@ public class JsonReader extends JsonManager {
 		Habit habit1 = new Habit("Test Habit 1", 2, "mtwhfsu", 0, new Date());
 		Habit habit2 = new Habit("Test Habit 2", 2, "mtwhfsu", 0, new Date());
 		Habit habit3 = new Habit("Test Habit 3", 2, "mtwhfsu", 0, new Date());
+		Habit habit4 = new Habit("Test Habit 3", 2, "mtwhfsu", 0, new Date());
+		Habit habit5 = new Habit("Test Habit 3", 2, "mtwhfsu", 0, new Date());
+		Habit habit6 = new Habit("Test Habit 3", 2, "mtwhfsu", 0, new Date());
+		Habit habit7 = new Habit("Test Habit 3", 2, "mtwhfsu", 0, new Date());
 		
 		habitList.add(habit1);
 		habitList.add(habit2);
 		habitList.add(habit3);
+		habitList.add(habit4);
+		habitList.add(habit5);
+		habitList.add(habit6);
+		habitList.add(habit7);
 		
 		return habitList;
 	}

@@ -14,6 +14,8 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 import domain.Habit;
 import state.State;
@@ -43,13 +45,8 @@ public class HabitsPanel extends JPanel {
         
 		this.habits = JsonReader.readHabits(1);
 		createHabitPanels(habits, gbc);
-		
-		if(withBorder) {
-			this.setBorder(new RoundedBorder(new Color(217, 217, 217), 3, 10, 10, true));
-			this.setBackground(new Color(84, 84, 84));
-		} else {
-			this.setBackground(new Color(20, 20, 20));
-		}
+
+		this.setBackground(new Color(20, 20, 20));
 	}
 	
 	private void createHabitPanels(List<Habit> habits, GridBagConstraints gbc) {
@@ -74,7 +71,7 @@ public class HabitsPanel extends JPanel {
 		completeHabit.setOpaque(true);
 		completeHabit.setBorder(new RoundedBorder(new Color(217, 217, 217), 2, 20, 0, true));
 		if(habit.isCompleted()) {
-			completeHabit.setBackground(new Color(156, 255, 108));
+			completeHabit.setBackground(new Color(120, 120, 255));
 			completeHabit.setEnabled(false);
 		}
 		completeHabit.addActionListener(new ActionListener() {
@@ -82,7 +79,7 @@ public class HabitsPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				habit.setStatus(1);
 				JsonWriter.updateHabitsJson(habits);
-				completeHabit.setBackground(new Color(156, 255, 108));
+				completeHabit.setBackground(new Color(120, 120, 255));
 				completeHabit.setEnabled(false);
 			}
 		});
