@@ -21,8 +21,18 @@ import util.JsonReader;
  */
 public class HabitsPanel extends JPanel {
 	private List<Habit> habits;
+	private List<JPanel> habitPanels;
 	
 	public HabitsPanel() {
 		this.habits = JsonReader.readHabits();
+		this.habitPanels = createHabitPanels(habits);
+	}
+	
+	private List<JPanel> createHabitPanels(List<Habit> habits) {
+		for(Habit habit : habits) {
+			JPanel habitPanel = new JPanel();
+			
+		}
+		return null;
 	}
 }
