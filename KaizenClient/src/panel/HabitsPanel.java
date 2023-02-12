@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import domain.Habit;
 import util.Constants;
+import util.ErrorPane;
 import util.JsonReader;
 import util.JsonWriter;
 import util.RoundedBorder;
@@ -153,8 +154,10 @@ public class HabitsPanel extends JPanel {
 			
 			return habitMainPanel;
 		} else {
+			ErrorPane.displayError(this, "Unexpected error occurred during the creation of the HabitsPanel."
+					+ "\nPlease contact narlock (the developer) if you come across this error.");
+			System.exit(1);
 			throw new RuntimeException("Unexpected error occurred when creating HabitsPanel");
-			//TODO throw error screen
 		}
 	}
 }

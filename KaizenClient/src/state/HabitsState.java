@@ -29,7 +29,7 @@ public class HabitsState extends State {
 	@Override
 	public void initPanelComponents() {
 		//Set up habits panel
-		habitsPanel = new HabitsPanel(1);
+		habitsPanel = new HabitsPanel(2);
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
