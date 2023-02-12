@@ -2,7 +2,6 @@ package state;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -12,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import panel.HabitsPanel;
-import util.RoundedBorder;
+import util.Constants;
 
 public class HabitsState extends State {
 	
@@ -30,11 +29,11 @@ public class HabitsState extends State {
 	@Override
 	public void initPanelComponents() {
 		//Set up habits panel
-		habitsPanel = new HabitsPanel(false);
+		habitsPanel = new HabitsPanel(1);
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setPreferredSize(new Dimension(450, 385));
+		scrollPane.setPreferredSize(Constants.HABIT_SCROLL_PANE_SMALL);
 		scrollPane.setBorder(null);
 		
 		//Set up options panel

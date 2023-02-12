@@ -8,17 +8,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 import domain.Habit;
-import state.State;
+import util.Constants;
 import util.JsonReader;
 import util.JsonWriter;
 import util.RoundedBorder;
@@ -36,9 +33,12 @@ import util.RoundedBorder;
  *
  */
 public class HabitsPanel extends JPanel {
+	private static final long serialVersionUID = 1101759487138037037L;
 	private List<Habit> habits;
+	private int size;
 	
-	public HabitsPanel(boolean withBorder) {
+	public HabitsPanel(int size) {
+		this.size = size;
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -46,7 +46,7 @@ public class HabitsPanel extends JPanel {
 		this.habits = JsonReader.readHabits(1);
 		createHabitPanels(habits, gbc);
 
-		this.setBackground(new Color(20, 20, 20));
+		this.setBackground(Constants.GUI_BACKGROUND_COLOR);
 	}
 	
 	private void createHabitPanels(List<Habit> habits, GridBagConstraints gbc) {
@@ -56,53 +56,105 @@ public class HabitsPanel extends JPanel {
 	} 
 	
 	private JPanel createHabitPanelFromHabit(Habit habit) {
-		System.out.println("DEBUG " + habit.getTitle());
-		JPanel habitMainPanel = new JPanel();
-		habitMainPanel.setLayout(new BorderLayout());
-		habitMainPanel.setPreferredSize(new Dimension(400, 65));
-		habitMainPanel.setOpaque(true);
-		habitMainPanel.setBackground(new Color(84, 84, 84));
-		habitMainPanel.setBorder(new RoundedBorder(new Color(217, 217, 217), 3, 10, 10, true));
-		
-		JPanel habitCompletedPanel = new JPanel();
-		habitCompletedPanel.setBackground(new Color(84, 84, 84));
-		JButton completeHabit = new JButton();
-		completeHabit.setPreferredSize(new Dimension(20, 20));
-		completeHabit.setOpaque(true);
-		completeHabit.setBorder(new RoundedBorder(new Color(217, 217, 217), 2, 20, 0, true));
-		if(habit.isCompleted()) {
-			completeHabit.setBackground(new Color(120, 120, 255));
-			completeHabit.setEnabled(false);
-		}
-		completeHabit.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				habit.setStatus(1);
-				JsonWriter.updateHabitsJson(habits);
-				completeHabit.setBackground(new Color(120, 120, 255));
+		if(this.size == 0) {
+			JPanel habitMainPanel = new JPanel();
+			habitMainPanel.setLayout(new BorderLayout());
+			habitMainPanel.setPreferredSize(Constants.HABIT_MAIN_PANEL_DIMENSION_NORMAL);
+			habitMainPanel.setOpaque(true);
+			habitMainPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+			habitMainPanel.setBorder(Constants.COMPONENT_BORDER_NORMAL);
+			
+			JPanel habitCompletedPanel = new JPanel();
+			habitCompletedPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+			JButton completeHabit = new JButton();
+			completeHabit.setPreferredSize(Constants.COMPLETE_HABIT_DIMENSION_NORMAL);
+			completeHabit.setOpaque(true);
+			completeHabit.setBorder(Constants.HABIT_COMPLETE_BORDER_NORMAL);
+			if(habit.isCompleted()) {
+				completeHabit.setBackground(Constants.BUTTON_DEFAULT_COLOR);
 				completeHabit.setEnabled(false);
 			}
-		});
-		habitCompletedPanel.add(completeHabit);
-		
-		JPanel habitTitlePanel = new JPanel();
-		habitTitlePanel.setBackground(new Color(84, 84, 84));
-		JLabel habitTitle = new JLabel(habit.getTitle());
-		habitTitle.setFont(new Font("Tahoma", Font.BOLD, 16));
-		habitTitle.setForeground(new Color(217, 217, 217));
-		habitTitlePanel.add(habitTitle);
-		
-		JPanel streakPanel = new JPanel();
-		streakPanel.setBackground(new Color(84, 84, 84));
-		JLabel streakLabel = new JLabel("🔥 " + habit.getStreak());
-		streakLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		streakLabel.setForeground(new Color(217, 217, 217));
-		streakPanel.add(streakLabel);
-		
-		habitMainPanel.add(habitCompletedPanel, BorderLayout.WEST);
-		habitMainPanel.add(habitTitlePanel, BorderLayout.CENTER);
-		habitMainPanel.add(streakPanel, BorderLayout.EAST);
-		
-		return habitMainPanel;
+			completeHabit.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					habit.setStatus(1);
+					JsonWriter.updateHabitsJson(habits);
+					completeHabit.setBackground(Constants.BUTTON_DEFAULT_COLOR);
+					completeHabit.setEnabled(false);
+				}
+			});
+			habitCompletedPanel.add(completeHabit);
+			
+			JPanel habitTitlePanel = new JPanel();
+			habitTitlePanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+			JLabel habitTitle = new JLabel(habit.getTitle());
+			habitTitle.setFont(Constants.COMPONENT_FONT_NORMAL);
+			habitTitle.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+			habitTitlePanel.add(habitTitle);
+			
+			JPanel streakPanel = new JPanel();
+			streakPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+			JLabel streakLabel = new JLabel(Constants.FIRE_EMOJI_SPACE + habit.getStreak());
+			streakLabel.setFont(Constants.COMPONENT_FONT_NORMAL);
+			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+			streakPanel.add(streakLabel);
+			
+			habitMainPanel.add(habitCompletedPanel, BorderLayout.WEST);
+			habitMainPanel.add(habitTitlePanel, BorderLayout.CENTER);
+			habitMainPanel.add(streakPanel, BorderLayout.EAST);
+			
+			return habitMainPanel;
+		} else if (this.size == 1) {
+			JPanel habitMainPanel = new JPanel();
+			habitMainPanel.setLayout(new BorderLayout());
+			habitMainPanel.setPreferredSize(Constants.HABIT_MAIN_PANEL_DIMENSION_SMALL);
+			habitMainPanel.setOpaque(true);
+			habitMainPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+			habitMainPanel.setBorder(Constants.COMPONENT_BORDER_SMALL);
+			
+			JPanel habitCompletedPanel = new JPanel();
+			habitCompletedPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+			JButton completeHabit = new JButton();
+			completeHabit.setPreferredSize(Constants.COMPLETE_HABIT_DIMENSION_SMALL);
+			completeHabit.setOpaque(true);
+			completeHabit.setBorder(Constants.HABIT_COMPLETE_BORDER_SMALL);
+			if(habit.isCompleted()) {
+				completeHabit.setBackground(Constants.BUTTON_DEFAULT_COLOR);
+				completeHabit.setEnabled(false);
+			}
+			completeHabit.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					habit.setStatus(1);
+					JsonWriter.updateHabitsJson(habits);
+					completeHabit.setBackground(Constants.BUTTON_DEFAULT_COLOR);
+					completeHabit.setEnabled(false);
+				}
+			});
+			habitCompletedPanel.add(completeHabit);
+			
+			JPanel habitTitlePanel = new JPanel();
+			habitTitlePanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+			JLabel habitTitle = new JLabel(habit.getTitle());
+			habitTitle.setFont(Constants.COMPONENT_FONT_SMALL);
+			habitTitle.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+			habitTitlePanel.add(habitTitle);
+			
+			JPanel streakPanel = new JPanel();
+			streakPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+			JLabel streakLabel = new JLabel(Constants.FIRE_EMOJI_SPACE + habit.getStreak());
+			streakLabel.setFont(Constants.COMPONENT_FONT_SMALL);
+			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+			streakPanel.add(streakLabel);
+			
+			habitMainPanel.add(habitCompletedPanel, BorderLayout.WEST);
+			habitMainPanel.add(habitTitlePanel, BorderLayout.CENTER);
+			habitMainPanel.add(streakPanel, BorderLayout.EAST);
+			
+			return habitMainPanel;
+		} else {
+			throw new RuntimeException("Unexpected error occurred when creating HabitsPanel");
+			//TODO throw error screen
+		}
 	}
 }
