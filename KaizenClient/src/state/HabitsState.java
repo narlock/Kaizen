@@ -1,11 +1,10 @@
 package state;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.JButton;
+import javax.swing.Box;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -15,12 +14,13 @@ import util.Constants;
 
 public class HabitsState extends State {
 	
+	private static final long serialVersionUID = 6371695672562881139L;
+	
+	private JPanel titlePanel;
+	private JLabel titleLabel;
+	
 	private JScrollPane scrollPane;
 	private HabitsPanel habitsPanel;
-	
-	private JPanel optionsPanel;
-	private JButton newHabitButton;
-	private JButton updateHabitsButton;
 	
 	public HabitsState() {
 		super();
@@ -28,6 +28,14 @@ public class HabitsState extends State {
 
 	@Override
 	public void initPanelComponents() {
+		//Set up title panel
+		titlePanel = new JPanel();
+		titlePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
+		titleLabel = new JLabel("Today's Habits");
+		titleLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+		titleLabel.setFont(Constants.COMPONENT_FONT_NORMAL);
+		titlePanel.add(titleLabel);
+		
 		//Set up habits panel
 		habitsPanel = new HabitsPanel(0);
 		scrollPane = new JScrollPane(habitsPanel,
@@ -35,17 +43,6 @@ public class HabitsState extends State {
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setPreferredSize(Constants.HABIT_SCROLL_PANE_NORMAL);
 		scrollPane.setBorder(null);
-		
-		//Set up options panel
-		optionsPanel = new JPanel();
-		optionsPanel.setBackground(new Color(20, 20, 20));
-		newHabitButton = new JButton();
-		setButtonAttributes(newHabitButton, "New Habit");
-		updateHabitsButton = new JButton();
-		setButtonAttributes(updateHabitsButton, "Update Habits");
-		
-		optionsPanel.add(newHabitButton);
-		optionsPanel.add(updateHabitsButton);
 	}
 
 	@Override
@@ -59,9 +56,10 @@ public class HabitsState extends State {
 		// TODO Auto-generated method stub
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;   
         
+        this.add(titlePanel, gbc);
+        this.add(Box.createVerticalStrut(20), gbc);
 		this.add(scrollPane, gbc);
-		this.add(optionsPanel, gbc);
 	}
 }

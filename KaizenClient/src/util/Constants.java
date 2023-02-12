@@ -26,7 +26,7 @@ public final class Constants {
 	public final static Dimension COMPLETE_HABIT_DIMENSION_NORMAL = new Dimension(20, 20);
 	public final static Dimension COMPLETE_HABIT_DIMENSION_SMALL = new Dimension(15, 15);
 	public final static Dimension HABIT_SCROLL_PANE_NORMAL = new Dimension(450, 385);
-	public final static Dimension HABIT_SCROLL_PANE_SMALL = new Dimension(338, 289);
+	public final static Dimension HABIT_SCROLL_PANE_SMALL = new Dimension(338, 240);
 	
 	//Border Constants
 	public final static RoundedBorder COMPONENT_BORDER_NORMAL = new RoundedBorder(COMPONENT_BORDER_COLOR, 3, 10, 10, true);

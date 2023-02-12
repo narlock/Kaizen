@@ -100,8 +100,12 @@ public class MainGUI extends JFrame {
 		homeMenu.addMenuListener(new MenuListener() {
 			@Override
 			public void menuSelected(MenuEvent e) {
-				debug.print("Home Menu selected, changing to Home State");
-				changeState(new HomeState());
+				if(!(state instanceof HomeState)) {
+					debug.print("Home Menu selected, changing to Home State");
+					changeState(new HomeState());
+				} else {
+					debug.print("Home Menu selected, but already in state. Will not reload state.");
+				}
 			}
 			@Override
 			public void menuDeselected(MenuEvent e) {}
@@ -112,8 +116,12 @@ public class MainGUI extends JFrame {
 		habitsMenu.addMenuListener(new MenuListener() {
 			@Override
 			public void menuSelected(MenuEvent e) {
-				debug.print("Habits Menu selected, changing to Habits State");
-				changeState(new HabitsState());
+				if(!(state instanceof HabitsState)) {
+					debug.print("Habits Menu selected, changing to Habits State");
+					changeState(new HabitsState());
+				} else {
+					debug.print("Habits Menu selected, but already in state. Will not reload state.");
+				}
 			}
 			@Override
 			public void menuDeselected(MenuEvent e) {}
@@ -175,7 +183,7 @@ public class MainGUI extends JFrame {
 	private void initFrame() {
 		this.setTitle("Kaizen Alpha v0.1");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(800, 600);
+		this.setSize(900, 700);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setVisible(true);
@@ -183,11 +191,11 @@ public class MainGUI extends JFrame {
 	
 	public void changeState(State newState) {
 		this.remove(state);
-		this.setSize(800, 599);
+		this.setSize(900, 699);
 		state = newState;
 		this.add(state);
 		this.repaint();
-		this.setSize(800, 600);
+		this.setSize(900, 700);
 	}
 
 }
