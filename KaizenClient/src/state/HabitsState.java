@@ -53,7 +53,6 @@ public class HabitsState extends State {
 
 	@Override
 	public void initPanel() {
-		// TODO Auto-generated method stub
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;   
