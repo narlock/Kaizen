@@ -25,6 +25,9 @@ public class CreateHabitState extends State {
 	private final Debug debug = new Debug(true);
 	private GridBagConstraints gbc;
 	
+	private JPanel messagePanel;
+	private JLabel messagePanelLabel;
+	
 	private JPanel titlePanel;
 	private JLabel titleLabel;
 	
@@ -50,6 +53,13 @@ public class CreateHabitState extends State {
 	public void initPanelComponents() {
 		gbc = new GridBagConstraints();
 		gbc.gridwidth = GridBagConstraints.REMAINDER;  
+		
+		messagePanel = new JPanel();
+		messagePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
+		messagePanelLabel = new JLabel("");
+		messagePanelLabel.setFont(Constants.COMPONENT_FONT_NORMAL);
+		messagePanelLabel.setForeground(Constants.BUTTON_DEFAULT_COLOR);
+		messagePanel.add(messagePanelLabel);
 		
 		titlePanel = new JPanel();
 		titlePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
@@ -150,6 +160,7 @@ public class CreateHabitState extends State {
 	public void initPanel() {
 		this.setLayout(new GridBagLayout()); 
 		
+		this.add(messagePanel, gbc);
         this.add(titlePanel, gbc);
         this.add(formPanel, gbc);
         this.add(confirmPanel, gbc);
@@ -198,5 +209,7 @@ public class CreateHabitState extends State {
 		fridayCheckBox.setSelected(false);
 		saturdayCheckBox.setSelected(false);
 		sundayCheckBox.setSelected(false);
+		
+		messagePanelLabel.setText("Habit saved successfully!");
 	}
 }

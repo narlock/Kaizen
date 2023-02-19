@@ -1,9 +1,6 @@
 package panel;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -19,8 +16,6 @@ import domain.Habit;
 import util.Constants;
 import util.ErrorPane;
 import util.HabitJsonManager;
-import util.JsonWriter;
-import util.RoundedBorder;
 
 /**
  * HabitsPanel
@@ -132,7 +127,7 @@ public class HabitsPanel extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					habit.setStatus(1);
-					JsonWriter.updateHabitsJson(habits);
+					HabitJsonManager.writeHabitJsonToFile(habits);
 					completeHabit.setBackground(Constants.BUTTON_DEFAULT_COLOR);
 					completeHabit.setEnabled(false);
 				}
