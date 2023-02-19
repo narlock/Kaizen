@@ -11,11 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import util.Debug;
 import util.ErrorPane;
 
 public class CreateHabitState extends State {
 
 	private static final long serialVersionUID = 1823884086458179558L;
+	private final Debug debug = new Debug(true);
 	private GridBagConstraints gbc;
 	
 	private JPanel titlePanel;
@@ -91,8 +93,9 @@ public class CreateHabitState extends State {
 				 * 1. A title has been given to the habit
 				 * 2. At least one day is selected for the habit
 				 */
-				boolean noText = titleLabel.getText().equals("");
+				boolean noText = habitNameTextField.getText().equals("");
 				boolean atLeastOneDaySelected = habitDateChecked();
+				debug.print("No text is " + noText + ". Since habitNameTextField.getText() is " + habitNameTextField.getText() + ", atLeastOneDaySelected is " + atLeastOneDaySelected);
 				
 				if(!noText && atLeastOneDaySelected) {
 					//TODO Create the habit, change scene to HabitsState
