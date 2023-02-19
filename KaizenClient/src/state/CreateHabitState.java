@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import util.ErrorPane;
+
 public class CreateHabitState extends State {
 
 	private static final long serialVersionUID = 1823884086458179558L;
@@ -84,8 +86,25 @@ public class CreateHabitState extends State {
 		addHabitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				/*
+				 * Only allow the user to proceed if:
+				 * 1. A title has been given to the habit
+				 * 2. At least one day is selected for the habit
+				 */
+				boolean noText = titleLabel.getText().equals("");
+				boolean atLeastOneDaySelected = habitDateChecked();
 				
+				if(!noText && atLeastOneDaySelected) {
+					//TODO Create the habit, change scene to HabitsState
+				} else {
+					if(noText && !atLeastOneDaySelected) {
+						ErrorPane.displayError(formPanel, "You must give the habit a title and select a day before proceeding!");
+					} else if(noText) {
+						ErrorPane.displayError(formPanel, "You must give the habit a title before proceeding!");
+					} else if(!atLeastOneDaySelected) {
+						ErrorPane.displayError(formPanel, "You must select a day before proceeding!");
+					}
+				}
 			}
 			
 		});	
@@ -98,6 +117,16 @@ public class CreateHabitState extends State {
         this.add(titlePanel, gbc);
         this.add(formPanel, gbc);
         this.add(confirmPanel, gbc);
+	}
+	
+	private boolean habitDateChecked() {
+		return mondayCheckBox.isSelected() 
+				|| tuesdayCheckBox.isSelected() 
+				|| wednesdayCheckBox.isSelected() 
+				|| thursdayCheckBox.isSelected() 
+				|| fridayCheckBox.isSelected() 
+				|| saturdayCheckBox.isSelected() 
+				|| sundayCheckBox.isSelected();
 	}
 
 }
