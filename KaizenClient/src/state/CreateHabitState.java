@@ -1,5 +1,6 @@
 package state;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -7,10 +8,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import util.Constants;
 import util.Debug;
 import util.ErrorPane;
 
@@ -47,26 +50,40 @@ public class CreateHabitState extends State {
 		gbc.gridwidth = GridBagConstraints.REMAINDER;  
 		
 		titlePanel = new JPanel();
+		titlePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		titleLabel = new JLabel("What habit would you like to start?");
+		setTextComponentVisual(titleLabel);
 		titlePanel.add(titleLabel);
 		
 		formPanel = new JPanel();
+		formPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+		formPanel.setBorder(Constants.COMPONENT_BORDER_NORMAL);
 		formPanel.setLayout(new GridBagLayout());
 		
 		habitNamePanel = new JPanel();
+		habitNamePanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		habitNameLabel = new JLabel("Name your habit: ");
+		setTextComponentVisual(habitNameLabel);
 		habitNameTextField = new JTextField(10);
 		habitNamePanel.add(habitNameLabel);
 		habitNamePanel.add(habitNameTextField);
 		
 		occurrenceLabel = new JLabel("What days will you do this habit?");
+		setTextComponentVisual(occurrenceLabel);
 		mondayCheckBox = new JCheckBox("Monday");
+		setTextComponentVisual(mondayCheckBox);
 		tuesdayCheckBox = new JCheckBox("Tuesday");
+		setTextComponentVisual(tuesdayCheckBox);
 		wednesdayCheckBox = new JCheckBox("Wednesday");
+		setTextComponentVisual(wednesdayCheckBox);
 		thursdayCheckBox = new JCheckBox("Thursday");
+		setTextComponentVisual(thursdayCheckBox);
 		fridayCheckBox = new JCheckBox("Friday");
+		setTextComponentVisual(fridayCheckBox);
 		saturdayCheckBox = new JCheckBox("Saturday");
+		setTextComponentVisual(saturdayCheckBox);
 		sundayCheckBox = new JCheckBox("Sunday");
+		setTextComponentVisual(sundayCheckBox);
 		
 		formPanel.add(habitNamePanel, gbc);
 		formPanel.add(occurrenceLabel, gbc);
@@ -79,7 +96,13 @@ public class CreateHabitState extends State {
 		formPanel.add(sundayCheckBox, gbc);
 		
 		confirmPanel = new JPanel();
+		confirmPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		addHabitButton = new JButton("Add Habit");
+		addHabitButton.setOpaque(true);
+		addHabitButton.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+		addHabitButton.setFont(Constants.COMPONENT_FONT_NORMAL);
+		addHabitButton.setBackground(Constants.BUTTON_DEFAULT_COLOR);
+		addHabitButton.setBorder(Constants.COMPONENT_BORDER_NORMAL);
 		confirmPanel.add(addHabitButton);
 	}
 
@@ -130,6 +153,11 @@ public class CreateHabitState extends State {
 				|| fridayCheckBox.isSelected() 
 				|| saturdayCheckBox.isSelected() 
 				|| sundayCheckBox.isSelected();
+	}
+	
+	private void setTextComponentVisual(JComponent component) {
+		component.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+		component.setFont(Constants.COMPONENT_FONT_NORMAL);
 	}
 
 }
