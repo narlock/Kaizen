@@ -3,8 +3,12 @@ package util;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
 
 public final class Constants {
+	//Date Formatter
+	public final static SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
+	
 	//String Constants
 	public final static String FIRE_EMOJI = "🔥";
 	public final static String FIRE_EMOJI_SPACE = "🔥 ";

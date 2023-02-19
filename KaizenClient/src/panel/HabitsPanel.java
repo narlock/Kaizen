@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -51,6 +52,10 @@ public class HabitsPanel extends JPanel {
 	}
 	
 	private void createHabitPanels(List<Habit> habits, GridBagConstraints gbc) {
+		if(habits == null) {
+			habits = new ArrayList<Habit>();
+			this.habits = habits;
+		}
 		for(Habit habit : habits) {
 			this.add(createHabitPanelFromHabit(habit), gbc);
 		}
@@ -79,7 +84,7 @@ public class HabitsPanel extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					habit.setStatus(1);
-					JsonWriter.updateHabitsJson(habits);
+					HabitJsonManager.writeHabitJsonToFile(habits);
 					completeHabit.setBackground(Constants.BUTTON_DEFAULT_COLOR);
 					completeHabit.setEnabled(false);
 				}

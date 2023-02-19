@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -12,9 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import domain.Habit;
 import util.Constants;
 import util.Debug;
 import util.ErrorPane;
+import util.HabitJsonManager;
 
 public class CreateHabitState extends State {
 
@@ -120,7 +123,15 @@ public class CreateHabitState extends State {
 				debug.print("No text is " + noText + ". Since habitNameTextField.getText() is " + habitNameTextField.getText() + ", atLeastOneDaySelected is " + atLeastOneDaySelected);
 				
 				if(!noText && atLeastOneDaySelected) {
-					//TODO Create the habit, change scene to HabitsState
+					Habit habit = new Habit(
+								habitNameTextField.getText(),
+								0,
+								getOccurrenceString(),
+								0,
+								new Date()
+							);
+					HabitJsonManager.addHabit(habit);
+					resetHabitForm();
 				} else {
 					if(noText && !atLeastOneDaySelected) {
 						ErrorPane.displayError(formPanel, "You must give the habit a title and select a day before proceeding!");
@@ -158,5 +169,34 @@ public class CreateHabitState extends State {
 		component.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		component.setFont(Constants.COMPONENT_FONT_NORMAL);
 	}
-
+	
+	private String getOccurrenceString() {
+		String occurrenceString = "";
+		if(mondayCheckBox.isSelected())
+			occurrenceString += "m";
+		if(tuesdayCheckBox.isSelected())
+			occurrenceString += "t";
+		if(wednesdayCheckBox.isSelected())
+			occurrenceString += "w";
+		if(thursdayCheckBox.isSelected())
+			occurrenceString += "h";
+		if(fridayCheckBox.isSelected())
+			occurrenceString += "f";
+		if(saturdayCheckBox.isSelected())
+			occurrenceString += "s";
+		if(sundayCheckBox.isSelected())
+			occurrenceString += "u";
+		return occurrenceString;
+	}
+	
+	private void resetHabitForm() {
+		habitNameTextField.setText("");
+		mondayCheckBox.setSelected(false);
+		tuesdayCheckBox.setSelected(false);
+		wednesdayCheckBox.setSelected(false);
+		thursdayCheckBox.setSelected(false);
+		fridayCheckBox.setSelected(false);
+		saturdayCheckBox.setSelected(false);
+		sundayCheckBox.setSelected(false);
+	}
 }

@@ -48,15 +48,14 @@ public class HabitJsonManager extends JsonManager {
 			//TODO Create new habits.json file and return
 			try {
 				habitsJsonFile.createNewFile();
-				writeHabitJsonToFile(habitsJsonFile, new ArrayList<Habit>());
+				writeHabitJsonToFile(new ArrayList<Habit>());
 				readHabits();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		ErrorPane.displayError(null, "Unexpected error occurred during reading habits.json file.");
-		System.exit(1);
+
 		return null;
 	}
 	
@@ -83,22 +82,59 @@ public class HabitJsonManager extends JsonManager {
 		return habitList;
 	}
 	
-	public static boolean writeHabitJsonToFile(File habitsFile, List<Habit> habits) {
+	public static boolean writeHabitJsonToFile(List<Habit> habits) {
+		debug.print("Inside of writeHabitJsonToFile");
+		File habitsJsonFile = new File(habitsPath);
 		if(habits.isEmpty()) {
+			debug.print("[writeHabitJsonToFile] Creating habits");
 			JSONArray emptyArray = new JSONArray();
 			try {
-				file = new FileWriter(habitsFile);
+				file = new FileWriter(habitsJsonFile);
 				file.write(emptyArray.toJSONString());
 				return true;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
-			}
+			} finally {
+	            try {
+	                file.flush();
+	                file.close();
+	            } catch (IOException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            }
+	        }
 		} else {
-			//TODO Implement
-			return false;
+			debug.print("[writeHabitJsonToFile] Updating habits");
+			JSONArray array = habitListToJsonHabitArray(habits);
+			try {
+				file = new FileWriter(habitsJsonFile);
+				debug.print("Habits Array: " + array.toJSONString());
+				file.write(array.toJSONString());
+				return true;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			} finally {
+	            try {
+	                file.flush();
+	                file.close();
+	            } catch (IOException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            }
+	        }
 		}
+	}
+	
+	public static boolean addHabit(Habit habit) {
+		debug.print("Inside of addHabit");
+		List<Habit> habits = readHabits();
+		habits.add(habit);
+		writeHabitJsonToFile(habits);
+		return true;
 	}
 	
 	public static List<Habit> jsonHabitArrayToHabitList(JSONArray array) {
@@ -123,10 +159,9 @@ public class HabitJsonManager extends JsonManager {
 	}
 	
 	public static Habit jsonHabitObjectToHabitObject(JSONObject obj) {
-		SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
 		Date date;
 		try {
-			date = formatter.parse((String) obj.get("date"));
+			date = Constants.formatter.parse((String) obj.get("date"));
 			return new Habit(
 					(String) obj.get("title"),
 					(Long) obj.get("streak"),
@@ -141,5 +176,26 @@ public class HabitJsonManager extends JsonManager {
 		
 		ErrorPane.displayError(null, "An unexpected error occurred");
 		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static JSONArray habitListToJsonHabitArray(List<Habit> habits) {
+		JSONArray array = new JSONArray();
+		for(Habit habit : habits) {
+			debug.print("Adding " + habit.getTitle() + " to JSONArray");
+			array.add(habitToJsonHabitObject(habit));
+		}
+		return array;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static JSONObject habitToJsonHabitObject(Habit habit) {
+		JSONObject obj = new JSONObject();
+		obj.put("title", habit.getTitle());
+		obj.put("streak", habit.getStreak());
+		obj.put("occurrence", habit.getOccurrence());
+		obj.put("status", habit.getStatus());
+		obj.put("date", Constants.formatter.format(habit.getDate()));
+		return obj;
 	}
 }
