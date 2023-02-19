@@ -1,6 +1,5 @@
 package state;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -68,7 +67,7 @@ public class CreateHabitState extends State {
 		habitNamePanel.add(habitNameLabel);
 		habitNamePanel.add(habitNameTextField);
 		
-		occurrenceLabel = new JLabel("What days will you do this habit?");
+		occurrenceLabel = new JLabel("I will perform this habit on:");
 		setTextComponentVisual(occurrenceLabel);
 		mondayCheckBox = new JCheckBox("Monday");
 		setTextComponentVisual(mondayCheckBox);

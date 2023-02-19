@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import domain.Habit;
 import util.Constants;
 import util.ErrorPane;
-import util.JsonReader;
+import util.HabitJsonManager;
 import util.JsonWriter;
 import util.RoundedBorder;
 
@@ -44,7 +44,7 @@ public class HabitsPanel extends JPanel {
 		GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
-		this.habits = JsonReader.readHabits(1);
+		this.habits = HabitJsonManager.readHabits();
 		createHabitPanels(habits, gbc);
 
 		this.setBackground(Constants.GUI_BACKGROUND_COLOR);

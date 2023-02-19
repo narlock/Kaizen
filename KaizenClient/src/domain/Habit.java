@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class Habit {
 	private String title;
-	private int streak;
+	private long streak;
 	private String occurrence;
-	private int status;
+	private long status;
 	private Date date;
 	
-	public Habit(String title, int streak, String occurrence, int status, Date date) {
+	public Habit(String title, long streak, String occurrence, long status, Date date) {
 		this.title = title;
 		this.streak = streak;
 		this.occurrence = occurrence;
@@ -25,7 +25,7 @@ public class Habit {
 		this.title = title;
 	}
 
-	public int getStreak() {
+	public long getStreak() {
 		return streak;
 	}
 
@@ -41,7 +41,7 @@ public class Habit {
 		this.occurrence = occurrence;
 	}
 
-	public int getStatus() {
+	public long getStatus() {
 		return status;
 	}
 
@@ -61,4 +61,12 @@ public class Habit {
 		if(status == 0) { return false; }
 		else return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Habit [title=" + title + ", streak=" + streak + ", occurrence=" + occurrence + ", status=" + status
+				+ ", date=" + date + "]";
+	}
+	
+	
 }
