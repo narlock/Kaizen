@@ -9,6 +9,8 @@ import widget.HabitWidgetPanel;
 
 public class HomeState extends State {
 	
+	private static final long serialVersionUID = -794674909058043997L;
+	
 	private JPanel widget;
 	
 	public HomeState() {

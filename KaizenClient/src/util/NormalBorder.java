@@ -24,7 +24,8 @@ import javax.swing.border.AbstractBorder;
 public class NormalBorder extends AbstractBorder
 {
 
-    private Color color;
+    private static final long serialVersionUID = -6879930988646213161L;
+	private Color color;
     private int thickness = 4;
     private int radii = 8;
     private int pointerSize = 7;

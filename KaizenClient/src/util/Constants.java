@@ -11,7 +11,7 @@ public final class Constants {
 	
 	//String Constants
 	public final static String FIRE_EMOJI = "🔥";
-	public final static String FIRE_EMOJI_SPACE = "🔥 ";
+	public final static String FIRE_EMOJI_SPACE = " 🔥";
 	
 	//Color Constants
 	public final static Color GUI_BACKGROUND_COLOR = new Color(20, 20, 20);

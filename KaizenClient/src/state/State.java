@@ -9,6 +9,9 @@ import javax.swing.JPanel;
 import util.RoundedBorder;
 
 public abstract class State extends JPanel {
+	
+	private static final long serialVersionUID = -910452205672441980L;
+	
 	public State() {
 		this.setBackground(new Color(20, 20, 20));
 		initPanelComponents();

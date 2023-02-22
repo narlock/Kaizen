@@ -31,7 +31,7 @@ public class HabitWidgetPanel extends JPanel {
 		habitContainerPanel = new JPanel();
 		habitContainerPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
         
-		habitsPanel = new HabitsPanel(1);
+		habitsPanel = new HabitsPanel(1, false);
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

@@ -18,6 +18,7 @@ import util.Constants;
 import util.Debug;
 import util.ErrorPane;
 import util.HabitJsonManager;
+import util.JTextFieldLimit;
 
 public class CreateHabitState extends State {
 
@@ -77,6 +78,7 @@ public class CreateHabitState extends State {
 		habitNameLabel = new JLabel("Name your habit: ");
 		setTextComponentVisual(habitNameLabel);
 		habitNameTextField = new JTextField(10);
+		habitNameTextField.setDocument(new JTextFieldLimit(25));
 		habitNamePanel.add(habitNameLabel);
 		habitNamePanel.add(habitNameTextField);
 		

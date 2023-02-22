@@ -23,7 +23,8 @@ import javax.swing.border.AbstractBorder;
 public class RoundedBorder extends AbstractBorder
 {
 
-    private Color color;
+    private static final long serialVersionUID = -3308622773777385399L;
+	private Color color;
     private int thickness = 4;
     private int radii = 8;
     private int pointerSize = 7;

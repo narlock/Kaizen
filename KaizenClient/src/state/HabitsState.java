@@ -37,7 +37,7 @@ public class HabitsState extends State {
 		titlePanel.add(titleLabel);
 		
 		//Set up habits panel
-		habitsPanel = new HabitsPanel(0);
+		habitsPanel = new HabitsPanel(0, false);
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
