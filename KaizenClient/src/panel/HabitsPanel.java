@@ -34,17 +34,24 @@ public class HabitsPanel extends JPanel {
 	private List<Habit> habits;
 	private int size;
 	private boolean update;
+	public JLabel titleLabel; //Label from HabitsState / Widget
+	private int completedHabits;
 	
-	public HabitsPanel(int size, boolean update) {
+	public HabitsPanel(List<Habit> habits, JLabel titleLabel, int size, boolean update) {
 		this.update = update;
 		this.size = size;
+		this.habits = habits;
+		for(Habit habit : habits) {
+			if(habit.isCompleted()) { completedHabits++; }
+		}
+		this.titleLabel = titleLabel;
+		titleLabel.setText("Today's Habits | " + completedHabits + "/" + habits.size());
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
-		this.habits = HabitJsonManager.readHabits();
-		updateHabitsOnTime();
+		updateHabitsOnTime(); //Maybe move to HabitsState
 		createHabitPanels(habits, gbc);
 
 		this.setBackground(Constants.GUI_BACKGROUND_COLOR);
@@ -87,6 +94,8 @@ public class HabitsPanel extends JPanel {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						habit.setStatus(1);
+						completedHabits++;
+						titleLabel.setText("Today's Habits | " + completedHabits + "/" + habits.size());
 						HabitJsonManager.writeHabitJsonToFile(habits);
 						completeHabit.setBackground(Constants.BUTTON_DEFAULT_COLOR);
 						completeHabit.setEnabled(false);
