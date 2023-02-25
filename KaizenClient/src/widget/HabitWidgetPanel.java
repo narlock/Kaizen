@@ -41,7 +41,8 @@ public class HabitWidgetPanel extends JPanel {
 		habitContainerPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
         
 		List<Habit> todaysHabits = HabitUtils.getTodaysHabits(habits);
-		habitsPanel = new HabitsPanel(todaysHabits, titleLabel, 1, false);
+		//TODO Update today's habits
+		habitsPanel = new HabitsPanel(todaysHabits, titleLabel, 1);
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

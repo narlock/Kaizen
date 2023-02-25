@@ -48,7 +48,7 @@ public class HabitsState extends State {
 		
 		//Set up habits panel
 		List<Habit> todaysHabits = HabitUtils.getTodaysHabits(habits);
-		habitsPanel = new HabitsPanel(todaysHabits, titleLabel, 0, false);
+		habitsPanel = new HabitsPanel(todaysHabits, titleLabel, 0);
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

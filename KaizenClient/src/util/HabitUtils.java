@@ -34,4 +34,16 @@ public class HabitUtils {
 		}
 		return todaysHabits;
 	}
+	
+	/**
+	 * updateHabits
+	 * @brief Will update the habits. This means that if a day has passed,
+	 * streaks will be updated, isCompleted will be set back to false, etc.
+	 * @param todaysHabits
+	 * @return List of updated habits
+	 */
+	public static List<Habit> updateHabits(List<Habit> todaysHabits) {
+		//TODO
+		return todaysHabits;
+	}
 }

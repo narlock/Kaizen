@@ -33,16 +33,13 @@ public class HabitsPanel extends JPanel {
 	private static final long serialVersionUID = 1101759487138037037L;
 	private List<Habit> habits;
 	private int size;
-	private boolean update;
 	public JLabel titleLabel; //Label from HabitsState / Widget
 	private int completedHabits;
 	
-	public HabitsPanel(List<Habit> habits, JLabel titleLabel, int size, boolean update) {
-		this.update = update;
+	public HabitsPanel(List<Habit> habits, JLabel titleLabel, int size) {
 		this.size = size;
 		this.habits = habits;
 		for(Habit habit : habits) {
-			//TODO Only cycle through the habits for today, not the others!
 			if(habit.isCompleted()) { completedHabits++; }
 		}
 		this.titleLabel = titleLabel;
@@ -52,7 +49,6 @@ public class HabitsPanel extends JPanel {
 		GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
-		updateHabitsOnTime(); //Maybe move to HabitsState
 		createHabitPanels(habits, gbc);
 
 		this.setBackground(Constants.GUI_BACKGROUND_COLOR);
@@ -64,8 +60,6 @@ public class HabitsPanel extends JPanel {
 			this.habits = habits;
 		}
 		for(Habit habit : habits) {
-			//TODO If they are habits that occur today, then add them!
-			//Do not add the other ones!
 			this.add(createHabitPanelFromHabit(habit), gbc);
 		}
 	} 
@@ -79,36 +73,31 @@ public class HabitsPanel extends JPanel {
 			habitMainPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 			habitMainPanel.setBorder(Constants.COMPONENT_BORDER_NORMAL);
 			
-			if(!update) {
-				//Add Circle Button to check off habit
-				JPanel habitCompletedPanel = new JPanel();
-				habitCompletedPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
-				JButton completeHabit = new JButton();
-				completeHabit.setPreferredSize(Constants.COMPLETE_HABIT_DIMENSION_NORMAL);
-				completeHabit.setOpaque(true);
-				completeHabit.setBorder(Constants.HABIT_COMPLETE_BORDER_NORMAL);
-				if(habit.isCompleted()) {
+			//Add Circle Button to check off habit
+			JPanel habitCompletedPanel = new JPanel();
+			habitCompletedPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+			JButton completeHabit = new JButton();
+			completeHabit.setPreferredSize(Constants.COMPLETE_HABIT_DIMENSION_NORMAL);
+			completeHabit.setOpaque(true);
+			completeHabit.setBorder(Constants.HABIT_COMPLETE_BORDER_NORMAL);
+			if(habit.isCompleted()) {
+				completeHabit.setBackground(Constants.BUTTON_DEFAULT_COLOR);
+				completeHabit.setEnabled(false);
+			}
+			completeHabit.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					habit.setStatus(1);
+					completedHabits++;
+					titleLabel.setText("Today's Habits | " + completedHabits + "/" + habits.size());
+					HabitJsonManager.writeHabitJsonToFile(habits);
 					completeHabit.setBackground(Constants.BUTTON_DEFAULT_COLOR);
 					completeHabit.setEnabled(false);
 				}
-				completeHabit.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						habit.setStatus(1);
-						completedHabits++;
-						titleLabel.setText("Today's Habits | " + completedHabits + "/" + habits.size());
-						HabitJsonManager.writeHabitJsonToFile(habits);
-						completeHabit.setBackground(Constants.BUTTON_DEFAULT_COLOR);
-						completeHabit.setEnabled(false);
-					}
-				});
-				habitCompletedPanel.add(completeHabit);
-				habitMainPanel.add(habitCompletedPanel, BorderLayout.WEST);
-			} else {
-				//Add Update Button
-				JButton updateHabitButton = new JButton("Update");
-				
-			}
+			});
+			habitCompletedPanel.add(completeHabit);
+			habitMainPanel.add(habitCompletedPanel, BorderLayout.WEST);
+			
 			JPanel habitTitlePanel = new JPanel();
 			habitTitlePanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 			JLabel habitTitle = new JLabel(habit.getTitle());
@@ -117,19 +106,15 @@ public class HabitsPanel extends JPanel {
 			habitTitlePanel.add(habitTitle);
 			habitMainPanel.add(habitTitlePanel, BorderLayout.CENTER);
 			
-			if(!this.update) {
-				//Create Streak panel
-				JPanel streakPanel = new JPanel();
-				streakPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
-				JLabel streakLabel = new JLabel(habit.getStreak() + Constants.FIRE_EMOJI_SPACE);
-				streakLabel.setFont(Constants.COMPONENT_FONT_NORMAL);
-				streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-				streakPanel.add(streakLabel);
+			//Create Streak panel
+			JPanel streakPanel = new JPanel();
+			streakPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+			JLabel streakLabel = new JLabel(habit.getStreak() + Constants.FIRE_EMOJI_SPACE);
+			streakLabel.setFont(Constants.COMPONENT_FONT_NORMAL);
+			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+			streakPanel.add(streakLabel);
 				habitMainPanel.add(streakPanel, BorderLayout.EAST);
-			} else {
-				//Add Delete Button
 				
-			}
 			return habitMainPanel;
 		} else if (this.size == 1) {
 			JPanel habitMainPanel = new JPanel();
@@ -185,14 +170,5 @@ public class HabitsPanel extends JPanel {
 			System.exit(1);
 			throw new RuntimeException("Unexpected error occurred when creating HabitsPanel");
 		}
-	}
-	
-	private void updateHabitsOnTime() {
-		//TODO This method will update the habits if for example
-		// a day has passed, it will reset the status...
-		
-		//On consecutive day for doing the habit, streak will be incremented
-		//If a streak is broken set that here...
-		//Etc.
 	}
 }

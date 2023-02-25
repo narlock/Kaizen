@@ -18,6 +18,8 @@ public final class Constants {
 	public final static Color COMPONENT_BACKGROUND_COLOR = new Color(84, 84, 84);
 	public final static Color COMPONENT_BORDER_COLOR = new Color(217, 217, 217);
 	public final static Color BUTTON_DEFAULT_COLOR = new Color(120, 120, 255);
+	public static final Color BUTTON_ALERT_COLOR = new Color(255, 120, 120);
+	public static final Color BUTTON_CONFIRM_COLOR = new Color(120, 255, 120);
 	public final static Color COMPONENT_FOREGROUND_COLOR = new Color(217, 217, 217);
 	
 	//Font Constants
@@ -25,10 +27,12 @@ public final class Constants {
 	public final static Font COMPONENT_FONT_SMALL = new Font("Tahoma", Font.BOLD, 12);
 	
 	//Dimensions Constants
+	public final static Dimension HABIT_MAIN_PANEL_DIMENSION_LARGE = new Dimension(550, 85);
 	public final static Dimension HABIT_MAIN_PANEL_DIMENSION_NORMAL = new Dimension(400, 65);
 	public final static Dimension HABIT_MAIN_PANEL_DIMENSION_SMALL = new Dimension(300, 49);
 	public final static Dimension COMPLETE_HABIT_DIMENSION_NORMAL = new Dimension(20, 20);
 	public final static Dimension COMPLETE_HABIT_DIMENSION_SMALL = new Dimension(15, 15);
+	public final static Dimension HABIT_SCROLL_PANE_LARGE = new Dimension(600, 415);
 	public final static Dimension HABIT_SCROLL_PANE_NORMAL = new Dimension(450, 385);
 	public final static Dimension HABIT_SCROLL_PANE_SMALL = new Dimension(338, 240);
 	
@@ -37,4 +41,5 @@ public final class Constants {
 	public final static RoundedBorder COMPONENT_BORDER_SMALL = new RoundedBorder(COMPONENT_BORDER_COLOR, 2, 7, 7, true);
 	public final static RoundedBorder HABIT_COMPLETE_BORDER_NORMAL = new RoundedBorder(COMPONENT_BORDER_COLOR, 2, 20, 0, true);
 	public final static RoundedBorder HABIT_COMPLETE_BORDER_SMALL = new RoundedBorder(COMPONENT_BORDER_COLOR, 1, 15, 0, true);
+
 }

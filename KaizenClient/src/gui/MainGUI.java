@@ -16,6 +16,7 @@ import state.CreateHabitState;
 import state.HabitsState;
 import state.HomeState;
 import state.State;
+import state.UpdateHabitsState;
 import util.Debug;
 
 public class MainGUI extends JFrame {
@@ -129,6 +130,17 @@ public class MainGUI extends JFrame {
 					changeState(new CreateHabitState());
 				} else {
 					debug.print("CreateHabit Menu selected, but already in state. Will not reload state.");
+				}
+			}
+		});
+		updateHabitsMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!(state instanceof UpdateHabitsState)) {
+					debug.print("UpdateHabit Menu selected, changing to UpdateHabit State");
+					changeState(new UpdateHabitsState());
+				} else {
+					debug.print("UpdateHabit Menu selected, but already in state. Will not reload state.");
 				}
 			}
 		});
