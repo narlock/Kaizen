@@ -30,6 +30,7 @@ public class HabitWidgetPanel extends JPanel {
 	private HabitsPanel habitsPanel;
 	
 	public HabitWidgetPanel() {
+		this.setBorder(Constants.COMPONENT_BORDER_NORMAL_RECTANGULAR);
 		this.habits = HabitJsonManager.readHabits();
 		HabitUtils.updateHabits(habits);
 		HabitJsonManager.writeHabitJsonToFile(habits);
