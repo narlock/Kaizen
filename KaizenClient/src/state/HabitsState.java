@@ -37,6 +37,8 @@ public class HabitsState extends State {
 	public void initPanelComponents() {
 		//Get habits
 		this.habits = HabitJsonManager.readHabits();
+		HabitUtils.updateHabits(habits);
+		HabitJsonManager.writeHabitJsonToFile(habits);
 		
 		//Set up title panel
 		titlePanel = new JPanel();
@@ -46,9 +48,7 @@ public class HabitsState extends State {
 		titleLabel.setFont(Constants.COMPONENT_FONT_NORMAL);
 		titlePanel.add(titleLabel);
 		
-		//Set up habits panel
-		List<Habit> todaysHabits = HabitUtils.getTodaysHabits(habits);
-		habitsPanel = new HabitsPanel(todaysHabits, titleLabel, 0);
+		habitsPanel = new HabitsPanel(habits, titleLabel, 0);
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

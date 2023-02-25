@@ -1,5 +1,6 @@
 package widget;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -10,6 +11,7 @@ import javax.swing.ScrollPaneConstants;
 import domain.Habit;
 import panel.HabitsPanel;
 import util.Constants;
+import util.Debug;
 import util.HabitJsonManager;
 import util.HabitUtils;
 
@@ -18,6 +20,7 @@ public class HabitWidgetPanel extends JPanel {
 	private List<Habit> habits;
 	
 	private static final long serialVersionUID = 2456894465204691767L;
+	private final Debug debug = new Debug(true);
 	
 	private JPanel titlePanel;
 	private JLabel titleLabel;
@@ -28,6 +31,8 @@ public class HabitWidgetPanel extends JPanel {
 	
 	public HabitWidgetPanel() {
 		this.habits = HabitJsonManager.readHabits();
+		HabitUtils.updateHabits(habits);
+		HabitJsonManager.writeHabitJsonToFile(habits);
 
 		this.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		titlePanel = new JPanel();
@@ -39,10 +44,8 @@ public class HabitWidgetPanel extends JPanel {
 		
 		habitContainerPanel = new JPanel();
 		habitContainerPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
-        
-		List<Habit> todaysHabits = HabitUtils.getTodaysHabits(habits);
-		//TODO Update today's habits
-		habitsPanel = new HabitsPanel(todaysHabits, titleLabel, 1);
+		
+		habitsPanel = new HabitsPanel(habits, titleLabel, 1);
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

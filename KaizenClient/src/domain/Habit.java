@@ -29,7 +29,7 @@ public class Habit {
 		return streak;
 	}
 
-	public void setStreak(int streak) {
+	public void setStreak(long streak) {
 		this.streak = streak;
 	}
 
@@ -67,6 +67,75 @@ public class Habit {
 		return "Habit [title=" + title + ", streak=" + streak + ", occurrence=" + occurrence + ", status=" + status
 				+ ", date=" + date + "]";
 	}
+
+	public boolean occursEveryday() {
+		return occurrence.contains("1") &&
+				occurrence.contains("2") &&
+				occurrence.contains("3") &&
+				occurrence.contains("4") &&
+				occurrence.contains("5") &&
+				occurrence.contains("6") &&
+				occurrence.contains("7");
+	}
 	
+	public boolean occursOnceAWeek() {
+		if(occurrence.contains("1") &&
+				!occurrence.contains("2") &&
+				!occurrence.contains("3") &&
+				!occurrence.contains("4") &&
+				!occurrence.contains("5") &&
+				!occurrence.contains("6") &&
+				!occurrence.contains("7")) {
+			return true;
+		} else if(!occurrence.contains("1") &&
+				occurrence.contains("2") &&
+				!occurrence.contains("3") &&
+				!occurrence.contains("4") &&
+				!occurrence.contains("5") &&
+				!occurrence.contains("6") &&
+				!occurrence.contains("7")) {
+			return true;
+		} else if(!occurrence.contains("1") &&
+				!occurrence.contains("2") &&
+				occurrence.contains("3") &&
+				!occurrence.contains("4") &&
+				!occurrence.contains("5") &&
+				!occurrence.contains("6") &&
+				!occurrence.contains("7")) {
+			return true;
+		} else if(!occurrence.contains("1") &&
+				!occurrence.contains("2") &&
+				!occurrence.contains("3") &&
+				occurrence.contains("4") &&
+				!occurrence.contains("5") &&
+				!occurrence.contains("6") &&
+				!occurrence.contains("7")) {
+			return true;
+		} else if(!occurrence.contains("1") &&
+				!occurrence.contains("2") &&
+				!occurrence.contains("3") &&
+				!occurrence.contains("4") &&
+				occurrence.contains("5") &&
+				!occurrence.contains("6") &&
+				!occurrence.contains("7")) {
+			return true;
+		} else if(!occurrence.contains("1") &&
+				!occurrence.contains("2") &&
+				!occurrence.contains("3") &&
+				!occurrence.contains("4") &&
+				!occurrence.contains("5") &&
+				occurrence.contains("6") &&
+				!occurrence.contains("7")) {
+			return true;
+		} else if(!occurrence.contains("1") &&
+				!occurrence.contains("2") &&
+				!occurrence.contains("3") &&
+				!occurrence.contains("4") &&
+				!occurrence.contains("5") &&
+				!occurrence.contains("6") &&
+				occurrence.contains("7")) {
+			return true;
+		} else return false;
+	}
 	
 }

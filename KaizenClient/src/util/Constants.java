@@ -7,11 +7,11 @@ import java.text.SimpleDateFormat;
 
 public final class Constants {
 	//Date Formatter
-	public final static SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
+	public final static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	
 	//String Constants
-	public final static String FIRE_EMOJI = "🔥";
 	public final static String FIRE_EMOJI_SPACE = " 🔥";
+	public final static String STAR_EMOJI_SPACE = " ⭐";
 	
 	//Color Constants
 	public final static Color GUI_BACKGROUND_COLOR = new Color(20, 20, 20);

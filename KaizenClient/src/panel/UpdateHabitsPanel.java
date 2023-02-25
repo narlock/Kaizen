@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -143,11 +144,6 @@ public class UpdateHabitsPanel extends JPanel {
 		sundayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL);
 		occurrencePanel.add(sundayCheckBox);
 		
-		//Add update button, will open Jtextfield, replaces
-		//delete button with save button, save button will update
-		//the habit object and then call writeHabitJsonToFile and
-		//take in the habits member attribute from here
-		
 		/*
 		 * UPDATE / DELETE HABIT ACTIONS
 		 */
@@ -190,6 +186,8 @@ public class UpdateHabitsPanel extends JPanel {
 				habitMainPanel.repaint();
 				habitMainPanel.add(saveHabitPanel, BorderLayout.WEST);
 				habitMainPanel.add(habitNamePanel, BorderLayout.EAST);
+				
+				//Set the components values
 				habitNameTextField.setText(habit.getTitle());
 				habitMainPanel.add(occurrencePanel);
 				if(habit.getOccurrence().contains("2"))
@@ -219,7 +217,7 @@ public class UpdateHabitsPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				//Exit Update Habit Mode
 				
-				//TODO Update habit object, write habits to JSON
+				//Get Information for Update
 				habit.setTitle(habitNameTextField.getText());
 				String occurrenceString = "";
 				if(sundayCheckBox.isSelected())
@@ -236,10 +234,20 @@ public class UpdateHabitsPanel extends JPanel {
 					occurrenceString += "6";
 				if(saturdayCheckBox.isSelected())
 					occurrenceString += "7";
+				
+				//If the occurrence changes, we need to reset habit
+				if(habit.getOccurrence().equals(occurrenceString)) {
+					habit.setStreak(0);
+					habit.setStatus(0);
+					habit.setDate(new Date());
+				}
 				habit.setOccurrence(occurrenceString);
+				
+				//Rewrite habit information
 				habitTitle.setText(habit.getTitle());
 				HabitJsonManager.writeHabitJsonToFile(habits);
 				
+				//Update Interface
 				habitMainPanel.remove(saveHabitPanel);
 				habitMainPanel.remove(habitNamePanel);
 				habitMainPanel.remove(occurrencePanel);
@@ -253,7 +261,6 @@ public class UpdateHabitsPanel extends JPanel {
 			}
 			
 		});
-		
 		
 		return habitMainPanel;
 	}

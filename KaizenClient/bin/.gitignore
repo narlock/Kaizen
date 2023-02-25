@@ -1,6 +1,5 @@
 /util/
 /widget/
-/state/
-/panel/
-/gui/
 /domain/
+/panel/
+/state/

@@ -16,6 +16,7 @@ import domain.Habit;
 import util.Constants;
 import util.ErrorPane;
 import util.HabitJsonManager;
+import util.HabitUtils;
 
 /**
  * HabitsPanel
@@ -39,11 +40,16 @@ public class HabitsPanel extends JPanel {
 	public HabitsPanel(List<Habit> habits, JLabel titleLabel, int size) {
 		this.size = size;
 		this.habits = habits;
+		
+		int todaysHabitsSize = 0;
 		for(Habit habit : habits) {
-			if(habit.isCompleted()) { completedHabits++; }
+			if(HabitUtils.occursToday(habit)) {
+				todaysHabitsSize++;
+				if(habit.isCompleted()) { completedHabits++; }
+			}
 		}
 		this.titleLabel = titleLabel;
-		titleLabel.setText("Today's Habits | " + completedHabits + "/" + habits.size());
+		titleLabel.setText("Today's Habits | " + completedHabits + "/" + todaysHabitsSize);
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -60,11 +66,16 @@ public class HabitsPanel extends JPanel {
 			this.habits = habits;
 		}
 		for(Habit habit : habits) {
-			this.add(createHabitPanelFromHabit(habit), gbc);
+			if(HabitUtils.occursToday(habit)) {
+				if(habit.occursEveryday() || habit.occursOnceAWeek())
+					this.add(createHabitPanelFromHabit(habit, Constants.FIRE_EMOJI_SPACE), gbc);
+				else
+					this.add(createHabitPanelFromHabit(habit, Constants.STAR_EMOJI_SPACE), gbc);
+			}
 		}
 	} 
 	
-	private JPanel createHabitPanelFromHabit(Habit habit) {
+	private JPanel createHabitPanelFromHabit(Habit habit, String icon) {
 		if(this.size == 0) {
 			JPanel habitMainPanel = new JPanel();
 			habitMainPanel.setLayout(new BorderLayout());
@@ -109,7 +120,7 @@ public class HabitsPanel extends JPanel {
 			//Create Streak panel
 			JPanel streakPanel = new JPanel();
 			streakPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
-			JLabel streakLabel = new JLabel(habit.getStreak() + Constants.FIRE_EMOJI_SPACE);
+			JLabel streakLabel = new JLabel(habit.getStreak() + icon);
 			streakLabel.setFont(Constants.COMPONENT_FONT_NORMAL);
 			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 			streakPanel.add(streakLabel);
@@ -154,7 +165,7 @@ public class HabitsPanel extends JPanel {
 			
 			JPanel streakPanel = new JPanel();
 			streakPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
-			JLabel streakLabel = new JLabel(habit.getStreak() + Constants.FIRE_EMOJI_SPACE);
+			JLabel streakLabel = new JLabel(habit.getStreak() + icon);
 			streakLabel.setFont(Constants.COMPONENT_FONT_SMALL);
 			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 			streakPanel.add(streakLabel);
