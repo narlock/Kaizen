@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import domain.Habit;
 import util.Constants;
 import util.ErrorPane;
+import util.HabitJsonManager;
 import util.JTextFieldLimit;
 
 public class UpdateHabitsPanel extends JPanel {
@@ -165,6 +166,10 @@ public class UpdateHabitsPanel extends JPanel {
 						new ImageIcon(ErrorPane.class.getClassLoader().getResource("INFO_ERROR.png"))
 					);
 				if(confirm == JOptionPane.YES_OPTION) {
+					//Remove Habit from list and update
+					habits.remove(habit);
+					HabitJsonManager.writeHabitJsonToFile(habits);
+					
 					//Remove the Habit Panel
 					getThis().remove(habitMainPanel);
 					getThis().revalidate();
@@ -185,8 +190,23 @@ public class UpdateHabitsPanel extends JPanel {
 				habitMainPanel.repaint();
 				habitMainPanel.add(saveHabitPanel, BorderLayout.WEST);
 				habitMainPanel.add(habitNamePanel, BorderLayout.EAST);
-				habitMainPanel.add(occurrencePanel);
 				habitNameTextField.setText(habit.getTitle());
+				habitMainPanel.add(occurrencePanel);
+				if(habit.getOccurrence().contains("2"))
+					mondayCheckBox.setSelected(true);
+				if(habit.getOccurrence().contains("3"))
+					tuesdayCheckBox.setSelected(true);
+				if(habit.getOccurrence().contains("4"))
+					wednesdayCheckBox.setSelected(true);
+				if(habit.getOccurrence().contains("5"))
+					thursdayCheckBox.setSelected(true);
+				if(habit.getOccurrence().contains("6"))
+					fridayCheckBox.setSelected(true);
+				if(habit.getOccurrence().contains("7"))
+					saturdayCheckBox.setSelected(true);
+				if(habit.getOccurrence().contains("1"))
+					sundayCheckBox.setSelected(true);
+				
 				habitMainPanel.revalidate();
 				habitMainPanel.repaint();
 			}
@@ -200,6 +220,25 @@ public class UpdateHabitsPanel extends JPanel {
 				//Exit Update Habit Mode
 				
 				//TODO Update habit object, write habits to JSON
+				habit.setTitle(habitNameTextField.getText());
+				String occurrenceString = "";
+				if(sundayCheckBox.isSelected())
+					occurrenceString += "1";
+				if(mondayCheckBox.isSelected())
+					occurrenceString += "2";
+				if(tuesdayCheckBox.isSelected())
+					occurrenceString += "3";
+				if(wednesdayCheckBox.isSelected())
+					occurrenceString += "4";
+				if(thursdayCheckBox.isSelected())
+					occurrenceString += "5";
+				if(fridayCheckBox.isSelected())
+					occurrenceString += "6";
+				if(saturdayCheckBox.isSelected())
+					occurrenceString += "7";
+				habit.setOccurrence(occurrenceString);
+				habitTitle.setText(habit.getTitle());
+				HabitJsonManager.writeHabitJsonToFile(habits);
 				
 				habitMainPanel.remove(saveHabitPanel);
 				habitMainPanel.remove(habitNamePanel);
