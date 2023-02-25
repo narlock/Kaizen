@@ -11,6 +11,7 @@ import domain.Habit;
 import panel.HabitsPanel;
 import util.Constants;
 import util.HabitJsonManager;
+import util.HabitUtils;
 
 public class HabitWidgetPanel extends JPanel {
 	
@@ -39,7 +40,8 @@ public class HabitWidgetPanel extends JPanel {
 		habitContainerPanel = new JPanel();
 		habitContainerPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
         
-		habitsPanel = new HabitsPanel(habits, titleLabel, 1, false);
+		List<Habit> todaysHabits = HabitUtils.getTodaysHabits(habits);
+		habitsPanel = new HabitsPanel(todaysHabits, titleLabel, 1, false);
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

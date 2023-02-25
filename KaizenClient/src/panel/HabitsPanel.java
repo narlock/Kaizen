@@ -42,6 +42,7 @@ public class HabitsPanel extends JPanel {
 		this.size = size;
 		this.habits = habits;
 		for(Habit habit : habits) {
+			//TODO Only cycle through the habits for today, not the others!
 			if(habit.isCompleted()) { completedHabits++; }
 		}
 		this.titleLabel = titleLabel;

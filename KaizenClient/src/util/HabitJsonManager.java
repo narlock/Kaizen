@@ -54,7 +54,7 @@ public class HabitJsonManager extends JsonManager {
 			}
 		}
 
-		return null;
+		return new ArrayList<Habit>();
 	}
 	
 	//DEBUG Mode readHabits, creates sample habit list

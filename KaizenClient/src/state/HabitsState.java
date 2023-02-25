@@ -14,6 +14,7 @@ import domain.Habit;
 import panel.HabitsPanel;
 import util.Constants;
 import util.HabitJsonManager;
+import util.HabitUtils;
 
 public class HabitsState extends State {
 	
@@ -46,7 +47,8 @@ public class HabitsState extends State {
 		titlePanel.add(titleLabel);
 		
 		//Set up habits panel
-		habitsPanel = new HabitsPanel(habits, titleLabel, 0, false);
+		List<Habit> todaysHabits = HabitUtils.getTodaysHabits(habits);
+		habitsPanel = new HabitsPanel(todaysHabits, titleLabel, 0, false);
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

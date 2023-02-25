@@ -185,20 +185,20 @@ public class CreateHabitState extends State {
 	
 	private String getOccurrenceString() {
 		String occurrenceString = "";
-		if(mondayCheckBox.isSelected())
-			occurrenceString += "m";
-		if(tuesdayCheckBox.isSelected())
-			occurrenceString += "t";
-		if(wednesdayCheckBox.isSelected())
-			occurrenceString += "w";
-		if(thursdayCheckBox.isSelected())
-			occurrenceString += "h";
-		if(fridayCheckBox.isSelected())
-			occurrenceString += "f";
-		if(saturdayCheckBox.isSelected())
-			occurrenceString += "s";
 		if(sundayCheckBox.isSelected())
-			occurrenceString += "u";
+			occurrenceString += "1";
+		if(mondayCheckBox.isSelected())
+			occurrenceString += "2";
+		if(tuesdayCheckBox.isSelected())
+			occurrenceString += "3";
+		if(wednesdayCheckBox.isSelected())
+			occurrenceString += "4";
+		if(thursdayCheckBox.isSelected())
+			occurrenceString += "5";
+		if(fridayCheckBox.isSelected())
+			occurrenceString += "6";
+		if(saturdayCheckBox.isSelected())
+			occurrenceString += "7";
 		return occurrenceString;
 	}
 	
