@@ -1,16 +1,12 @@
 package util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import domain.Habit;
 
-public class HabitUtils {
+public class HabitUtils extends Utils {
 //	public static List<Habit> getTodaysHabits(List<Habit> allHabits) {
 //		List<Habit> todaysHabits = new ArrayList<Habit>();
 //		
@@ -131,18 +127,6 @@ public class HabitUtils {
 				return 2;
 			} else return 1;
 		}
-	}
-	
-	public static Date today() {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		String formattedDateString = formatter.format(date);
-		try {
-			return formatter.parse(formattedDateString);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		throw new RuntimeException("Unexpected error occurred");
 	}
 	
 	public static boolean sameDay(Habit habit) {
