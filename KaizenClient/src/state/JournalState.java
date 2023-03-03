@@ -120,11 +120,11 @@ public class JournalState extends State {
 		
 		howWasDayButtonPanel = new JPanel();
 		howWasDayButtonPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
-		dayBadButton = new JRadioButton(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
-		dayMehButton = new JRadioButton(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
-		dayNeutralButton = new JRadioButton(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
-		dayGoodButton = new JRadioButton(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
-		dayGreatButton = new JRadioButton(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
+		dayBadButton = new JRadioButton(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD.png")));
+		dayMehButton = new JRadioButton(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH.png")));
+		dayNeutralButton = new JRadioButton(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_NEUTRAL.png")));
+		dayGoodButton = new JRadioButton(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GOOD.png")));
+		dayGreatButton = new JRadioButton(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GREAT.png")));
 		howWasDayButtonPanel.add(dayBadButton);
 		howWasDayButtonPanel.add(dayMehButton);
 		howWasDayButtonPanel.add(dayNeutralButton);
@@ -219,13 +219,13 @@ public class JournalState extends State {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(dayBadButton.isSelected()) {
-					dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
-					dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
-					dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
-					dayGoodButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
-					dayGreatButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
+					dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD_SELECTED.png")));
+					dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH.png")));
+					dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_NEUTRAL.png")));
+					dayGoodButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GOOD.png")));
+					dayGreatButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GREAT.png")));
 				} else {
-					dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
+					dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD.png")));
 				}
 			}
 			
@@ -236,14 +236,13 @@ public class JournalState extends State {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(dayMehButton.isSelected()) {
-					dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
-					
-					dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
-					dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
-					dayGoodButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
-					dayGreatButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
+					dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD.png")));
+					dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH_SELECTED.png")));
+					dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_NEUTRAL.png")));
+					dayGoodButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GOOD.png")));
+					dayGreatButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GREAT.png")));
 				} else {
-					dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR.png")));
+					dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH.png")));
 				}
 			}
 			
