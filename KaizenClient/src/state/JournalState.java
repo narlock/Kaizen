@@ -1,8 +1,15 @@
 package state;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+
+import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
 import domain.Journal;
@@ -10,23 +17,25 @@ import domain.Journal;
 public class JournalState extends State {
 
 	private static final long serialVersionUID = -7551488559014363160L;
+	private GridBagConstraints gbc;
 	
 	private Journal journal;
 	
 	private JPanel titlePanel;
 	private JLabel titleLabel;
+	private JPanel changeEntryPanel;
 	private JButton previousEntryButton; //To see past entry
-	private JButton forwardEntryButton; //A go back entry button, disabled if on today's/new entry
+	private JButton followingEntryButton; //A go back entry button, disabled if on today's/new entry
 	
 	private JPanel journalPanel; //Will be separated into two sections down the middle, like Web
 	
 	private JPanel leftJournalPanel; //This will have a layout to support howWasDay, text1, and text2
 	private JPanel howWasDayButtonPanel;
-	private JButton dayBadButton;
-	private JButton dayMehButton;
-	private JButton dayNeutralButton;
-	private JButton dayGoodButton;
-	private JButton dayGreatButton;
+	private JRadioButton dayBadButton;
+	private JRadioButton dayMehButton;
+	private JRadioButton dayNeutralButton;
+	private JRadioButton dayGoodButton;
+	private JRadioButton dayGreatButton;
 	
 	private JPanel text1Panel;
 	private JTextArea text1Area;
@@ -41,21 +50,50 @@ public class JournalState extends State {
 
 	@Override
 	public void initPanelComponents() {
-		//Read in the file, populate attributes
+		
+		this.gbc = new GridBagConstraints();
+		this.gbc.gridwidth = GridBagConstraints.REMAINDER;  
+		
+		//TODO Read in the file, populate attributes
 		//journal = JournalJsonManager.readJson();
 		
+		
+		titlePanel = new JPanel();
+		titlePanel.setLayout(new GridBagLayout());
+		titleLabel = new JLabel("Journal");
+		titlePanel.add(titleLabel, gbc);
+		changeEntryPanel = new JPanel();
+		previousEntryButton = new JButton("Previous Entry");
+		followingEntryButton = new JButton("Following Entry");
+		changeEntryPanel.add(previousEntryButton);
+		changeEntryPanel.add(followingEntryButton);
+		titlePanel.add(changeEntryPanel, gbc);
+		
+		journalPanel = new JPanel();
+		journalPanel.setLayout(new GridLayout(2, 1));
+		//journalPanel.setPreferredSize();
+		
+		leftJournalPanel = new JPanel();
+		howWasDayButtonPanel = new JPanel();
+		dayBadButton = new JRadioButton(new ImageIcon("TODO"));
+		dayMehButton = new JRadioButton(new ImageIcon("TODO"));
+		dayNeutralButton = new JRadioButton(new ImageIcon("TODO"));
+		dayGoodButton = new JRadioButton(new ImageIcon("TODO"));
+		dayGreatButton = new JRadioButton(new ImageIcon("TODO"));
 	}
 
 	@Override
 	public void initPanelComponentActions() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void initPanel() {
-		// TODO Auto-generated method stub
-		
+		this.setLayout(new GridBagLayout()); 
+        
+        this.add(titlePanel, gbc);
+        this.add(Box.createVerticalStrut(10), gbc);
+		this.add(journalPanel, gbc);
 	}
 
 }

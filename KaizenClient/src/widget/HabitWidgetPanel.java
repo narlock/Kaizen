@@ -50,6 +50,7 @@ public class HabitWidgetPanel extends JPanel {
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		scrollPane.setPreferredSize(Constants.HABIT_SCROLL_PANE_SMALL);
 		scrollPane.setBorder(null);
 		habitContainerPanel.add(scrollPane);

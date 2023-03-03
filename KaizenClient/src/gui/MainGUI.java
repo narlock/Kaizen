@@ -15,6 +15,7 @@ import javax.swing.event.MenuListener;
 import state.CreateHabitState;
 import state.HabitsState;
 import state.HomeState;
+import state.JournalState;
 import state.State;
 import state.UpdateHabitsState;
 import util.Debug;
@@ -143,6 +144,22 @@ public class MainGUI extends JFrame {
 					debug.print("UpdateHabit Menu selected, but already in state. Will not reload state.");
 				}
 			}
+		});
+		journalMenu.addMenuListener(new MenuListener() {
+
+			@Override
+			public void menuSelected(MenuEvent e) {
+				if(!(state instanceof JournalState)) {
+					debug.print("JournalState Menu selected, changing to JournalState State");
+					changeState(new JournalState());
+				} else {
+					debug.print("JournalState Menu selected, but already in state. Will not reload state.");
+				}
+			}
+			@Override
+			public void menuDeselected(MenuEvent e) {}
+			@Override
+			public void menuCanceled(MenuEvent e) {}
 		});
 	}
 	

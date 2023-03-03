@@ -50,7 +50,7 @@ public class HabitUtils {
 	public static List<Habit> updateHabits(List<Habit> habits) {
 		for(Habit habit : habits) {
 			//Only update the habits that occur today
-			if(occursToday(habit)) {
+			if(occursToday(habit) && habit.getStatus() == 1) {
 				switch(isStreakIncrementable(habit)) {
 				case 0:
 					habit.setStreak(0);

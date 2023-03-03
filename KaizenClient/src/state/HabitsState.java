@@ -52,15 +52,13 @@ public class HabitsState extends State {
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		scrollPane.setPreferredSize(Constants.HABIT_SCROLL_PANE_NORMAL);
 		scrollPane.setBorder(null);
 	}
 
 	@Override
-	public void initPanelComponentActions() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void initPanelComponentActions() {}
 
 	@Override
 	public void initPanel() {
