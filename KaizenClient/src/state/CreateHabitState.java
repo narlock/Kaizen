@@ -1,11 +1,14 @@
 package state;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -113,10 +116,11 @@ public class CreateHabitState extends State {
 		confirmPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		addHabitButton = new JButton("Add Habit");
 		addHabitButton.setOpaque(true);
-		addHabitButton.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+		addHabitButton.setForeground(Color.WHITE);
 		addHabitButton.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
-		addHabitButton.setBackground(Constants.BUTTON_DEFAULT_COLOR);
-		addHabitButton.setBorder(Constants.COMPONENT_BORDER_NORMAL);
+		addHabitButton.setBackground(Constants.BUTTON_CONFIRM_COLOR);
+		addHabitButton.setBorder(Constants.BUTTON_BORDER);
+		addHabitButton.setPreferredSize(new Dimension(120, 40));
 		confirmPanel.add(addHabitButton);
 	}
 
@@ -164,6 +168,7 @@ public class CreateHabitState extends State {
 		
 		this.add(messagePanel, gbc);
         this.add(titlePanel, gbc);
+        this.add(Box.createVerticalStrut(10), gbc);
         this.add(formPanel, gbc);
         this.add(confirmPanel, gbc);
 	}

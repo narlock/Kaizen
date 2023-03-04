@@ -129,11 +129,6 @@ public class HabitUtils extends Utils {
 		}
 	}
 	
-	public static boolean sameDay(Habit habit) {
-		return ChronoUnit.DAYS.between(habit.getDate().toInstant(), today().toInstant()) 
-				== 0;
-	}
-	
 	public static boolean previousDay(Habit habit) {
 		return ChronoUnit.DAYS.between(habit.getDate().toInstant(), today().toInstant()) 
 				== 1;

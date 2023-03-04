@@ -2,9 +2,17 @@ package util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
+import domain.Habit;
+
 public class Utils {
+	
+	public static boolean sameDay(Habit habit) {
+		return ChronoUnit.DAYS.between(habit.getDate().toInstant(), today().toInstant()) 
+				== 0;
+	}
 	
 	public static Date today() {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
