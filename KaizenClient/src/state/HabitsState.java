@@ -1,5 +1,6 @@
 package state;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import domain.Habit;
 import json.HabitJsonManager;
@@ -52,6 +54,13 @@ public class HabitsState extends State {
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//		scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+//		    @Override
+//		    protected void configureScrollBarColors() {
+//		        this.thumbColor = Color.BLACK;
+//		        this.trackColor = Color.RED;
+//		    }
+//		});
 		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		scrollPane.setPreferredSize(Constants.HABIT_SCROLL_PANE_NORMAL);
 		scrollPane.setBorder(null);

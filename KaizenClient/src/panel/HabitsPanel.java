@@ -8,9 +8,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import domain.Habit;
 import json.HabitJsonManager;
@@ -68,14 +70,14 @@ public class HabitsPanel extends JPanel {
 		for(Habit habit : habits) {
 			if(HabitUtils.occursToday(habit)) {
 				if(habit.occursEveryday() || habit.occursOnceAWeek())
-					this.add(createHabitPanelFromHabit(habit, Constants.FIRE_EMOJI_SPACE), gbc);
+					this.add(createHabitPanelFromHabit(habit, "FIRE.png"), gbc);
 				else
-					this.add(createHabitPanelFromHabit(habit, Constants.STAR_EMOJI_SPACE), gbc);
+					this.add(createHabitPanelFromHabit(habit, "STAR.png"), gbc);
 			}
 		}
 	} 
 	
-	private JPanel createHabitPanelFromHabit(Habit habit, String icon) {
+	private JPanel createHabitPanelFromHabit(Habit habit, String streakIconPath) {
 		if(this.size == 0) {
 			JPanel habitMainPanel = new JPanel();
 			habitMainPanel.setLayout(new BorderLayout());
@@ -120,7 +122,7 @@ public class HabitsPanel extends JPanel {
 			//Create Streak panel
 			JPanel streakPanel = new JPanel();
 			streakPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
-			JLabel streakLabel = new JLabel(habit.getStreak() + icon);
+			JLabel streakLabel = new JLabel("" + habit.getStreak(), new ImageIcon(getClass().getClassLoader().getResource(streakIconPath)), SwingConstants.LEADING);
 			streakLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 			streakPanel.add(streakLabel);
@@ -165,7 +167,7 @@ public class HabitsPanel extends JPanel {
 			
 			JPanel streakPanel = new JPanel();
 			streakPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
-			JLabel streakLabel = new JLabel(habit.getStreak() + icon);
+			JLabel streakLabel = new JLabel("" + habit.getStreak(), new ImageIcon(getClass().getClassLoader().getResource(streakIconPath)), SwingConstants.LEADING);
 			streakLabel.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 			streakPanel.add(streakLabel);

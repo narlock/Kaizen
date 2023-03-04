@@ -1,9 +1,4 @@
-/util/
-/widget/
-/domain/
-/panel/
-/state/
-/gui/
+/INFO_ERROR.png
 /INFO_ERROR_ORANGE.png
 /JOURNAL_BAD.png
 /JOURNAL_BAD_SELECTED.png
@@ -15,4 +10,8 @@
 /JOURNAL_MEH_SELECTED.png
 /JOURNAL_NEUTRAL.png
 /JOURNAL_NEUTRAL_SELECTED.png
-/json/
+/state/
+/panel/
+/util/
+/FIRE.png
+/STAR.png

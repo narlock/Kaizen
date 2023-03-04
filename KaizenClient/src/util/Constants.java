@@ -9,10 +9,6 @@ public final class Constants {
 	//Date Formatter
 	public final static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	
-	//String Constants
-	public final static String FIRE_EMOJI_SPACE = " 🔥";
-	public final static String STAR_EMOJI_SPACE = " ⭐";
-	
 	//Color Constants
 	public final static Color GUI_BACKGROUND_COLOR = new Color(20, 20, 20);
 	public final static Color COMPONENT_BACKGROUND_COLOR = new Color(84, 84, 84);

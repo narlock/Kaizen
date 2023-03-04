@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 import domain.Journal;
 import domain.JournalEntry;
@@ -34,7 +35,9 @@ public class JournalState extends State {
 	private JournalEntry openEntry;
 	
 	private JPanel titlePanel;
+	private JPanel labelPanel;
 	private JLabel titleLabel;
+	private JLabel streakLabel;
 	private JPanel changeEntryPanel;
 	private JButton previousEntryButton; //To see past entry
 	private JButton followingEntryButton; //A go back entry button, disabled if on today's/new entry
@@ -86,10 +89,17 @@ public class JournalState extends State {
 		titlePanel = new JPanel();
 		titlePanel.setLayout(new GridBagLayout());
 		titlePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
-		titleLabel = new JLabel("Journal • " + todayString + " • 12" + Constants.FIRE_EMOJI_SPACE);
+		labelPanel = new JPanel();
+		labelPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
+		titleLabel = new JLabel("Journal • " + todayString + " • ");
 		titleLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 		titleLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		titlePanel.add(titleLabel, gbc);
+		streakLabel = new JLabel("12", new ImageIcon(getClass().getClassLoader().getResource("FIRE.png")), SwingConstants.LEADING);
+		streakLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
+		streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+		labelPanel.add(titleLabel);
+		labelPanel.add(streakLabel);
+		titlePanel.add(labelPanel, gbc);
 		changeEntryPanel = new JPanel();
 		changeEntryPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		previousEntryButton = new JButton("← Previous Entry");
