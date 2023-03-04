@@ -1,16 +1,29 @@
 package domain;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import util.Utils;
 
 public class Journal {
 	private List<JournalEntry> entries;
 	private Date lastLog;
-	private int logStreak;
+	private long logStreak;
 	private boolean showStreak;
 	
-	public Journal(List<JournalEntry> entries, Date lastLog, int logStreak, boolean showStreak) {
+	/**
+	 * New Journal Constructor
+	 */
+	public Journal() {
+		this.entries = new ArrayList<JournalEntry>();
+		this.lastLog = Utils.today(); //There is no "last log" until a user saves their first log.
+		this.logStreak = 0;
+		this.showStreak = true;
+	}
+	
+	public Journal(List<JournalEntry> entries, Date lastLog, long logStreak, boolean showStreak) {
 		super();
 		this.entries = entries;
 		this.lastLog = lastLog;
@@ -34,11 +47,11 @@ public class Journal {
 		this.lastLog = lastLog;
 	}
 
-	public int getLogStreak() {
+	public long getLogStreak() {
 		return logStreak;
 	}
 
-	public void setLogStreak(int logStreak) {
+	public void setLogStreak(long logStreak) {
 		this.logStreak = logStreak;
 	}
 
@@ -51,6 +64,10 @@ public class Journal {
 	}
 	
 	public JournalEntry getEntryByDateString(String dateString) {
+		if(entries.isEmpty()) {
+			return new JournalEntry();
+		}
+		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		for(JournalEntry entry : entries) {
 			if(formatter.format(entry.getDate()).equals(dateString)) {
@@ -58,5 +75,11 @@ public class Journal {
 			}
 		}
 		throw new RuntimeException("Entry does not exist in journal");
+	}
+
+	@Override
+	public String toString() {
+		return "Journal [entries=" + entries + ", lastLog=" + lastLog + ", logStreak=" + logStreak + ", showStreak="
+				+ showStreak + "]";
 	}
 }

@@ -123,6 +123,7 @@ public class HabitsPanel extends JPanel {
 			JPanel streakPanel = new JPanel();
 			streakPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 			JLabel streakLabel = new JLabel("" + habit.getStreak(), new ImageIcon(getClass().getClassLoader().getResource(streakIconPath)), SwingConstants.LEADING);
+			streakLabel.setHorizontalTextPosition(SwingConstants.LEADING);
 			streakLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 			streakPanel.add(streakLabel);
@@ -168,6 +169,7 @@ public class HabitsPanel extends JPanel {
 			JPanel streakPanel = new JPanel();
 			streakPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 			JLabel streakLabel = new JLabel("" + habit.getStreak(), new ImageIcon(getClass().getClassLoader().getResource(streakIconPath)), SwingConstants.LEADING);
+			streakLabel.setHorizontalTextPosition(SwingConstants.LEADING);
 			streakLabel.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 			streakPanel.add(streakLabel);

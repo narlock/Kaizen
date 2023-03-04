@@ -14,13 +14,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import domain.Journal;
 import domain.JournalEntry;
+import json.JournalJsonManager;
 import util.Constants;
 import util.Debug;
 import util.Utils;
@@ -28,7 +28,6 @@ import util.Utils;
 public class JournalState extends State {
 
 	private static final long serialVersionUID = -7551488559014363160L;
-	private final Debug debug = new Debug(true);
 	private GridBagConstraints gbc;
 	
 	private Journal journal;
@@ -81,9 +80,10 @@ public class JournalState extends State {
 		String todayString = Utils.todayAsString();
 		
 		//TODO Read in the file, populate attributes
-//		journal = JournalJsonManager.readJson();
-//		openEntry = journal.getEntryByDateString(todayString);
-		openEntry = new JournalEntry(); //TODO Remove this when method is implemented
+		journal = JournalJsonManager.readJson();
+		final Debug debug = new Debug(true);
+		debug.print(journal.toString());
+		openEntry = journal.getEntryByDateString(todayString);
 		
 		//Title Panel
 		titlePanel = new JPanel();
@@ -91,14 +91,17 @@ public class JournalState extends State {
 		titlePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		labelPanel = new JPanel();
 		labelPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
-		titleLabel = new JLabel("Journal • " + todayString + " • ");
+		titleLabel = new JLabel("Journal • " + todayString);
 		titleLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 		titleLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		streakLabel = new JLabel("12", new ImageIcon(getClass().getClassLoader().getResource("FIRE.png")), SwingConstants.LEADING);
-		streakLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
-		streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		labelPanel.add(titleLabel);
-		labelPanel.add(streakLabel);
+		if(journal.isShowStreak()) {
+			streakLabel = new JLabel(" • " + journal.getLogStreak(), new ImageIcon(getClass().getClassLoader().getResource("FIRE.png")), JLabel.RIGHT);
+			streakLabel.setHorizontalTextPosition(SwingConstants.LEADING);
+			streakLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
+			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+			labelPanel.add(streakLabel);
+		}
 		titlePanel.add(labelPanel, gbc);
 		changeEntryPanel = new JPanel();
 		changeEntryPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
@@ -269,6 +272,7 @@ public class JournalState extends State {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				openEntry.setHowWasDay(2);
+				
 				dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD.png")));
 				dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH_SELECTED.png")));
 				dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_NEUTRAL.png")));
@@ -283,6 +287,7 @@ public class JournalState extends State {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				openEntry.setHowWasDay(3);
+				
 				dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD.png")));
 				dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH.png")));
 				dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_NEUTRAL_SELECTED.png")));
@@ -297,6 +302,7 @@ public class JournalState extends State {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				openEntry.setHowWasDay(4);
+				
 				dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD.png")));
 				dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH.png")));
 				dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_NEUTRAL.png")));
@@ -311,6 +317,7 @@ public class JournalState extends State {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				openEntry.setHowWasDay(5);
+				
 				dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD.png")));
 				dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH.png")));
 				dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_NEUTRAL.png")));

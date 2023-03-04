@@ -51,9 +51,9 @@ public class HabitJsonManager extends JsonManager {
 				habitsJsonFile.createNewFile();
 				writeHabitJsonToFile(new ArrayList<Habit>());
 				readHabits();
-			} catch (IOException e) {
+			} catch (IOException proOsuGamer) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				proOsuGamer.printStackTrace();
 			}
 		}
 

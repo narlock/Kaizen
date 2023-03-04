@@ -4,8 +4,7 @@ import java.util.Date;
 
 import util.Utils;
 
-public class JournalEntry {
-	private long id;
+public class JournalEntry implements Comparable<JournalEntry> {
 	private Date date;
 	private long howWasDay;
 	private String text1; //Events
@@ -17,23 +16,14 @@ public class JournalEntry {
 		this.date = Utils.today();
 	}
 	
-	public JournalEntry(long id, Date date, long howWasDay, String text1, String text2, String text3, String text4) {
+	public JournalEntry(Date date, long howWasDay, String text1, String text2, String text3, String text4) {
 		super();
-		this.id = id;
 		this.date = date;
 		this.howWasDay = howWasDay;
 		this.text1 = text1;
 		this.text2 = text2;
 		this.text3 = text3;
 		this.text4 = text4;
-	}
-	
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public Date getDate() {
@@ -71,5 +61,10 @@ public class JournalEntry {
 	}
 	public void setText4(String text4) {
 		this.text4 = text4;
+	}
+
+	@Override
+	public int compareTo(JournalEntry o) {
+		return this.getDate().compareTo(o.getDate());
 	}
 }
