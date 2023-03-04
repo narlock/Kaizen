@@ -2,6 +2,8 @@ package domain;
 
 import java.util.Date;
 
+import util.Utils;
+
 public class JournalEntry {
 	private long id;
 	private Date date;
@@ -10,6 +12,10 @@ public class JournalEntry {
 	private String text2; //Stresses
 	private String text3; //Gratefulness
 	private String text4; //Goals
+	
+	public JournalEntry() {
+		this.date = Utils.today();
+	}
 	
 	public JournalEntry(long id, Date date, long howWasDay, String text1, String text2, String text3, String text4) {
 		super();

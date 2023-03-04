@@ -17,15 +17,15 @@ public final class Constants {
 	public final static Color GUI_BACKGROUND_COLOR = new Color(20, 20, 20);
 	public final static Color COMPONENT_BACKGROUND_COLOR = new Color(84, 84, 84);
 	public final static Color COMPONENT_BORDER_COLOR = new Color(217, 217, 217);
-	public final static Color BUTTON_DEFAULT_COLOR = new Color(120, 120, 255);
-	public static final Color BUTTON_ALERT_COLOR = new Color(255, 120, 120);
-	public static final Color BUTTON_CONFIRM_COLOR = new Color(120, 255, 120);
+	public final static Color BUTTON_DEFAULT_COLOR = new Color(16, 140, 255);
+	public static final Color BUTTON_ALERT_COLOR = new Color(244, 59, 52);
+	public static final Color BUTTON_CONFIRM_COLOR = new Color(50, 203, 88);
 	public final static Color COMPONENT_FOREGROUND_COLOR = new Color(217, 217, 217);
 	public final static Color COMPONENT_BUTTON_SELECTED_COLOR = new Color(255, 0, 0);
 	
 	//Font Constants
-	public final static Font COMPONENT_FONT_NORMAL = new Font("Tahoma", Font.BOLD, 16);
-	public final static Font COMPONENT_FONT_SMALL = new Font("Tahoma", Font.BOLD, 12);
+	public final static Font COMPONENT_FONT_NORMAL_BOLD = new Font("Tahoma", Font.BOLD, 16);
+	public final static Font COMPONENT_FONT_SMALL_BOLD = new Font("Tahoma", Font.BOLD, 12);
 	
 	//Dimensions Constants
 	public final static Dimension HABIT_MAIN_PANEL_DIMENSION_LARGE = new Dimension(550, 85);
@@ -36,6 +36,8 @@ public final class Constants {
 	public final static Dimension HABIT_SCROLL_PANE_LARGE = new Dimension(600, 415);
 	public final static Dimension HABIT_SCROLL_PANE_NORMAL = new Dimension(450, 385);
 	public final static Dimension HABIT_SCROLL_PANE_SMALL = new Dimension(338, 240);
+	public final static Dimension HABIT_UPDATE_BUTTON_SIZE = new Dimension(100, 40);
+	public final static Dimension JOURNAL_PAGE_BUTTON_SIZE = new Dimension(180, 40);
 	
 	//Border Constants
 	public final static RoundedBorder COMPONENT_BORDER_NORMAL = new RoundedBorder(COMPONENT_BORDER_COLOR, 3, 10, 10, true);
@@ -43,5 +45,5 @@ public final class Constants {
 	public final static RoundedBorder COMPONENT_BORDER_SMALL = new RoundedBorder(COMPONENT_BORDER_COLOR, 2, 7, 7, true);
 	public final static RoundedBorder HABIT_COMPLETE_BORDER_NORMAL = new RoundedBorder(COMPONENT_BORDER_COLOR, 2, 20, 0, true);
 	public final static RoundedBorder HABIT_COMPLETE_BORDER_SMALL = new RoundedBorder(COMPONENT_BORDER_COLOR, 1, 15, 0, true);
-	public final static RoundedBorder BUTTON_SELECTION_BORDER = new RoundedBorder(COMPONENT_BUTTON_SELECTED_COLOR, 1, 15, 0, true);
+	public final static RoundedBorder BUTTON_BORDER = new RoundedBorder(Color.WHITE, 2, 15, 0, true);
 }

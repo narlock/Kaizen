@@ -1,6 +1,8 @@
 package panel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -18,9 +20,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import domain.Habit;
+import json.HabitJsonManager;
 import util.Constants;
 import util.ErrorPane;
-import util.HabitJsonManager;
 import util.JTextFieldLimit;
 
 public class UpdateHabitsPanel extends JPanel {
@@ -66,10 +68,11 @@ public class UpdateHabitsPanel extends JPanel {
 		updateHabitPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		JButton updateHabitButton = new JButton("Update");
 		updateHabitButton.setOpaque(true);
-		updateHabitButton.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		updateHabitButton.setFont(Constants.COMPONENT_FONT_NORMAL);
+		updateHabitButton.setForeground(Color.WHITE);
+		updateHabitButton.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 		updateHabitButton.setBackground(Constants.BUTTON_DEFAULT_COLOR);
-		updateHabitButton.setBorder(Constants.COMPONENT_BORDER_NORMAL);
+		updateHabitButton.setBorder(Constants.BUTTON_BORDER);
+		updateHabitButton.setPreferredSize(Constants.HABIT_UPDATE_BUTTON_SIZE);
 		updateHabitPanel.add(updateHabitButton);
 		habitMainPanel.add(updateHabitPanel, BorderLayout.WEST);
 		
@@ -77,7 +80,7 @@ public class UpdateHabitsPanel extends JPanel {
 		JPanel habitTitlePanel = new JPanel();
 		habitTitlePanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		JLabel habitTitle = new JLabel(habit.getTitle());
-		habitTitle.setFont(Constants.COMPONENT_FONT_NORMAL);
+		habitTitle.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 		habitTitle.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		habitTitlePanel.add(habitTitle);
 		habitMainPanel.add(habitTitlePanel, BorderLayout.CENTER);
@@ -87,10 +90,11 @@ public class UpdateHabitsPanel extends JPanel {
 		deleteHabitPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		JButton deleteHabitButton = new JButton("Delete");
 		deleteHabitButton.setOpaque(true);
-		deleteHabitButton.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		deleteHabitButton.setFont(Constants.COMPONENT_FONT_NORMAL);
+		deleteHabitButton.setForeground(Color.WHITE);
+		deleteHabitButton.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 		deleteHabitButton.setBackground(Constants.BUTTON_ALERT_COLOR);
-		deleteHabitButton.setBorder(Constants.COMPONENT_BORDER_NORMAL);
+		deleteHabitButton.setBorder(Constants.BUTTON_BORDER);
+		deleteHabitButton.setPreferredSize(Constants.HABIT_UPDATE_BUTTON_SIZE);
 		deleteHabitPanel.add(deleteHabitButton);
 		habitMainPanel.add(deleteHabitPanel, BorderLayout.EAST);
 		
@@ -99,10 +103,11 @@ public class UpdateHabitsPanel extends JPanel {
 		saveHabitPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		JButton saveHabitButton = new JButton("Save");
 		saveHabitButton.setOpaque(true);
-		saveHabitButton.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		saveHabitButton.setFont(Constants.COMPONENT_FONT_NORMAL);
+		saveHabitButton.setForeground(Color.WHITE);
+		saveHabitButton.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 		saveHabitButton.setBackground(Constants.BUTTON_CONFIRM_COLOR);
-		saveHabitButton.setBorder(Constants.COMPONENT_BORDER_NORMAL);
+		saveHabitButton.setBorder(Constants.BUTTON_BORDER);
+		saveHabitButton.setPreferredSize(Constants.HABIT_UPDATE_BUTTON_SIZE);
 		saveHabitPanel.add(saveHabitButton);
 		
 		//Habit Title Field (Update Mode)
@@ -117,31 +122,31 @@ public class UpdateHabitsPanel extends JPanel {
 		occurrencePanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		JCheckBox mondayCheckBox = new JCheckBox("MON");
 		mondayCheckBox.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		mondayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL);
+		mondayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 		occurrencePanel.add(mondayCheckBox);
 		JCheckBox tuesdayCheckBox = new JCheckBox("TUE");
 		tuesdayCheckBox.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		tuesdayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL);
+		tuesdayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 		occurrencePanel.add(tuesdayCheckBox);
 		JCheckBox wednesdayCheckBox = new JCheckBox("WED");
 		wednesdayCheckBox.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		wednesdayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL);
+		wednesdayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 		occurrencePanel.add(wednesdayCheckBox);
 		JCheckBox thursdayCheckBox = new JCheckBox("THU");
 		thursdayCheckBox.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		thursdayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL);
+		thursdayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 		occurrencePanel.add(thursdayCheckBox);
 		JCheckBox fridayCheckBox = new JCheckBox("FRI");
 		fridayCheckBox.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		fridayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL);
+		fridayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 		occurrencePanel.add(fridayCheckBox);
 		JCheckBox saturdayCheckBox = new JCheckBox("SAT");
 		saturdayCheckBox.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		saturdayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL);
+		saturdayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 		occurrencePanel.add(saturdayCheckBox);
 		JCheckBox sundayCheckBox = new JCheckBox("SUN");
 		sundayCheckBox.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		sundayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL);
+		sundayCheckBox.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 		occurrencePanel.add(sundayCheckBox);
 		
 		/*

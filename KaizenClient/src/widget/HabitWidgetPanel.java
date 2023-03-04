@@ -9,10 +9,10 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import domain.Habit;
+import json.HabitJsonManager;
 import panel.HabitsPanel;
 import util.Constants;
 import util.Debug;
-import util.HabitJsonManager;
 import util.HabitUtils;
 
 public class HabitWidgetPanel extends JPanel {
@@ -40,7 +40,7 @@ public class HabitWidgetPanel extends JPanel {
 		titlePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		titleLabel = new JLabel();
 		titleLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		titleLabel.setFont(Constants.COMPONENT_FONT_SMALL);
+		titleLabel.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 		titlePanel.add(titleLabel);
 		
 		habitContainerPanel = new JPanel();

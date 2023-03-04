@@ -1,5 +1,6 @@
 package domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -49,4 +50,13 @@ public class Journal {
 		this.showStreak = showStreak;
 	}
 	
+	public JournalEntry getEntryByDateString(String dateString) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		for(JournalEntry entry : entries) {
+			if(formatter.format(entry.getDate()).equals(dateString)) {
+				return entry;
+			}
+		}
+		throw new RuntimeException("Entry does not exist in journal");
+	}
 }

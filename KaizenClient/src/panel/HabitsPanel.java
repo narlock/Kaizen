@@ -13,9 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import domain.Habit;
+import json.HabitJsonManager;
 import util.Constants;
 import util.ErrorPane;
-import util.HabitJsonManager;
 import util.HabitUtils;
 
 /**
@@ -112,7 +112,7 @@ public class HabitsPanel extends JPanel {
 			JPanel habitTitlePanel = new JPanel();
 			habitTitlePanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 			JLabel habitTitle = new JLabel(habit.getTitle());
-			habitTitle.setFont(Constants.COMPONENT_FONT_NORMAL);
+			habitTitle.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 			habitTitle.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 			habitTitlePanel.add(habitTitle);
 			habitMainPanel.add(habitTitlePanel, BorderLayout.CENTER);
@@ -121,7 +121,7 @@ public class HabitsPanel extends JPanel {
 			JPanel streakPanel = new JPanel();
 			streakPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 			JLabel streakLabel = new JLabel(habit.getStreak() + icon);
-			streakLabel.setFont(Constants.COMPONENT_FONT_NORMAL);
+			streakLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 			streakPanel.add(streakLabel);
 				habitMainPanel.add(streakPanel, BorderLayout.EAST);
@@ -159,14 +159,14 @@ public class HabitsPanel extends JPanel {
 			JPanel habitTitlePanel = new JPanel();
 			habitTitlePanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 			JLabel habitTitle = new JLabel(habit.getTitle());
-			habitTitle.setFont(Constants.COMPONENT_FONT_SMALL);
+			habitTitle.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 			habitTitle.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 			habitTitlePanel.add(habitTitle);
 			
 			JPanel streakPanel = new JPanel();
 			streakPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 			JLabel streakLabel = new JLabel(habit.getStreak() + icon);
-			streakLabel.setFont(Constants.COMPONENT_FONT_SMALL);
+			streakLabel.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 			streakPanel.add(streakLabel);
 			

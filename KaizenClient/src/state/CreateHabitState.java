@@ -14,10 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import domain.Habit;
+import json.HabitJsonManager;
 import util.Constants;
 import util.Debug;
 import util.ErrorPane;
-import util.HabitJsonManager;
 import util.JTextFieldLimit;
 
 public class CreateHabitState extends State {
@@ -58,7 +58,7 @@ public class CreateHabitState extends State {
 		messagePanel = new JPanel();
 		messagePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		messagePanelLabel = new JLabel("");
-		messagePanelLabel.setFont(Constants.COMPONENT_FONT_NORMAL);
+		messagePanelLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 		messagePanelLabel.setForeground(Constants.BUTTON_DEFAULT_COLOR);
 		messagePanel.add(messagePanelLabel);
 		
@@ -114,7 +114,7 @@ public class CreateHabitState extends State {
 		addHabitButton = new JButton("Add Habit");
 		addHabitButton.setOpaque(true);
 		addHabitButton.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		addHabitButton.setFont(Constants.COMPONENT_FONT_NORMAL);
+		addHabitButton.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 		addHabitButton.setBackground(Constants.BUTTON_DEFAULT_COLOR);
 		addHabitButton.setBorder(Constants.COMPONENT_BORDER_NORMAL);
 		confirmPanel.add(addHabitButton);
@@ -180,7 +180,7 @@ public class CreateHabitState extends State {
 	
 	private void setTextComponentVisual(JComponent component) {
 		component.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		component.setFont(Constants.COMPONENT_FONT_NORMAL);
+		component.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 	}
 	
 	private String getOccurrenceString() {

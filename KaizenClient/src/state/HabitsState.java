@@ -11,9 +11,9 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import domain.Habit;
+import json.HabitJsonManager;
 import panel.HabitsPanel;
 import util.Constants;
-import util.HabitJsonManager;
 import util.HabitUtils;
 
 public class HabitsState extends State {
@@ -45,7 +45,7 @@ public class HabitsState extends State {
 		titlePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		titleLabel = new JLabel();
 		titleLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		titleLabel.setFont(Constants.COMPONENT_FONT_NORMAL);
+		titleLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 		titlePanel.add(titleLabel);
 		
 		habitsPanel = new HabitsPanel(habits, titleLabel, 0);

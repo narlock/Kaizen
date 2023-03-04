@@ -1,4 +1,4 @@
-package util;
+package json;
 
 import java.io.File;
 import java.io.FileReader;
@@ -15,6 +15,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import domain.Habit;
+import util.Constants;
+import util.Debug;
+import util.ErrorPane;
 
 public class HabitJsonManager extends JsonManager {
 	
