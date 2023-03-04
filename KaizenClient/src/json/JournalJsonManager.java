@@ -63,6 +63,7 @@ public class JournalJsonManager extends JsonManager {
 		try {
 			file = new FileWriter(journalJsonFile);
 			file.write(journalObject.toJSONString());
+			debug.print("" + journal.getEntries());
 			return true;
 		} catch (IOException proOsuGamer) {
 			proOsuGamer.printStackTrace();

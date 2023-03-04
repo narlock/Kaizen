@@ -23,6 +23,7 @@ import domain.JournalEntry;
 import json.JournalJsonManager;
 import util.Constants;
 import util.Debug;
+import util.ErrorPane;
 import util.Utils;
 
 public class JournalState extends State {
@@ -32,6 +33,9 @@ public class JournalState extends State {
 	
 	private Journal journal;
 	private JournalEntry openEntry;
+	boolean loadToday;
+	int journalSize;
+	int journalPageIndex;
 	
 	private JPanel titlePanel;
 	private JPanel labelPanel;
@@ -78,12 +82,18 @@ public class JournalState extends State {
 		this.gbc.gridwidth = GridBagConstraints.REMAINDER;  
 		
 		String todayString = Utils.todayAsString();
-		
-		//TODO Read in the file, populate attributes
+
 		journal = JournalJsonManager.readJson();
-		final Debug debug = new Debug(true);
-		debug.print(journal.toString());
-		openEntry = journal.getEntryByDateString(todayString);
+		journalSize = journal.getEntries().size();
+		journalPageIndex = journalSize;
+		
+		if(journal.isEntryInEntries(Utils.today())) {
+			openEntry = journal.getEntryByDateString(todayString);
+			loadToday = true;
+		} else {
+			openEntry = new JournalEntry();
+			loadToday = false;
+		}
 		
 		//Title Panel
 		titlePanel = new JPanel();
@@ -127,7 +137,6 @@ public class JournalState extends State {
 		//Journal Panel
 		journalPanel = new JPanel();
 		journalPanel.setLayout(new BorderLayout());
-//		journalPanel.setLayout(new GridLayout(1, 2));
 		journalPanel.setPreferredSize(new Dimension(820, 520));
 		journalPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		
@@ -248,6 +257,10 @@ public class JournalState extends State {
 		journalPanel.setLayout(new GridLayout(1, 2));
 		journalPanel.add(leftJournalPanel);
 		journalPanel.add(rightJournalPanel);
+		
+		if(loadToday) {
+			populateComponentsWithOpenEntryDetails();
+		}
 	}
 
 	@Override
@@ -326,6 +339,117 @@ public class JournalState extends State {
 			}
 			
 		});
+		
+		saveChangesButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				openEntry.setText1(text1Area.getText());
+				openEntry.setText2(text2Area.getText());
+				openEntry.setText3(text3Area.getText());
+				openEntry.setText4(text4Area.getText());
+				
+				if(journal.isEntryInEntries(openEntry.getDate())) {
+					//Update Entry
+					JournalEntry entry = journal.getEntryByDateString(Utils.dateAsString(openEntry.getDate()));
+					entry.setText1(openEntry.getText1());
+					entry.setText2(openEntry.getText2());
+					entry.setText3(openEntry.getText3());
+					entry.setText4(openEntry.getText4());
+					JournalJsonManager.writeJournalJsonToFile(journal);
+				} else {
+					//Write Entry to File
+					journal.getEntries().add(openEntry);
+					JournalJsonManager.writeJournalJsonToFile(journal);
+					journalSize = journal.getEntries().size();
+				}
+			}
+			
+		});
+		
+		previousEntryButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/**
+				 * If the journal has more than 1 entry, and the open entry
+				 * is not the first entry in the sorted list of entries
+				 * OR
+				 * If the journal has only one entry, and the open entry
+				 * is a new entry
+				 * 
+				 * We can move back to the previous journal page successfully.
+				 */
+				if(journalSize > 1 && !journal.getEntries().get(0).equals(openEntry)
+						|| journalSize == 1 && !journal.isEntryInEntries(openEntry.getDate())) {
+					journalPageIndex--;
+					System.out.println("JOURNEY PAGE INDEX = " + journalPageIndex);
+					openEntry = journal.getEntries().get(journalPageIndex);
+					populateComponentsWithOpenEntryDetails();
+				} else {
+					ErrorPane.displayError(journalPanel, "No previous entries in journal!");
+				}
+			}
+			
+		});
+		
+		followingEntryButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/**
+				 * If we go back to a previous entry and then go
+				 * forward to make a new entry, we want to go back to
+				 * making a new entry.
+				 * We will check if the journalPageIndex + 1 = journalSize,
+				 * and there is not a journalEntry for today's date.
+				 * 
+				 * If the open entry is not equal to the last entry, then
+				 * we know there is an entry that follows.
+				 * If the open entry does NOT exist in the entries, then
+				 * we know it is a new Entry and therefore there is no
+				 * date in the future that an entry could be in.
+				 * 
+				 */
+				boolean openEntryNotEqualToLastEntry = journal.getEntries().get(journalSize - 1).equals(openEntry);
+				boolean openEntryDoesNotExistInEntries = journal.isEntryInEntries(openEntry.getDate());
+				boolean followingJournalPageEqualJournalSize = (journalPageIndex + 1 == journalSize);
+				boolean journalPageEqualJournalSize = (journalPageIndex == journalSize);
+				boolean isNotEntryForToday = !(journal.isEntryInEntries(Utils.today()));
+				
+				Debug debug = new Debug(true);
+				debug.print("journal Size = " + journalSize + ", journalPageIndex = " + journalPageIndex);
+				debug.print("" + (followingJournalPageEqualJournalSize && isNotEntryForToday));
+				debug.print("" + (followingJournalPageEqualJournalSize && !isNotEntryForToday));
+				debug.print("" + (openEntryNotEqualToLastEntry || openEntryDoesNotExistInEntries));
+
+				//TODO Might need to rework this logic, do this when I write unit tests
+				//case1 - no entries have been made ever and this button is clicked
+				//case2 - on previous entry, not an entry for today saved (no existing entry to lookup)
+				//case3 - on a previous entry, there exists an entry for today
+				//case4 - an entry for today has been made - should not be able to move forward
+				if(followingJournalPageEqualJournalSize && isNotEntryForToday) {
+					journalPageIndex++;
+					System.out.println("JOURNEY PAGE INDEX = " + journalPageIndex);
+					openEntry = new JournalEntry();
+					populateComponentsWithOpenEntryDetails();
+				} else if(followingJournalPageEqualJournalSize && !isNotEntryForToday) {
+					ErrorPane.displayError(journalPanel, "No following entries in journal!");
+				} else if(journalPageEqualJournalSize && !isNotEntryForToday) {
+					ErrorPane.displayError(journalPanel, "No following entries in journal!");
+				}
+				
+				else if(openEntryNotEqualToLastEntry || openEntryDoesNotExistInEntries) {
+					journalPageIndex++;
+					System.out.println("JOURNEY PAGE INDEX = " + journalPageIndex);
+					openEntry = journal.getEntries().get(journalPageIndex);
+					populateComponentsWithOpenEntryDetails();
+				} else {
+					ErrorPane.displayError(journalPanel, "No following entries in journal!");
+				}
+			}
+			
+		});
 	}
 
 	@Override
@@ -343,5 +467,52 @@ public class JournalState extends State {
 		button.setContentAreaFilled(false); 
 		button.setFocusPainted(false); 
 		button.setOpaque(false);
+	}
+	
+	public void populateComponentsWithOpenEntryDetails() {
+		titleLabel.setText("Journal • " + Utils.dateAsString(openEntry.getDate()));
+		
+		text1Area.setText(openEntry.getText1());
+		text2Area.setText(openEntry.getText2());
+		text3Area.setText(openEntry.getText3());
+		text4Area.setText(openEntry.getText4());
+		
+		if(openEntry.getHowWasDay() == 1) {
+			dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD_SELECTED.png")));
+			dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH.png")));
+			dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_NEUTRAL.png")));
+			dayGoodButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GOOD.png")));
+			dayGreatButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GREAT.png")));
+		} else if(openEntry.getHowWasDay() == 2) {
+			dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD.png")));
+			dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH_SELECTED.png")));
+			dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_NEUTRAL.png")));
+			dayGoodButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GOOD.png")));
+			dayGreatButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GREAT.png")));
+		} else if(openEntry.getHowWasDay() == 3) {
+			dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD.png")));
+			dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH.png")));
+			dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_NEUTRAL_SELECTED.png")));
+			dayGoodButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GOOD.png")));
+			dayGreatButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GREAT.png")));
+		} else if(openEntry.getHowWasDay() == 4) {
+			dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD.png")));
+			dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH.png")));
+			dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_NEUTRAL.png")));
+			dayGoodButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GOOD_SELECTED.png")));
+			dayGreatButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GREAT.png")));
+		} else if(openEntry.getHowWasDay() == 5) {
+			dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD.png")));
+			dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH.png")));
+			dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_NEUTRAL.png")));
+			dayGoodButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GOOD.png")));
+			dayGreatButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GREAT_SELECTED.png")));
+		} else {
+			dayBadButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_BAD.png")));
+			dayMehButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_MEH.png")));
+			dayNeutralButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_NEUTRAL.png")));
+			dayGoodButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GOOD.png")));
+			dayGreatButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("JOURNAL_GREAT.png")));
+		}
 	}
 }
