@@ -85,14 +85,15 @@ public class JournalState extends State {
 
 		journal = JournalJsonManager.readJson();
 		journalSize = journal.getEntries().size();
-		journalPageIndex = journalSize;
 		
 		if(journal.isEntryInEntries(Utils.today())) {
 			openEntry = journal.getEntryByDateString(todayString);
 			loadToday = true;
+			journalPageIndex = journalSize - 1;
 		} else {
 			openEntry = new JournalEntry();
 			loadToday = false;
+			journalPageIndex = journalSize;
 		}
 		
 		//Title Panel
@@ -428,6 +429,7 @@ public class JournalState extends State {
 				//case2 - on previous entry, not an entry for today saved (no existing entry to lookup)
 				//case3 - on a previous entry, there exists an entry for today
 				//case4 - an entry for today has been made - should not be able to move forward
+				//Keep in mind- I am getting the journalPageIndex at the top based on today()
 				if(followingJournalPageEqualJournalSize && isNotEntryForToday) {
 					journalPageIndex++;
 					System.out.println("JOURNEY PAGE INDEX = " + journalPageIndex);
