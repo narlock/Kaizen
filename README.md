@@ -26,13 +26,13 @@
 
 **Kaizen**, also referred to in some places as OpenLife or Open Source Life Application (OSLA) started as a Node.js web server application that utilizes a MySQL database to manage data. This implementation is now called **KaizenWeb**. Beginning in 2023, a Java desktop application began development called **KaizenClient**, which implements similar features in a local Java package. Depending on which application is downloaded, there are different requirements needed.
 
-- [KaizenClient]()
-  - [Features]()
-  - [Setup KaizenClient]()
-- [KaizenWeb]()
-  - [Features]()
-  - [Setup KaizenWeb]()
-- [Original Concept Idea]()
+- [KaizenClient](#kaizenclient)
+  - [Features](#features)
+  - [Setup KaizenClient](#setup-kaizenclient)
+- [KaizenWeb](#kaizenweb)
+  - [Features](#features-1)
+  - [Setup KaizenWeb](#setup-kaizenweb)
+- [Original Concept Idea](#original-concept-idea)
 
 ## **KaizenClient**
 
