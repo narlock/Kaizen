@@ -9,3 +9,14 @@ package-lock.json
 src/package-lock.json
 src/package.json
 *.class
+KaizenClient/bin/INFO_ERROR_ORANGE.png
+KaizenClient/bin/JOURNAL_BAD.png
+KaizenClient/bin/JOURNAL_BAD_SELECTED.png
+KaizenClient/bin/JOURNAL_GOOD.png
+KaizenClient/bin/JOURNAL_GOOD_SELECTED.png
+KaizenClient/bin/JOURNAL_GREAT.png
+KaizenClient/bin/JOURNAL_GREAT_SELECTED.png
+KaizenClient/bin/JOURNAL_MEH.png
+KaizenClient/bin/JOURNAL_MEH_SELECTED.png
+KaizenClient/bin/JOURNAL_NEUTRAL.png
+KaizenClient/bin/JOURNAL_NEUTRAL_SELECTED.png

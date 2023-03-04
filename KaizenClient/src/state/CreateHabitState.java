@@ -179,6 +179,7 @@ public class CreateHabitState extends State {
 	}
 	
 	private void setTextComponentVisual(JComponent component) {
+		component.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		component.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		component.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 	}
