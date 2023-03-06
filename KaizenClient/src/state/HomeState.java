@@ -28,7 +28,7 @@ public class HomeState extends State {
 	public void initPanelComponents() {
 		//Set up habits panel
 		widget = new HabitWidgetPanel();
-		widget2 = new JournalWidgetPanel(1);
+		widget2 = new JournalWidgetPanel(2);
 		widget3 = new JournalWidgetPanel(2);
 		widget4 = new JournalWidgetPanel(3);
 	}
@@ -44,9 +44,9 @@ public class HomeState extends State {
 		this.setLayout(new GridLayout(2,2));
 		this.add(widget);
 		this.add(widget2);
-		this.add(widget3);
-		this.add(widget4);
-//		this.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png"))));
-//		this.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png"))));
+//		this.add(widget3);
+//		this.add(widget4);
+		this.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png"))));
+		this.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png"))));
 	}
 }

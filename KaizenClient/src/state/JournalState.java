@@ -78,6 +78,8 @@ public class JournalState extends State {
 	@Override
 	public void initPanelComponents() {
 		
+		Debug debug = new Debug(true);
+		
 		this.gbc = new GridBagConstraints();
 		this.gbc.gridwidth = GridBagConstraints.REMAINDER;  
 		
@@ -85,6 +87,8 @@ public class JournalState extends State {
 
 		journal = JournalJsonManager.readJson();
 		journalSize = journal.getEntries().size();
+		
+		debug.print("journalSize=" + journalSize);
 		
 		if(journal.isEntryInEntries(Utils.today())) {
 			openEntry = journal.getEntryByDateString(todayString);
@@ -412,6 +416,16 @@ public class JournalState extends State {
 				 * date in the future that an entry could be in.
 				 * 
 				 */
+				
+				//If no entries, no following
+				if(journalSize == 0 && !journal.isEntryInEntries(Utils.today())) {
+					ErrorPane.displayError(journalPanel, "No following entries in journal!");
+					return;
+				} else if(journalSize == 1 && journal.isEntryInEntries(Utils.today())) {
+					ErrorPane.displayError(journalPanel, "No following entries in journal!");
+					return;
+				}
+				
 				boolean openEntryNotEqualToLastEntry = journal.getEntries().get(journalSize - 1).equals(openEntry);
 				boolean openEntryDoesNotExistInEntries = journal.isEntryInEntries(openEntry.getDate());
 				boolean followingJournalPageEqualJournalSize = (journalPageIndex + 1 == journalSize);
