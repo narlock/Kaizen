@@ -7,6 +7,8 @@ import java.util.List;
 import domain.Habit;
 
 public class HabitUtils extends Utils {
+	
+	private static final Debug debug = new Debug(true);
 //	public static List<Habit> getTodaysHabits(List<Habit> allHabits) {
 //		List<Habit> todaysHabits = new ArrayList<Habit>();
 //		
@@ -44,21 +46,25 @@ public class HabitUtils extends Utils {
 	 * @return List of updated habits
 	 */
 	public static List<Habit> updateHabits(List<Habit> habits) {
+		debug.print("[HabitUtils/updateHabits] Inside of update Habits");
 		for(Habit habit : habits) {
 			//Only update the habits that occur today
 			if(occursToday(habit) && habit.getStatus() == 1) {
 				switch(isStreakIncrementable(habit)) {
 				case 0:
+					debug.print("[HabitUtils/updateHabits] switch case 0");
 					habit.setStreak(0);
 					habit.setStatus(0);
 					habit.setDate(today());
 					break;
 				case 1:
+					debug.print("[HabitUtils/updateHabits] switch case 1");
 					habit.setStreak(habit.getStreak() + 1);
 					habit.setStatus(0);
 					habit.setDate(today());
 					break;
 				case 2:
+					debug.print("[HabitUtils/updateHabits] switch case 2");
 					break;
 				}
 			}
@@ -96,8 +102,10 @@ public class HabitUtils extends Utils {
 	 */
 	public static int isStreakIncrementable(Habit habit) {
 		if(habit.occursEveryday()) {
+			debug.print("[HabitUtils/isStreakIncrementable] inside occurs everyday");
 			//If it's the same day, return 2
 			if(sameDay(habit)) {
+				debug.print("[HabitUtils/isStreakIncrementable] Habit is on the same day, returning");
 				return 2;
 			}
 			//If the date attr is the previous day, return 1
@@ -127,6 +135,11 @@ public class HabitUtils extends Utils {
 				return 2;
 			} else return 1;
 		}
+	}
+	
+	public static boolean sameDay(Habit habit) {
+		return ChronoUnit.DAYS.between(habit.getDate().toInstant(), today().toInstant()) 
+				== 0;
 	}
 	
 	public static boolean previousDay(Habit habit) {
