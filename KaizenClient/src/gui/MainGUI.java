@@ -17,6 +17,7 @@ import state.HabitsState;
 import state.HomeState;
 import state.JournalState;
 import state.State;
+import state.TodoState;
 import state.UpdateHabitsState;
 import util.Debug;
 
@@ -38,7 +39,6 @@ public class MainGUI extends JFrame {
 	
 	private JMenu todoMenu;
 	private JMenuItem printToDoMenuItem;
-	private JMenuItem customizeToDoMenuItem;
 	
 	private JMenu habitsMenu;
 	private JMenuItem createHabitMenuItem;
@@ -74,9 +74,9 @@ public class MainGUI extends JFrame {
 		homeMenu = new JMenu("Home");
 		customizeHomeMenuItem = new JMenuItem("Customize Home");
 		
-		todoMenu = new JMenu("TODO");
-		printToDoMenuItem = new JMenuItem("Print TODO");
-		customizeToDoMenuItem = new JMenuItem("Customize TODO");
+		todoMenu = new JMenu("Todo");
+		printToDoMenuItem = new JMenuItem("Print Todo");
+		printToDoMenuItem.setEnabled(false);
 		
 		habitsMenu = new JMenu("Habits");
 		createHabitMenuItem = new JMenuItem("Start Habit");
@@ -100,6 +100,22 @@ public class MainGUI extends JFrame {
 					changeState(new HomeState());
 				} else {
 					debug.print("Home Menu selected, but already in state. Will not reload state.");
+				}
+			}
+			@Override
+			public void menuDeselected(MenuEvent e) {}
+			@Override
+			public void menuCanceled(MenuEvent e) {}
+			
+		});
+		todoMenu.addMenuListener(new MenuListener() {
+			@Override
+			public void menuSelected(MenuEvent e) {
+				if(!(state instanceof TodoState)) {
+					debug.print("Todo Menu selected, changing to Todo State");
+					changeState(new TodoState());
+				} else {
+					debug.print("Todo Menu selected, but already in state. Will not reload state.");
 				}
 			}
 			@Override
@@ -173,7 +189,6 @@ public class MainGUI extends JFrame {
 		menuBar.add(todoMenu);
 		
 		todoMenu.add(printToDoMenuItem);
-		todoMenu.add(customizeToDoMenuItem);
 		
 		menuBar.add(habitsMenu);
 		

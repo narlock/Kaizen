@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+
 public final class Constants {
 	//Date Formatter
 	public final static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -42,4 +45,5 @@ public final class Constants {
 	public final static RoundedBorder HABIT_COMPLETE_BORDER_NORMAL = new RoundedBorder(COMPONENT_BORDER_COLOR, 2, 20, 0, true);
 	public final static RoundedBorder HABIT_COMPLETE_BORDER_SMALL = new RoundedBorder(COMPONENT_BORDER_COLOR, 1, 15, 0, true);
 	public final static RoundedBorder BUTTON_BORDER = new RoundedBorder(Color.WHITE, 2, 15, 0, true);
+	public final static Border RIGHT_BORDER = BorderFactory.createMatteBorder(0, 0, 0, 4, COMPONENT_BORDER_COLOR);
 }

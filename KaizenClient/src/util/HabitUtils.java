@@ -49,7 +49,7 @@ public class HabitUtils extends Utils {
 		debug.print("[HabitUtils/updateHabits] Inside of update Habits");
 		for(Habit habit : habits) {
 			//Only update the habits that occur today
-			if(occursToday(habit) && habit.getStatus() == 1) {
+			if(occursToday(habit)) {
 				switch(isStreakIncrementable(habit)) {
 				case 0:
 					debug.print("[HabitUtils/updateHabits] switch case 0");
@@ -108,8 +108,8 @@ public class HabitUtils extends Utils {
 				debug.print("[HabitUtils/isStreakIncrementable] Habit is on the same day, returning");
 				return 2;
 			}
-			//If the date attr is the previous day, return 1
-			if(previousDay(habit)) {
+			//If the date attr is the previous day and was completed, return 1
+			if(previousDay(habit) && habit.getStatus() == 1) {
 				return 1;
 			}
 			//Otherwise, return 0, needs a reset.
@@ -119,8 +119,8 @@ public class HabitUtils extends Utils {
 			if(sameDay(habit)) {
 				return 2;
 			}
-			//If it's last week, return 1
-			if(lastWeek(habit)) {
+			//If it's last week and completed, return 1
+			if(lastWeek(habit) && habit.getStatus() == 1) {
 				return 1;
 			}
 			//Otherwise return 0, needs a reset.
