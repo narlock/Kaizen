@@ -84,6 +84,7 @@ public class MainGUI extends JFrame {
 		
 		journalMenu = new JMenu("Journal");
 		printJournalMenuItem = new JMenuItem("Print Journal");
+		printJournalMenuItem.setEnabled(false);
 		
 		relationshipsMenu = new JMenu("Relationships");
 		createRelationshipMenuItem = new JMenuItem("Add Relationship");

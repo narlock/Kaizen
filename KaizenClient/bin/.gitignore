@@ -1,8 +1,6 @@
-/panel/
-/state/
 /util/
 /widget/
-/FIRE.png
-/STAR.png
+/state/
+/panel/
 /domain/
-/json/
+/gui/
