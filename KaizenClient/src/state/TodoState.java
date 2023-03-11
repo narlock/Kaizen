@@ -3,7 +3,11 @@ package state;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -44,37 +48,74 @@ public class TodoState extends State {
 	public void initPanelComponents() {
 		//TODO Import Todo from JSON file
 		
+		
+		//Component Utils
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridwidth = GridBagConstraints.REMAINDER; 
+		
 		//Side Panel
 		sidePanel = new JPanel();
+		sidePanel.setLayout(new GridBagLayout());
 		sidePanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		sidePanel.setBorder(Constants.RIGHT_BORDER);
-		sidePanel.setPreferredSize(new Dimension(200, 800));
+//		sidePanel.setPreferredSize(new Dimension(200, 800));
 		
 		sortDateButton = new JButton("Date", new ImageIcon(getClass().getClassLoader().getResource("DATE.png")));
+		initButtonVisual(sortDateButton);
+		
 		sortPriorityButton = new JButton("Priority", new ImageIcon(getClass().getClassLoader().getResource("PRIORITY_CRITICAL.png")));
-		viewAllItemsButton = new JButton("All Items");
+		initButtonVisual(sortPriorityButton);
+		
+		viewAllItemsButton = new JButton("All Items", new ImageIcon(getClass().getClassLoader().getResource("LIST.png")));
+		initButtonVisual(viewAllItemsButton);
+		
 		epicsTitlePanel = new JPanel();
+		epicsTitlePanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+		
 		epicsLabel = new JLabel("Epics");
+		initLabelVisual(epicsLabel);
+		
 		addEpicButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("ADD.png")));
+		initButtonVisual(addEpicButton);
+		
+		
 		epicItemPanel = new EpicItemPanel(); //TODO
 		epicsTitlePanel.add(epicsLabel);
 		epicsTitlePanel.add(addEpicButton);
+		
+		
 		epicsScrollPane = new JScrollPane(epicItemPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
-		sidePanel.add(sortDateButton);
-		sidePanel.add(sortPriorityButton);
-		sidePanel.add(viewAllItemsButton);
-		sidePanel.add(epicsTitlePanel);
-		sidePanel.add(epicsScrollPane);
+		epicsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+		epicsScrollPane.setPreferredSize(Constants.TODO_EPIC_SCROLL_PANE_DIMENSION);
+		epicsScrollPane.setBorder(null);
+		
+		sidePanel.add(sortDateButton, gbc);
+		sidePanel.add(sortPriorityButton, gbc);
+		sidePanel.add(Box.createVerticalStrut(50), gbc);
+		
+		JLabel lineLabel1 = new JLabel("━━━━━━━━━━━━━━━━━");
+		initLabelVisual(lineLabel1);
+		sidePanel.add(lineLabel1, gbc);
+		
+		sidePanel.add(Box.createVerticalStrut(50), gbc);
+		
+		sidePanel.add(viewAllItemsButton, gbc);
+		sidePanel.add(epicsTitlePanel, gbc);
+		sidePanel.add(epicsScrollPane, gbc);
 		
 		//Center Panel
 		centerPanel = new JPanel();
+		centerPanel.setLayout(new GridBagLayout());
 		centerPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		titleAddPanel = new JPanel();
+		titleAddPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		titleLabel = new JLabel("Todo List");
+		initLabelVisual(titleLabel);
 		addItemButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("ADD.png")));
+		initButtonVisual(addItemButton);
 		titleAddPanel.add(titleLabel);
 		titleAddPanel.add(addItemButton);
 		todoItemPanel = new TodoItemPanel(); //TODO
@@ -82,8 +123,12 @@ public class TodoState extends State {
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
-		centerPanel.add(titleAddPanel);
-		centerPanel.add(itemsScrollPane);
+		itemsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+		itemsScrollPane.setPreferredSize(Constants.HABIT_SCROLL_PANE_NORMAL);
+		itemsScrollPane.setBorder(null);
+		
+		centerPanel.add(titleAddPanel, gbc);
+		centerPanel.add(itemsScrollPane, gbc);
 	}
 
 	@Override
@@ -94,10 +139,24 @@ public class TodoState extends State {
 
 	@Override
 	public void initPanel() {
-		// TODO Auto-generated method stub
 		this.setLayout(new BorderLayout());
 		this.add(sidePanel, BorderLayout.WEST);
 		this.add(centerPanel, BorderLayout.CENTER);
 	}
 
+	private void initButtonVisual(JButton button) {
+		button.setOpaque(false);
+		button.setContentAreaFilled(false); 
+		button.setBorderPainted(false); 
+		button.setFocusPainted(false);
+		button.setFont(new Font("Arial", Font.BOLD, 20));
+		button.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+	}
+	
+	private void initLabelVisual(JLabel label) {
+		label.setOpaque(false);
+		label.setFont(new Font("Arial", Font.BOLD, 20));
+		label.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+		label.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+	}
 }

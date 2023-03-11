@@ -25,6 +25,8 @@ public final class Constants {
 	//Font Constants
 	public final static Font COMPONENT_FONT_NORMAL_BOLD = new Font("Tahoma", Font.BOLD, 16);
 	public final static Font COMPONENT_FONT_SMALL_BOLD = new Font("Tahoma", Font.BOLD, 12);
+	public final static Font COMPONENT_FONT_NORMAL = new Font("Tahoma", Font.PLAIN, 16);
+	public final static Font COMPONENT_FONT_SMALL = new Font("Tahoma", Font.PLAIN, 12);
 	
 	//Dimensions Constants
 	public final static Dimension HABIT_MAIN_PANEL_DIMENSION_LARGE = new Dimension(550, 85);
@@ -36,7 +38,9 @@ public final class Constants {
 	public final static Dimension HABIT_SCROLL_PANE_NORMAL = new Dimension(450, 385);
 	public final static Dimension HABIT_SCROLL_PANE_SMALL = new Dimension(338, 240);
 	public final static Dimension HABIT_UPDATE_BUTTON_SIZE = new Dimension(100, 40);
-	public final static Dimension JOURNAL_PAGE_BUTTON_SIZE = new Dimension(180, 40);
+	public final static Dimension JOURNAL_PAGE_BUTTON_SIZE = new Dimension(180, 40); 
+	public final static Dimension TODO_EPIC_SCROLL_PANE_DIMENSION = new Dimension(250, 235);
+	public final static Dimension TODO_EPIC_PANEL_DIMENSION = new Dimension(200, 49);
 	
 	//Border Constants
 	public final static RoundedBorder COMPONENT_BORDER_NORMAL = new RoundedBorder(COMPONENT_BORDER_COLOR, 3, 10, 10, true);
@@ -44,6 +48,8 @@ public final class Constants {
 	public final static RoundedBorder COMPONENT_BORDER_SMALL = new RoundedBorder(COMPONENT_BORDER_COLOR, 2, 7, 7, true);
 	public final static RoundedBorder HABIT_COMPLETE_BORDER_NORMAL = new RoundedBorder(COMPONENT_BORDER_COLOR, 2, 20, 0, true);
 	public final static RoundedBorder HABIT_COMPLETE_BORDER_SMALL = new RoundedBorder(COMPONENT_BORDER_COLOR, 1, 15, 0, true);
+	public final static NormalBorder TODO_COMPLETE_BORDER_NORMAL = new NormalBorder(COMPONENT_BORDER_COLOR, 2, 20, 0, true);
+	public final static NormalBorder TODO_COMPLETE_BORDER_SMALL = new NormalBorder(COMPONENT_BORDER_COLOR, 1, 15, 0, true);
 	public final static RoundedBorder BUTTON_BORDER = new RoundedBorder(Color.WHITE, 2, 15, 0, true);
-	public final static Border RIGHT_BORDER = BorderFactory.createMatteBorder(0, 0, 0, 4, COMPONENT_BORDER_COLOR);
+	public final static Border RIGHT_BORDER = BorderFactory.createMatteBorder(0, 0, 0, 3, COMPONENT_BORDER_COLOR);
 }
