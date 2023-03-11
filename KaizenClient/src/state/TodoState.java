@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -43,6 +45,8 @@ public class TodoState extends State {
 	private TodoItemPanel todoItemPanel;
 	private JScrollPane itemsScrollPane;
 	
+	private int numberOfItems;
+	
 
 	@Override
 	public void initPanelComponents() {
@@ -60,13 +64,13 @@ public class TodoState extends State {
 		sidePanel.setBorder(Constants.RIGHT_BORDER);
 //		sidePanel.setPreferredSize(new Dimension(200, 800));
 		
-		sortDateButton = new JButton("Date", new ImageIcon(getClass().getClassLoader().getResource("DATE.png")));
+		sortDateButton = new JButton("  Sort By Date", new ImageIcon(getClass().getClassLoader().getResource("DATE.png")));
 		initButtonVisual(sortDateButton);
 		
-		sortPriorityButton = new JButton("Priority", new ImageIcon(getClass().getClassLoader().getResource("PRIORITY_CRITICAL.png")));
+		sortPriorityButton = new JButton("  Sort By Priority", new ImageIcon(getClass().getClassLoader().getResource("PRIORITY_CRITICAL.png")));
 		initButtonVisual(sortPriorityButton);
 		
-		viewAllItemsButton = new JButton("All Items", new ImageIcon(getClass().getClassLoader().getResource("LIST.png")));
+		viewAllItemsButton = new JButton("  All Items", new ImageIcon(getClass().getClassLoader().getResource("LIST.png")));
 		initButtonVisual(viewAllItemsButton);
 		
 		epicsTitlePanel = new JPanel();
@@ -78,8 +82,8 @@ public class TodoState extends State {
 		addEpicButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("ADD.png")));
 		initButtonVisual(addEpicButton);
 		
-		
-		epicItemPanel = new EpicItemPanel(); //TODO
+		this.numberOfItems = 4;
+		epicItemPanel = new EpicItemPanel(numberOfItems); //TODO
 		epicsTitlePanel.add(epicsLabel);
 		epicsTitlePanel.add(addEpicButton);
 		
@@ -134,7 +138,43 @@ public class TodoState extends State {
 	@Override
 	public void initPanelComponentActions() {
 		// TODO Auto-generated method stub
+		addEpicButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				incrementNumberOfItems();
+			}
+			
+		});
+	}
+	
+	public void incrementNumberOfItems() {
+		//TODO rework this logic
+		System.out.println("here");
+		sidePanel.remove(epicsScrollPane);
+		sidePanel.revalidate();
+		sidePanel.repaint();
 		
+		
+		this.numberOfItems++;
+		sidePanel.remove(epicsScrollPane);
+		
+		epicItemPanel = new EpicItemPanel(numberOfItems); //TODO
+		epicsTitlePanel.add(epicsLabel);
+		epicsTitlePanel.add(addEpicButton);
+		
+		
+		epicsScrollPane = new JScrollPane(epicItemPanel,
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		epicsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+		epicsScrollPane.setPreferredSize(Constants.TODO_EPIC_SCROLL_PANE_DIMENSION);
+		epicsScrollPane.setBorder(null);
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridwidth = GridBagConstraints.REMAINDER; 
+		sidePanel.add(epicsScrollPane, gbc);
 	}
 
 	@Override

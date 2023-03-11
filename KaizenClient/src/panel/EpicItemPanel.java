@@ -16,7 +16,11 @@ import util.Constants;
 public class EpicItemPanel extends JPanel {
 	private GridBagConstraints gbc;
 	
-	public EpicItemPanel() {
+	private int numberOfItems;
+	
+	public EpicItemPanel(int numberOfItems) {
+		this.numberOfItems = numberOfItems;
+		
 		this.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		this.setLayout(new GridBagLayout());
 		gbc = new GridBagConstraints();
@@ -26,7 +30,7 @@ public class EpicItemPanel extends JPanel {
 	}
 	
 	private void createEpicItemPanels() {
-		for(int i = 0; i < 7; i++) {
+		for(int i = 0; i < numberOfItems; i++) {
 			this.add(createEpicItemPanel(), gbc);
 		}
 	}
