@@ -73,6 +73,7 @@ public class MainGUI extends JFrame {
 		
 		homeMenu = new JMenu("Home");
 		customizeHomeMenuItem = new JMenuItem("Customize Home");
+		customizeHomeMenuItem.setEnabled(false);
 		
 		todoMenu = new JMenu("Todo");
 		printToDoMenuItem = new JMenuItem("Print Todo");
@@ -87,6 +88,7 @@ public class MainGUI extends JFrame {
 		printJournalMenuItem.setEnabled(false);
 		
 		relationshipsMenu = new JMenu("Relationships");
+		relationshipsMenu.setEnabled(false);
 		createRelationshipMenuItem = new JMenuItem("Add Relationship");
 		updateRelationshipsMenuItem = new JMenuItem("Update Relationships");
 	}
