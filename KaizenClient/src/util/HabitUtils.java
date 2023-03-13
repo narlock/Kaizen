@@ -138,18 +138,18 @@ public class HabitUtils extends Utils {
 	}
 	
 	public static boolean sameDay(Habit habit) {
-		return ChronoUnit.DAYS.between(habit.getDate().toInstant(), today().toInstant()) 
-				== 0;
+		long hoursBetween = ChronoUnit.HOURS.between(habit.getDate().toInstant(), today().toInstant());
+		return hoursBetween == 0;
 	}
 	
 	public static boolean previousDay(Habit habit) {
-		return ChronoUnit.DAYS.between(habit.getDate().toInstant(), today().toInstant()) 
-				== 1;
+		long hoursBetween = ChronoUnit.HOURS.between(habit.getDate().toInstant(), today().toInstant());
+		return hoursBetween == 23;
 	}
 	
 	public static boolean lastWeek(Habit habit) {
-		return ChronoUnit.DAYS.between(habit.getDate().toInstant(), today().toInstant()) 
-				== 7;
+		long hoursBetween = ChronoUnit.HOURS.between(habit.getDate().toInstant(), today().toInstant());
+		return hoursBetween == 167;
 	}
 	
 	public static boolean occursToday(Habit habit) {
