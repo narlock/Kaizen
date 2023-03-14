@@ -1,4 +1,4 @@
-package test;
+package test.habit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
