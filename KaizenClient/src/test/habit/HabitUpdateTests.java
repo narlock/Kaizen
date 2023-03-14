@@ -72,25 +72,47 @@ import domain.Habit;
  * 49. Habit with status=0 for last week's date, occur once a week (SUNDAY)
  */
 class HabitUpdateTests {
+	
+	/**
+	 * testHabitUtilsOccursToday
+	 * 
+	 * @brief Tests the occursToday method in HabitUtils on each of
+	 * the test cases.
+	 */
+	void testHabitUtilsOccursToday() {
+		List<Habit> habits = createTestHabitsObject();
+		
+		fail("Not implemented yet");
+	}
 
 	/**
-	 * updateHabitsJsonToday
+	 * testHabitUtilsIsStreakIncrementable
+	 * 
+	 * @brief Tests that given a specific list of habits that each of them
+	 * returns the correct integer value representing whether their streak
+	 * can be incremented.
+	 * 
+	 * 0: Streak needs to be reset
+	 * 1: Streak can be incremented
+	 * 2: Streak does not need to be incremented, but does not need reset.
+	 */
+	@Test
+	void testHabitUtilsIsStreakIncrementable() {
+		List<Habit> habits = createTestHabitsObject();
+		
+		fail("Not implemented yet");
+	}
+	
+	/**
+	 * testHabitUtilsUpdateHabits
 	 * 
 	 * @brief Tests that when specific updates are made to the JSON
 	 * on today's date, the Json will update accordingly.
 	 */
 	@Test
-	void updateHabitsJsonToday() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	void updateHabitsJsonPreviousDay() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	void updateHabitsJsonLastWeek() {
+	void testHabitUtilsUpdateHabits() {
+		List<Habit> habits = createTestHabitsObject();
+		
 		fail("Not yet implemented");
 	}
 	
