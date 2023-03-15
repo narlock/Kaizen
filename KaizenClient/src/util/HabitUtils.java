@@ -137,26 +137,45 @@ public class HabitUtils extends Utils {
 		}
 	}
 	
+	/**
+	 * sameDay
+	 * @param habit
+	 * @return true if the habit's date is the same as today's date in hours
+	 */
 	public static boolean sameDay(Habit habit) {
 		long hoursBetween = ChronoUnit.HOURS.between(habit.getDate().toInstant(), today().toInstant());
 		return hoursBetween == 0;
 	}
 	
+	/**
+	 * previousDay
+	 * @brief Checks if the habit's date is the previous day. Checks for day light savings.
+	 * @param habit
+	 * @return true if is previous day to today's current date.
+	 */
 	public static boolean previousDay(Habit habit) {
 		long hoursBetween = ChronoUnit.HOURS.between(habit.getDate().toInstant(), today().toInstant());
-		return hoursBetween == 23;
+		return hoursBetween == 23 || hoursBetween == 24 || hoursBetween == 25;
 	}
 	
+	/**
+	 * lastWeek
+	 * @brief Checks if the habit's date is last week exactly. Checks for day light savings.
+	 * @param habit
+	 * @return true if is last week day to today's current date.
+	 */
 	public static boolean lastWeek(Habit habit) {
 		long hoursBetween = ChronoUnit.HOURS.between(habit.getDate().toInstant(), today().toInstant());
-		return hoursBetween == 167;
+		return hoursBetween == 167 || hoursBetween == 168 || hoursBetween == 166;
 	}
 	
+	/**
+	 * occursToday
+	 * @param habit
+	 * @return true if the habit occurs today (seconds)
+	 */
 	public static boolean occursToday(Habit habit) {
-		Calendar calendar = Calendar.getInstance();
-		Integer day = calendar.get(Calendar.DAY_OF_WEEK);
-		String dayString = day.toString();
-		
-		return habit.getOccurrence().contains(dayString);
+		long secondsBetween = ChronoUnit.SECONDS.between(habit.getDate().toInstant(), today().toInstant());
+		return secondsBetween == 0;
 	}
 }
