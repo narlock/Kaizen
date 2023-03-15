@@ -49,27 +49,37 @@ public class HabitUtils extends Utils {
 		debug.print("[HabitUtils/updateHabits] Inside of update Habits");
 		for(Habit habit : habits) {
 			//Only update the habits that occur today
-			if(occursToday(habit)) {
-				switch(isStreakIncrementable(habit)) {
-				case 0:
-					debug.print("[HabitUtils/updateHabits] switch case 0");
-					habit.setStreak(0);
-					habit.setStatus(0);
-					habit.setDate(today());
-					break;
-				case 1:
-					debug.print("[HabitUtils/updateHabits] switch case 1");
-					habit.setStreak(habit.getStreak() + 1);
-					habit.setStatus(0);
-					habit.setDate(today());
-					break;
-				case 2:
-					debug.print("[HabitUtils/updateHabits] switch case 2");
-					break;
-				}
-			}
+			updateHabit(habit);
 		}
 		return habits;
+	}
+	
+	/**
+	 * updateHabit
+	 * @brief Updates an individual habit based on occurrence,
+	 * status, and date.
+	 * @param habit
+	 */
+	public static void updateHabit(Habit habit) {
+		if(occursToday(habit)) {
+			switch(isStreakIncrementable(habit)) {
+			case 0:
+				debug.print("[HabitUtils/updateHabits] switch case 0");
+				habit.setStreak(0);
+				habit.setStatus(0);
+				habit.setDate(today());
+				break;
+			case 1:
+				debug.print("[HabitUtils/updateHabits] switch case 1");
+				habit.setStreak(habit.getStreak() + 1);
+				habit.setStatus(0);
+				habit.setDate(today());
+				break;
+			case 2:
+				debug.print("[HabitUtils/updateHabits] switch case 2");
+				break;
+			}
+		}
 	}
 	
 	/**
@@ -166,16 +176,28 @@ public class HabitUtils extends Utils {
 	 */
 	public static boolean lastWeek(Habit habit) {
 		long hoursBetween = ChronoUnit.HOURS.between(habit.getDate().toInstant(), today().toInstant());
+		System.out.println("[TEST DEBUG] hoursBetween=" + hoursBetween);
 		return hoursBetween == 167 || hoursBetween == 168 || hoursBetween == 166;
 	}
 	
 	/**
 	 * occursToday
 	 * @param habit
-	 * @return true if the habit occurs today (seconds)
+	 * @return true if the habit occurs today based on occurrence
 	 */
 	public static boolean occursToday(Habit habit) {
-		long secondsBetween = ChronoUnit.SECONDS.between(habit.getDate().toInstant(), today().toInstant());
-		return secondsBetween == 0;
+		//Occurs everyday
+		if(habit.getOccurrence().equals("1234567")) { return true; }
+		
+		//Ensure today is inside of the habit's occurrence
+		
+		//Get today's day of the week value
+		Calendar c = Calendar.getInstance();
+		c.setTime(today());
+		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+		
+		//Compare dayOfWeek
+		String dayOfWeekString = String.valueOf(dayOfWeek);
+		return habit.getOccurrence().contains(dayOfWeekString);
 	}
 }

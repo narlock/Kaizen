@@ -21,6 +21,30 @@ public class Utils {
 		throw new RuntimeException("Unexpected error occurred");
 	}
 	
+	public static Date yesterday(Date today) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = Date.from(today.toInstant().minus(1, ChronoUnit.DAYS));
+		String formattedDateString = formatter.format(date);
+		try {
+			return formatter.parse(formattedDateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		throw new RuntimeException("Unexpected error occurred");
+	}
+	
+	public static Date lastWeek(Date today) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = Date.from(today.toInstant().minus(6, ChronoUnit.DAYS));
+		String formattedDateString = formatter.format(date);
+		try {
+			return formatter.parse(formattedDateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		throw new RuntimeException("Unexpected error occurred");
+	}
+	
 	public static String todayAsString() {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();

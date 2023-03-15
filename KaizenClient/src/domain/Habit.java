@@ -138,4 +138,11 @@ public class Habit {
 		} else return false;
 	}
 	
+	public boolean equals(Habit habit) {
+		return this.title.equals(habit.getTitle()) &&
+				this.streak == habit.getStreak() &&
+				this.occurrence.equals(habit.getOccurrence()) &&
+				this.status == habit.getStatus() &&
+				this.date.equals(habit.getDate());
+	}
 }
