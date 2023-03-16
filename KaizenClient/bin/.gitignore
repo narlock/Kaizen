@@ -1,7 +1,3 @@
-/state/
-/test/
-/util/
-/widget/
-/main/
-/json/
 /domain/
+/util/
+/test/

@@ -40,54 +40,52 @@ import util.Utils;
  * 
  * 1.  Habit with status=1 for today's date, occur everyday
  * 2.  Habit with status=0 for today's date, occur everyday
- * 3.  Habit with status=1 for today's date, occur once a week (MONDAY)
- * 4.  Habit with status=0 for today's date, occur once a week (MONDAY)
- * 5.  Habit with status=1 for today's date, occur once a week (TUESDAY)
- * 6.  Habit with status=0 for today's date, occur once a week (TUESDAY)
- * 7.  Habit with status=1 for today's date, occur once a week (WEDNESDAY)
- * 8.  Habit with status=0 for today's date, occur once a week (WEDNESDAY)
- * 9.  Habit with status=1 for today's date, occur once a week (THURSDAY)
- * 10. Habit with status=0 for today's date, occur once a week (THURSDAY)
- * 11. Habit with status=1 for today's date, occur once a week (FRIDAY)
- * 12. Habit with status=0 for today's date, occur once a week (FRIDAY)
- * 13. Habit with status=1 for today's date, occur once a week (SATURDAY)
- * 14. Habit with status=0 for today's date, occur once a week (SATURDAY)
- * 15. Habit with status=1 for today's date, occur once a week (SUNDAY)
- * 16. Habit with status=0 for today's date, occur once a week (SUNDAY)
- * 
+ * 3.  Habit with status=1 for today's date, occur once a week (SUNDAY)
+ * 4.  Habit with status=0 for today's date, occur once a week (SUNDAY)
+ * 5.  Habit with status=1 for today's date, occur once a week (MONDAY)
+ * 6.  Habit with status=0 for today's date, occur once a week (MONDAY)
+ * 7.  Habit with status=1 for today's date, occur once a week (TUESDAY)
+ * 8.  Habit with status=0 for today's date, occur once a week (TUESDAY)
+ * 9.  Habit with status=1 for today's date, occur once a week (WEDNESDAY)
+ * 10. Habit with status=0 for today's date, occur once a week (WEDNESDAY)
+ * 11. Habit with status=1 for today's date, occur once a week (THURSDAY)
+ * 12. Habit with status=0 for today's date, occur once a week (THURSDAY)
+ * 13. Habit with status=1 for today's date, occur once a week (FRIDAY)
+ * 14. Habit with status=0 for today's date, occur once a week (FRIDAY)
+ * 15. Habit with status=1 for today's date, occur once a week (SATURDAY)
+ * 16. Habit with status=0 for today's date, occur once a week (SATURDAY)
  * 17. Habit with status=1 for yesterday's date, occur everyday
  * 18. Habit with status=0 for yesterday's date, occur everyday
- * 19. Habit with status=1 for yesterday's date, occur once a week (MONDAY)
- * 20. Habit with status=0 for yesterday's date, occur once a week (MONDAY)
- * 21. Habit with status=1 for yesterday's date, occur once a week (TUESDAY)
- * 22. Habit with status=0 for yesterday's date, occur once a week (TUESDAY)
- * 23. Habit with status=1 for yesterday's date, occur once a week (WEDNESDAY)
- * 24. Habit with status=0 for yesterday's date, occur once a week (WEDNESDAY)
- * 25. Habit with status=1 for yesterday's date, occur once a week (THURSDAY)
- * 26. Habit with status=0 for yesterday's date, occur once a week (THURSDAY)
- * 27. Habit with status=1 for yesterday's date, occur once a week (FRIDAY)
- * 28. Habit with status=0 for yesterday's date, occur once a week (FRIDAY)
- * 29. Habit with status=1 for yesterday's date, occur once a week (SATURDAY)
- * 30. Habit with status=0 for yesterday's date, occur once a week (SATURDAY)
- * 31. Habit with status=1 for yesterday's date, occur once a week (SUNDAY)
- * 32. Habit with status=0 for yesterday's date, occur once a week (SUNDAY)
- * 
+ * 19. Habit with status=1 for yesterday's date, occur once a week (SUNDAY)
+ * 20. Habit with status=0 for yesterday's date, occur once a week (SUNDAY)
+ * 21. Habit with status=1 for yesterday's date, occur once a week (MONDAY)
+ * 22. Habit with status=0 for yesterday's date, occur once a week (MONDAY)
+ * 23. Habit with status=1 for yesterday's date, occur once a week (TUESDAY)
+ * 24. Habit with status=0 for yesterday's date, occur once a week (TUESDAY)
+ * 25. Habit with status=1 for yesterday's date, occur once a week (WEDNESDAY)
+ * 26. Habit with status=0 for yesterday's date, occur once a week (WEDNESDAY)
+ * 27. Habit with status=1 for yesterday's date, occur once a week (THURSDAY)
+ * 28. Habit with status=0 for yesterday's date, occur once a week (THURSDAY)
+ * 29. Habit with status=1 for yesterday's date, occur once a week (FRIDAY)
+ * 30. Habit with status=0 for yesterday's date, occur once a week (FRIDAY)
+ * 31. Habit with status=1 for yesterday's date, occur once a week (SATURDAY)
+ * 32. Habit with status=0 for yesterday's date, occur once a week (SATURDAY)
  * 33. Habit with status=1 for last week's date, occur everyday
  * 34. Habit with status=0 for last week's date, occur everyday
- * 35. Habit with status=1 for last week's date, occur once a week (MONDAY)
- * 36. Habit with status=0 for last week's date, occur once a week (MONDAY)
- * 37. Habit with status=1 for last week's date, occur once a week (TUESDAY)
- * 38. Habit with status=0 for last week's date, occur once a week (TUESDAY)
- * 39. Habit with status=1 for last week's date, occur once a week (WEDNESDAY)
- * 40. Habit with status=0 for last week's date, occur once a week (WEDNESDAY)
- * 41. Habit with status=1 for last week's date, occur once a week (THURSDAY)
- * 42. Habit with status=0 for last week's date, occur once a week (THURSDAY)
- * 43. Habit with status=1 for last week's date, occur once a week (FRIDAY)
- * 44. Habit with status=0 for last week's date, occur once a week (FRIDAY)
- * 45. Habit with status=1 for last week's date, occur once a week (SATURDAY)
- * 46. Habit with status=0 for last week's date, occur once a week (SATURDAY)
- * 47. Habit with status=1 for last week's date, occur once a week (SUNDAY)
- * 48. Habit with status=0 for last week's date, occur once a week (SUNDAY)
+ * 35. Habit with status=1 for last week's date, occur once a week (SUNDAY)
+ * 36. Habit with status=0 for last week's date, occur once a week (SUNDAY)
+ * 37. Habit with status=1 for last week's date, occur once a week (MONDAY)
+ * 38. Habit with status=0 for last week's date, occur once a week (MONDAY)
+ * 39. Habit with status=1 for last week's date, occur once a week (TUESDAY)
+ * 40. Habit with status=0 for last week's date, occur once a week (TUESDAY)
+ * 41. Habit with status=1 for last week's date, occur once a week (WEDNESDAY)
+ * 42. Habit with status=0 for last week's date, occur once a week (WEDNESDAY)
+ * 43. Habit with status=1 for last week's date, occur once a week (THURSDAY)
+ * 44. Habit with status=0 for last week's date, occur once a week (THURSDAY)
+ * 45. Habit with status=1 for last week's date, occur once a week (FRIDAY)
+ * 46. Habit with status=0 for last week's date, occur once a week (FRIDAY)
+ * 47. Habit with status=1 for last week's date, occur once a week (SATURDAY)
+ * 48. Habit with status=0 for last week's date, occur once a week (SATURDAY)
  */
 class HabitUtilsTests {
 
@@ -375,8 +373,11 @@ class HabitUtilsTests {
 	 */
 	@Test
 	void testHabitUtilsUpdateHabits() {
-		// Setup
-		List<Habit> referenceHabits = HabitTestUtils.createTestHabitList();
+		//Get today's day of the week value
+		Calendar c = Calendar.getInstance();
+		c.setTime(Utils.today());
+		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+		
 		List<Habit> habits = HabitTestUtils.createTestHabitList();
 		
 		// Get today's date, yesterday's date, and last week's date
@@ -386,28 +387,132 @@ class HabitUtilsTests {
 		
 		// Set today's date for the first 16 elements of the test list and assert
 		for(int i = 0; i < 16; i++) {
-			referenceHabits.get(i).setDate(today);
 			habits.get(i).setDate(today);
-			assertEquals(referenceHabits.get(i).getDate(), today);
 			assertEquals(habits.get(i).getDate(), today);
 		}
 		
 		// Set yesterday's date for the next 16 elements of the test list and assert
 		for(int i = 16; i < 32; i++) {
-			referenceHabits.get(i).setDate(yesterday);
 			habits.get(i).setDate(yesterday);
-			assertEquals(referenceHabits.get(i).getDate(), yesterday);
 			assertEquals(habits.get(i).getDate(), yesterday);
 		}
 		
 		// Set last week's date for the last 16 elements of the test list and assert
 		for(int i = 32; i < 48; i++) {
-			referenceHabits.get(i).setDate(lastWeek);
 			habits.get(i).setDate(lastWeek);
-			assertEquals(referenceHabits.get(i).getDate(), lastWeek);
 			assertEquals(habits.get(i).getDate(), lastWeek);
 		}
 		
+		/*
+		 * ============================================================================
+		 * ============================HABITS BEFORE UPDATE============================
+		 * ============================================================================
+		 */
+		
+		/*
+		 * Cases 1-16, all occur 'today'
+		 */
+		Habit habit0 = habits.get(0);
+		assertEquals(habit0.getTitle(), "testhabit1");
+		assertEquals(habit0.getStreak(), 0);
+		assertEquals(habit0.getOccurrence(), "1234567");
+		assertEquals(habit0.getStatus(), 1);
+		assertEquals(habit0.getDate(), Utils.today());
+		Habit habit1 = habits.get(1);
+		assertEquals(habit1.getTitle(), "testhabit2");
+		assertEquals(habit1.getStreak(), 0);
+		assertEquals(habit1.getOccurrence(), "1234567");
+		assertEquals(habit1.getStatus(), 0);
+		assertEquals(habit1.getDate(), Utils.today());
+		Habit habit2 = habits.get(2);
+		assertEquals(habit2.getTitle(), "testhabit3");
+		assertEquals(habit2.getStreak(), 0);
+		assertEquals(habit2.getOccurrence(), "1");
+		assertEquals(habit2.getStatus(), 1);
+		assertEquals(habit2.getDate(), Utils.today());
+		Habit habit3 = habits.get(3);
+		assertEquals(habit3.getTitle(), "testhabit4");
+		assertEquals(habit3.getStreak(), 0);
+		assertEquals(habit3.getOccurrence(), "1");
+		assertEquals(habit3.getStatus(), 0);
+		assertEquals(habit3.getDate(), Utils.today());
+		Habit habit4 = habits.get(4);
+		assertEquals(habit4.getTitle(), "testhabit5");
+		assertEquals(habit4.getStreak(), 0);
+		assertEquals(habit4.getOccurrence(), "2");
+		assertEquals(habit4.getStatus(), 1);
+		assertEquals(habit4.getDate(), Utils.today());
+		Habit habit5 = habits.get(5);
+		assertEquals(habit5.getTitle(), "testhabit6");
+		assertEquals(habit5.getStreak(), 0);
+		assertEquals(habit5.getOccurrence(), "2");
+		assertEquals(habit5.getStatus(), 0);
+		assertEquals(habit5.getDate(), Utils.today());
+		Habit habit6 = habits.get(6);
+		assertEquals(habit6.getTitle(), "testhabit7");
+		assertEquals(habit6.getStreak(), 0);
+		assertEquals(habit6.getOccurrence(), "3");
+		assertEquals(habit6.getStatus(), 1);
+		assertEquals(habit6.getDate(), Utils.today());
+		Habit habit7 = habits.get(7);
+		assertEquals(habit7.getTitle(), "testhabit8");
+		assertEquals(habit7.getStreak(), 0);
+		assertEquals(habit7.getOccurrence(), "3");
+		assertEquals(habit7.getStatus(), 0);
+		assertEquals(habit7.getDate(), Utils.today());
+		Habit habit8 = habits.get(8);
+		assertEquals(habit8.getTitle(), "testhabit9");
+		assertEquals(habit8.getStreak(), 0);
+		assertEquals(habit8.getOccurrence(), "4");
+		assertEquals(habit8.getStatus(), 1);
+		assertEquals(habit8.getDate(), Utils.today());
+		Habit habit9 = habits.get(9);
+		assertEquals(habit9.getTitle(), "testhabit10");
+		assertEquals(habit9.getStreak(), 0);
+		assertEquals(habit9.getOccurrence(), "4");
+		assertEquals(habit9.getStatus(), 0);
+		assertEquals(habit9.getDate(), Utils.today());
+		Habit habit10 = habits.get(10);
+		assertEquals(habit10.getTitle(), "testhabit11");
+		assertEquals(habit10.getStreak(), 0);
+		assertEquals(habit10.getOccurrence(), "5");
+		assertEquals(habit10.getStatus(), 1);
+		assertEquals(habit10.getDate(), Utils.today());
+		Habit habit11 = habits.get(11);
+		assertEquals(habit11.getTitle(), "testhabit12");
+		assertEquals(habit11.getStreak(), 0);
+		assertEquals(habit11.getOccurrence(), "5");
+		assertEquals(habit11.getStatus(), 0);
+		assertEquals(habit11.getDate(), Utils.today());
+		Habit habit12 = habits.get(12);
+		assertEquals(habit12.getTitle(), "testhabit13");
+		assertEquals(habit12.getStreak(), 0);
+		assertEquals(habit12.getOccurrence(), "6");
+		assertEquals(habit12.getStatus(), 1);
+		assertEquals(habit12.getDate(), Utils.today());
+		Habit habit13 = habits.get(13);
+		assertEquals(habit13.getTitle(), "testhabit14");
+		assertEquals(habit13.getStreak(), 0);
+		assertEquals(habit13.getOccurrence(), "6");
+		assertEquals(habit13.getStatus(), 0);
+		assertEquals(habit13.getDate(), Utils.today());
+		Habit habit14 = habits.get(14);
+		assertEquals(habit14.getTitle(), "testhabit15");
+		assertEquals(habit14.getStreak(), 0);
+		assertEquals(habit14.getOccurrence(), "7");
+		assertEquals(habit14.getStatus(), 1);
+		assertEquals(habit14.getDate(), Utils.today());
+		Habit habit15 = habits.get(15);
+		assertEquals(habit15.getTitle(), "testhabit16");
+		assertEquals(habit15.getStreak(), 0);
+		assertEquals(habit15.getOccurrence(), "7");
+		assertEquals(habit15.getStatus(), 0);
+		assertEquals(habit15.getDate(), Utils.today());
+		
+		
+		/*
+		 * Case 17. Habit with status=1 for yesterday's date, occur everyday
+		 */
 		Habit habit16 = habits.get(16);
 		assertEquals(habit16.getTitle(), "testhabit17");
 		assertEquals(habit16.getStreak(), 0);
@@ -415,35 +520,238 @@ class HabitUtilsTests {
 		assertEquals(habit16.getStatus(), 1);
 		assertEquals(habit16.getDate(), Utils.yesterday(Utils.today()));
 		
-		// When
-		HabitUtils.updateHabits(habits);
+		/*
+		 * Case 18. Habit with status=0 for yesterday's date, occur everyday
+		 */
+		Habit habit17 = habits.get(17);
+		assertEquals(habit17.getTitle(), "testhabit18");
+		assertEquals(habit17.getStreak(), 0);
+		assertEquals(habit17.getOccurrence(), "1234567");
+		assertEquals(habit17.getStatus(), 0);
+		assertEquals(habit17.getDate(), Utils.yesterday(Utils.today()));
 		
-		// Then
-		assertNotEquals(referenceHabits, habits); //They are not referencing the same objects
-		assertEquals(referenceHabits.size(), 48);
+		/*
+		 * Case 19. Habit with status=1 for yesterday's date, occur once a week (MONDAY)
+		 */
+		Habit habit18 = habits.get(18);
+		assertEquals(habit18.getTitle(), "testhabit19");
+		assertEquals(habit18.getStreak(), 0);
+		assertEquals(habit18.getOccurrence(), "1");
+		assertEquals(habit18.getStatus(), 1);
+		assertEquals(habit18.getDate(), Utils.yesterday(Utils.today()));
+		
+		/*
+		 * Case 24. Habit with status=1 for yesterday's date, occur once a week (WEDNESDAY)
+		 */
+		Habit habit24 = habits.get(24);
+		assertEquals(habit24.getTitle(), "testhabit25");
+		assertEquals(habit24.getStreak(), 0);
+		assertEquals(habit24.getOccurrence(), "4");
+		assertEquals(habit24.getStatus(), 1);
+		assertEquals(habit24.getDate(), Utils.yesterday(Utils.today()));
+		
+		/*
+		 * Case 41. Habit with status=1 for last week's date, occur once a week (WEDNESDAY)
+		 */
+		Habit habit40 = habits.get(40);
+		assertEquals(habit40.getTitle(), "testhabit41");
+		assertEquals(habit40.getStreak(), 0);
+		assertEquals(habit40.getOccurrence(), "4");
+		assertEquals(habit40.getStatus(), 1);
+		assertEquals(habit40.getDate(), Utils.lastWeek(Utils.today()));
+		
+		/*
+		 * ============================================================================
+		 * ============================HABITS AFTER UPDATE=============================
+		 * ============================================================================
+		 */
+
+		HabitUtils.updateHabits(habits);
 		assertEquals(habits.size(), 48);
 		
 		// TODO Finish assertions and make sure all of the habits are what they should be
 		
 		/*
-		 * Case 1: Habit with status=1 for today's date, occur everyday
-		 * Expect: No change, should be equal to referenceHabit
+		 * Cases 1-16, all occur 'today'
+		 * All cases of today will not change when update is called. Assertions below
+		 * are identical to the ones before update to ensure this.
 		 */
-		assertTrue(habits.get(0).equals(referenceHabits.get(0)));
+		// Habit habit0 = habits.get(0);
+		assertEquals(habit0.getTitle(), "testhabit1");
+		assertEquals(habit0.getStreak(), 0);
+		assertEquals(habit0.getOccurrence(), "1234567");
+		assertEquals(habit0.getStatus(), 1);
+		assertEquals(habit0.getDate(), Utils.today());
+		// Habit habit1 = habits.get(1);
+		assertEquals(habit1.getTitle(), "testhabit2");
+		assertEquals(habit1.getStreak(), 0);
+		assertEquals(habit1.getOccurrence(), "1234567");
+		assertEquals(habit1.getStatus(), 0);
+		assertEquals(habit1.getDate(), Utils.today());
+		// Habit habit2 = habits.get(2);
+		assertEquals(habit2.getTitle(), "testhabit3");
+		assertEquals(habit2.getStreak(), 0);
+		assertEquals(habit2.getOccurrence(), "1");
+		assertEquals(habit2.getStatus(), 1);
+		assertEquals(habit2.getDate(), Utils.today());
+		// Habit habit3 = habits.get(3);
+		assertEquals(habit3.getTitle(), "testhabit4");
+		assertEquals(habit3.getStreak(), 0);
+		assertEquals(habit3.getOccurrence(), "1");
+		assertEquals(habit3.getStatus(), 0);
+		assertEquals(habit3.getDate(), Utils.today());
+		// Habit habit4 = habits.get(4);
+		assertEquals(habit4.getTitle(), "testhabit5");
+		assertEquals(habit4.getStreak(), 0);
+		assertEquals(habit4.getOccurrence(), "2");
+		assertEquals(habit4.getStatus(), 1);
+		assertEquals(habit4.getDate(), Utils.today());
+		// Habit habit5 = habits.get(5);
+		assertEquals(habit5.getTitle(), "testhabit6");
+		assertEquals(habit5.getStreak(), 0);
+		assertEquals(habit5.getOccurrence(), "2");
+		assertEquals(habit5.getStatus(), 0);
+		assertEquals(habit5.getDate(), Utils.today());
+		// Habit habit6 = habits.get(6);
+		assertEquals(habit6.getTitle(), "testhabit7");
+		assertEquals(habit6.getStreak(), 0);
+		assertEquals(habit6.getOccurrence(), "3");
+		assertEquals(habit6.getStatus(), 1);
+		assertEquals(habit6.getDate(), Utils.today());
+		// Habit habit7 = habits.get(7);
+		assertEquals(habit7.getTitle(), "testhabit8");
+		assertEquals(habit7.getStreak(), 0);
+		assertEquals(habit7.getOccurrence(), "3");
+		assertEquals(habit7.getStatus(), 0);
+		assertEquals(habit7.getDate(), Utils.today());
+		// Habit habit8 = habits.get(8);
+		assertEquals(habit8.getTitle(), "testhabit9");
+		assertEquals(habit8.getStreak(), 0);
+		assertEquals(habit8.getOccurrence(), "4");
+		assertEquals(habit8.getStatus(), 1);
+		assertEquals(habit8.getDate(), Utils.today());
+		// Habit habit9 = habits.get(9);
+		assertEquals(habit9.getTitle(), "testhabit10");
+		assertEquals(habit9.getStreak(), 0);
+		assertEquals(habit9.getOccurrence(), "4");
+		assertEquals(habit9.getStatus(), 0);
+		assertEquals(habit9.getDate(), Utils.today());
+		// Habit habit10 = habits.get(10);
+		assertEquals(habit10.getTitle(), "testhabit11");
+		assertEquals(habit10.getStreak(), 0);
+		assertEquals(habit10.getOccurrence(), "5");
+		assertEquals(habit10.getStatus(), 1);
+		assertEquals(habit10.getDate(), Utils.today());
+		// Habit habit11 = habits.get(11);
+		assertEquals(habit11.getTitle(), "testhabit12");
+		assertEquals(habit11.getStreak(), 0);
+		assertEquals(habit11.getOccurrence(), "5");
+		assertEquals(habit11.getStatus(), 0);
+		assertEquals(habit11.getDate(), Utils.today());
+		// Habit habit12 = habits.get(12);
+		assertEquals(habit12.getTitle(), "testhabit13");
+		assertEquals(habit12.getStreak(), 0);
+		assertEquals(habit12.getOccurrence(), "6");
+		assertEquals(habit12.getStatus(), 1);
+		assertEquals(habit12.getDate(), Utils.today());
+		// Habit habit13 = habits.get(13);
+		assertEquals(habit13.getTitle(), "testhabit14");
+		assertEquals(habit13.getStreak(), 0);
+		assertEquals(habit13.getOccurrence(), "6");
+		assertEquals(habit13.getStatus(), 0);
+		assertEquals(habit13.getDate(), Utils.today());
+		// Habit habit14 = habits.get(14);
+		assertEquals(habit14.getTitle(), "testhabit15");
+		assertEquals(habit14.getStreak(), 0);
+		assertEquals(habit14.getOccurrence(), "7");
+		assertEquals(habit14.getStatus(), 1);
+		assertEquals(habit14.getDate(), Utils.today());
+		// Habit habit15 = habits.get(15);
+		assertEquals(habit15.getTitle(), "testhabit16");
+		assertEquals(habit15.getStreak(), 0);
+		assertEquals(habit15.getOccurrence(), "7");
+		assertEquals(habit15.getStatus(), 0);
+		assertEquals(habit15.getDate(), Utils.today());
 		
-		Habit habit16BeforeChanges = referenceHabits.get(16);
-		assertEquals(habit16BeforeChanges.getTitle(), "testhabit17");
-		assertEquals(habit16BeforeChanges.getStreak(), 0);
-		assertEquals(habit16BeforeChanges.getOccurrence(), "1234567");
-		assertEquals(habit16BeforeChanges.getStatus(), 1);
-		assertEquals(habit16BeforeChanges.getDate(), Utils.yesterday(Utils.today()));
-		
-		habit16 = habits.get(16);
+		/*
+		 * Case 17. Habit with status=1 for yesterday's date, occur everyday
+		 * Expect streak increments, date is now today, status reset
+		 */
 		assertEquals(habit16.getTitle(), "testhabit17");
 		assertEquals(habit16.getStreak(), 1);
 		assertEquals(habit16.getOccurrence(), "1234567");
 		assertEquals(habit16.getStatus(), 0);
 		assertEquals(habit16.getDate(), Utils.today());
+		
+		/*
+		 * Case 18. Habit with status=0 for yesterday's date, occur everyday
+		 * Expect 
+		 */
+		habit17 = habits.get(17);
+		assertEquals(habit17.getTitle(), "testhabit18");
+		assertEquals(habit17.getStreak(), 0);
+		assertEquals(habit17.getOccurrence(), "1234567");
+		assertEquals(habit17.getStatus(), 0);
+		assertEquals(habit17.getDate(), Utils.today());
+		
+		/*
+		 * Case 19. Habit with status=1 for yesterday's date, occur once a week (MONDAY)
+		 * Expect 
+		 */
+		habit18 = habits.get(18);
+		if(dayOfWeek == 1) {
+			//This case should never happen, but under the instance it does
+			assertEquals(habit18.getTitle(), "testhabit19");
+			assertEquals(habit18.getStreak(), 1);
+			assertEquals(habit18.getOccurrence(), "1");
+			assertEquals(habit18.getStatus(), 0);
+			assertEquals(habit18.getDate(), Utils.today());
+		} else {
+			assertEquals(habit18.getTitle(), "testhabit19");
+			assertEquals(habit18.getStreak(), 0);
+			assertEquals(habit18.getOccurrence(), "1");
+			assertEquals(habit18.getStatus(), 1);
+			assertEquals(habit18.getDate(), Utils.yesterday(Utils.today()));
+		}
+		
+		
+		/*
+		 * Case 24. Habit with status=1 for yesterday's date, occur once a week (WEDNESDAY)
+		 */
+		habit24 = habits.get(24);
+		if(dayOfWeek == 4) {
+			//This case should never happen, but under the instance it does
+			assertEquals(habit24.getTitle(), "testhabit25");
+			assertEquals(habit24.getStreak(), 0);
+			assertEquals(habit24.getOccurrence(), "4");
+			assertEquals(habit24.getStatus(), 0);
+			assertEquals(habit24.getDate(), Utils.today());
+		} else {
+			assertEquals(habit24.getTitle(), "testhabit25");
+			assertEquals(habit24.getStreak(), 0);
+			assertEquals(habit24.getOccurrence(), "4");
+			assertEquals(habit24.getStatus(), 1);
+			assertEquals(habit24.getDate(), Utils.yesterday(Utils.today()));
+		}
+		
+		/*
+		 * Case 41. Habit with status=1 for last week's date, occur once a week (WEDNESDAY)
+		 */
+		HabitUtils.updateHabit(habits.get(40));
+		habit40 = habits.get(40);
+		if(dayOfWeek == 4) {
+			assertEquals(habit40.getTitle(), "testhabit41");
+			assertEquals(habit40.getStreak(), 1);
+			assertEquals(habit40.getOccurrence(), "4");
+			assertEquals(habit40.getStatus(), 0);
+			assertEquals(habit40.getDate(), Utils.today());
+		} else {
+			assertEquals(habit40.getTitle(), "testhabit41");
+			assertEquals(habit40.getStreak(), 0);
+			assertEquals(habit40.getOccurrence(), "4");
+			assertEquals(habit40.getStatus(), 1);
+			assertEquals(habit40.getDate(), Utils.lastWeek(Utils.today()));
+		}
 		
 	}
 	
