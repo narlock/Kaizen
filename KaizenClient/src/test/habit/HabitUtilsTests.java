@@ -408,7 +408,12 @@ class HabitUtilsTests {
 			assertEquals(habits.get(i).getDate(), lastWeek);
 		}
 		
-		Habit habit16BeforeChanges = referenceHabits.get(16);
+		Habit habit16 = habits.get(16);
+		assertEquals(habit16.getTitle(), "testhabit17");
+		assertEquals(habit16.getStreak(), 0);
+		assertEquals(habit16.getOccurrence(), "1234567");
+		assertEquals(habit16.getStatus(), 1);
+		assertEquals(habit16.getDate(), Utils.yesterday(Utils.today()));
 		
 		// When
 		HabitUtils.updateHabits(habits);
@@ -426,9 +431,19 @@ class HabitUtilsTests {
 		 */
 		assertTrue(habits.get(0).equals(referenceHabits.get(0)));
 		
-		Habit habit16 = habits.get(16);
+		Habit habit16BeforeChanges = referenceHabits.get(16);
+		assertEquals(habit16BeforeChanges.getTitle(), "testhabit17");
+		assertEquals(habit16BeforeChanges.getStreak(), 0);
+		assertEquals(habit16BeforeChanges.getOccurrence(), "1234567");
+		assertEquals(habit16BeforeChanges.getStatus(), 1);
+		assertEquals(habit16BeforeChanges.getDate(), Utils.yesterday(Utils.today()));
 		
-		assertTrue(1==1);
+		habit16 = habits.get(16);
+		assertEquals(habit16.getTitle(), "testhabit17");
+		assertEquals(habit16.getStreak(), 1);
+		assertEquals(habit16.getOccurrence(), "1234567");
+		assertEquals(habit16.getStatus(), 0);
+		assertEquals(habit16.getDate(), Utils.today());
 		
 	}
 	
