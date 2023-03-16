@@ -54,13 +54,6 @@ public class HabitsState extends State {
 		scrollPane = new JScrollPane(habitsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-//		scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-//		    @Override
-//		    protected void configureScrollBarColors() {
-//		        this.thumbColor = Color.BLACK;
-//		        this.trackColor = Color.RED;
-//		    }
-//		});
 		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		scrollPane.setPreferredSize(Constants.HABIT_SCROLL_PANE_NORMAL);
 		scrollPane.setBorder(null);

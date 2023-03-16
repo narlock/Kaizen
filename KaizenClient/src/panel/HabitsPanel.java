@@ -45,13 +45,13 @@ public class HabitsPanel extends JPanel {
 		
 		int todaysHabitsSize = 0;
 		for(Habit habit : habits) {
-			if(HabitUtils.occursToday(habit)) {
+			if(HabitUtils.occursToday(habit) && HabitUtils.sameDay(habit)) {
 				todaysHabitsSize++;
 				if(habit.isCompleted()) { completedHabits++; }
 			}
 		}
 		this.titleLabel = titleLabel;
-		titleLabel.setText("Today's Habits | " + completedHabits + "/" + todaysHabitsSize);
+		titleLabel.setText("Today's Habits • " + completedHabits + "/" + todaysHabitsSize);
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();

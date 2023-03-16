@@ -52,7 +52,7 @@ public class EpicItemPanel extends JPanel {
 		epicMainPanel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		epicMainPanel.setBorder(Constants.COMPONENT_BORDER_NORMAL);
 		
-		JButton epicSwitchButton = new JButton("This is a test Epic yolo swag");
+		JButton epicSwitchButton = new JButton("This is a test Epic");
 		epicSwitchButton.setOpaque(false);
 		epicSwitchButton.setContentAreaFilled(false); 
 		epicSwitchButton.setBorderPainted(false); 

@@ -40,7 +40,7 @@ public final class Constants {
 	public final static Dimension HABIT_UPDATE_BUTTON_SIZE = new Dimension(100, 40);
 	public final static Dimension JOURNAL_PAGE_BUTTON_SIZE = new Dimension(180, 40); 
 	public final static Dimension TODO_EPIC_SCROLL_PANE_DIMENSION = new Dimension(280, 235);
-	public final static Dimension TODO_EPIC_PANEL_DIMENSION = new Dimension(250, 49);
+	public final static Dimension TODO_EPIC_PANEL_DIMENSION = new Dimension(225, 49);
 	
 	//Border Constants
 	public final static RoundedBorder COMPONENT_BORDER_NORMAL = new RoundedBorder(COMPONENT_BORDER_COLOR, 3, 10, 10, true);

@@ -100,7 +100,7 @@ public class TodoState extends State {
 		sidePanel.add(sortPriorityButton, gbc);
 		sidePanel.add(Box.createVerticalStrut(50), gbc);
 		
-		JLabel lineLabel1 = new JLabel("━━━━━━━━━━━━━━━━━");
+		JLabel lineLabel1 = new JLabel("____________________________");
 		initLabelVisual(lineLabel1);
 		sidePanel.add(lineLabel1, gbc);
 		
