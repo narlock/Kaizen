@@ -38,12 +38,13 @@ public class HabitsPanel extends JPanel {
 	private int size;
 	public JLabel titleLabel; //Label from HabitsState / Widget
 	private int completedHabits;
+	private int todaysHabitsSize;
 	
 	public HabitsPanel(List<Habit> habits, JLabel titleLabel, int size) {
 		this.size = size;
 		this.habits = habits;
 		
-		int todaysHabitsSize = 0;
+		todaysHabitsSize = 0;
 		for(Habit habit : habits) {
 			if(HabitUtils.occursToday(habit) && HabitUtils.sameDay(habit)) {
 				todaysHabitsSize++;
@@ -102,7 +103,7 @@ public class HabitsPanel extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					habit.setStatus(1);
 					completedHabits++;
-					titleLabel.setText("Today's Habits | " + completedHabits + "/" + habits.size());
+					titleLabel.setText("Today's Habits • " + completedHabits + "/" + todaysHabitsSize);
 					HabitJsonManager.writeHabitJsonToFile(habits);
 					completeHabit.setBackground(Constants.BUTTON_DEFAULT_COLOR);
 					completeHabit.setEnabled(false);
@@ -152,6 +153,8 @@ public class HabitsPanel extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					habit.setStatus(1);
+					completedHabits++;
+					titleLabel.setText("Today's Habits • " + completedHabits + "/" + todaysHabitsSize);
 					HabitJsonManager.writeHabitJsonToFile(habits);
 					completeHabit.setBackground(Constants.BUTTON_DEFAULT_COLOR);
 					completeHabit.setEnabled(false);
