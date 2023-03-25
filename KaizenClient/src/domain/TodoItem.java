@@ -57,4 +57,8 @@ public class TodoItem {
 	public void setEpic(String epic) {
 		this.epic = epic;
 	}
+
+	public boolean isCompleted() {
+		return completedDate != null;
+	}
 }

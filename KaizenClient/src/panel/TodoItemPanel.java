@@ -25,21 +25,28 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import domain.Epic;
+import domain.Todo;
 import domain.TodoItem;
 import json.HabitJsonManager;
+import json.TodoJsonManager;
+import state.TodoState;
 import util.Constants;
 import util.ErrorPane;
 import util.Utils;
 
 public class TodoItemPanel extends JPanel {
+	
+	private TodoState state;
+	private Todo todo;
 	private List<TodoItem> todoItems;
 	private List<Epic> epics;
 	
-	public TodoItemPanel(List<TodoItem> todoItems, List<Epic> epics) {
+	public TodoItemPanel(Todo todo, TodoState state) {
 		// Initialize member attributes
-		this.todoItems = todoItems;
-		this.epics = epics;
-		
+		this.state = state;
+		this.todo = todo;
+		this.todoItems = todo.getItems();
+		this.epics = todo.getEpics();
 		
 		// Set Panel Layout
 		this.setBackground(Constants.GUI_BACKGROUND_COLOR);
@@ -48,8 +55,16 @@ public class TodoItemPanel extends JPanel {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
         // Add todoItems to panel
-        for(int i = 0; i < todoItems.size(); i++) {
-        	this.add(createTodoItemPanel(todoItems.get(i)), gbc);
+        if(state.showCompleted) {
+        	for(int i = 0; i < todoItems.size(); i++) {
+        		if(todoItems.get(i).getCompletedDate() != null)
+        			this.add(createTodoItemPanel(todoItems.get(i)), gbc);
+        	}
+        } else {
+        	for(int i = 0; i < todoItems.size(); i++) {
+        		if(todoItems.get(i).getCompletedDate() == null)
+        			this.add(createTodoItemPanel(todoItems.get(i)), gbc);
+        	}
         }
 	}
 	
@@ -76,7 +91,13 @@ public class TodoItemPanel extends JPanel {
 		//Add Circle Button to check off habit
 		JPanel todoItemCompletedPanel = new JPanel();
 		todoItemCompletedPanel.setBackground(itemPanelColor);
-		JButton completeTodoItemButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("TODO_BUTTON.png")));
+		JButton completeTodoItemButton;
+		if(todoItem.isCompleted()) {
+			completeTodoItemButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("TODO_BUTTON_COMPLETED.png")));
+		} else {
+			completeTodoItemButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("TODO_BUTTON.png")));
+		}
+		
 		completeTodoItemButton.setBorderPainted(false);
 		completeTodoItemButton.setFocusPainted(false);
 		completeTodoItemButton.setPreferredSize(new Dimension(20, 20));
@@ -87,7 +108,18 @@ public class TodoItemPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				completeTodoItemButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("TODO_BUTTON_COMPLETED.png")));
+				if(todoItem.isCompleted()) {
+					completeTodoItemButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("TODO_BUTTON.png")));
+					todoItem.setCompletedDate(null);
+					TodoJsonManager.writeTodoJsonToFile(todo);
+					state.revalidateItemPanel(state.showCompleted);
+				} else {
+					completeTodoItemButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("TODO_BUTTON_COMPLETED.png")));
+					todoItem.setCompletedDate(Utils.today());
+					TodoJsonManager.writeTodoJsonToFile(todo);
+					state.revalidateItemPanel(state.showCompleted);
+				}
+				
 			}
 			
 		});
@@ -122,7 +154,9 @@ public class TodoItemPanel extends JPanel {
 		editButton.setContentAreaFilled(false); 
 		editButton.setBorderPainted(false); 
 		editButton.setFocusPainted(false);
-		editAndPriorityPanel.add(editButton);
+		if(state.showCompleted == false) {
+			editAndPriorityPanel.add(editButton);
+		}
 		todoItemMainPanel.add(editAndPriorityPanel, BorderLayout.EAST);
 		
 		editButton.addActionListener(new ActionListener() {
@@ -179,6 +213,18 @@ public class TodoItemPanel extends JPanel {
 					long priority = priorityBox.getSelectedIndex();
 					System.out.println("[todoTitle=" + todoTitle + ", dateString=" + dateString + ", epicString=" 
 								+ epicString + ", priority=" + priority + "]");
+					
+					// Update todo item
+					todoItem.setTitle(todoTitle);
+					todoItem.setDueDate(Utils.stringToDate(dateString));
+					todoItem.setPriority(priority);
+					todoItem.setEpic(epicString);
+					
+					// Update Json
+					TodoJsonManager.writeTodoJsonToFile(todo);
+					
+					// Revalidate GUI
+					state.revalidateItemPanel(state.showCompleted);
 				}
 				else if(result == JOptionPane.OK_OPTION &&
 						titleTextField.getText().equals("")) {

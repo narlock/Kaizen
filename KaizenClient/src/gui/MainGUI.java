@@ -245,7 +245,7 @@ public class MainGUI extends JFrame {
 	
 	
 	private void initFrame() {
-		this.setTitle("Kaizen Alpha v0.1");
+		this.setTitle("Kaizen v1.0.0");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(900, 700);
 		this.setLocationRelativeTo(null);

@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -24,6 +25,7 @@ import javax.swing.ScrollPaneConstants;
 
 import domain.Epic;
 import domain.Todo;
+import domain.TodoItem;
 import json.TodoJsonManager;
 import panel.EpicItemPanel;
 import panel.TodoItemPanel;
@@ -47,7 +49,8 @@ public class TodoState extends State {
 	
 	private JButton sortDateButton;
 	private JButton sortPriorityButton;
-	private JButton viewAllItemsButton;
+	private JButton viewTodoItemsButton;
+	private JButton viewCompletedItemsButton;
 	
 	private JPanel epicsTitlePanel;
 	private JLabel epicsLabel;
@@ -64,21 +67,17 @@ public class TodoState extends State {
 	private TodoItemPanel todoItemPanel;
 	private JScrollPane itemsScrollPane;
 	
+	// Public Boolean representing if we want to show completed todo items or not
+	public boolean showCompleted;
 
 	@Override
 	public void initPanelComponents() {
 		//TODO Import Todo from JSON file
 		todo = TodoJsonManager.readJson();
+		showCompleted = false;
 		
 		// Sort based off of sorting
-		switch(todo.getSortMode()) {
-		case "date":
-			todo.sortItemsByDate();
-			break;
-		case "priority":
-			todo.sortItemsByPriority();
-			break;
-		}
+		sortTodo();
 		
 		//Component Utils
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -96,8 +95,11 @@ public class TodoState extends State {
 		sortPriorityButton = new JButton("  Sort By Priority", new ImageIcon(getClass().getClassLoader().getResource("PRIORITY_CRITICAL.png")));
 		initButtonVisual(sortPriorityButton);
 		
-		viewAllItemsButton = new JButton("  All Items", new ImageIcon(getClass().getClassLoader().getResource("LIST.png")));
-		initButtonVisual(viewAllItemsButton);
+		viewTodoItemsButton = new JButton("  Todo Items", new ImageIcon(getClass().getClassLoader().getResource("LIST.png")));
+		initButtonVisual(viewTodoItemsButton);
+		
+		viewCompletedItemsButton = new JButton("  Completed Items", new ImageIcon(getClass().getClassLoader().getResource("COMPLETED.png")));
+		initButtonVisual(viewCompletedItemsButton);
 		
 		epicsTitlePanel = new JPanel();
 		epicsTitlePanel.setBackground(COMPONENT_BACKGROUND_COLOR);
@@ -123,15 +125,23 @@ public class TodoState extends State {
 		
 		sidePanel.add(sortDateButton, gbc);
 		sidePanel.add(sortPriorityButton, gbc);
-		sidePanel.add(Box.createVerticalStrut(50), gbc);
+		sidePanel.add(Box.createVerticalStrut(25), gbc);
 		
 		JLabel lineLabel1 = new JLabel("____________________________");
 		initLabelVisual(lineLabel1);
 		sidePanel.add(lineLabel1, gbc);
 		
-		sidePanel.add(Box.createVerticalStrut(50), gbc);
+		sidePanel.add(Box.createVerticalStrut(25), gbc);
 		
-		sidePanel.add(viewAllItemsButton, gbc);
+		sidePanel.add(viewTodoItemsButton, gbc);
+		sidePanel.add(viewCompletedItemsButton, gbc);
+		sidePanel.add(Box.createVerticalStrut(15), gbc);
+		
+		JLabel lineLabel2 = new JLabel("____________________________");
+		initLabelVisual(lineLabel2);
+		sidePanel.add(lineLabel2, gbc);
+		
+		sidePanel.add(Box.createVerticalStrut(25), gbc);
 		sidePanel.add(epicsTitlePanel, gbc);
 		sidePanel.add(epicsScrollPane, gbc);
 		
@@ -147,7 +157,7 @@ public class TodoState extends State {
 		initButtonVisual(addItemButton);
 		titleAddPanel.add(titleLabel);
 		titleAddPanel.add(addItemButton);
-		todoItemPanel = new TodoItemPanel(todo.getItems(), todo.getEpics()); //TODO
+		todoItemPanel = new TodoItemPanel(todo, this);
 		itemsScrollPane = new JScrollPane(todoItemPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -170,7 +180,7 @@ public class TodoState extends State {
 				TodoJsonManager.writeTodoJsonToFile(todo);
 				
 				todo.sortItemsByDate();
-				revalidateItemPanel();
+				revalidateItemPanel(showCompleted);
 			}
 			
 		});
@@ -183,7 +193,27 @@ public class TodoState extends State {
 				TodoJsonManager.writeTodoJsonToFile(todo);
 				
 				todo.sortItemsByPriority();
-				revalidateItemPanel();
+				revalidateItemPanel(showCompleted);
+			}
+			
+		});
+		
+		viewTodoItemsButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showCompleted = false;
+				revalidateItemPanel(showCompleted);
+			}
+			
+		});
+		
+		viewCompletedItemsButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showCompleted = true;
+				revalidateItemPanel(showCompleted);
 			}
 			
 		});
@@ -191,24 +221,22 @@ public class TodoState extends State {
 		addEpicButton.addActionListener(new ActionListener() {
 			JPanel panel = new JPanel(new GridLayout(0, 1));
 			JLabel titleLabel = new JLabel("Epic Title");
-			JTextField titleTextField = new JTextField(); //TODO Add name of associated todo item
+			JTextField titleTextField = new JTextField();
 			JLabel colorLabel = new JLabel("Color");
 			JButton setColorButton = new JButton("Set Color");
-			Color color = COMPONENT_BACKGROUND_COLOR;
+			Color color;
 			Container parentComponent = addEpicButton.getParent().getParent().getParent();
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				titleTextField.setText("");
 				
 				setColorButton.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						color = JColorChooser.showDialog(setColorButton.getParent(), "Choose a color", COMPONENT_BACKGROUND_COLOR);
-						if(color != null) {
-							// TODO Update Color
-							System.out.println("Selected a valid color!");
-						} else { System.out.println("No color selected!"); }
+						if(color == null) { debug.print("No color selected!"); }
 					}
 					
 				});
@@ -295,10 +323,24 @@ public class TodoState extends State {
 					) {
 					String todoTitle = titleTextField.getText();
 					String dateString = dueDateTextField.getText();
+					Date todoDate = Utils.stringToDate(dateString);
 					String epicString = (String) epicAssignBox.getSelectedItem();
 					long priority = priorityBox.getSelectedIndex();
-					System.out.println("[todoTitle=" + todoTitle + ", dateString=" + dateString + ", epicString=" 
+					debug.print("[todoTitle=" + todoTitle + ", dateString=" + dateString + ", epicString=" 
 								+ epicString + ", priority=" + priority + "]");
+					
+					// Create Item
+					TodoItem todoItem = new TodoItem(todoTitle, todoDate, null, (long) priority, epicString);
+					
+					// Add item to items listd
+					todo.getItems().add(todoItem);
+					sortTodo();
+					
+					// Update Json
+					TodoJsonManager.writeTodoJsonToFile(todo);
+					
+					// Revalidate GUI
+					revalidateItemPanel(showCompleted);
 				}
 				else if(result == JOptionPane.OK_OPTION &&
 						titleTextField.getText().equals("")) {
@@ -346,14 +388,14 @@ public class TodoState extends State {
 	 * revalidateItemPanel
 	 * @brief 
 	 */
-	public void revalidateItemPanel() {
+	public void revalidateItemPanel(boolean showCompleted) {
 		// Remove old panel
 		centerPanel.remove(itemsScrollPane);
 		centerPanel.revalidate();
 		centerPanel.repaint();
 		
 		// Construct new panel
-		todoItemPanel = new TodoItemPanel(todo.getItems(), todo.getEpics()); //TODO
+		todoItemPanel = new TodoItemPanel(todo, this);
 		itemsScrollPane = new JScrollPane(todoItemPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -389,5 +431,16 @@ public class TodoState extends State {
 		label.setFont(new Font("Arial", Font.BOLD, 20));
 		label.setBackground(COMPONENT_BACKGROUND_COLOR);
 		label.setForeground(COMPONENT_FOREGROUND_COLOR);
+	}
+	
+	public void sortTodo() {
+		switch(todo.getSortMode()) {
+		case "date":
+			todo.sortItemsByDate();
+			break;
+		case "priority":
+			todo.sortItemsByPriority();
+			break;
+		}
 	}
 }
