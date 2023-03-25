@@ -32,7 +32,6 @@ public class HabitsState extends State {
 	
 	public HabitsState() {
 		super();
-		
 	}
 
 	@Override

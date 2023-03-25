@@ -46,8 +46,6 @@ public class MainGUI extends JFrame {
 	private JMenuItem updateHabitsMenuItem;
 	
 	private JMenu antiHabitsMenu;
-	private JMenuItem createAntiHabitMenuItem;
-	private JMenuItem updateAntiHabitsMenuItem;
 	
 	private JMenu journalMenu;
 	private JMenuItem printJournalMenuItem;
@@ -89,8 +87,6 @@ public class MainGUI extends JFrame {
 		updateHabitsMenuItem = new JMenuItem("Update Habits");
 		
 		antiHabitsMenu = new JMenu("AntiHabits");
-		createAntiHabitMenuItem = new JMenuItem("Create AntiHabit");
-		updateAntiHabitsMenuItem = new JMenuItem("Update AntiHabit");
 		
 		journalMenu = new JMenu("Journal");
 		printJournalMenuItem = new JMenuItem("Print Journal");
@@ -224,9 +220,6 @@ public class MainGUI extends JFrame {
 		habitsMenu.add(updateHabitsMenuItem);
 		
 		menuBar.add(antiHabitsMenu);
-		
-		antiHabitsMenu.add(createAntiHabitMenuItem);
-		antiHabitsMenu.add(updateAntiHabitsMenuItem);
 		
 		menuBar.add(journalMenu);
 		
