@@ -1,11 +1,15 @@
 package panel;
 
+import static util.Constants.COMPONENT_BACKGROUND_COLOR;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -13,20 +17,33 @@ import java.util.List;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import domain.Epic;
+import domain.Todo;
+import domain.TodoItem;
+import json.TodoJsonManager;
+import state.TodoState;
 import util.Constants;
+import util.ErrorPane;
 
 public class EpicItemPanel extends JPanel {
 	private GridBagConstraints gbc;
 	
+	private TodoState state;
+	private Todo todo;
 	private List<Epic> epics;
 	
-	public EpicItemPanel(List<Epic> epics) {
-		this.epics = epics;
+	public EpicItemPanel(Todo todo, TodoState state) {
+		this.state = state;
+		this.todo = todo;
+		this.epics = todo.getEpics();
 		
 		this.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		this.setLayout(new GridBagLayout());
@@ -50,7 +67,7 @@ public class EpicItemPanel extends JPanel {
 		epicMainPanel.setLayout(new GridBagLayout());
 		epicMainPanel.setPreferredSize(Constants.TODO_EPIC_PANEL_DIMENSION);
 		epicMainPanel.setOpaque(true);
-		epicMainPanel.setBackground(new Color(0, 40, 171));
+		epicMainPanel.setBackground(epic.getColor());
 		epicMainPanel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		epicMainPanel.setBorder(Constants.COMPONENT_BORDER_NORMAL);
 		
@@ -66,7 +83,7 @@ public class EpicItemPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("hello world");
+				System.out.println("TODO for version 1.1");
 			}
 			
 		});
@@ -79,9 +96,72 @@ public class EpicItemPanel extends JPanel {
 		
 		editButton.addActionListener(new ActionListener() {
 
+			JPanel panel = new JPanel(new GridLayout(0, 1));
+			JLabel titleLabel = new JLabel("Epic Title");
+			JTextField titleTextField = new JTextField(epic.getTitle()); //TODO Add name of associated todo item
+			JLabel colorLabel = new JLabel("Color");
+			JButton setColorButton = new JButton("Set Color");
+			Color color = epic.getColor();
+			Container parentComponent = editButton.getParent();
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("hello world");
+				setColorButton.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						color = JColorChooser.showDialog(setColorButton.getParent(), "Choose a color", epic.getColor());
+						if(color != null) {
+							// TODO Update Color
+							System.out.println("Selected a valid color!");
+						} else { System.out.println("No color selected!"); }
+					}
+					
+				});
+				
+				panel.add(titleLabel);
+				panel.add(titleTextField);
+				panel.add(colorLabel);
+				panel.add(setColorButton);
+				
+				int result = JOptionPane.showConfirmDialog(
+						editButton.getParent().getParent(), 
+						panel, 
+						"Update Epic", 
+						JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
+				if(result == JOptionPane.YES_OPTION &&
+						!titleTextField.getText().equals("")
+					) {
+					String oldTitle = epic.getTitle();
+					
+					// Update epic attributes
+					epic.setTitle(titleTextField.getText());
+					epic.setColor(color);
+					
+					// Associate items with new title
+					for(TodoItem item : todo.getItems()) {
+						if(item.getEpic().equals(oldTitle)) {
+							item.setEpic(titleTextField.getText());
+						}
+					}
+					
+					// Update Json
+					TodoJsonManager.writeTodoJsonToFile(todo);
+					
+					// Revalidate GUI
+					state.revalidateEpicPanel();
+					state.revalidateItemPanel();
+				} 
+				else if(result == JOptionPane.YES_OPTION &&
+						titleTextField.getText().equals("")
+					) {
+					ErrorPane.displayError(parentComponent, "Could not create habit. Please provide a title.");
+				}
+				else {
+					System.out.println("Cancel");
+				}
 			}
 			
 		});
@@ -96,8 +176,31 @@ public class EpicItemPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				int result = JOptionPane.showConfirmDialog(
+						deleteButton.getParent().getParent().getParent().getParent().getParent().getParent(), 
+						"Are you sure you want to delete " + epic.getTitle() + "?", 
+						"Delete Epic", 
+						JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
+				if(result == JOptionPane.YES_OPTION) {
+					// Remove the epic
+					epics.remove(epic);
+					
+					// All associated items are unassigned from any epic
+					for(TodoItem item : todo.getItems()) {
+						if(item.getEpic().equals(epic.getTitle())) {
+							item.setEpic("");
+						}
+					}
+					
+					// Update Json
+					TodoJsonManager.writeTodoJsonToFile(todo);
+					
+					// Revalidate GUI
+					state.revalidateEpicPanel();
+					state.revalidateItemPanel();
+				}
 			}
 			
 		});

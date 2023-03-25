@@ -1,6 +1,7 @@
 package panel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -39,6 +40,7 @@ public class TodoItemPanel extends JPanel {
 		this.todoItems = todoItems;
 		this.epics = epics;
 		
+		
 		// Set Panel Layout
 		this.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		this.setLayout(new GridBagLayout());
@@ -56,12 +58,24 @@ public class TodoItemPanel extends JPanel {
 		todoItemMainPanel.setLayout(new BorderLayout());
 		todoItemMainPanel.setPreferredSize(Constants.TODO_ITEM_PANEL_DIMENSION);
 		todoItemMainPanel.setOpaque(true);
-		todoItemMainPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+		
+		Color itemPanelColor = Constants.COMPONENT_BACKGROUND_COLOR;
+		todoItemMainPanel.setBackground(itemPanelColor);
+		if(!todoItem.getEpic().equals("")) {
+			for(Epic epic : epics) {
+				if(todoItem.getEpic().equals(epic.getTitle())) {
+					itemPanelColor = epic.getColor();
+					todoItemMainPanel.setBackground(itemPanelColor);
+					break;
+				}
+			}
+		}
+		
 		todoItemMainPanel.setBorder(Constants.COMPONENT_BORDER_NORMAL); //TODO Change this to associated epic color.
 		
 		//Add Circle Button to check off habit
 		JPanel todoItemCompletedPanel = new JPanel();
-		todoItemCompletedPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+		todoItemCompletedPanel.setBackground(itemPanelColor);
 		JButton completeTodoItemButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("TODO_BUTTON.png")));
 		completeTodoItemButton.setBorderPainted(false);
 		completeTodoItemButton.setFocusPainted(false);
@@ -82,7 +96,7 @@ public class TodoItemPanel extends JPanel {
 		todoItemTitlePanel.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;   
-		todoItemTitlePanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+		todoItemTitlePanel.setBackground(itemPanelColor);
 		JLabel todoTitleLabel = new JLabel(todoItem.getTitle());
 		todoTitleLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 		todoTitleLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
@@ -96,7 +110,7 @@ public class TodoItemPanel extends JPanel {
 		
 		//Create priority panel
 		JPanel editAndPriorityPanel = new JPanel();
-		editAndPriorityPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
+		editAndPriorityPanel.setBackground(itemPanelColor);
 		JLabel priorityLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(getPriorityImage(todoItem.getPriority()))));
 		priorityLabel.setOpaque(false);
 		priorityLabel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);

@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Todo {
@@ -46,6 +47,24 @@ public class Todo {
 
 	public void setItems(List<TodoItem> items) {
 		this.items = items;
+	}
+	
+	public void sortItemsByDate() {
+		Collections.sort(items, (o1, o2) -> o1.getDueDate().compareTo(o2.getDueDate()));
+	}
+	
+	public void sortItemsByPriority() {
+		items.sort((o1, o2) -> {
+			if(o1.getPriority() > o2.getPriority()) {
+				return -1;
+			}
+			else if(o1.getPriority() == o2.getPriority()) {
+				return 0;
+			}
+			else {
+				return 1;
+			}
+		});
 	}
 	
 }
