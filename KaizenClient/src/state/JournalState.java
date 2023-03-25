@@ -110,6 +110,9 @@ public class JournalState extends State {
 		titleLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 		titleLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		labelPanel.add(titleLabel);
+		
+		//TODO Update when streak functionality is implemented
+		journal.setShowStreak(false);
 		if(journal.isShowStreak()) {
 			streakLabel = new JLabel(" • " + journal.getLogStreak(), new ImageIcon(getClass().getClassLoader().getResource("FIRE.png")), JLabel.RIGHT);
 			streakLabel.setHorizontalTextPosition(SwingConstants.LEADING);

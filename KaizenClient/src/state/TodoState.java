@@ -287,13 +287,19 @@ public class TodoState extends State {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				titleTextField.setText("");
+				dueDateTextField.setText("");
+				
+				// Auto-generated method stub
+				priorityBox.removeAllItems();
+				
 				priorityBox.addItem("Low");
 				priorityBox.addItem("Medium");
 				priorityBox.addItem("High");
 				priorityBox.addItem("Critical");
 				
-				// TODO populate epic box with epics
+				// populate epic box with epics
+				epicAssignBox.removeAllItems();
 				epicAssignBox.addItem("");
 				for(Epic epic : todo.getEpics()) {
 					epicAssignBox.addItem(epic.getTitle());
