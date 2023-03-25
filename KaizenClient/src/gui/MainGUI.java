@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import state.AntiHabitsState;
 import state.CreateHabitState;
 import state.HabitsState;
 import state.HomeState;
@@ -43,6 +44,10 @@ public class MainGUI extends JFrame {
 	private JMenu habitsMenu;
 	private JMenuItem createHabitMenuItem;
 	private JMenuItem updateHabitsMenuItem;
+	
+	private JMenu antiHabitsMenu;
+	private JMenuItem createAntiHabitMenuItem;
+	private JMenuItem updateAntiHabitsMenuItem;
 	
 	private JMenu journalMenu;
 	private JMenuItem printJournalMenuItem;
@@ -77,11 +82,15 @@ public class MainGUI extends JFrame {
 		
 		todoMenu = new JMenu("Todo");
 		printToDoMenuItem = new JMenuItem("Print Todo");
-		printToDoMenuItem.setEnabled(false);
+		printToDoMenuItem.setEnabled(false);	
 		
 		habitsMenu = new JMenu("Habits");
 		createHabitMenuItem = new JMenuItem("Start Habit");
 		updateHabitsMenuItem = new JMenuItem("Update Habits");
+		
+		antiHabitsMenu = new JMenu("AntiHabits");
+		createAntiHabitMenuItem = new JMenuItem("Create AntiHabit");
+		updateAntiHabitsMenuItem = new JMenuItem("Update AntiHabit");
 		
 		journalMenu = new JMenu("Journal");
 		printJournalMenuItem = new JMenuItem("Print Journal");
@@ -164,6 +173,23 @@ public class MainGUI extends JFrame {
 				}
 			}
 		});
+		antiHabitsMenu.addMenuListener(new MenuListener() {
+
+			@Override
+			public void menuSelected(MenuEvent e) {
+				if(!(state instanceof AntiHabitsState)) {
+					debug.print("AntiHabitsState Menu selected, changing to AntiHabitsState State");
+					changeState(new AntiHabitsState());
+				} else {
+					debug.print("AntiHabitsState Menu selected, but already in state. Will not reload state.");
+				}
+			}
+			@Override
+			public void menuDeselected(MenuEvent e) {}
+			@Override
+			public void menuCanceled(MenuEvent e) {}
+			
+		});
 		journalMenu.addMenuListener(new MenuListener() {
 
 			@Override
@@ -196,6 +222,11 @@ public class MainGUI extends JFrame {
 		
 		habitsMenu.add(createHabitMenuItem);
 		habitsMenu.add(updateHabitsMenuItem);
+		
+		menuBar.add(antiHabitsMenu);
+		
+		antiHabitsMenu.add(createAntiHabitMenuItem);
+		antiHabitsMenu.add(updateAntiHabitsMenuItem);
 		
 		menuBar.add(journalMenu);
 		

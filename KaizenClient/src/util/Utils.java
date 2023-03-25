@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import domain.Habit;
 
@@ -65,5 +66,10 @@ public class Utils {
 	public static String dateAsString(Date date) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		return formatter.format(date);
+	}
+	
+	public static boolean validateDateString(String dateString) {
+		String regex = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$";
+		return Pattern.matches(regex, dateString);
 	}
 }

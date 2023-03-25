@@ -2,24 +2,32 @@ package state;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import panel.EpicItemPanel;
 import panel.TodoItemPanel;
 import util.Constants;
+import util.ErrorPane;
+import util.Utils;
 
 public class TodoState extends State {
 	
@@ -128,7 +136,7 @@ public class TodoState extends State {
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		itemsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
-		itemsScrollPane.setPreferredSize(Constants.HABIT_SCROLL_PANE_NORMAL);
+		itemsScrollPane.setPreferredSize(Constants.TODO_ITEM_SCROLL_PANE_DIMENSION);
 		itemsScrollPane.setBorder(null);
 		
 		centerPanel.add(titleAddPanel, gbc);
@@ -139,10 +147,118 @@ public class TodoState extends State {
 	public void initPanelComponentActions() {
 		// TODO Auto-generated method stub
 		addEpicButton.addActionListener(new ActionListener() {
-
+			JPanel panel = new JPanel(new GridLayout(0, 1));
+			JLabel titleLabel = new JLabel("Epic Title");
+			JTextField titleTextField = new JTextField(); //TODO Add name of associated todo item
+			JLabel colorLabel = new JLabel("Color");
+			JButton setColorButton = new JButton("Set Color");
+			Color color;
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				incrementNumberOfItems();
+				
+				
+				setColorButton.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						color = JColorChooser.showDialog(setColorButton.getParent(), "Choose a color", Color.BLUE);
+						if(color != null) {
+							// TODO Update Color
+							System.out.println("Selected a valid color!");
+						} else { System.out.println("No color selected!"); }
+					}
+					
+				});
+				
+				panel.add(titleLabel);
+				panel.add(titleTextField);
+				panel.add(colorLabel);
+				panel.add(setColorButton);
+				
+				int result = JOptionPane.showConfirmDialog(
+						addEpicButton.getParent().getParent().getParent().getParent().getParent().getParent().getParent(), 
+						panel, 
+						"Create Epic", 
+						JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
+				if(result == JOptionPane.YES_OPTION) {
+					System.out.println("Yes");
+					// TODO
+				} else {
+					System.out.println("Cancel");
+				}
+				
+			}
+			
+		});
+		
+		addItemButton.addActionListener(new ActionListener() {
+			JPanel panel = new JPanel(new GridLayout(0, 1));
+			JLabel titleLabel = new JLabel("Title");
+			JTextField titleTextField = new JTextField(); //TODO Add name of associated todo item
+			JLabel priorityLabel = new JLabel("Priority");
+			JComboBox<String> priorityBox = new JComboBox<>(); // Future todo, add icons here
+			JLabel dueDateLabel = new JLabel("Due Date (yyyy-MM-dd)");
+			JTextField dueDateTextField = new JTextField();
+			JLabel epicAssignLabel = new JLabel("Epic");
+			JComboBox<String> epicAssignBox = new JComboBox<>();
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				priorityBox.addItem("Low");
+				priorityBox.addItem("Medium");
+				priorityBox.addItem("High");
+				priorityBox.addItem("Critical");
+				
+				// TODO populate epic box with epics
+				epicAssignBox.addItem("");
+				
+				panel.add(titleLabel);
+				panel.add(titleTextField);
+				panel.add(priorityLabel);
+				panel.add(priorityBox);
+				panel.add(dueDateLabel);
+				panel.add(dueDateTextField);
+				panel.add(epicAssignLabel);
+				panel.add(epicAssignBox);
+				
+				Container parentComponent = addItemButton.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
+				
+				int result = JOptionPane.showConfirmDialog(
+						parentComponent, 
+						panel, 
+						"Create Todo Item", 
+						JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
+				if(result == JOptionPane.YES_OPTION &&
+						!titleTextField.getText().equals("") &&
+						Utils.validateDateString(dueDateTextField.getText())
+					) {
+					String todoTitle = titleTextField.getText();
+					String dateString = dueDateTextField.getText();
+					String epicString = (String) epicAssignBox.getSelectedItem();
+					long priority = priorityBox.getSelectedIndex();
+					System.out.println("[todoTitle=" + todoTitle + ", dateString=" + dateString + ", epicString=" 
+								+ epicString + ", priority=" + priority + "]");
+				}
+				else if(result == JOptionPane.OK_OPTION &&
+						titleTextField.getText().equals("")) {
+					// Display Validation Error on Title
+					ErrorPane.displayError(parentComponent, "Could not create Todo Item: a title must be given to the item.");
+				} 
+				else if(result == JOptionPane.OK_OPTION &&
+						!Utils.validateDateString(dueDateTextField.getText())
+						) {
+					// Display Validation Error on Due Date
+					ErrorPane.displayError(parentComponent, "Could not create Todo Item: invalid date format.");
+				}
+				else {
+					System.out.println("Cancel");
+				}
 			}
 			
 		});

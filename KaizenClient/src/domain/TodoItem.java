@@ -7,13 +7,15 @@ public class TodoItem {
 	private Date dueDate;
 	private Date completedDate;
 	private long priority;
+	private String epic;
 	
-	public TodoItem(String title, Date dueDate, Date completedDate, long priority) {
+	public TodoItem(String title, Date dueDate, Date completedDate, long priority, String epic) {
 		super();
 		this.title = title;
 		this.dueDate = dueDate;
 		this.completedDate = completedDate;
 		this.priority = priority;
+		this.epic = epic;
 	}
 
 	public String getTitle() {
@@ -46,5 +48,13 @@ public class TodoItem {
 	
 	public void setPriority(long priority) {
 		this.priority = priority;
+	}
+
+	public String getEpic() {
+		return epic;
+	}
+
+	public void setEpic(String epic) {
+		this.epic = epic;
 	}
 }

@@ -17,8 +17,8 @@ public final class Constants {
 	public final static Color COMPONENT_BACKGROUND_COLOR = new Color(84, 84, 84);
 	public final static Color COMPONENT_BORDER_COLOR = new Color(217, 217, 217);
 	public final static Color BUTTON_DEFAULT_COLOR = new Color(16, 140, 255);
-	public static final Color BUTTON_ALERT_COLOR = new Color(244, 59, 52);
-	public static final Color BUTTON_CONFIRM_COLOR = new Color(50, 203, 88);
+	public final static Color BUTTON_ALERT_COLOR = new Color(244, 59, 52);
+	public final static Color BUTTON_CONFIRM_COLOR = new Color(50, 203, 88);
 	public final static Color COMPONENT_FOREGROUND_COLOR = new Color(217, 217, 217);
 	public final static Color COMPONENT_BUTTON_SELECTED_COLOR = new Color(255, 0, 0);
 	
@@ -41,6 +41,8 @@ public final class Constants {
 	public final static Dimension JOURNAL_PAGE_BUTTON_SIZE = new Dimension(180, 40); 
 	public final static Dimension TODO_EPIC_SCROLL_PANE_DIMENSION = new Dimension(280, 235);
 	public final static Dimension TODO_EPIC_PANEL_DIMENSION = new Dimension(225, 49);
+	public final static Dimension TODO_ITEM_SCROLL_PANE_DIMENSION = new Dimension(500, 385);
+	public final static Dimension TODO_ITEM_PANEL_DIMENSION = new Dimension(450, 65);
 	
 	//Border Constants
 	public final static RoundedBorder COMPONENT_BORDER_NORMAL = new RoundedBorder(COMPONENT_BORDER_COLOR, 3, 10, 10, true);
