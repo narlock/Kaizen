@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
@@ -22,24 +23,35 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import domain.Epic;
+import domain.TodoItem;
 import json.HabitJsonManager;
 import util.Constants;
 import util.ErrorPane;
 import util.Utils;
 
 public class TodoItemPanel extends JPanel {
-	public TodoItemPanel() {
+	private List<TodoItem> todoItems;
+	private List<Epic> epics;
+	
+	public TodoItemPanel(List<TodoItem> todoItems, List<Epic> epics) {
+		// Initialize member attributes
+		this.todoItems = todoItems;
+		this.epics = epics;
+		
+		// Set Panel Layout
 		this.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
-        for(int i = 0; i < 10; i++) {
-        	this.add(createTodoItemPanel(), gbc);
+        // Add todoItems to panel
+        for(int i = 0; i < todoItems.size(); i++) {
+        	this.add(createTodoItemPanel(todoItems.get(i)), gbc);
         }
 	}
 	
-	private JPanel createTodoItemPanel() {
+	private JPanel createTodoItemPanel(TodoItem todoItem) {
 		JPanel todoItemMainPanel = new JPanel();
 		todoItemMainPanel.setLayout(new BorderLayout());
 		todoItemMainPanel.setPreferredSize(Constants.TODO_ITEM_PANEL_DIMENSION);
@@ -71,21 +83,21 @@ public class TodoItemPanel extends JPanel {
 		GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;   
 		todoItemTitlePanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
-		JLabel todoTitleLabel = new JLabel("This is a test TodoItemPanel");
+		JLabel todoTitleLabel = new JLabel(todoItem.getTitle());
 		todoTitleLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 		todoTitleLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		todoItemTitlePanel.add(todoTitleLabel, gbc);
-		JLabel dueDateLabel = new JLabel("2023-03-11");
+		JLabel dueDateLabel = new JLabel("Due: " + Utils.dateAsString(todoItem.getDueDate()));
 		dueDateLabel.setFont(Constants.COMPONENT_FONT_SMALL);
 		dueDateLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		todoItemTitlePanel.add(dueDateLabel, gbc);
 		todoItemMainPanel.add(todoItemTitlePanel, BorderLayout.CENTER);
 		
 		
-		//Create Streak panel
+		//Create priority panel
 		JPanel editAndPriorityPanel = new JPanel();
 		editAndPriorityPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
-		JLabel priorityLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("PRIORITY_MEDIUM.png")));
+		JLabel priorityLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(getPriorityImage(todoItem.getPriority()))));
 		priorityLabel.setOpaque(false);
 		priorityLabel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		priorityLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
@@ -102,11 +114,11 @@ public class TodoItemPanel extends JPanel {
 		editButton.addActionListener(new ActionListener() {
 			JPanel panel = new JPanel(new GridLayout(0, 1));
 			JLabel titleLabel = new JLabel("Title");
-			JTextField titleTextField = new JTextField(); //TODO Add name of associated todo item
+			JTextField titleTextField = new JTextField(todoItem.getTitle()); //TODO Add name of associated todo item
 			JLabel priorityLabel = new JLabel("Priority");
 			JComboBox<String> priorityBox = new JComboBox<>(); // Future todo, add icons here
 			JLabel dueDateLabel = new JLabel("Due Date (yyyy-MM-dd)");
-			JTextField dueDateTextField = new JTextField();
+			JTextField dueDateTextField = new JTextField(Utils.dateAsString(todoItem.getDueDate()));
 			JLabel epicAssignLabel = new JLabel("Epic");
 			JComboBox<String> epicAssignBox = new JComboBox<>();
 
@@ -116,9 +128,14 @@ public class TodoItemPanel extends JPanel {
 				priorityBox.addItem("Medium");
 				priorityBox.addItem("High");
 				priorityBox.addItem("Critical");
+				priorityBox.setSelectedIndex((int) todoItem.getPriority());
 				
 				// TODO populate epic box with epics
 				epicAssignBox.addItem("");
+				for(Epic epic : epics) {
+					epicAssignBox.addItem(epic.getTitle());
+				}
+				epicAssignBox.setSelectedItem(todoItem.getEpic());
 				
 				panel.add(titleLabel);
 				panel.add(titleTextField);
@@ -170,5 +187,18 @@ public class TodoItemPanel extends JPanel {
 		return todoItemMainPanel;
 	}
 	
-	
+	private String getPriorityImage(long indicator) {
+		switch((int) indicator) {
+		case 0:
+			return "PRIORITY_LOW.png";
+		case 1:
+			return "PRIORITY_MEDIUM.png";
+		case 2:
+			return "PRIORITY_HIGH.png";
+		case 3:
+			return "PRIORITY_CRITICAL.png";
+		}
+		throw new RuntimeException("Error grabbing priority image, invalid indicator: " + indicator);
+	}
+
 }

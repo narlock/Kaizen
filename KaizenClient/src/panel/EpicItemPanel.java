@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -16,15 +17,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import domain.Epic;
 import util.Constants;
 
 public class EpicItemPanel extends JPanel {
 	private GridBagConstraints gbc;
 	
-	private int numberOfItems;
+	private List<Epic> epics;
 	
-	public EpicItemPanel(int numberOfItems) {
-		this.numberOfItems = numberOfItems;
+	public EpicItemPanel(List<Epic> epics) {
+		this.epics = epics;
 		
 		this.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		this.setLayout(new GridBagLayout());
@@ -35,12 +37,12 @@ public class EpicItemPanel extends JPanel {
 	}
 	
 	private void createEpicItemPanels() {
-		for(int i = 0; i < numberOfItems; i++) {
-			this.add(createEpicItemPanel(), gbc);
+		for(Epic epic : epics) {
+			this.add(createEpicItemPanel(epic), gbc);
 		}
 	}
 	
-	private JPanel createEpicItemPanel() {
+	private JPanel createEpicItemPanel(Epic epic) {
 		GridBagConstraints newgbc = new GridBagConstraints();
 		newgbc.gridheight = GridBagConstraints.REMAINDER;
 		
@@ -52,7 +54,7 @@ public class EpicItemPanel extends JPanel {
 		epicMainPanel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		epicMainPanel.setBorder(Constants.COMPONENT_BORDER_NORMAL);
 		
-		JButton epicSwitchButton = new JButton("This is a test Epic");
+		JButton epicSwitchButton = new JButton(epic.getTitle());
 		epicSwitchButton.setOpaque(false);
 		epicSwitchButton.setContentAreaFilled(false); 
 		epicSwitchButton.setBorderPainted(false); 
@@ -84,8 +86,25 @@ public class EpicItemPanel extends JPanel {
 			
 		});
 		
+		JButton deleteButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("DELETE.png")));
+		deleteButton.setOpaque(false);
+		deleteButton.setContentAreaFilled(false); 
+		deleteButton.setBorderPainted(false); 
+		deleteButton.setFocusPainted(false);
+		
+		deleteButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
 		epicMainPanel.add(epicSwitchButton, newgbc);
 		epicMainPanel.add(editButton, newgbc);
+		epicMainPanel.add(deleteButton, newgbc);
 		
 		return epicMainPanel;
 	}

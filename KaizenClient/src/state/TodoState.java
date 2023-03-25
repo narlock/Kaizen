@@ -23,6 +23,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+import domain.Todo;
+import json.TodoJsonManager;
 import panel.EpicItemPanel;
 import panel.TodoItemPanel;
 import util.Constants;
@@ -30,6 +32,9 @@ import util.ErrorPane;
 import util.Utils;
 
 public class TodoState extends State {
+	
+	// Member attributes
+	private Todo todo;
 	
 	//UI Components
 	private JPanel sidePanel;
@@ -59,7 +64,7 @@ public class TodoState extends State {
 	@Override
 	public void initPanelComponents() {
 		//TODO Import Todo from JSON file
-		
+		todo = TodoJsonManager.readJson();
 		
 		//Component Utils
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -70,7 +75,6 @@ public class TodoState extends State {
 		sidePanel.setLayout(new GridBagLayout());
 		sidePanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		sidePanel.setBorder(Constants.RIGHT_BORDER);
-//		sidePanel.setPreferredSize(new Dimension(200, 800));
 		
 		sortDateButton = new JButton("  Sort By Date", new ImageIcon(getClass().getClassLoader().getResource("DATE.png")));
 		initButtonVisual(sortDateButton);
@@ -91,7 +95,7 @@ public class TodoState extends State {
 		initButtonVisual(addEpicButton);
 		
 		this.numberOfItems = 4;
-		epicItemPanel = new EpicItemPanel(numberOfItems); //TODO
+		epicItemPanel = new EpicItemPanel(todo.getEpics()); //TODO
 		epicsTitlePanel.add(epicsLabel);
 		epicsTitlePanel.add(addEpicButton);
 		
@@ -130,7 +134,7 @@ public class TodoState extends State {
 		initButtonVisual(addItemButton);
 		titleAddPanel.add(titleLabel);
 		titleAddPanel.add(addItemButton);
-		todoItemPanel = new TodoItemPanel(); //TODO
+		todoItemPanel = new TodoItemPanel(todo.getItems(), todo.getEpics()); //TODO
 		itemsScrollPane = new JScrollPane(todoItemPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -275,7 +279,7 @@ public class TodoState extends State {
 		this.numberOfItems++;
 		sidePanel.remove(epicsScrollPane);
 		
-		epicItemPanel = new EpicItemPanel(numberOfItems); //TODO
+		epicItemPanel = new EpicItemPanel(todo.getEpics()); //TODO
 		epicsTitlePanel.add(epicsLabel);
 		epicsTitlePanel.add(addEpicButton);
 		

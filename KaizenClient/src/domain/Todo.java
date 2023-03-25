@@ -1,11 +1,21 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Todo {
 	private String sortMode;
 	private List<Epic> epics;
 	private List<TodoItem> items;
+	
+	/**
+	 * New Todo Constructor
+	 */
+	public Todo() {
+		this.sortMode = "date";
+		this.epics = new ArrayList<Epic>();
+		this.items = new ArrayList<TodoItem>();
+	}
 	
 	public Todo(String sortMode, List<Epic> epics, List<TodoItem> items) {
 		super();
