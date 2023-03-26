@@ -8,12 +8,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import domain.Home;
+import json.HomeJsonManager;
+import widget.AntiHabitWidgetPanel;
 import widget.HabitWidgetPanel;
 import widget.JournalWidgetPanel;
+import widget.NoWidgetPanel;
+import widget.TodoWidgetPanel;
 
 public class HomeState extends State {
 	
 	private static final long serialVersionUID = -794674909058043997L;
+	private Home home;
 	
 	private JPanel widget;
 	private JPanel widget2;
@@ -26,17 +32,18 @@ public class HomeState extends State {
 
 	@Override
 	public void initPanelComponents() {
+		home = HomeJsonManager.readJson();
+		
+		
 		//Set up habits panel
-		widget = new HabitWidgetPanel();
-		widget2 = new JournalWidgetPanel(1);
-		widget3 = new JournalWidgetPanel(2);
-		widget4 = new JournalWidgetPanel(3);
+		widget = getWidgetFromString(home.getWidget1());
+		widget2 = getWidgetFromString(home.getWidget2());
+		widget3 = getWidgetFromString(home.getWidget3());
+		widget4 = getWidgetFromString(home.getWidget4());
 	}
 
 	@Override
-	public void initPanelComponentActions() {
-		// TODO Auto-generated method stub
-	}
+	public void initPanelComponentActions() {}
 
 	@Override
 	public void initPanel() {
@@ -44,9 +51,28 @@ public class HomeState extends State {
 		this.setLayout(new GridLayout(2,2));
 		this.add(widget);
 		this.add(widget2);
-//		this.add(widget3);
-//		this.add(widget4);
-		this.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png"))));
-		this.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png"))));
+		this.add(widget3);
+		this.add(widget4);
+	}
+
+	public JPanel getWidgetFromString(String widgetString) {
+		switch(widgetString) {
+		case "todo":
+			return new TodoWidgetPanel();
+		case "habits":
+			return new HabitWidgetPanel();
+		case "antiHabits":
+			return new AntiHabitWidgetPanel();
+		case "journal1":
+			return new JournalWidgetPanel(1);
+		case "journal2":
+			return new JournalWidgetPanel(2);
+		case "journal3":
+			return new JournalWidgetPanel(3);
+		case "journal4":
+			return new JournalWidgetPanel(4);
+		default:
+			return new NoWidgetPanel();
+		}
 	}
 }

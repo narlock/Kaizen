@@ -4,14 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import panel.CustomHomePanel;
 import state.AntiHabitsState;
 import state.CreateHabitState;
 import state.HabitsState;
@@ -76,7 +79,6 @@ public class MainGUI extends JFrame {
 		
 		homeMenu = new JMenu("Home");
 		customizeHomeMenuItem = new JMenuItem("Customize Home");
-		customizeHomeMenuItem.setEnabled(false);
 		
 		todoMenu = new JMenu("Todo");
 		printToDoMenuItem = new JMenuItem("Print Todo");
@@ -113,6 +115,31 @@ public class MainGUI extends JFrame {
 			public void menuDeselected(MenuEvent e) {}
 			@Override
 			public void menuCanceled(MenuEvent e) {}
+			
+		});
+		customizeHomeMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!(state instanceof HomeState)) {
+					debug.print("Home Menu selected, changing to Home State");
+					changeState(new HomeState());
+				} else {
+					debug.print("Home Menu selected, but already in state. Will not reload state.");
+				}
+				
+				// Open Customization Menu
+				int result = JOptionPane.showConfirmDialog(
+						customizeHomeMenuItem.getParent().getParent(), 
+						new CustomHomePanel(), 
+						"Customize Home", 
+						JOptionPane.OK_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
+				if(result == JOptionPane.OK_OPTION) {
+					changeState(new HomeState());
+				}
+			}
 			
 		});
 		todoMenu.addMenuListener(new MenuListener() {
