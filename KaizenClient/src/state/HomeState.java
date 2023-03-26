@@ -28,7 +28,7 @@ public class HomeState extends State {
 	public void initPanelComponents() {
 		//Set up habits panel
 		widget = new HabitWidgetPanel();
-		widget2 = new JournalWidgetPanel(2);
+		widget2 = new JournalWidgetPanel(1);
 		widget3 = new JournalWidgetPanel(2);
 		widget4 = new JournalWidgetPanel(3);
 	}

@@ -141,7 +141,7 @@ public class HabitUtils extends Utils {
 			//These habits increment if it's not the same day
 			//to simply display that the user completed the
 			//habit again.
-			if(sameDay(habit)) {
+			if(sameDay(habit) && habit.getStatus() == 0) {
 				return 2;
 			} else return 1;
 		}
