@@ -46,7 +46,9 @@ public final class Constants {
 	public final static Dimension TODO_ITEM_PANEL_DIMENSION = new Dimension(450, 65);
 	public final static Dimension TODO_ITEM_PANEL_DIMENSION_SMALL = new Dimension(375, 50);
 	public final static Dimension ANTIHABIT_SCROLL_PANE_NORMAL = new Dimension(450, 420);
+	public final static Dimension ANTIHABIT_SCROLL_PANE_SMALL = new Dimension(338, 255);
 	public final static Dimension ANTIHABIT_MAIN_PANEL_DIMENSION = new Dimension(400, 70);
+	public final static Dimension ANTIHABIT_MAIN_PANEL_DIMENSION_SMALL = new Dimension(300, 52);
 	
 	//Border Constants
 	public final static RoundedBorder COMPONENT_BORDER_NORMAL = new RoundedBorder(COMPONENT_BORDER_COLOR, 3, 10, 10, true);

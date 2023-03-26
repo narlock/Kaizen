@@ -54,7 +54,6 @@ public class JournalWidgetPanel extends JPanel {
 	private JButton saveChangesButton;
 	
 	public JournalWidgetPanel(int index) {
-		this.setBorder(Constants.COMPONENT_BORDER_NORMAL_RECTANGULAR);
 		this.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		this.gbc = new GridBagConstraints();
 		this.gbc.gridwidth = GridBagConstraints.REMAINDER;  

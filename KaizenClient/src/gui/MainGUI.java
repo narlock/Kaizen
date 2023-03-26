@@ -25,6 +25,13 @@ import state.TodoState;
 import state.UpdateHabitsState;
 import util.Debug;
 
+/**
+ * MainGUI
+ * @author narlock
+ *
+ * The main frame of Kaizen. Contains the top menu bar
+ * and a state for changing application states.
+ */
 public class MainGUI extends JFrame {
 
 	private static final long serialVersionUID = -6508626185123863757L;
@@ -273,6 +280,11 @@ public class MainGUI extends JFrame {
 		this.setVisible(true);
 	}
 	
+	/**
+	 * changeState
+	 * @param newState
+	 * @brief Changes the current state to a new state
+	 */
 	public void changeState(State newState) {
 		this.remove(state);
 		this.setSize(900, 699);

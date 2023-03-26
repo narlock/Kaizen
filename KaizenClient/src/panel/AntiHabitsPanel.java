@@ -111,7 +111,7 @@ public class AntiHabitsPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int result = JOptionPane.showConfirmDialog(
-						resetButton.getParent().getParent().getParent().getParent().getParent().getParent(), 
+						getRootPane(), 
 						"You are about to reset " + antiHabit.getTitle() + ". Confirm?", 
 						"Reset Anti Habit", 
 						JOptionPane.OK_CANCEL_OPTION,
@@ -142,7 +142,7 @@ public class AntiHabitsPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int result = JOptionPane.showConfirmDialog(
-						deleteButton.getParent().getParent().getParent().getParent().getParent().getParent(), 
+						getRootPane(), 
 						"Are you sure you want to delete " + antiHabit.getTitle() + "?", 
 						"Delete Anti Habit", 
 						JOptionPane.OK_CANCEL_OPTION,

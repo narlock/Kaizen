@@ -228,14 +228,18 @@ public class TodoState extends State {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				color = COMPONENT_BACKGROUND_COLOR;
 				titleTextField.setText("");
 				
 				setColorButton.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						color = JColorChooser.showDialog(setColorButton.getParent(), "Choose a color", COMPONENT_BACKGROUND_COLOR);
-						if(color == null) { debug.print("No color selected!"); }
+						System.out.println("THE COLOR IS " + color);
+						color = JColorChooser.showDialog(getRootPane(), "Choose a color", COMPONENT_BACKGROUND_COLOR);
+						if(color == null) {
+							color = COMPONENT_BACKGROUND_COLOR;
+						}
 					}
 					
 				});

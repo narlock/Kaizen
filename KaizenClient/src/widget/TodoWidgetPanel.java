@@ -3,14 +3,15 @@ package widget;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -41,6 +42,7 @@ public class TodoWidgetPanel extends JPanel {
 	public TodoWidgetPanel() {
 		// Initialize member attributes
 		todo = TodoJsonManager.readJson();
+		sortTodo();
 		todoItems = todo.getItems();
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -57,7 +59,106 @@ public class TodoWidgetPanel extends JPanel {
 		titleLabel.setFont(COMPONENT_FONT_SMALL_BOLD);
 		titleLabel.setBackground(COMPONENT_BACKGROUND_COLOR);
 		titleLabel.setForeground(COMPONENT_FOREGROUND_COLOR);
+		JButton addItemButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("ADD.png")));
+		addItemButton.setPreferredSize(new Dimension(16, 16));
+		addItemButton.setOpaque(false);
+		addItemButton.setContentAreaFilled(false); 
+		addItemButton.setBorderPainted(false); 
+		addItemButton.setFocusPainted(false);
+		addItemButton.setFont(COMPONENT_FONT_SMALL_BOLD);
+		addItemButton.setForeground(COMPONENT_FOREGROUND_COLOR);
+		
+		addItemButton.addActionListener(new ActionListener() {
+			JPanel panel = new JPanel(new GridLayout(0, 1));
+			JLabel titleLabel = new JLabel("Title");
+			JTextField titleTextField = new JTextField();
+			JLabel priorityLabel = new JLabel("Priority");
+			JComboBox<String> priorityBox = new JComboBox<>();
+			JLabel dueDateLabel = new JLabel("Due Date (yyyy-MM-dd)");
+			JTextField dueDateTextField = new JTextField();
+			JLabel epicAssignLabel = new JLabel("Epic");
+			JComboBox<String> epicAssignBox = new JComboBox<>();
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				titleTextField.setText("");
+				dueDateTextField.setText("");
+				
+				// Auto-generated method stub
+				priorityBox.removeAllItems();
+				
+				priorityBox.addItem("Low");
+				priorityBox.addItem("Medium");
+				priorityBox.addItem("High");
+				priorityBox.addItem("Critical");
+				
+				// populate epic box with epics
+				epicAssignBox.removeAllItems();
+				epicAssignBox.addItem("");
+				for(Epic epic : todo.getEpics()) {
+					epicAssignBox.addItem(epic.getTitle());
+				}
+				
+				panel.add(titleLabel);
+				panel.add(titleTextField);
+				panel.add(priorityLabel);
+				panel.add(priorityBox);
+				panel.add(dueDateLabel);
+				panel.add(dueDateTextField);
+				panel.add(epicAssignLabel);
+				panel.add(epicAssignBox);
+				
+				int result = JOptionPane.showConfirmDialog(
+						getRootPane(), 
+						panel, 
+						"Create Todo Item", 
+						JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
+				if(result == JOptionPane.YES_OPTION &&
+						!titleTextField.getText().equals("") &&
+						Utils.validateDateString(dueDateTextField.getText())
+					) {
+					String todoTitle = titleTextField.getText();
+					String dateString = dueDateTextField.getText();
+					Date todoDate = Utils.stringToDate(dateString);
+					String epicString = (String) epicAssignBox.getSelectedItem();
+					long priority = priorityBox.getSelectedIndex();
+					
+					// Create Item
+					TodoItem todoItem = new TodoItem(todoTitle, todoDate, null, (long) priority, epicString);
+					
+					// Add item to items listd
+					todo.getItems().add(todoItem);
+					sortTodo();
+					
+					// Update Json
+					TodoJsonManager.writeTodoJsonToFile(todo);
+					
+					// Revalidate GUI
+					revalidateWidget();
+				}
+				else if(result == JOptionPane.OK_OPTION &&
+						titleTextField.getText().equals("")) {
+					// Display Validation Error on Title
+					ErrorPane.displayError(getRootPane(), "Could not create Todo Item: a title must be given to the item.");
+				} 
+				else if(result == JOptionPane.OK_OPTION &&
+						!Utils.validateDateString(dueDateTextField.getText())
+						) {
+					// Display Validation Error on Due Date
+					ErrorPane.displayError(getRootPane(), "Could not create Todo Item: invalid date format.");
+				}
+				else {
+					System.out.println("Cancel");
+				}
+			}
+			
+		});
+		
 		titlePanel.add(titleLabel);
+		titlePanel.add(Box.createHorizontalStrut(5));
+		titlePanel.add(addItemButton);
 		
 		// Todo Panel with Scroll Pane
 		JPanel todoItemPanel = createTodoItemPanel();
@@ -70,6 +171,7 @@ public class TodoWidgetPanel extends JPanel {
 		itemsScrollPane.setBorder(null);
 		
 		this.add(titlePanel, gbc);
+		this.add(Box.createVerticalStrut(23), gbc);
 		this.add(itemsScrollPane, gbc);
 	}
 	
@@ -280,6 +382,7 @@ public class TodoWidgetPanel extends JPanel {
 		this.repaint();
 		
 		// Construct new panel
+		sortTodo();
 		JPanel todoItemPanel = createTodoItemPanel();
 		itemsScrollPane = new JScrollPane(todoItemPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
@@ -293,5 +396,16 @@ public class TodoWidgetPanel extends JPanel {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridwidth = GridBagConstraints.REMAINDER; 
 		this.add(itemsScrollPane, gbc);
+	}
+	
+	public void sortTodo() {
+		switch(todo.getSortMode()) {
+		case "date":
+			todo.sortItemsByDate();
+			break;
+		case "priority":
+			todo.sortItemsByPriority();
+			break;
+		}
 	}
 }

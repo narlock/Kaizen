@@ -1,8 +1,11 @@
 package widget;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -30,11 +33,14 @@ public class HabitWidgetPanel extends JPanel {
 	private HabitsPanel habitsPanel;
 	
 	public HabitWidgetPanel() {
-		this.setBorder(Constants.COMPONENT_BORDER_NORMAL_RECTANGULAR);
 		this.habits = HabitJsonManager.readHabits();
 		HabitUtils.updateHabits(habits);
 		HabitJsonManager.writeHabitJsonToFile(habits);
-
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		this.setLayout(new GridBagLayout());
+		
 		this.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		titlePanel = new JPanel();
 		titlePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
@@ -54,8 +60,10 @@ public class HabitWidgetPanel extends JPanel {
 		scrollPane.setPreferredSize(Constants.HABIT_SCROLL_PANE_SMALL);
 		scrollPane.setBorder(null);
 		habitContainerPanel.add(scrollPane);
-		this.add(titlePanel);
-		this.add(habitContainerPanel);
+		
+		this.add(titlePanel, gbc);
+		this.add(Box.createVerticalStrut(20), gbc);
+		this.add(habitContainerPanel, gbc);
 	}
 
 }
