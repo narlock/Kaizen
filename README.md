@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="./README%20Assets/KaizenLogo.png" width="50%">
+<img src="./README%20Assets/KaizenLogoDS.png" width="50%">
 </p>
 
 <p align="center">
