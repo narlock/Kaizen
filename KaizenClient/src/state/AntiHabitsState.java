@@ -12,7 +12,6 @@ import java.util.List;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,7 +22,6 @@ import javax.swing.ScrollPaneConstants;
 import domain.AntiHabit;
 import json.AntiHabitJsonManager;
 import panel.AntiHabitsPanel;
-import panel.HabitsPanel;
 import util.Constants;
 import util.ErrorPane;
 import util.Utils;
@@ -81,7 +79,6 @@ public class AntiHabitsState extends State {
 			JTextField titleTextField = new JTextField();
 			JLabel dateLabel = new JLabel("Start Date (yyyy-MM-dd)");
 			JTextField dateTextField = new JTextField();
-			Container parentComponent = createAntiHabitButton.getParent().getParent();
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -94,7 +91,7 @@ public class AntiHabitsState extends State {
 				panel.add(dateTextField);
 				
 				int result = JOptionPane.showConfirmDialog(
-						parentComponent, 
+						getRootPane(), 
 						panel, 
 						"Create Anti Habit", 
 						JOptionPane.OK_CANCEL_OPTION,
@@ -124,13 +121,13 @@ public class AntiHabitsState extends State {
 						titleTextField.getText().equals("")
 					) {
 					// Display Validation Error on Title
-					ErrorPane.displayError(parentComponent, "Could not create Anti Habit Item: a title must be given to the item.");
+					ErrorPane.displayError(getRootPane(), "Could not create Anti Habit Item: a title must be given to the item.");
 				}
 				else if(result == JOptionPane.YES_OPTION &&
 						!Utils.validateDateString(dateTextField.getText())
 					) {
 					// Display Validation Error on Due Date
-					ErrorPane.displayError(parentComponent, "Could not create Anti Habit Item: invalid date format.");
+					ErrorPane.displayError(getRootPane(), "Could not create Anti Habit Item: invalid date format.");
 				} else {
 					System.out.println("Cancel");
 				}

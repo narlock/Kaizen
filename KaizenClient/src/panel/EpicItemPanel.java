@@ -117,7 +117,7 @@ public class EpicItemPanel extends JPanel {
 				panel.add(setColorButton);
 				
 				int result = JOptionPane.showConfirmDialog(
-						editButton.getParent().getParent(), 
+						getRootPane(), 
 						panel, 
 						"Update Epic", 
 						JOptionPane.OK_CANCEL_OPTION,
@@ -169,7 +169,7 @@ public class EpicItemPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int result = JOptionPane.showConfirmDialog(
-						deleteButton.getParent().getParent().getParent().getParent().getParent().getParent(), 
+						getRootPane(), 
 						"Are you sure you want to delete " + epic.getTitle() + "?", 
 						"Delete Epic", 
 						JOptionPane.OK_CANCEL_OPTION,

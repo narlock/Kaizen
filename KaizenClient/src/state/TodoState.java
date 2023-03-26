@@ -225,7 +225,6 @@ public class TodoState extends State {
 			JLabel colorLabel = new JLabel("Color");
 			JButton setColorButton = new JButton("Set Color");
 			Color color;
-			Container parentComponent = addEpicButton.getParent().getParent().getParent();
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -247,7 +246,7 @@ public class TodoState extends State {
 				panel.add(setColorButton);
 				
 				int result = JOptionPane.showConfirmDialog(
-						addEpicButton.getParent().getParent().getParent().getParent().getParent().getParent().getParent(), 
+						getRootPane(), 
 						panel, 
 						"Create Epic", 
 						JOptionPane.OK_CANCEL_OPTION,
@@ -264,7 +263,7 @@ public class TodoState extends State {
 				else if(result == JOptionPane.YES_OPTION &&
 						titleTextField.getText().equals("")
 					) {
-					ErrorPane.displayError(parentComponent, "Could not create habit. Please provide a title.");
+					ErrorPane.displayError(getRootPane(), "Could not create habit. Please provide a title.");
 				}
 				else {
 					System.out.println("Cancel");
@@ -314,10 +313,8 @@ public class TodoState extends State {
 				panel.add(epicAssignLabel);
 				panel.add(epicAssignBox);
 				
-				Container parentComponent = addItemButton.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
-				
 				int result = JOptionPane.showConfirmDialog(
-						parentComponent, 
+						getRootPane(), 
 						panel, 
 						"Create Todo Item", 
 						JOptionPane.OK_CANCEL_OPTION,
@@ -351,13 +348,13 @@ public class TodoState extends State {
 				else if(result == JOptionPane.OK_OPTION &&
 						titleTextField.getText().equals("")) {
 					// Display Validation Error on Title
-					ErrorPane.displayError(parentComponent, "Could not create Todo Item: a title must be given to the item.");
+					ErrorPane.displayError(getRootPane(), "Could not create Todo Item: a title must be given to the item.");
 				} 
 				else if(result == JOptionPane.OK_OPTION &&
 						!Utils.validateDateString(dueDateTextField.getText())
 						) {
 					// Display Validation Error on Due Date
-					ErrorPane.displayError(parentComponent, "Could not create Todo Item: invalid date format.");
+					ErrorPane.displayError(getRootPane(), "Could not create Todo Item: invalid date format.");
 				}
 				else {
 					System.out.println("Cancel");

@@ -194,10 +194,8 @@ public class TodoItemPanel extends JPanel {
 				panel.add(epicAssignLabel);
 				panel.add(epicAssignBox);
 				
-				Container parentComponent = editButton.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
-				
 				int result = JOptionPane.showConfirmDialog(
-						parentComponent, 
+						getRootPane(), 
 						panel, 
 						"Update Todo Item", 
 						JOptionPane.OK_CANCEL_OPTION,
@@ -229,13 +227,13 @@ public class TodoItemPanel extends JPanel {
 				else if(result == JOptionPane.OK_OPTION &&
 						titleTextField.getText().equals("")) {
 					// Display Validation Error on Title
-					ErrorPane.displayError(parentComponent, "Could not update Todo Item: a title must be given to the item.");
+					ErrorPane.displayError(getRootPane(), "Could not update Todo Item: a title must be given to the item.");
 				} 
 				else if(result == JOptionPane.OK_OPTION &&
 						!Utils.validateDateString(dueDateTextField.getText())
 						) {
 					// Display Validation Error on Due Date
-					ErrorPane.displayError(parentComponent, "Could not update Todo Item: invalid date format.");
+					ErrorPane.displayError(getRootPane(), "Could not update Todo Item: invalid date format.");
 				}
 				else {
 					System.out.println("Cancel");

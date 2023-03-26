@@ -130,7 +130,7 @@ public class MainGUI extends JFrame {
 				
 				// Open Customization Menu
 				int result = JOptionPane.showConfirmDialog(
-						customizeHomeMenuItem.getParent().getParent(), 
+						getRootPane(), 
 						new CustomHomePanel(), 
 						"Customize Home", 
 						JOptionPane.OK_OPTION,
