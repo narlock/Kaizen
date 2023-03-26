@@ -32,6 +32,7 @@ import json.TodoJsonManager;
 import state.TodoState;
 import util.Constants;
 import util.ErrorPane;
+import util.TodoUtils;
 import util.Utils;
 
 public class TodoItemPanel extends JPanel {
@@ -143,7 +144,7 @@ public class TodoItemPanel extends JPanel {
 		//Create priority panel
 		JPanel editAndPriorityPanel = new JPanel();
 		editAndPriorityPanel.setBackground(itemPanelColor);
-		JLabel priorityLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(getPriorityImage(todoItem.getPriority()))));
+		JLabel priorityLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(TodoUtils.getPriorityImage(todoItem.getPriority()))));
 		priorityLabel.setOpaque(false);
 		priorityLabel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		priorityLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
@@ -172,6 +173,11 @@ public class TodoItemPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				titleTextField.setText(todoItem.getTitle());
+				priorityBox.removeAllItems();
+				dueDateTextField.setText(Utils.dateAsString(todoItem.getDueDate()));
+				epicAssignBox.removeAllItems();
+				
 				priorityBox.addItem("Low");
 				priorityBox.addItem("Medium");
 				priorityBox.addItem("High");
@@ -243,20 +249,6 @@ public class TodoItemPanel extends JPanel {
 		});
 			
 		return todoItemMainPanel;
-	}
-	
-	private String getPriorityImage(long indicator) {
-		switch((int) indicator) {
-		case 0:
-			return "PRIORITY_LOW.png";
-		case 1:
-			return "PRIORITY_MEDIUM.png";
-		case 2:
-			return "PRIORITY_HIGH.png";
-		case 3:
-			return "PRIORITY_CRITICAL.png";
-		}
-		throw new RuntimeException("Error grabbing priority image, invalid indicator: " + indicator);
 	}
 
 }
