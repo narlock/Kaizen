@@ -42,9 +42,9 @@ public final class Constants {
 	public final static Dimension TODO_EPIC_SCROLL_PANE_DIMENSION = new Dimension(280, 235);
 	public final static Dimension TODO_EPIC_PANEL_DIMENSION = new Dimension(225, 49);
 	public final static Dimension TODO_ITEM_SCROLL_PANE_DIMENSION = new Dimension(500, 385);
-	public final static Dimension TODO_ITEM_SCROLL_PANE_DIMENSION_SMALL = new Dimension(450, 250);
+	public final static Dimension TODO_ITEM_SCROLL_PANE_DIMENSION_SMALL = new Dimension(350, 250);
 	public final static Dimension TODO_ITEM_PANEL_DIMENSION = new Dimension(450, 65);
-	public final static Dimension TODO_ITEM_PANEL_DIMENSION_SMALL = new Dimension(375, 50);
+	public final static Dimension TODO_ITEM_PANEL_DIMENSION_SMALL = new Dimension(330, 50);
 	public final static Dimension ANTIHABIT_SCROLL_PANE_NORMAL = new Dimension(450, 420);
 	public final static Dimension ANTIHABIT_SCROLL_PANE_SMALL = new Dimension(338, 255);
 	public final static Dimension ANTIHABIT_MAIN_PANEL_DIMENSION = new Dimension(400, 70);
