@@ -116,7 +116,10 @@ public class HabitUtils extends Utils {
 			 * to simply display that the user completed the
 			 * habit again
 			 */
-			if(sameDay(habit) && habit.getStatus() == 0) {
+			if(sameDay(habit) && habit.getStatus() == 1) {
+				return 2;
+			}
+			else if(sameDay(habit) && habit.getStatus() == 0) {
 				return 2;
 			} else return 1;
 		}
