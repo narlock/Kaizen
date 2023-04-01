@@ -61,10 +61,6 @@ public class MainGUI extends JFrame {
 	private JMenu journalMenu;
 	private JMenuItem printJournalMenuItem;
 	
-	private JMenu relationshipsMenu;
-	private JMenuItem createRelationshipMenuItem;
-	private JMenuItem updateRelationshipsMenuItem;
-	
 	private JMenu helpMenu;
 	
 	/**
@@ -103,11 +99,6 @@ public class MainGUI extends JFrame {
 		journalMenu = new JMenu("Journal");
 		printJournalMenuItem = new JMenuItem("Print Journal");
 		printJournalMenuItem.setEnabled(false);
-		
-		relationshipsMenu = new JMenu("Relationships");
-		relationshipsMenu.setEnabled(false);
-		createRelationshipMenuItem = new JMenuItem("Add Relationship");
-		updateRelationshipsMenuItem = new JMenuItem("Update Relationships");
 		
 		helpMenu = new JMenu("Help");
 	}
