@@ -59,8 +59,7 @@ public class TodoWidgetPanel extends JPanel {
 		titleLabel.setFont(COMPONENT_FONT_SMALL_BOLD);
 		titleLabel.setBackground(COMPONENT_BACKGROUND_COLOR);
 		titleLabel.setForeground(COMPONENT_FOREGROUND_COLOR);
-		JButton addItemButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("ADD.png")));
-		addItemButton.setPreferredSize(new Dimension(16, 16));
+		JButton addItemButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("ADD_SMALL.png")));
 		addItemButton.setOpaque(false);
 		addItemButton.setContentAreaFilled(false); 
 		addItemButton.setBorderPainted(false); 
@@ -157,7 +156,6 @@ public class TodoWidgetPanel extends JPanel {
 		});
 		
 		titlePanel.add(titleLabel);
-		titlePanel.add(Box.createHorizontalStrut(5));
 		titlePanel.add(addItemButton);
 		
 		// Todo Panel with Scroll Pane
