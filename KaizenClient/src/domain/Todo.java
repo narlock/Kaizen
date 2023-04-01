@@ -53,6 +53,11 @@ public class Todo {
 		Collections.sort(items, (o1, o2) -> o1.getDueDate().compareTo(o2.getDueDate()));
 	}
 	
+	public void sortItemsByDateReverse() {
+		Collections.sort(items, (o1, o2) -> o1.getDueDate().compareTo(o2.getDueDate()));
+		Collections.reverse(items);
+	}
+	
 	public void sortItemsByPriority() {
 		items.sort((o1, o2) -> {
 			if(o1.getPriority() > o2.getPriority()) {
@@ -67,4 +72,18 @@ public class Todo {
 		});
 	}
 	
+	public void sortItemsByPriorityReverse() {
+		items.sort((o1, o2) -> {
+			if(o1.getPriority() < o2.getPriority()) {
+				return -1;
+			}
+			else if(o1.getPriority() == o2.getPriority()) {
+				return 0;
+			}
+			else {
+				return 1;
+			}
+		});
+	}
+
 }

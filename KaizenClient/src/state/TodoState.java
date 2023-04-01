@@ -184,10 +184,15 @@ public class TodoState extends State {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				todo.setSortMode("date");
+				if(todo.getSortMode().equals("date")) {
+					todo.setSortMode("dateReverse");
+				} else {
+					todo.setSortMode("date");
+				}
+				
 				TodoJsonManager.writeTodoJsonToFile(todo);
 				
-				todo.sortItemsByDate();
+				sortTodo();
 				revalidateItemPanel();
 			}
 			
@@ -197,10 +202,15 @@ public class TodoState extends State {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				todo.setSortMode("priority");
+				if(todo.getSortMode().equals("priority")) {
+					todo.setSortMode("priorityReverse");
+				} else {
+					todo.setSortMode("priority");
+				}
+				
 				TodoJsonManager.writeTodoJsonToFile(todo);
 				
-				todo.sortItemsByPriority();
+				sortTodo();
 				revalidateItemPanel();
 			}
 			
@@ -461,10 +471,20 @@ public class TodoState extends State {
 	public void sortTodo() {
 		switch(todo.getSortMode()) {
 		case "date":
+			debug.print("Sorting by Date");
 			todo.sortItemsByDate();
 			break;
+		case "dateReverse":
+			debug.print("Sorting by Date Reversed");
+			todo.sortItemsByDateReverse();
+			break;
 		case "priority":
+			debug.print("Sorting by Priority");
 			todo.sortItemsByPriority();
+			break;
+		case "priorityReverse":
+			debug.print("Sorting by Priority Reversed");
+			todo.sortItemsByPriorityReverse();
 			break;
 		}
 	}
