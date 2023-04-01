@@ -18,6 +18,7 @@ import panel.CustomHomePanel;
 import state.AntiHabitsState;
 import state.CreateHabitState;
 import state.HabitsState;
+import state.HelpInfoState;
 import state.HomeState;
 import state.JournalState;
 import state.State;
@@ -64,6 +65,8 @@ public class MainGUI extends JFrame {
 	private JMenuItem createRelationshipMenuItem;
 	private JMenuItem updateRelationshipsMenuItem;
 	
+	private JMenu helpMenu;
+	
 	/**
 	 * The current state of Kaizen
 	 */
@@ -105,6 +108,8 @@ public class MainGUI extends JFrame {
 		relationshipsMenu.setEnabled(false);
 		createRelationshipMenuItem = new JMenuItem("Add Relationship");
 		updateRelationshipsMenuItem = new JMenuItem("Update Relationships");
+		
+		helpMenu = new JMenu("Help");
 	}
 	
 	private void initComponentActions() {
@@ -236,6 +241,24 @@ public class MainGUI extends JFrame {
 			@Override
 			public void menuCanceled(MenuEvent e) {}
 		});
+		
+		helpMenu.addMenuListener(new MenuListener() {
+			
+			@Override
+			public void menuSelected(MenuEvent e) {
+				if(!(state instanceof HelpInfoState)) {
+					debug.print("HelpInfoState Menu selected, changing to HelpInfoState State");
+					changeState(new HelpInfoState());
+				} else {
+					debug.print("HelpInfoState Menu selected, but already in state. Will not reload state.");
+				}
+			}
+			
+			@Override
+			public void menuDeselected(MenuEvent e) {}
+			@Override
+			public void menuCanceled(MenuEvent e) {}
+		});
 	}
 	
 	private void addComponentsToFrame() {
@@ -246,7 +269,7 @@ public class MainGUI extends JFrame {
 		
 		menuBar.add(todoMenu);
 		
-		todoMenu.add(printToDoMenuItem);
+//		todoMenu.add(printToDoMenuItem);
 		
 		menuBar.add(habitsMenu);
 		
@@ -257,12 +280,14 @@ public class MainGUI extends JFrame {
 		
 		menuBar.add(journalMenu);
 		
-		journalMenu.add(printJournalMenuItem);
+//		journalMenu.add(printJournalMenuItem);
 		
-		menuBar.add(relationshipsMenu);
+//		menuBar.add(relationshipsMenu);
 		
-		relationshipsMenu.add(createRelationshipMenuItem);
-		relationshipsMenu.add(updateRelationshipsMenuItem);
+//		relationshipsMenu.add(createRelationshipMenuItem);
+//		relationshipsMenu.add(updateRelationshipsMenuItem);
+		
+		menuBar.add(helpMenu);
 		
 		this.add(menuBar, BorderLayout.NORTH);
 		
@@ -272,7 +297,7 @@ public class MainGUI extends JFrame {
 	
 	
 	private void initFrame() {
-		this.setTitle("Kaizen v1.0.1");
+		this.setTitle("Kaizen v1.0.2");
 		this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("KaizenIcon.png")).getImage());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(900, 700);
