@@ -61,11 +61,11 @@ public class TodoState extends State {
 	private EpicItemPanel epicItemPanel;
 	private JScrollPane epicsScrollPane;
 	
-	
 	private JPanel centerPanel;
 	private JPanel titleAddPanel;
 	private JLabel titleLabel;
 	private JButton addItemButton;
+	private JButton removeAllCompletedItemsButton;
 	private TodoItemPanel todoItemPanel;
 	private JScrollPane itemsScrollPane;
 	
@@ -163,6 +163,8 @@ public class TodoState extends State {
 		initLabelVisual(titleLabel);
 		addItemButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("ADD.png")));
 		initButtonVisual(addItemButton);
+		removeAllCompletedItemsButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("REMOVE.png")));
+		initButtonVisual(removeAllCompletedItemsButton);
 		titleAddPanel.add(titleLabel);
 		titleAddPanel.add(addItemButton);
 		todoItemPanel = new TodoItemPanel(todo, this);
@@ -394,6 +396,32 @@ public class TodoState extends State {
 			}
 			
 		});
+		
+		removeAllCompletedItemsButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int result = JOptionPane.showConfirmDialog(
+						getRootPane(), 
+						"Delete all completed items?", 
+						"Confirm deletion", 
+						JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
+				if(result == JOptionPane.OK_OPTION) {
+					// Delete all of the items that contain a completion date
+					for(int i = 0; i < todo.getItems().size(); i++) {
+						if(todo.getItems().get(i).getCompletedDate() != null) {
+							todo.getItems().remove(i);
+						}
+					}
+					
+					TodoJsonManager.writeTodoJsonToFile(todo);
+					revalidateItemPanel();
+				}
+			}
+			
+		});
 	}
 	
 	public void revalidateEpicPanel() {
@@ -424,6 +452,30 @@ public class TodoState extends State {
 	 * @brief 
 	 */
 	public void revalidateItemPanel() {
+		if(showCompleted) {
+			// Remove the 'add todo item' and replace with 'delete all completed'
+			titleAddPanel.remove(addItemButton);
+			
+			// Add the remove button
+			titleAddPanel.add(removeAllCompletedItemsButton);
+			
+			//Revalidate
+			titleAddPanel.revalidate();
+			titleAddPanel.repaint();
+			
+		} else {
+			// Remove the possibility of 'delete all completed' with 'add todo item'
+			titleAddPanel.remove(removeAllCompletedItemsButton);
+			
+			// Add the remove button
+			titleAddPanel.add(addItemButton);
+			
+			//Revalidate
+			titleAddPanel.revalidate();
+			titleAddPanel.repaint();
+		}
+		
+		
 		// Remove old panel
 		centerPanel.remove(itemsScrollPane);
 		centerPanel.revalidate();
