@@ -65,4 +65,37 @@ public final class Constants {
 	public final static NormalBorder TODO_COMPLETE_BORDER_SMALL = new NormalBorder(COMPONENT_BORDER_COLOR, 1, 15, 0, true);
 	public final static RoundedBorder BUTTON_BORDER = new RoundedBorder(Color.WHITE, 2, 15, 0, true);
 	public final static Border RIGHT_BORDER = BorderFactory.createMatteBorder(0, 0, 0, 3, COMPONENT_BORDER_COLOR);
+	
+	//String constants
+	public final static String HELP_HOME_MESSAGE = 
+			  "The home allows the user to keep all of their productivity<br>"
+			+ "tools inside of one place.<br><br>"
+			+ "Select \"Customize Home\" to customize the widgets that<br>"
+			+ "appear on the home screen.";
+	public final static String HELP_TODO_MESSAGE = 
+			  "The todo feature is an advanced todo list to help<br>"
+			+ "users get their tasks completed efficiently.<br><br>"
+			+ "The user can create new tasks with the \"+\" on<br>"
+			+ "the right-hand side, create a todo item, complete<br>"
+			+ "the task, edit task, and more.<br><br>"
+			+ "The user can categorize tasks utilizing epics.<br>"
+			+ "These can be created similarly to todo items.<br><br>"
+			+ "The left-hand side provides sorting options to the user<br>"
+			+ "so they can decide how to view their tasks.";
+	public final static String HELP_HABITS_MESSAGE = 
+			  "The habit feature is great for users looking to<br>"
+			+ "build new habits.<br><br>"
+			+ "The user can select \"Start New Habit\" to begin.<br><br>"
+			+ "Check your habits off by clicking the left-hand side button<br>"
+			+ "corresponding to the habit.<br><br>"
+			+ "Users can achieve streaks for completing habits consistently!";
+	public final static String HELP_ANTIHABITS_MESSAGE = 
+			"The anti-habits feature is a great way for users<br>"
+			+ "to rid bad habits.<br><br>"
+			+ "Simply hit the \"+\" button and begin to get rid<br>"
+			+ "of your bad habits!";
+	public final static String HELP_JOURNAL_MESSAGE =
+			  "The journal allows the user to make journaling a daily habit.<br><br>"
+			+ "Simply fill out the prompts and select the \"Save Entry\" button!<br><br>"
+			+ "Widgets for this feature include a singluar prompt on the home screen.";
 }

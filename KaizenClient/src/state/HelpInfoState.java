@@ -13,7 +13,11 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import panel.HelpPanel;
+import util.ErrorPane;
 
 import static util.Constants.*;
 
@@ -90,6 +94,72 @@ public class HelpInfoState extends State {
 		setActionForLink(youtubeButton, "https://youtube.com/narlock");
 		setActionForLink(discordButton, "https://discord.gg/eEbEYbXaNS");
 		setActionForLink(patreonButton, "https://patreon.com/narlock");
+		
+		helpHome.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(getRootPane(), 
+						new HelpPanel(HELP_HOME_MESSAGE), 
+						"Home Feature", 
+						JOptionPane.INFORMATION_MESSAGE,
+						new ImageIcon(ErrorPane.class.getClassLoader().getResource("INFO_ERROR.png")));
+			}
+			
+		});
+		helpTodo.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(getRootPane(), 
+						new HelpPanel(HELP_TODO_MESSAGE), 
+						"Todo Feature", 
+						JOptionPane.INFORMATION_MESSAGE,
+						new ImageIcon(ErrorPane.class.getClassLoader().getResource("INFO_ERROR.png")));
+			}
+			
+		});
+		helpHabits.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(getRootPane(), 
+						new HelpPanel(HELP_HABITS_MESSAGE), 
+						"Habits Feature", 
+						JOptionPane.INFORMATION_MESSAGE,
+						new ImageIcon(ErrorPane.class.getClassLoader().getResource("INFO_ERROR.png")));
+			}
+			
+		});
+		helpAntiHabits.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(getRootPane(), 
+						new HelpPanel(HELP_ANTIHABITS_MESSAGE), 
+						"AntiHabits Feature", 
+						JOptionPane.INFORMATION_MESSAGE,
+						new ImageIcon(ErrorPane.class.getClassLoader().getResource("INFO_ERROR.png")));
+			}
+			
+		});
+		helpJournal.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(getRootPane(), 
+						new HelpPanel(HELP_JOURNAL_MESSAGE), 
+						"Journal Feature", 
+						JOptionPane.INFORMATION_MESSAGE,
+						new ImageIcon(ErrorPane.class.getClassLoader().getResource("INFO_ERROR.png")));
+			}
+			
+		});
 	}
 
 	@Override
