@@ -75,7 +75,8 @@ public class EpicItemPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("TODO for version 1.1");
+				state.epic = epic.getTitle();
+				state.revalidateItemPanel();
 			}
 			
 		});
@@ -144,7 +145,7 @@ public class EpicItemPanel extends JPanel {
 					
 					// Revalidate GUI
 					state.revalidateEpicPanel();
-					state.revalidateItemPanel(state.showCompleted);
+					state.revalidateItemPanel();
 				} 
 				else if(result == JOptionPane.YES_OPTION &&
 						titleTextField.getText().equals("")
@@ -191,7 +192,7 @@ public class EpicItemPanel extends JPanel {
 					
 					// Revalidate GUI
 					state.revalidateEpicPanel();
-					state.revalidateItemPanel(state.showCompleted);
+					state.revalidateItemPanel();
 				}
 			}
 			

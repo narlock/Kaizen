@@ -126,7 +126,7 @@ public class HabitsPanel extends JPanel {
 			JLabel streakLabel = new JLabel("" + habit.getStreak(), new ImageIcon(getClass().getClassLoader().getResource(streakIconPath)), SwingConstants.LEADING);
 			streakLabel.setHorizontalTextPosition(SwingConstants.LEADING);
 			streakLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
-			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+			setStreakColor(streakLabel, habit.getStreak());
 			streakPanel.add(streakLabel);
 				habitMainPanel.add(streakPanel, BorderLayout.EAST);
 				
@@ -174,7 +174,7 @@ public class HabitsPanel extends JPanel {
 			JLabel streakLabel = new JLabel("" + habit.getStreak(), new ImageIcon(getClass().getClassLoader().getResource(streakIconPath)), SwingConstants.LEADING);
 			streakLabel.setHorizontalTextPosition(SwingConstants.LEADING);
 			streakLabel.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
-			streakLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
+			setStreakColor(streakLabel, habit.getStreak());
 			streakPanel.add(streakLabel);
 			
 			habitMainPanel.add(habitCompletedPanel, BorderLayout.WEST);
@@ -187,6 +187,29 @@ public class HabitsPanel extends JPanel {
 					+ "\nPlease contact narlock (the developer) if you come across this error.");
 			System.exit(1);
 			throw new RuntimeException("Unexpected error occurred when creating HabitsPanel");
+		}
+	}
+	
+	/**
+	 * The color of the streak will be changed based off of
+	 * different milestones that are hit.
+	 * @param streakLabel
+	 */
+	public void setStreakColor(JLabel streakLabel, long streak) {
+		if(streak <= 7) {
+			streakLabel.setForeground(Constants.KAIZEN_GREEN);
+		}
+		else if(streak >= 8 && streak <= 30) {
+			streakLabel.setForeground(Constants.KAIZEN_GOLD);
+		}
+		else if(streak >= 31 && streak <= 90) {
+			streakLabel.setForeground(Constants.KAIZEN_DIAMOND);
+		}
+		else if(streak >= 91 && streak <= 300) {
+			streakLabel.setForeground(Constants.KAIZEN_PINK);
+		}
+		else {
+			streakLabel.setForeground(Constants.KAIZEN_RED);
 		}
 	}
 }

@@ -54,6 +54,8 @@ public class TodoState extends State {
 	
 	private JPanel epicsTitlePanel;
 	private JLabel epicsLabel;
+	
+	private JButton viewAllItemsButton;
 	private JButton addEpicButton;
 	
 	private EpicItemPanel epicItemPanel;
@@ -69,12 +71,14 @@ public class TodoState extends State {
 	
 	// Public Boolean representing if we want to show completed todo items or not
 	public boolean showCompleted;
+	public String epic;
 
 	@Override
 	public void initPanelComponents() {
 		//TODO Import Todo from JSON file
 		todo = TodoJsonManager.readJson();
 		showCompleted = false;
+		epic = null;
 		
 		// Sort based off of sorting
 		sortTodo();
@@ -106,6 +110,9 @@ public class TodoState extends State {
 		
 		epicsLabel = new JLabel("Epics");
 		initLabelVisual(epicsLabel);
+		
+		viewAllItemsButton = new JButton("   View All Items", new ImageIcon(getClass().getClassLoader().getResource("SCROLL.png")));
+		initButtonVisual(viewAllItemsButton);
 		
 		addEpicButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("ADD.png")));
 		initButtonVisual(addEpicButton);
@@ -142,6 +149,7 @@ public class TodoState extends State {
 		sidePanel.add(lineLabel2, gbc);
 		
 		sidePanel.add(Box.createVerticalStrut(25), gbc);
+		sidePanel.add(viewAllItemsButton, gbc);
 		sidePanel.add(epicsTitlePanel, gbc);
 		sidePanel.add(epicsScrollPane, gbc);
 		
@@ -180,7 +188,7 @@ public class TodoState extends State {
 				TodoJsonManager.writeTodoJsonToFile(todo);
 				
 				todo.sortItemsByDate();
-				revalidateItemPanel(showCompleted);
+				revalidateItemPanel();
 			}
 			
 		});
@@ -193,7 +201,7 @@ public class TodoState extends State {
 				TodoJsonManager.writeTodoJsonToFile(todo);
 				
 				todo.sortItemsByPriority();
-				revalidateItemPanel(showCompleted);
+				revalidateItemPanel();
 			}
 			
 		});
@@ -203,7 +211,7 @@ public class TodoState extends State {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				showCompleted = false;
-				revalidateItemPanel(showCompleted);
+				revalidateItemPanel();
 			}
 			
 		});
@@ -213,7 +221,17 @@ public class TodoState extends State {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				showCompleted = true;
-				revalidateItemPanel(showCompleted);
+				revalidateItemPanel();
+			}
+			
+		});
+		
+		viewAllItemsButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				epic = null;
+				revalidateItemPanel();
 			}
 			
 		});
@@ -347,7 +365,7 @@ public class TodoState extends State {
 					TodoJsonManager.writeTodoJsonToFile(todo);
 					
 					// Revalidate GUI
-					revalidateItemPanel(showCompleted);
+					revalidateItemPanel();
 				}
 				else if(result == JOptionPane.OK_OPTION &&
 						titleTextField.getText().equals("")) {
@@ -395,7 +413,7 @@ public class TodoState extends State {
 	 * revalidateItemPanel
 	 * @brief 
 	 */
-	public void revalidateItemPanel(boolean showCompleted) {
+	public void revalidateItemPanel() {
 		// Remove old panel
 		centerPanel.remove(itemsScrollPane);
 		centerPanel.revalidate();

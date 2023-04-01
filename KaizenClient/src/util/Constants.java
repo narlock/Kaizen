@@ -21,6 +21,11 @@ public final class Constants {
 	public final static Color BUTTON_CONFIRM_COLOR = new Color(50, 203, 88);
 	public final static Color COMPONENT_FOREGROUND_COLOR = new Color(217, 217, 217);
 	public final static Color COMPONENT_BUTTON_SELECTED_COLOR = new Color(255, 0, 0);
+	public final static Color KAIZEN_GREEN = new Color(0, 235, 123);
+	public final static Color KAIZEN_GOLD = new Color(255, 215, 0);
+	public final static Color KAIZEN_DIAMOND = Color.CYAN;
+	public final static Color KAIZEN_PINK = new Color(255, 105, 180);
+	public final static Color KAIZEN_RED = new Color(255, 58, 64);
 	
 	//Font Constants
 	public final static Font COMPONENT_FONT_NORMAL_BOLD = new Font("Tahoma", Font.BOLD, 16);
@@ -45,9 +50,9 @@ public final class Constants {
 	public final static Dimension TODO_ITEM_SCROLL_PANE_DIMENSION_SMALL = new Dimension(350, 250);
 	public final static Dimension TODO_ITEM_PANEL_DIMENSION = new Dimension(450, 65);
 	public final static Dimension TODO_ITEM_PANEL_DIMENSION_SMALL = new Dimension(330, 50);
-	public final static Dimension ANTIHABIT_SCROLL_PANE_NORMAL = new Dimension(450, 420);
+	public final static Dimension ANTIHABIT_SCROLL_PANE_NORMAL = new Dimension(540, 420);
 	public final static Dimension ANTIHABIT_SCROLL_PANE_SMALL = new Dimension(338, 255);
-	public final static Dimension ANTIHABIT_MAIN_PANEL_DIMENSION = new Dimension(400, 70);
+	public final static Dimension ANTIHABIT_MAIN_PANEL_DIMENSION = new Dimension(490, 70);
 	public final static Dimension ANTIHABIT_MAIN_PANEL_DIMENSION_SMALL = new Dimension(300, 52);
 	
 	//Border Constants

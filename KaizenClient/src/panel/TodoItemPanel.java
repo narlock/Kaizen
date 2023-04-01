@@ -56,17 +56,33 @@ public class TodoItemPanel extends JPanel {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
         // Add todoItems to panel
-        if(state.showCompleted) {
-        	for(int i = 0; i < todoItems.size(); i++) {
-        		if(todoItems.get(i).getCompletedDate() != null)
-        			this.add(createTodoItemPanel(todoItems.get(i)), gbc);
-        	}
-        } else {
-        	for(int i = 0; i < todoItems.size(); i++) {
-        		if(todoItems.get(i).getCompletedDate() == null)
-        			this.add(createTodoItemPanel(todoItems.get(i)), gbc);
-        	}
+        if(state.epic == null) {
+        	if(state.showCompleted) {
+            	for(int i = 0; i < todoItems.size(); i++) {
+            		if(todoItems.get(i).getCompletedDate() != null)
+            			this.add(createTodoItemPanel(todoItems.get(i)), gbc);
+            	}
+            } else {
+            	for(int i = 0; i < todoItems.size(); i++) {
+            		if(todoItems.get(i).getCompletedDate() == null)
+            			this.add(createTodoItemPanel(todoItems.get(i)), gbc);
+            	}
+            }
         }
+        else {
+        	if(state.showCompleted) {
+            	for(int i = 0; i < todoItems.size(); i++) {
+            		if(todoItems.get(i).getCompletedDate() != null && todoItems.get(i).getEpic().equals(state.epic))
+            			this.add(createTodoItemPanel(todoItems.get(i)), gbc);
+            	}
+            } else {
+            	for(int i = 0; i < todoItems.size(); i++) {
+            		if(todoItems.get(i).getCompletedDate() == null && todoItems.get(i).getEpic().equals(state.epic))
+            			this.add(createTodoItemPanel(todoItems.get(i)), gbc);
+            	}
+            }
+        }
+        
 	}
 	
 	private JPanel createTodoItemPanel(TodoItem todoItem) {
@@ -113,12 +129,12 @@ public class TodoItemPanel extends JPanel {
 					completeTodoItemButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("TODO_BUTTON.png")));
 					todoItem.setCompletedDate(null);
 					TodoJsonManager.writeTodoJsonToFile(todo);
-					state.revalidateItemPanel(state.showCompleted);
+					state.revalidateItemPanel();
 				} else {
 					completeTodoItemButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("TODO_BUTTON_COMPLETED.png")));
 					todoItem.setCompletedDate(Utils.today());
 					TodoJsonManager.writeTodoJsonToFile(todo);
-					state.revalidateItemPanel(state.showCompleted);
+					state.revalidateItemPanel();
 				}
 				
 			}
@@ -228,7 +244,7 @@ public class TodoItemPanel extends JPanel {
 					TodoJsonManager.writeTodoJsonToFile(todo);
 					
 					// Revalidate GUI
-					state.revalidateItemPanel(state.showCompleted);
+					state.revalidateItemPanel();
 				}
 				else if(result == JOptionPane.OK_OPTION &&
 						titleTextField.getText().equals("")) {

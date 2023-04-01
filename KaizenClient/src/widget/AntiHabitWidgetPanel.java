@@ -97,19 +97,19 @@ public class AntiHabitWidgetPanel extends JPanel {
 		 * 300+ days, color of text is red
 		 */
 		if(daysSince <= 7) {
-			daysSinceLabel.setForeground(Color.GREEN);
+			daysSinceLabel.setForeground(KAIZEN_GREEN);
 		} 
 		else if(daysSince >= 8 && daysSince <= 30) {
-			daysSinceLabel.setForeground(Color.YELLOW);
+			daysSinceLabel.setForeground(KAIZEN_GOLD);
 		}
 		else if(daysSince >= 31 && daysSince <= 90) {
-			daysSinceLabel.setForeground(Color.CYAN);
+			daysSinceLabel.setForeground(KAIZEN_DIAMOND);
 		}
 		else if(daysSince >= 91 && daysSince <= 300) {
-			daysSinceLabel.setForeground(Color.PINK);
+			daysSinceLabel.setForeground(KAIZEN_PINK);
 		}
 		else if(daysSince >= 301) {
-			daysSinceLabel.setForeground(Color.RED);
+			daysSinceLabel.setForeground(KAIZEN_RED);
 		}
 		daysSincePanel.add(daysSinceLabel);
 		mainPanel.add(daysSincePanel, BorderLayout.WEST);
