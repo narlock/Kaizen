@@ -53,7 +53,12 @@ by <a href="https://github.com/narlock">narlock</a>
 - A task is marked completed by clicking the box on the right-hand side of the task. The task will be moved to the completed section.
 - Create tasks and epics using the respective '+' button!
 - Update tasks and epics using the pencil button!
-- Delete epics using the 'X' button!
+- Delete epics using the respective 'X' button!
+- Tasks that are marked as complete can be viewed by clicking 'Completed Items'. This will display all of the tasks that the user has completed. The user can choose to delete all of the completed tasks with the 'X' button.
+- 'Todo Items' will display the tasks that have not been completed.
+- 'View All Items' will display all of the tasks, including epic-unassigned and epic-assigned.
+- By selecting the text of an epic, you can view all of the tasks that correspond to that epic.
+- Sort your tasks by date and priority. (Select them again to reverse the sort order!)
 
 ### **Habits**
 - Keep track of habits that you want to build by accumulating a streak representing the amount of days you have completed your new habit!
@@ -62,7 +67,16 @@ by <a href="https://github.com/narlock">narlock</a>
   <img src="./README%20Assets/Habits.png" width="70%"/>
 </p>
 
-- Streaks are given to habits that occur everyday or once a week!
+- Start habits by selecting the 'Start Habit' tab under 'Habits'.
+- Update and delete habits by selecting the 'Update Habits' tab under 'Habits'.
+- Streaks are given to habits that occur everyday or once a week! (Marked with the fire emoji)
+- Amount of completions are given to habits that do not occur everyday or once a week. (Marked with the star emoji)
+- The longer the streak you achieve for a habit, the higher level it will gain. Level is based off of the color of the habit:
+  - Level 1 (GREEN) - 0 to 7 days
+  - Level 2 (GOLD) - 8 to 30 days
+  - Level 3 (DIAMOND) - 31 to 90 days
+  - Level 4 (PINK) - 91 to 300 days
+  - Level 5 (RED) - 301+ days
 
 ### **AntiHabits**
 - Trying to break bad habits too? Kaizen has you covered.
@@ -71,7 +85,15 @@ by <a href="https://github.com/narlock">narlock</a>
   <img src="./README%20Assets/AntiHabits.png" width="70%"/>
 </p>
 
+- Begin to break a habit by selecting the '+'. Note: dates are marked in the format yyyy-MM-dd (year-month digits-day digits). All dates entered are required to follow this format. For example, April 2nd, 2023 will be typed as 2023-04-02
 - If you relapse on a habit, you can press the counter-clockwise button to reset your days since counter.
+- You can delete an Anti Habit by pressing the 'X' corresponding to that Anti Habit.
+- Similarly to habits, the longer the streak you achieve for an anti habit, the higher level it will gain. Level is based off of the color of the habit:
+  - Level 1 (GREEN) - 0 to 7 days
+  - Level 2 (GOLD) - 8 to 30 days
+  - Level 3 (DIAMOND) - 31 to 90 days
+  - Level 4 (PINK) - 91 to 300 days
+  - Level 5 (RED) - 301+ days
 
 ### **Journal**
 - Make journaling a habit by using the Kaizen journal. Kaizen's journal offers simple prompts to answer every day.
@@ -80,7 +102,9 @@ by <a href="https://github.com/narlock">narlock</a>
   <img src="./README%20Assets/Journal.png" width="70%"/>
 </p>
 
-- Save your journal entry by pressing the 'Save Entry' button!
+- Save your journal entry by pressing the 'Save Entry' button! Note: you *must* hit 'Save Entry' for your journal entries to save.
+- View previous journal entries by pressing the 'Previous Entry' button!
+- To get back to the present journal entries, press the 'Following Entry' button.
 
 ### **Home Widgets**
 - Have all of your productivity tools in one place.
@@ -89,7 +113,8 @@ by <a href="https://github.com/narlock">narlock</a>
   <img src="./README%20Assets/Home.png" width="70%"/>
 </p>
 
-- Change which widgets appear inside of the customization menu!
+- Change which widgets appear inside of the customization menu! 
+- Simply select the 'Customize Home' menu option from 'Home', and utilize the combo boxes to select the widgets to suit your needs.
 
 ## **Setup KaizenClient**
 ### Requirements
@@ -103,7 +128,7 @@ by <a href="https://github.com/narlock">narlock</a>
 
 2. Java Runtime Environment
 
-    KaizenClient was developed utilizing the Java programming language. An installation of the Java Runtime Environment is required to run Java applications. KaizenClient runs on Java 8. A download for Java can be found [here](https://www.java.com/en/download/).
+    KaizenClient was developed utilizing the Java programming language. An installation of the Java Runtime Environment is required to run Java applications. KaizenClient runs on **Java 8**. A download for Java can be found [here](https://www.java.com/en/download/).
 
 3. Downloading Kaizen
 
@@ -113,6 +138,7 @@ by <a href="https://github.com/narlock">narlock</a>
     > Depending on your operating system, there may be certain permissions you must authorize Kaizen to in order to execute the program.
     - For Linux distributions, permissions to execute the application must be granted.
     - For macOS, depending on the installation, the user may need to launch the application through the command line (assuming the application already has permissions). To run through the command line, navigate the terminal to the directory of Kaizen, then type the command `java -jar Kaizen.jar`. The application will now function properly.
+      - If you encounter the ability to not save, or view any files, please try launching using the command line.
 
 # **KaizenWeb**
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)

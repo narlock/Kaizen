@@ -61,6 +61,10 @@ public class MainGUI extends JFrame {
 	private JMenu journalMenu;
 	private JMenuItem printJournalMenuItem;
 	
+	private JMenu relationshipsMenu;
+	private JMenuItem createRelationshipMenuItem;
+	private JMenuItem updateRelationshipsMenuItem;
+	
 	private JMenu helpMenu;
 	
 	/**
@@ -99,6 +103,11 @@ public class MainGUI extends JFrame {
 		journalMenu = new JMenu("Journal");
 		printJournalMenuItem = new JMenuItem("Print Journal");
 		printJournalMenuItem.setEnabled(false);
+		
+		relationshipsMenu = new JMenu("Relationships");
+		relationshipsMenu.setEnabled(false);
+		createRelationshipMenuItem = new JMenuItem("Add Relationship");
+		updateRelationshipsMenuItem = new JMenuItem("Update Relationships");
 		
 		helpMenu = new JMenu("Help");
 	}
@@ -260,7 +269,7 @@ public class MainGUI extends JFrame {
 		
 		menuBar.add(todoMenu);
 		
-//		todoMenu.add(printToDoMenuItem);
+		todoMenu.add(printToDoMenuItem);
 		
 		menuBar.add(habitsMenu);
 		
@@ -271,12 +280,12 @@ public class MainGUI extends JFrame {
 		
 		menuBar.add(journalMenu);
 		
-//		journalMenu.add(printJournalMenuItem);
+		journalMenu.add(printJournalMenuItem);
 		
-//		menuBar.add(relationshipsMenu);
+		menuBar.add(relationshipsMenu);
 		
-//		relationshipsMenu.add(createRelationshipMenuItem);
-//		relationshipsMenu.add(updateRelationshipsMenuItem);
+		relationshipsMenu.add(createRelationshipMenuItem);
+		relationshipsMenu.add(updateRelationshipsMenuItem);
 		
 		menuBar.add(helpMenu);
 		

@@ -388,7 +388,9 @@ public class TodoState extends State {
 						!Utils.validateDateString(dueDateTextField.getText())
 						) {
 					// Display Validation Error on Due Date
-					ErrorPane.displayError(getRootPane(), "Could not create Todo Item: invalid date format.");
+					ErrorPane.displayError(getRootPane(), "<html>Could not create Todo Item: invalid date format (yyyy-MM-dd).<br>"
+							+ "This includes providing the leading zero for the date.<br><br>"
+							+ "Example: April 2nd, 2023 would be 2023-04-02.</html>");
 				}
 				else {
 					System.out.println("Cancel");
