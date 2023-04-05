@@ -40,13 +40,13 @@ public final class Constants {
 	public final static Dimension COMPLETE_HABIT_DIMENSION_NORMAL = new Dimension(20, 20);
 	public final static Dimension COMPLETE_HABIT_DIMENSION_SMALL = new Dimension(15, 15);
 	public final static Dimension HABIT_SCROLL_PANE_LARGE = new Dimension(600, 415);
-	public final static Dimension HABIT_SCROLL_PANE_NORMAL = new Dimension(450, 385);
+	public final static Dimension HABIT_SCROLL_PANE_NORMAL = new Dimension(450, 520);
 	public final static Dimension HABIT_SCROLL_PANE_SMALL = new Dimension(338, 240);
 	public final static Dimension HABIT_UPDATE_BUTTON_SIZE = new Dimension(100, 40);
 	public final static Dimension JOURNAL_PAGE_BUTTON_SIZE = new Dimension(180, 40); 
 	public final static Dimension TODO_EPIC_SCROLL_PANE_DIMENSION = new Dimension(280, 235);
 	public final static Dimension TODO_EPIC_PANEL_DIMENSION = new Dimension(225, 49);
-	public final static Dimension TODO_ITEM_SCROLL_PANE_DIMENSION = new Dimension(500, 385);
+	public final static Dimension TODO_ITEM_SCROLL_PANE_DIMENSION = new Dimension(500, 520);
 	public final static Dimension TODO_ITEM_SCROLL_PANE_DIMENSION_SMALL = new Dimension(350, 250);
 	public final static Dimension TODO_ITEM_PANEL_DIMENSION = new Dimension(450, 65);
 	public final static Dimension TODO_ITEM_PANEL_DIMENSION_SMALL = new Dimension(330, 50);
