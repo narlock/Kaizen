@@ -132,7 +132,7 @@ by <a href="https://github.com/narlock">narlock</a>
 
 3. Downloading Kaizen
 
-    To download Kaizen, read through the download page [here](https://github.com/narlock/TamoStudy/releases) and select the Kaizen JAR file to download from this page. This file contains the entire application and can be opened utilizing the Java Runtime Environment.
+    To download Kaizen, read through the download page [here](https://github.com/narlock/Kaizen/releases) and select the Kaizen JAR file to download from this page. This file contains the entire application and can be opened utilizing the Java Runtime Environment.
 
     > **Note**
     > Depending on your operating system, there may be certain permissions you must authorize Kaizen to in order to execute the program.
