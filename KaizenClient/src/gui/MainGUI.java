@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -317,7 +318,6 @@ public class MainGUI extends JFrame {
 				journalModeBox.removeAllItems();
 				journalModeBox.addItem("4 Prompt");
 				journalModeBox.addItem("2 Prompt");
-				journalModeBox.setSelectedIndex((int) settings.getJournalMode());
 				enableShowHowWasDay.setSelected(settings.isShowHowWasDay());
 				journalText1AreaPrompt.setText(settings.getJournalText1AreaPrompt());
 				journalText2AreaPrompt.setText(settings.getJournalText2AreaPrompt());
@@ -330,6 +330,26 @@ public class MainGUI extends JFrame {
 				} else {
 					debug.print("HelpInfoState selected, but already in state. Will not reload state.");
 				}
+				
+				journalModeBox.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(journalModeBox.getSelectedIndex() == 0) {
+							journalText2AreaPrompt.setEnabled(true);
+							journalText2AreaPrompt.setForeground(Color.BLACK);
+							journalText4AreaPrompt.setEnabled(true);
+							journalText4AreaPrompt.setForeground(Color.BLACK);
+						} else {
+							journalText2AreaPrompt.setEnabled(false);
+							journalText2AreaPrompt.setForeground(Color.LIGHT_GRAY);
+							journalText4AreaPrompt.setEnabled(false);
+							journalText4AreaPrompt.setForeground(Color.LIGHT_GRAY);
+						}
+					}
+					
+				});
+				journalModeBox.setSelectedIndex((int) settings.getJournalMode());
 				
 				panel.setLayout(new GridBagLayout());
 				GridBagConstraints gbc = new GridBagConstraints();
@@ -358,6 +378,8 @@ public class MainGUI extends JFrame {
 				panel.add(journalText2AreaPrompt, gbc);
 				panel.add(journalText3AreaPrompt, gbc);
 				panel.add(journalText4AreaPrompt, gbc);
+				
+				
 				
 				// Open Customization Menu
 				int result = JOptionPane.showConfirmDialog(

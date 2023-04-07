@@ -45,7 +45,7 @@ public class HelpInfoState extends State {
 	@Override
 	public void initPanelComponents() {
 		logoIconLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("KaizenLogo.png")));
-		versionLabel = new JLabel("v1.0.2");
+		versionLabel = new JLabel("v1.0.3");
 		versionLabel.setForeground(COMPONENT_FOREGROUND_COLOR);
 		versionLabel.setFont(COMPONENT_FONT_NORMAL_BOLD);
 		
