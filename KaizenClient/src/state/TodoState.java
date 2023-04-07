@@ -428,7 +428,11 @@ public class TodoState extends State {
 					for(int i = 0; i < todoCount; i++) {
 						TodoItem item = todo.getItems().get(i);
 						
-						clipboardString += "◻️ " + item.getTitle() + "\n";
+						clipboardString += "◻️ " + item.getTitle();
+						if(!item.getEpic().equals("")) {
+							clipboardString += ", " + item.getEpic();
+						}
+						clipboardString += "\n";
 					}
 				}
 				
@@ -437,7 +441,11 @@ public class TodoState extends State {
 					if(item.getCompletedDate() != null &&
 							Utils.dateAsString(item.getCompletedDate())
 								.equals(Utils.dateAsString(Utils.today()))) {
-						clipboardString += "✅ " + item.getTitle() + "\n";
+						clipboardString += "✅ " + item.getTitle();
+						if(!item.getEpic().equals("")) {
+							clipboardString += ", " + item.getEpic();
+						}
+						clipboardString += "\n";
 					}
 				}
 				
