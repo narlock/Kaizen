@@ -297,7 +297,7 @@ public class MainGUI extends JFrame {
 	
 	
 	private void initFrame() {
-		this.setTitle("Kaizen v1.0.2");
+		this.setTitle("Kaizen v1.0.3");
 		this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("KaizenIcon.png")).getImage());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(900, 700);

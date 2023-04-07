@@ -7,6 +7,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -65,6 +68,7 @@ public class TodoState extends State {
 	private JPanel titleAddPanel;
 	private JLabel titleLabel;
 	private JButton addItemButton;
+	private JButton shareButton;
 	private JButton removeAllCompletedItemsButton;
 	private TodoItemPanel todoItemPanel;
 	private JScrollPane itemsScrollPane;
@@ -163,10 +167,13 @@ public class TodoState extends State {
 		initLabelVisual(titleLabel);
 		addItemButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("ADD.png")));
 		initButtonVisual(addItemButton);
+		shareButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("SHARE.png")));
+		initButtonVisual(shareButton);
 		removeAllCompletedItemsButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("REMOVE.png")));
 		initButtonVisual(removeAllCompletedItemsButton);
 		titleAddPanel.add(titleLabel);
 		titleAddPanel.add(addItemButton);
+		titleAddPanel.add(shareButton);
 		todoItemPanel = new TodoItemPanel(todo, this);
 		itemsScrollPane = new JScrollPane(todoItemPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
@@ -399,6 +406,49 @@ public class TodoState extends State {
 			
 		});
 		
+		shareButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Construct string to copy to clipboard
+				String clipboardString = "**My Kaizen Todo**\n\n";
+				int todoCount = 0;
+				for(TodoItem item : todo.getItems()) {
+					if(item.getCompletedDate() == null) {
+						todoCount++;
+					}
+				}
+				if(todo.getItems().size() >= 10) {
+					todoCount = 9;
+				}
+				
+				if(todoCount == 0) {
+					clipboardString += "All completed! 😃";
+				} else {
+					for(int i = 0; i < todoCount; i++) {
+						TodoItem item = todo.getItems().get(i);
+						
+						clipboardString += "◻️ " + item.getTitle() + "\n";
+					}
+				}
+				
+				clipboardString += "\n**Completed Today**\n\n";
+				for(TodoItem item : todo.getItems()) {
+					if(item.getCompletedDate() != null &&
+							Utils.dateAsString(item.getCompletedDate())
+								.equals(Utils.dateAsString(Utils.today()))) {
+						clipboardString += "✅ " + item.getTitle() + "\n";
+					}
+				}
+				
+				
+				StringSelection selection = new StringSelection(clipboardString);
+		        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		        clipboard.setContents(selection, null);
+			}
+			
+		});
+		
 		removeAllCompletedItemsButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -457,6 +507,7 @@ public class TodoState extends State {
 		if(showCompleted) {
 			// Remove the 'add todo item' and replace with 'delete all completed'
 			titleAddPanel.remove(addItemButton);
+			titleAddPanel.remove(shareButton);
 			
 			// Add the remove button
 			titleAddPanel.add(removeAllCompletedItemsButton);
@@ -471,6 +522,7 @@ public class TodoState extends State {
 			
 			// Add the remove button
 			titleAddPanel.add(addItemButton);
+			titleAddPanel.add(shareButton);
 			
 			//Revalidate
 			titleAddPanel.revalidate();
