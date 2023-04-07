@@ -34,8 +34,10 @@ import json.SettingsJsonManager;
 import json.TodoJsonManager;
 import panel.EpicItemPanel;
 import panel.TodoItemPanel;
+import util.Constants;
 import util.Debug;
 import util.ErrorPane;
+import util.FadingLabel;
 import util.Utils;
 
 import static util.Constants.*;
@@ -67,6 +69,9 @@ public class TodoState extends State {
 	
 	private EpicItemPanel epicItemPanel;
 	private JScrollPane epicsScrollPane;
+	
+	private JPanel messagePanel;
+	private FadingLabel messageLabel;
 	
 	private JPanel centerPanel;
 	private JPanel titleAddPanel;
@@ -169,6 +174,14 @@ public class TodoState extends State {
 		centerPanel.setBackground(GUI_BACKGROUND_COLOR);
 		titleAddPanel = new JPanel();
 		titleAddPanel.setBackground(GUI_BACKGROUND_COLOR);
+		
+		messagePanel = new JPanel();
+		messagePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
+		messageLabel = new FadingLabel("Copied to clipboard!", 2000);
+		messageLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
+		messageLabel.setForeground(Constants.GUI_BACKGROUND_COLOR);
+		messagePanel.add(messageLabel);
+		
 		titleLabel = new JLabel("Todo List");
 		initLabelVisual(titleLabel);
 		addItemButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("ADD.png")));
@@ -189,6 +202,7 @@ public class TodoState extends State {
 		itemsScrollPane.setPreferredSize(TODO_ITEM_SCROLL_PANE_DIMENSION);
 		itemsScrollPane.setBorder(null);
 		
+		centerPanel.add(messagePanel, gbc);
 		centerPanel.add(titleAddPanel, gbc);
 		centerPanel.add(itemsScrollPane, gbc);
 	}
@@ -459,6 +473,7 @@ public class TodoState extends State {
 				StringSelection selection = new StringSelection(clipboardString);
 		        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		        clipboard.setContents(selection, null);
+		        messageLabel.fade();
 			}
 			
 		});

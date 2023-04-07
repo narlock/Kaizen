@@ -68,6 +68,11 @@ public class Utils {
 		return formatter.format(date);
 	}
 	
+	public static String prettyDateAsString(Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMMM d, yyyy");
+        return sdf.format(date);
+	}
+	
 	public static boolean validateDateString(String dateString) {
 		String regex = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$";
 		return Pattern.matches(regex, dateString);

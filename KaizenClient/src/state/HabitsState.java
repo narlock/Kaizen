@@ -24,6 +24,7 @@ import json.HabitJsonManager;
 import json.SettingsJsonManager;
 import panel.HabitsPanel;
 import util.Constants;
+import util.FadingLabel;
 import util.HabitUtils;
 import util.Utils;
 
@@ -34,6 +35,9 @@ public class HabitsState extends State {
 	private static final long serialVersionUID = 6371695672562881139L;
 	
 	private List<Habit> habits;
+	
+	private JPanel messagePanel;
+	private FadingLabel messageLabel;
 	
 	private JPanel titlePanel;
 	public JLabel titleLabel;
@@ -54,6 +58,14 @@ public class HabitsState extends State {
 		this.habits = HabitJsonManager.readHabits();
 		HabitUtils.updateHabits(habits);
 		HabitJsonManager.writeHabitJsonToFile(habits);
+		
+		// Set up message label
+		messagePanel = new JPanel();
+		messagePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
+		messageLabel = new FadingLabel("Copied to clipboard!", 2000);
+		messageLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
+		messageLabel.setForeground(Constants.GUI_BACKGROUND_COLOR);
+		messagePanel.add(messageLabel);
 		
 		//Set up title panel
 		titlePanel = new JPanel();
@@ -110,6 +122,7 @@ public class HabitsState extends State {
 				StringSelection selection = new StringSelection(clipboardString);
 		        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		        clipboard.setContents(selection, null);
+		        messageLabel.fade();
 			}
 			
 		});
@@ -122,6 +135,7 @@ public class HabitsState extends State {
 		GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;   
         
+        this.add(messagePanel, gbc);
         this.add(titlePanel, gbc);
         this.add(Box.createVerticalStrut(20), gbc);
 		this.add(scrollPane, gbc);

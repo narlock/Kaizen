@@ -21,6 +21,7 @@ import json.HabitJsonManager;
 import util.Constants;
 import util.Debug;
 import util.ErrorPane;
+import util.FadingLabel;
 import util.JTextFieldLimit;
 
 public class CreateHabitState extends State {
@@ -30,7 +31,7 @@ public class CreateHabitState extends State {
 	private GridBagConstraints gbc;
 	
 	private JPanel messagePanel;
-	private JLabel messagePanelLabel;
+	private FadingLabel messagePanelLabel;
 	
 	private JPanel titlePanel;
 	private JLabel titleLabel;
@@ -60,9 +61,9 @@ public class CreateHabitState extends State {
 		
 		messagePanel = new JPanel();
 		messagePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
-		messagePanelLabel = new JLabel("");
+		messagePanelLabel = new FadingLabel("Habit saved successfully!", 2000);
 		messagePanelLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
-		messagePanelLabel.setForeground(Constants.BUTTON_DEFAULT_COLOR);
+		messagePanelLabel.setForeground(Constants.GUI_BACKGROUND_COLOR);
 		messagePanel.add(messagePanelLabel);
 		
 		titlePanel = new JPanel();
@@ -218,6 +219,6 @@ public class CreateHabitState extends State {
 		saturdayCheckBox.setSelected(false);
 		sundayCheckBox.setSelected(false);
 		
-		messagePanelLabel.setText("Habit saved successfully!");
+		messagePanelLabel.fade();
 	}
 }

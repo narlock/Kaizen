@@ -112,7 +112,7 @@ public class JournalState extends State {
 		titlePanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		labelPanel = new JPanel();
 		labelPanel.setBackground(Constants.GUI_BACKGROUND_COLOR);
-		titleLabel = new JLabel("Journal • " + todayString);
+		titleLabel = new JLabel("Journal • " + Utils.prettyDateAsString(Utils.stringToDate(todayString)));
 		titleLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
 		titleLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		labelPanel.add(titleLabel);
@@ -514,7 +514,7 @@ public class JournalState extends State {
 	}
 	
 	public void populateComponentsWithOpenEntryDetails() {
-		titleLabel.setText("Journal • " + Utils.dateAsString(openEntry.getDate()));
+		titleLabel.setText("Journal • " + Utils.prettyDateAsString(openEntry.getDate()));
 		
 		text1Area.setText(openEntry.getText1());
 		text2Area.setText(openEntry.getText2());
