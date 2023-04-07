@@ -73,7 +73,7 @@ public class HabitsState extends State {
 		titleLabel = new JLabel();
 		titleLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		titleLabel.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
-		shareButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("SHARE.png")));
+		shareButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("SHARE_CLIP.png")));
 		shareButton.setOpaque(false);
 		shareButton.setContentAreaFilled(false);
 		shareButton.setBorderPainted(false);

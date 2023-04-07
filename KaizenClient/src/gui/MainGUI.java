@@ -2,10 +2,17 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -34,6 +41,7 @@ import state.JournalState;
 import state.State;
 import state.TodoState;
 import state.UpdateHabitsState;
+import util.CheckForUpdates;
 import util.Constants;
 import util.Debug;
 import util.DiscordRP;
@@ -47,6 +55,7 @@ import util.DiscordRP;
  */
 public class MainGUI extends JFrame {
 	
+	private CheckForUpdates checkForUpdates;
 	private Settings settings;
 
 	private static final long serialVersionUID = -6508626185123863757L;
@@ -98,6 +107,52 @@ public class MainGUI extends JFrame {
 		initComponentActions();
 		addComponentsToFrame();
 		initFrame();
+		
+		checkForUpdates = new CheckForUpdates();
+		try {
+			if(checkForUpdates.checkForUpdates()) {
+			    JLabel label = new JLabel("<html>New Update is ready to be downloaded.<br><br>"
+			                            + "Go <a href=\"https://github.com/narlock/Kaizen/releases/\">here</a> to download!</html>");
+			    label.setForeground(Color.BLUE);
+			    label.setFont(Constants.COMPONENT_FONT_NORMAL_BOLD);
+			    label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			    label.addMouseListener(new MouseAdapter() {
+			        @Override
+			        public void mouseClicked(MouseEvent e) {
+			            if (e.getClickCount() > 0) {
+		                    try {
+								Desktop.getDesktop().browse(new URI("https://github.com/narlock/Kaizen/releases/"));
+							} catch (IOException | URISyntaxException e1) {
+								e1.printStackTrace();
+							}
+			            }
+			        }
+			    });
+			    label.addMouseMotionListener(new MouseAdapter() {
+			        @Override
+			        public void mouseMoved(MouseEvent e) {
+			            label.setText("<html><a href='' style='color:blue;'>New Update is ready to be downloaded.<br><br>"
+			                            + "Go here to download!</a></html>");
+			        }
+
+			        @Override
+			        public void mouseExited(MouseEvent e) {
+			            label.setText("<html>New Update is ready to be downloaded.<br><br>"
+			                            + "Go <a href=\"https://github.com/narlock/Kaizen/releases/\">here</a> to download!</html>");
+			        }
+			    });
+
+			    JOptionPane.showMessageDialog(
+			            getRootPane(), 
+			            label,
+			            "Kaizen Update Available", 
+			            JOptionPane.INFORMATION_MESSAGE, 
+			            new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void initMemberVariables() {
@@ -447,7 +502,7 @@ public class MainGUI extends JFrame {
 	
 	
 	private void initFrame() {
-		this.setTitle("Kaizen v1.0.3");
+		this.setTitle("Kaizen v1.0.4");
 		this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("KaizenIcon.png")).getImage());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(900, 700);

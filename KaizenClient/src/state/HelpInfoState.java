@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import panel.HelpPanel;
 import util.ErrorPane;
@@ -45,13 +46,14 @@ public class HelpInfoState extends State {
 	@Override
 	public void initPanelComponents() {
 		logoIconLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("KaizenLogo.png")));
-		versionLabel = new JLabel("v1.0.3");
+		versionLabel = new JLabel("v1.0.4");
 		versionLabel.setForeground(COMPONENT_FOREGROUND_COLOR);
-		versionLabel.setFont(COMPONENT_FONT_NORMAL_BOLD);
+		versionLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		
-		byNarlockLabel = new JLabel("by narlock");
+		byNarlockLabel = new JLabel("by narlock", new ImageIcon(getClass().getClassLoader().getResource("NARLOCK_LOGO.png")), SwingConstants.LEADING);
+		byNarlockLabel.setHorizontalTextPosition(SwingConstants.LEADING);
 		byNarlockLabel.setForeground(COMPONENT_FOREGROUND_COLOR);
-		byNarlockLabel.setFont(COMPONENT_FONT_SMALL);
+		byNarlockLabel.setFont(COMPONENT_FONT_NORMAL_BOLD);
 		
 		helpLabel = new JLabel("Explore Kaizen's features");
 		helpLabel.setForeground(COMPONENT_FOREGROUND_COLOR);

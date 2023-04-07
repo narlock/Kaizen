@@ -186,7 +186,7 @@ public class TodoState extends State {
 		initLabelVisual(titleLabel);
 		addItemButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("ADD.png")));
 		initButtonVisual(addItemButton);
-		shareButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("SHARE.png")));
+		shareButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("SHARE_CLIP.png")));
 		initButtonVisual(shareButton);
 		removeAllCompletedItemsButton = new JButton(new ImageIcon(getClass().getClassLoader().getResource("REMOVE.png")));
 		initButtonVisual(removeAllCompletedItemsButton);

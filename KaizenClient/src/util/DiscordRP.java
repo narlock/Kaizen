@@ -13,7 +13,7 @@ import net.arikia.dev.drpc.DiscordRichPresence;
  * to support Rich Presence for TamoStudy
  */
 public class DiscordRP {
-	private final boolean DEVELOPER_MODE = true;
+	private final boolean DEVELOPER_MODE = false;
 	
 	private boolean running = true;
 	private long created = 0;
