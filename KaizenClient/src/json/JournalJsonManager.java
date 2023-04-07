@@ -34,6 +34,7 @@ public class JournalJsonManager extends JsonManager {
 				Reader reader = new FileReader(journalPath);
 				JSONObject journalObject = (JSONObject) parser.parse(reader);
 				Journal journal = jsonJournalObjectToJournal(journalObject);
+				debug.print(journal.toString());
 				return journal;
 			} catch (IOException | ParseException almostJustProOsuGamer) {
 				almostJustProOsuGamer.printStackTrace();
@@ -80,9 +81,9 @@ public class JournalJsonManager extends JsonManager {
 	
 	public static Journal jsonJournalObjectToJournal(JSONObject journalObject) {
 		Date lastLog = Utils.stringToDate((String) journalObject.get("lastLog"));
-		long logStreak = (long) journalObject.get("logStreak");
-		boolean showStreak = (boolean) journalObject.get("showStreak");
-		
+	    long logStreak = journalObject.get("logStreak") == null ? 0 : (Long) journalObject.get("logStreak");
+	    boolean showStreak = journalObject.get("showStreak") == null ? false : (Boolean) journalObject.get("showStreak");
+	    
 		JSONArray journalEntries = (JSONArray) journalObject.get("entries");
 		List<JournalEntry> entries = new ArrayList<JournalEntry>();
 		for(int i = 0; i < journalEntries.size(); i++) {
@@ -91,7 +92,11 @@ public class JournalJsonManager extends JsonManager {
 			entries.add(entry);
 		}
 		
-		return new Journal(entries,lastLog, logStreak, showStreak);
+		return new Journal(entries, 
+				lastLog, 
+				logStreak, 
+				showStreak
+			);
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -1,19 +1,29 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import domain.Settings;
+import json.SettingsJsonManager;
 import panel.CustomHomePanel;
 import state.AntiHabitsState;
 import state.CreateHabitState;
@@ -24,7 +34,9 @@ import state.JournalState;
 import state.State;
 import state.TodoState;
 import state.UpdateHabitsState;
+import util.Constants;
 import util.Debug;
+import util.DiscordRP;
 
 /**
  * MainGUI
@@ -34,6 +46,8 @@ import util.Debug;
  * and a state for changing application states.
  */
 public class MainGUI extends JFrame {
+	
+	private Settings settings;
 
 	private static final long serialVersionUID = -6508626185123863757L;
 	private final Debug debug = new Debug(true);
@@ -66,11 +80,17 @@ public class MainGUI extends JFrame {
 	private JMenuItem updateRelationshipsMenuItem;
 	
 	private JMenu helpMenu;
+	private JMenuItem updateSettingsMenuItem;
 	
 	/**
 	 * The current state of Kaizen
 	 */
 	private State state;
+	
+	/**
+	 * Discord RPC
+	 */
+	private DiscordRP discordRP;
 	
 	public MainGUI() {
 		initMemberVariables();
@@ -81,7 +101,14 @@ public class MainGUI extends JFrame {
 	}
 	
 	private void initMemberVariables() {
+		settings = SettingsJsonManager.readJson();
 		state = new HomeState();
+		
+		if(settings.isEnableDiscordRPC()) {
+			debug.print("Enabling Discord RPC");
+			discordRP = new DiscordRP();
+			discordRP.start();
+		}
 	}
 	
 	private void initComponents() {
@@ -110,6 +137,7 @@ public class MainGUI extends JFrame {
 		updateRelationshipsMenuItem = new JMenuItem("Update Relationships");
 		
 		helpMenu = new JMenu("Help");
+		updateSettingsMenuItem = new JMenuItem("Settings");
 	}
 	
 	private void initComponentActions() {
@@ -259,6 +287,105 @@ public class MainGUI extends JFrame {
 			@Override
 			public void menuCanceled(MenuEvent e) {}
 		});
+		
+		updateSettingsMenuItem.addActionListener(new ActionListener() {
+			
+			JPanel panel = new JPanel();
+			
+			JLabel generalSettingsLabel = new JLabel("General Settings");
+			JCheckBox enableDiscordRPCCheckBox = new JCheckBox("Discord Presence (Windows only, requires restart)");
+			
+			JLabel todoSettingsLabel = new JLabel("Todo Settings");
+			JCheckBox enableTodoEpicOnClipboard = new JCheckBox("Show Epics on Share");
+			
+			JLabel habitSettingsLabel = new JLabel("Habit Settings");
+			JCheckBox enableShowStreakOnClipboard = new JCheckBox("Show Streaks on Share");
+			
+			JLabel journalSettingsLabel = new JLabel("Journal Settings");
+			JComboBox<String> journalModeBox = new JComboBox<String>();
+			JCheckBox enableShowHowWasDay = new JCheckBox("Show \"How was you day?\" Prompt");
+			JTextField journalText1AreaPrompt = new JTextField(25);
+			JTextField journalText2AreaPrompt = new JTextField(25);
+			JTextField journalText3AreaPrompt = new JTextField(25);
+			JTextField journalText4AreaPrompt = new JTextField(25);
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				enableDiscordRPCCheckBox.setSelected(settings.isEnableDiscordRPC());
+				enableTodoEpicOnClipboard.setSelected(settings.isShowTodoEpicOnClipboard());
+				enableShowStreakOnClipboard.setSelected(settings.isShowStreakOnClipboard());
+				journalModeBox.removeAllItems();
+				journalModeBox.addItem("4 Prompt");
+				journalModeBox.addItem("2 Prompt");
+				journalModeBox.setSelectedIndex((int) settings.getJournalMode());
+				enableShowHowWasDay.setSelected(settings.isShowHowWasDay());
+				journalText1AreaPrompt.setText(settings.getJournalText1AreaPrompt());
+				journalText2AreaPrompt.setText(settings.getJournalText2AreaPrompt());
+				journalText3AreaPrompt.setText(settings.getJournalText3AreaPrompt());
+				journalText4AreaPrompt.setText(settings.getJournalText4AreaPrompt());
+				
+				if(!(state instanceof HelpInfoState)) {
+					debug.print("HelpInfoStateselected, changing to HelpInfoState State");
+					changeState(new HelpInfoState());
+				} else {
+					debug.print("HelpInfoState selected, but already in state. Will not reload state.");
+				}
+				
+				panel.setLayout(new GridBagLayout());
+				GridBagConstraints gbc = new GridBagConstraints();
+				gbc.gridwidth = GridBagConstraints.REMAINDER;
+				
+				generalSettingsLabel.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
+				panel.add(generalSettingsLabel, gbc);
+				panel.add(enableDiscordRPCCheckBox, gbc);
+				panel.add(Box.createVerticalStrut(50));
+				
+				todoSettingsLabel.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
+				panel.add(todoSettingsLabel, gbc);
+				panel.add(enableTodoEpicOnClipboard, gbc);
+				panel.add(Box.createVerticalStrut(50));
+				
+				habitSettingsLabel.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
+				panel.add(habitSettingsLabel, gbc);
+				panel.add(enableShowStreakOnClipboard, gbc);
+				panel.add(Box.createVerticalStrut(50));
+				
+				journalSettingsLabel.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
+				panel.add(journalSettingsLabel, gbc);
+				panel.add(journalModeBox, gbc);
+				panel.add(enableShowHowWasDay, gbc);
+				panel.add(journalText1AreaPrompt, gbc);
+				panel.add(journalText2AreaPrompt, gbc);
+				panel.add(journalText3AreaPrompt, gbc);
+				panel.add(journalText4AreaPrompt, gbc);
+				
+				// Open Customization Menu
+				int result = JOptionPane.showConfirmDialog(
+					    getRootPane(), 
+					    panel, 
+					    "Settings", 
+					    JOptionPane.OK_CANCEL_OPTION,
+					    JOptionPane.QUESTION_MESSAGE,
+					    new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png"))
+					);
+				if(result == JOptionPane.OK_OPTION) {
+					// Modify settings object
+					settings.setEnableDiscordRPC(enableDiscordRPCCheckBox.isSelected());
+					settings.setShowTodoEpicOnClipboard(enableTodoEpicOnClipboard.isSelected());
+					settings.setShowStreakOnClipboard(enableShowStreakOnClipboard.isSelected());
+					settings.setJournalMode((long) journalModeBox.getSelectedIndex());
+					settings.setShowHowWasDay(enableShowHowWasDay.isSelected());
+					settings.setJournalText1AreaPrompt(journalText1AreaPrompt.getText());
+					settings.setJournalText2AreaPrompt(journalText2AreaPrompt.getText());
+					settings.setJournalText3AreaPrompt(journalText3AreaPrompt.getText());
+					settings.setJournalText4AreaPrompt(journalText4AreaPrompt.getText());
+					
+					// Write new settings object to file
+					SettingsJsonManager.writeSettingsJsonToFile(settings);
+				}
+			}
+			
+		});
 	}
 	
 	private void addComponentsToFrame() {
@@ -288,6 +415,8 @@ public class MainGUI extends JFrame {
 		relationshipsMenu.add(updateRelationshipsMenuItem);
 		
 		menuBar.add(helpMenu);
+		
+		helpMenu.add(updateSettingsMenuItem);
 		
 		this.add(menuBar, BorderLayout.NORTH);
 		

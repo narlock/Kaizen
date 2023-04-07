@@ -1,6 +1,5 @@
 package state;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
@@ -20,13 +19,17 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import domain.Habit;
+import domain.Settings;
 import json.HabitJsonManager;
+import json.SettingsJsonManager;
 import panel.HabitsPanel;
 import util.Constants;
 import util.HabitUtils;
 import util.Utils;
 
 public class HabitsState extends State {
+	
+	private Settings settings;
 	
 	private static final long serialVersionUID = 6371695672562881139L;
 	
@@ -45,6 +48,8 @@ public class HabitsState extends State {
 
 	@Override
 	public void initPanelComponents() {
+		settings = SettingsJsonManager.readJson();
+		
 		//Get habits
 		this.habits = HabitJsonManager.readHabits();
 		HabitUtils.updateHabits(habits);
@@ -95,7 +100,9 @@ public class HabitsState extends State {
 						}
 						
 						clipboardString += habit.getTitle();
-						// clipboardString += " • " + habit.getStreak() + "🔥";
+						if(settings.isShowStreakOnClipboard()) {
+							clipboardString += " | " + habit.getStreak() + "🔥";
+						}
 						clipboardString += "\n";
 					}
 				}

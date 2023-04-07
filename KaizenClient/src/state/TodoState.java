@@ -27,8 +27,10 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import domain.Epic;
+import domain.Settings;
 import domain.Todo;
 import domain.TodoItem;
+import json.SettingsJsonManager;
 import json.TodoJsonManager;
 import panel.EpicItemPanel;
 import panel.TodoItemPanel;
@@ -39,6 +41,8 @@ import util.Utils;
 import static util.Constants.*;
 
 public class TodoState extends State {
+	
+	private Settings settings;
 	
 	private static final long serialVersionUID = -2176625400803315013L;
 
@@ -79,6 +83,8 @@ public class TodoState extends State {
 
 	@Override
 	public void initPanelComponents() {
+		settings = SettingsJsonManager.readJson();
+		
 		//TODO Import Todo from JSON file
 		todo = TodoJsonManager.readJson();
 		showCompleted = false;
@@ -429,7 +435,7 @@ public class TodoState extends State {
 						TodoItem item = todo.getItems().get(i);
 						
 						clipboardString += "◻️ " + item.getTitle();
-						if(!item.getEpic().equals("")) {
+						if(settings.isShowTodoEpicOnClipboard() && !item.getEpic().equals("")) {
 							clipboardString += ", " + item.getEpic();
 						}
 						clipboardString += "\n";
@@ -442,7 +448,7 @@ public class TodoState extends State {
 							Utils.dateAsString(item.getCompletedDate())
 								.equals(Utils.dateAsString(Utils.today()))) {
 						clipboardString += "✅ " + item.getTitle();
-						if(!item.getEpic().equals("")) {
+						if(settings.isShowTodoEpicOnClipboard() && !item.getEpic().equals("")) {
 							clipboardString += ", " + item.getEpic();
 						}
 						clipboardString += "\n";

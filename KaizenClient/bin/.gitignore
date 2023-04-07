@@ -1,6 +1,5 @@
-/panel/
-/state/
 /util/
 /gui/
-/DISCORD.png
-/SHARE.png
+/state/
+/domain/
+/json/

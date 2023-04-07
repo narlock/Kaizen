@@ -21,10 +21,15 @@ public class Journal {
 		this.entries = new ArrayList<JournalEntry>();
 		this.lastLog = Utils.today(); //There is no "last log" until a user saves their first log.
 		this.logStreak = 0;
-		this.showStreak = true;
+		this.showStreak = false;
 	}
 	
-	public Journal(List<JournalEntry> entries, Date lastLog, long logStreak, boolean showStreak) {
+	public Journal(
+			List<JournalEntry> entries, 
+			Date lastLog, 
+			long logStreak,
+			boolean showStreak
+		) {
 		super();
 		this.entries = entries;
 		Collections.sort(entries); //Sorts the entries by date
@@ -94,12 +99,6 @@ public class Journal {
 		}
 		throw new RuntimeException("Entry does not exist in journal");
 	}
-
-	@Override
-	public String toString() {
-		return "Journal [entries=" + entries + ", lastLog=" + lastLog + ", logStreak=" + logStreak + ", showStreak="
-				+ showStreak + "]";
-	}
 	
 	public String getEntryDates() {
 		String dates = "";
@@ -107,5 +106,11 @@ public class Journal {
 			dates += Utils.dateAsString(entry.getDate()) + ", ";
 		}
 		return dates;
+	}
+
+	@Override
+	public String toString() {
+		return "Journal [entries=" + entries + ", lastLog=" + lastLog + ", logStreak=" + logStreak + ", showStreak="
+				+ showStreak + "]";
 	}
 }

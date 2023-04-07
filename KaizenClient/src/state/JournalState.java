@@ -20,13 +20,17 @@ import javax.swing.SwingConstants;
 
 import domain.Journal;
 import domain.JournalEntry;
+import domain.Settings;
 import json.JournalJsonManager;
+import json.SettingsJsonManager;
 import util.Constants;
 import util.Debug;
 import util.ErrorPane;
 import util.Utils;
 
 public class JournalState extends State {
+	
+	private Settings settings;
 
 	private static final long serialVersionUID = -7551488559014363160L;
 	private GridBagConstraints gbc;
@@ -87,6 +91,8 @@ public class JournalState extends State {
 
 		journal = JournalJsonManager.readJson();
 		journalSize = journal.getEntries().size();
+		
+		settings = SettingsJsonManager.readJson();
 		
 		debug.print("journalSize=" + journalSize);
 		
@@ -177,16 +183,23 @@ public class JournalState extends State {
 		howWasDayButtonPanel.add(dayGoodButton);
 		howWasDayButtonPanel.add(dayGreatButton);
 		
-		leftJournalPanel.add(howWasDayPanel);
-		leftJournalPanel.add(howWasDayButtonPanel);
+		if(settings.isShowHowWasDay()) {
+			leftJournalPanel.add(howWasDayPanel);
+			leftJournalPanel.add(howWasDayButtonPanel);
+		}
 		
 		text1Panel = new JPanel();
 		text1Panel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		text1Panel.setLayout(new GridBagLayout());
-		text1Label = new JLabel("What events occurred today?");
+		text1Label = new JLabel(settings.getJournalText1AreaPrompt());
 		text1Label.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 		text1Label.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		text1Area = new JTextArea(9, 30);
+		if(settings.getJournalMode() == 0) {
+			text1Area = new JTextArea(9, 30);
+		} else {
+			text1Area = new JTextArea(21, 30);
+		}
+		
 		JScrollPane scroll1Pane = new JScrollPane(text1Area);
 		scroll1Pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		text1Area.setLineWrap(true);
@@ -198,16 +211,19 @@ public class JournalState extends State {
 		text2Panel = new JPanel();
 		text2Panel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		text2Panel.setLayout(new GridBagLayout());
-		text2Label = new JLabel("Any problems or stresses today?");
+		text2Label = new JLabel(settings.getJournalText2AreaPrompt());
 		text2Label.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 		text2Label.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		text2Area = new JTextArea(9, 30);
+		
 		JScrollPane scroll2Pane = new JScrollPane(text2Area);
 		scroll2Pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		text2Area.setLineWrap(true);
-		text2Panel.add(text2Label, gbc);
-		text2Panel.add(Box.createVerticalStrut(10), gbc);
-		text2Panel.add(scroll2Pane, gbc);
+		if(settings.getJournalMode() == 0) {
+			text2Panel.add(text2Label, gbc);
+			text2Panel.add(Box.createVerticalStrut(10), gbc);
+			text2Panel.add(scroll2Pane, gbc);
+		}
 		
 		leftJournalPanel.setBorder(Constants.COMPONENT_BORDER_NORMAL_RECTANGULAR);
 		leftJournalPanel.add(text1Panel);
@@ -220,10 +236,15 @@ public class JournalState extends State {
 		text3Panel = new JPanel();
 		text3Panel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		text3Panel.setLayout(new GridBagLayout());
-		text3Label = new JLabel("What are you grateful for today?");
+		text3Label = new JLabel(settings.getJournalText3AreaPrompt());
 		text3Label.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 		text3Label.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
-		text3Area = new JTextArea(9, 30);
+		if(settings.getJournalMode() == 0) {
+			text3Area = new JTextArea(9, 30);
+		} else {
+			text3Area = new JTextArea(21, 30);
+		}
+		
 		JScrollPane scroll3Pane = new JScrollPane(text3Area);
 		scroll3Pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		text3Area.setLineWrap(true);
@@ -235,15 +256,19 @@ public class JournalState extends State {
 		text4Panel = new JPanel();
 		text4Panel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		text4Panel.setLayout(new GridBagLayout());
-		text4Label = new JLabel("What are your goals for tomorrow?");
+		text4Label = new JLabel(settings.getJournalText4AreaPrompt());
 		text4Label.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 		text4Label.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		text4Area = new JTextArea(9, 30);
 		JScrollPane scroll4Pane = new JScrollPane(text4Area);
 		scroll4Pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		text4Panel.add(text4Label, gbc);
-		text4Panel.add(Box.createVerticalStrut(10), gbc);
-		text4Panel.add(scroll4Pane, gbc);
+		text4Area.setLineWrap(true);
+		if(settings.getJournalMode() == 0) {
+			text4Panel.add(text4Label, gbc);
+			text4Panel.add(Box.createVerticalStrut(10), gbc);
+			text4Panel.add(scroll4Pane, gbc);
+		}
+		
 		text4Panel.add(Box.createVerticalStrut(10), gbc);
 		
 		saveChangesButtonPanel = new JPanel();
