@@ -44,8 +44,6 @@ import static util.Constants.*;
 
 public class TodoState extends State {
 	
-	private Settings settings;
-	
 	private static final long serialVersionUID = -2176625400803315013L;
 
 	private static final Debug debug = new Debug(true);
@@ -85,6 +83,10 @@ public class TodoState extends State {
 	// Public Boolean representing if we want to show completed todo items or not
 	public boolean showCompleted;
 	public String epic;
+	
+	public TodoState(Settings settings) {
+		super(settings);
+	}
 
 	@Override
 	public void initPanelComponents() {

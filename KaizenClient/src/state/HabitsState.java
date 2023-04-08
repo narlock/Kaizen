@@ -30,8 +30,6 @@ import util.Utils;
 
 public class HabitsState extends State {
 	
-	private Settings settings;
-	
 	private static final long serialVersionUID = 6371695672562881139L;
 	
 	private List<Habit> habits;
@@ -46,13 +44,12 @@ public class HabitsState extends State {
 	private JScrollPane scrollPane;
 	private HabitsPanel habitsPanel;
 	
-	public HabitsState() {
-		super();
+	public HabitsState(Settings settings) {
+		super(settings);
 	}
 
 	@Override
 	public void initPanelComponents() {
-		settings = SettingsJsonManager.readJson();
 		
 		//Get habits
 		this.habits = HabitJsonManager.readHabits();

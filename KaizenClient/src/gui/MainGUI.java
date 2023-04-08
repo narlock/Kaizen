@@ -242,7 +242,7 @@ public class MainGUI extends JFrame {
 			public void menuSelected(MenuEvent e) {
 				if(!(state instanceof TodoState)) {
 					debug.print("Todo Menu selected, changing to Todo State");
-					changeState(new TodoState());
+					changeState(new TodoState(settings));
 				} else {
 					debug.print("Todo Menu selected, but already in state. Will not reload state.");
 				}
@@ -258,7 +258,7 @@ public class MainGUI extends JFrame {
 			public void menuSelected(MenuEvent e) {
 				if(!(state instanceof HabitsState)) {
 					debug.print("Habits Menu selected, changing to Habits State");
-					changeState(new HabitsState());
+					changeState(new HabitsState(settings));
 				} else {
 					debug.print("Habits Menu selected, but already in state. Will not reload state.");
 				}
@@ -314,7 +314,7 @@ public class MainGUI extends JFrame {
 			public void menuSelected(MenuEvent e) {
 				if(!(state instanceof JournalState)) {
 					debug.print("JournalState Menu selected, changing to JournalState State");
-					changeState(new JournalState());
+					changeState(new JournalState(settings));
 				} else {
 					debug.print("JournalState Menu selected, but already in state. Will not reload state.");
 				}

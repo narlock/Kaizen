@@ -6,13 +6,23 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import domain.Settings;
 import util.RoundedBorder;
 
 public abstract class State extends JPanel {
 	
+	protected Settings settings;
 	private static final long serialVersionUID = -910452205672441980L;
 	
 	public State() {
+		this.setBackground(new Color(20, 20, 20));
+		initPanelComponents();
+		initPanelComponentActions();
+		initPanel();
+	}
+	
+	public State(Settings settings) {
+		this.settings = settings;
 		this.setBackground(new Color(20, 20, 20));
 		initPanelComponents();
 		initPanelComponentActions();
@@ -44,4 +54,12 @@ public abstract class State extends JPanel {
 	public abstract void initPanelComponents();
 	public abstract void initPanelComponentActions();
 	public abstract void initPanel();
+
+	public Settings getSettings() {
+		return settings;
+	}
+
+	public void setSettings(Settings settings) {
+		this.settings = settings;
+	}
 }

@@ -61,11 +61,11 @@ public class SettingsJsonManager extends JsonManager {
 
     public static Settings jsonSettingsObjectToSettings(JSONObject settingsObject) {
     	return new Settings(
-    		    settingsObject.get("enableDiscordRPC") == null ? true : (Boolean) settingsObject.get("enableDiscordRPC"),
-    		    settingsObject.get("showTodoEpicOnClipboard") == null ? true : (Boolean) settingsObject.get("showTodoEpicOnClipboard"),
-    		    settingsObject.get("showStreakOnClipboard") == null ? true : (Boolean) settingsObject.get("showStreakOnClipboard"),
+    		    settingsObject.get("enableDiscordRPC") == null ? true : (boolean) settingsObject.get("enableDiscordRPC"),
+    		    settingsObject.get("showTodoEpicOnClipboard") == null ? true : (boolean) settingsObject.get("showTodoEpicOnClipboard"),
+    		    settingsObject.get("showStreakOnClipboard") == null ? true : (boolean) settingsObject.get("showStreakOnClipboard"),
     		    settingsObject.get("journalMode") == null ? 0 : (long) settingsObject.get("journalMode"),
-    		    settingsObject.get("showHowWasDay") == null ? true : (Boolean) settingsObject.get("showHowWasDay"),
+    		    settingsObject.get("showHowWasDay") == null ? true : (boolean) settingsObject.get("showHowWasDay"),
     		    settingsObject.get("journalText1AreaPrompt") == null ? "What events occurred today?" : (String) settingsObject.get("journalText1AreaPrompt"),
     		    settingsObject.get("journalText2AreaPrompt") == null ? "What events occurred today?" : (String) settingsObject.get("journalText2AreaPrompt"),
     		    settingsObject.get("journalText3AreaPrompt") == null ? "What events occurred today?" : (String) settingsObject.get("journalText3AreaPrompt"),

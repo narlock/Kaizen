@@ -29,8 +29,6 @@ import util.ErrorPane;
 import util.Utils;
 
 public class JournalState extends State {
-	
-	private Settings settings;
 
 	private static final long serialVersionUID = -7551488559014363160L;
 	private GridBagConstraints gbc;
@@ -78,6 +76,10 @@ public class JournalState extends State {
 	
 	private JPanel saveChangesButtonPanel;
 	private JButton saveChangesButton;
+	
+	public JournalState(Settings settings) {
+		super(settings);
+	}
 
 	@Override
 	public void initPanelComponents() {

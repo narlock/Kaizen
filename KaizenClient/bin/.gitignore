@@ -1,7 +1,8 @@
-/util/
-/gui/
+/panel/
 /state/
-/domain/
+/util/
+/widget/
 /json/
-/SHARE_CLIP.png
+/gui/
 /NARLOCK_LOGO.png
+/SHARE_CLIP.png
