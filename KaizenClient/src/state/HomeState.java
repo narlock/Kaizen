@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import domain.Home;
+import domain.Settings;
 import json.HomeJsonManager;
 import widget.AntiHabitWidgetPanel;
 import widget.HabitWidgetPanel;
@@ -26,8 +27,8 @@ public class HomeState extends State {
 	private JPanel widget3;
 	private JPanel widget4;
 	
-	public HomeState() {
-		super();
+	public HomeState(Settings settings) {
+		super(settings);
 	}
 
 	@Override
@@ -64,13 +65,13 @@ public class HomeState extends State {
 		case "antiHabits":
 			return new AntiHabitWidgetPanel();
 		case "journal1":
-			return new JournalWidgetPanel(1);
+			return new JournalWidgetPanel(1, settings);
 		case "journal2":
-			return new JournalWidgetPanel(2);
+			return new JournalWidgetPanel(2, settings);
 		case "journal3":
-			return new JournalWidgetPanel(3);
+			return new JournalWidgetPanel(3, settings);
 		case "journal4":
-			return new JournalWidgetPanel(4);
+			return new JournalWidgetPanel(4, settings);
 		default:
 			return new NoWidgetPanel();
 		}

@@ -59,6 +59,7 @@ by <a href="https://github.com/narlock">narlock</a>
 - 'View All Items' will display all of the tasks, including epic-unassigned and epic-assigned.
 - By selecting the text of an epic, you can view all of the tasks that correspond to that epic.
 - Sort your tasks by date and priority. (Select them again to reverse the sort order!)
+- Share your Todo list by selecting the copy to clipboard button!
 
 ### **Habits**
 - Keep track of habits that you want to build by accumulating a streak representing the amount of days you have completed your new habit!
@@ -77,6 +78,7 @@ by <a href="https://github.com/narlock">narlock</a>
   - Level 3 (DIAMOND) - 31 to 90 days
   - Level 4 (PINK) - 91 to 300 days
   - Level 5 (RED) - 301+ days
+- Share your habits by selecting the copy to clipboard button!
 
 ### **AntiHabits**
 - Trying to break bad habits too? Kaizen has you covered.
@@ -105,6 +107,9 @@ by <a href="https://github.com/narlock">narlock</a>
 - Save your journal entry by pressing the 'Save Entry' button! Note: you *must* hit 'Save Entry' for your journal entries to save.
 - View previous journal entries by pressing the 'Previous Entry' button!
 - To get back to the present journal entries, press the 'Following Entry' button.
+- Toggle 'How was your day' question in Settings.
+- 2/4 Prompt Modes
+- Customizable Prompt Headers.
 
 ### **Home Widgets**
 - Have all of your productivity tools in one place.

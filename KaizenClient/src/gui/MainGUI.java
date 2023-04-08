@@ -157,7 +157,7 @@ public class MainGUI extends JFrame {
 	
 	private void initMemberVariables() {
 		settings = SettingsJsonManager.readJson();
-		state = new HomeState();
+		state = new HomeState(settings);
 		
 		if(settings.isEnableDiscordRPC()) {
 			debug.print("Enabling Discord RPC");
@@ -201,7 +201,7 @@ public class MainGUI extends JFrame {
 			public void menuSelected(MenuEvent e) {
 				if(!(state instanceof HomeState)) {
 					debug.print("Home Menu selected, changing to Home State");
-					changeState(new HomeState());
+					changeState(new HomeState(settings));
 				} else {
 					debug.print("Home Menu selected, but already in state. Will not reload state.");
 				}
@@ -218,7 +218,7 @@ public class MainGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(!(state instanceof HomeState)) {
 					debug.print("Home Menu selected, changing to Home State");
-					changeState(new HomeState());
+					changeState(new HomeState(settings));
 				} else {
 					debug.print("Home Menu selected, but already in state. Will not reload state.");
 				}
@@ -232,7 +232,7 @@ public class MainGUI extends JFrame {
 						JOptionPane.QUESTION_MESSAGE,
 						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
 				if(result == JOptionPane.OK_OPTION) {
-					changeState(new HomeState());
+					changeState(new HomeState(settings));
 				}
 			}
 			

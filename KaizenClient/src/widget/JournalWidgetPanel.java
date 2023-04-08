@@ -16,6 +16,7 @@ import javax.swing.JTextArea;
 
 import domain.Journal;
 import domain.JournalEntry;
+import domain.Settings;
 import json.JournalJsonManager;
 import util.Constants;
 import util.Utils;
@@ -53,7 +54,7 @@ public class JournalWidgetPanel extends JPanel {
 	private JPanel saveChangesButtonPanel;
 	private JButton saveChangesButton;
 	
-	public JournalWidgetPanel(int index) {
+	public JournalWidgetPanel(int index, Settings settings) {
 		this.setBackground(Constants.GUI_BACKGROUND_COLOR);
 		this.gbc = new GridBagConstraints();
 		this.gbc.gridwidth = GridBagConstraints.REMAINDER;  
@@ -72,7 +73,7 @@ public class JournalWidgetPanel extends JPanel {
 		textPanel.setLayout(new GridBagLayout());
 		textPanel.setBackground(Constants.COMPONENT_BACKGROUND_COLOR);
 		textPanel.setBorder(Constants.COMPONENT_BORDER_SMALL);
-		textLabel = new JLabel(getQuestionFromIndex());
+		textLabel = new JLabel(getQuestionFromIndex(settings));
 		textLabel.setFont(Constants.COMPONENT_FONT_SMALL_BOLD);
 		textLabel.setForeground(Constants.COMPONENT_FOREGROUND_COLOR);
 		textArea = new JTextArea(9, 30);
@@ -143,16 +144,16 @@ public class JournalWidgetPanel extends JPanel {
 		}
 	}
 	
-	private String getQuestionFromIndex() {
+	private String getQuestionFromIndex(Settings settings) {
 		switch(index) {
 			case 1:
-				return "What events occurred today?";
+				return settings.getJournalText1AreaPrompt();
 			case 2:
-				return "Any problems or stresses today?";
+				return settings.getJournalText2AreaPrompt();
 			case 3:
-				return "What are you grateful for today?";
+				return settings.getJournalText3AreaPrompt();
 			case 4:
-				return "What are your goals for tomorrow?";
+				return settings.getJournalText4AreaPrompt();
 			default:
 				throw new RuntimeException("Invalid textIndex entered: " + index);
 		}
