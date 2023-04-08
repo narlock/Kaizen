@@ -121,6 +121,11 @@ by <a href="https://github.com/narlock">narlock</a>
 - Change which widgets appear inside of the customization menu! 
 - Simply select the 'Customize Home' menu option from 'Home', and utilize the combo boxes to select the widgets to suit your needs.
 
+## **High-level Software Architectural Diagram**
+<p align="center">
+  <img src="./README%20Assets/HL_UML.png" width="70%"/>
+</p>
+
 ## **Setup KaizenClient**
 ### Requirements
 
