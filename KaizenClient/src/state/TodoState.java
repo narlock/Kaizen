@@ -12,7 +12,9 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -434,21 +436,25 @@ public class TodoState extends State {
 			public void actionPerformed(ActionEvent e) {
 				// Construct string to copy to clipboard
 				String clipboardString = "**My Kaizen Todo**\n\n";
-				int todoCount = 0;
+				
+				// Construct Todo-only list
+				List<TodoItem> todoList = new ArrayList<TodoItem>();
 				for(TodoItem item : todo.getItems()) {
 					if(item.getCompletedDate() == null) {
-						todoCount++;
+						todoList.add(item);
 					}
 				}
-				if(todo.getItems().size() >= 10) {
-					todoCount = 9;
-				}
 				
+				// Get Todo count, maximum # of items to display is 10
+				int todoCount = todoList.size();
+				todoCount = (todoList.size() >= 10) ? 9 : todoList.size();
+				
+				// Add Todo Items
 				if(todoCount == 0) {
 					clipboardString += "All completed! 😃";
 				} else {
 					for(int i = 0; i < todoCount; i++) {
-						TodoItem item = todo.getItems().get(i);
+						TodoItem item = todoList.get(i);
 						
 						clipboardString += "◻️ " + item.getTitle();
 						if(settings.isShowTodoEpicOnClipboard() && !item.getEpic().equals("")) {
@@ -458,6 +464,7 @@ public class TodoState extends State {
 					}
 				}
 				
+				// Add Completed Tasks (Today only)
 				clipboardString += "\n**Completed Today**\n\n";
 				for(TodoItem item : todo.getItems()) {
 					if(item.getCompletedDate() != null &&
