@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.Timer;
 
 public class FadingLabel extends JLabel {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
     private Timer timer;
     private int duration;
     private int alpha = 255;
@@ -17,11 +17,11 @@ public class FadingLabel extends JLabel {
     public FadingLabel(String text, int duration) {
         super(text);
         this.duration = duration;
-        setForeground(Color.GREEN);
+        setForeground(Color.WHITE);
     }
 
     public void fade() {
-        setForeground(Color.GREEN); // Reset color to green
+        setForeground(Color.WHITE); // Reset color
         alpha = 255; // Reset alpha to 255
         if (timer != null) {
             timer.stop(); // Stop the timer if it's already running
@@ -30,11 +30,11 @@ public class FadingLabel extends JLabel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 alpha -= 5;
-                if (alpha < 0) {
-                    alpha = 0;
+                if (alpha < 20) {
+                    alpha = 20;
                     timer.stop();
                 }
-                setForeground(new Color(0, alpha, 0));
+                setForeground(new Color(alpha, alpha, alpha));
             }
         });
         timer.start();
