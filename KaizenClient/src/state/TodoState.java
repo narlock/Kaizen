@@ -491,6 +491,7 @@ public class TodoState extends State {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				int result = JOptionPane.showConfirmDialog(
 						getRootPane(), 
 						"Delete all completed items?", 
@@ -499,12 +500,7 @@ public class TodoState extends State {
 						JOptionPane.QUESTION_MESSAGE,
 						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
 				if(result == JOptionPane.OK_OPTION) {
-					// Delete all of the items that contain a completion date
-					for(int i = 0; i < todo.getItems().size(); i++) {
-						if(todo.getItems().get(i).getCompletedDate() != null) {
-							todo.getItems().remove(i);
-						}
-					}
+					todo.getItems().removeIf(item -> item.getCompletedDate() != null);
 					
 					TodoJsonManager.writeTodoJsonToFile(todo);
 					revalidateItemPanel();
