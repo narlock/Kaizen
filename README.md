@@ -134,22 +134,39 @@ Kaizen is a purposeful and minimalistic app that provides a variety of uncomplic
 1. Supported Operating Systems
 
       Kaizen has been tested on the following operating systems:
-      - Windows 10
-      - Linux (Ubuntu 20.04 LTS)
-      - Mac OS X (Ventura)
+      - Windows (Tested on Windows 10, 11. Should work on Windows XP, Vista, 7, 8, and 8.1)
+      - Linux (Tested on Ubuntu 20.04 LTS, should work on any version)
+      - Mac OS X (Tested on Ventura, should work on any version)
 
 2. Java Runtime Environment
 
     KaizenClient was developed utilizing the Java programming language. An installation of the Java Runtime Environment is required to run Java applications. KaizenClient runs on **Java 8**. A download for Java can be found [here](https://www.java.com/en/download/).
 
-3. Downloading Kaizen
+3. Downloading and Installing Kaizen
+  - **Mac OS `.app`**
+    - As of May 6th, 2023, I am now packaging Kaizen in a `.app` package by courtesy of [Jasper's JarBundler](https://github.com/DrOverbuild/JarBundler). The following give steps to have Kaizen run on your Mac OS computer.
+      1. Download and unzip the `Kaizen-MacOS.zip` file. When extracted, this will contain the `Kaizen vX.X.X.app` file.
+      2. If you open the application, you will first see the following message, indicating that it comes from an unverified developer.
 
-    To download Kaizen, read through the download page [here](https://github.com/narlock/Kaizen/releases) and select the Kaizen JAR file to download from this page. This file contains the entire application and can be opened utilizing the Java Runtime Environment.
+        <p align="center">
+          <img src="./README%20Assets/MacOSCannotVerify.png" width="30%"/>
+        </p>
 
+      3. To allow permissions, you will have to go to the Settings application and go to 'Privacy and Security' (or enter 'Gatekeeper' in Settings). You will see a message similar to this one:
+
+        <p align="center">
+          <img src="./README%20Assets/MacOSOpenAnyway.png" width="50%"/>
+        </p>
+
+      Upon seeing this, press 'Open Anyway'. The application should now be given permission to open. You can now optionally move the `Kaizen vX.X.X.app` to your Applications folder if you would like, dock it, etc.
+
+  - **Traditional JAR Installation**
+    - For users looking to download only the JAR executable. Download the `Kaizen.jar` file on our [download page](https://github.com/narlock/Kaizen/releases) This file contains the entire application and can be opened utilizing the Java Runtime Environment.
     > **Note**
     > Depending on your operating system, there may be certain permissions you must authorize Kaizen to in order to execute the program.
-    - For Linux distributions, permissions to execute the application must be granted.
-    - For macOS, depending on the installation, the user may need to launch the application through the command line (assuming the application already has permissions). To run through the command line, navigate the terminal to the directory of Kaizen, then type the command `java -jar Kaizen.jar`. The application will now function properly.
+      - Windows: Simply just run the Kaizen JAR file using the Java Runtime Environment.
+      - For Linux distributions, permissions to execute the application must be granted.
+      - For macOS, depending on the installation, the user may need to launch the application through the command line (assuming the application already has permissions). To run through the command line, navigate the terminal to the directory of Kaizen, then type the command `java -jar Kaizen.jar`. The application will now function properly.
       - If you encounter the ability to not save, or view any files, please try launching using the command line.
 
 # **KaizenWeb**
