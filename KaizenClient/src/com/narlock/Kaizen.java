@@ -1,6 +1,6 @@
 package com.narlock;
-import com.narlock.gui.MainGUI;
 
+import com.narlock.gui.MainGUI;
 /**
  * Kaizen
  * @author narlock

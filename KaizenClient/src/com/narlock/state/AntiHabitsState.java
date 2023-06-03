@@ -1,6 +1,5 @@
 package com.narlock.state;
 
-import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -25,9 +24,12 @@ import com.narlock.panel.AntiHabitsPanel;
 import com.narlock.util.Constants;
 import com.narlock.util.ErrorPane;
 import com.narlock.util.Utils;
+import com.toedter.calendar.JDateChooser;
 
 public class AntiHabitsState extends State {
 	
+	private static final long serialVersionUID = -5898974247614071603L;
+
 	private List<AntiHabit> antiHabits;
 	
 	private JPanel titlePanel;
@@ -77,59 +79,64 @@ public class AntiHabitsState extends State {
 			JPanel panel = new JPanel(new GridLayout(0, 1));
 			JLabel titleLabel = new JLabel("Anti Habit Title");
 			JTextField titleTextField = new JTextField();
-			JLabel dateLabel = new JLabel("Start Date (yyyy-MM-dd)");
-			JTextField dateTextField = new JTextField();
+			JLabel dateLabel = new JLabel("Start Date");
+			JDateChooser dateChooser = new JDateChooser(null, "yyyy-MM-dd");
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				titleTextField.setText("");
-				dateTextField.setText("");
-				
-				panel.add(titleLabel);
-				panel.add(titleTextField);
-				panel.add(dateLabel);
-				panel.add(dateTextField);
-				
-				int result = JOptionPane.showConfirmDialog(
-						getRootPane(), 
-						panel, 
-						"Create Anti Habit", 
-						JOptionPane.OK_CANCEL_OPTION,
-						JOptionPane.QUESTION_MESSAGE,
-						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
-				if(result == JOptionPane.YES_OPTION &&
-						!titleTextField.getText().equals("") &&
-						Utils.validateDateString(dateTextField.getText())
-					) {
-					// Happy Path
+				try {
+					titleTextField.setText("");
+					dateChooser.setDate(null);
 					
-					// Create Anti Habit
-					String title = titleTextField.getText();
-					Date date = Utils.stringToDate(dateTextField.getText());
-					AntiHabit antiHabit = new AntiHabit(title, date);
+					panel.add(titleLabel);
+					panel.add(titleTextField);
+					panel.add(dateLabel);
+					panel.add(dateChooser);
 					
-					// Add antiHabit to list
-					antiHabits.add(antiHabit);
-					
-					// Update Json
-					AntiHabitJsonManager.writeAntiHabitsToFile(antiHabits);
-					
-					// Revalidate GUI
-					revalidateHabitsPanel();
-				}
-				else if(result == JOptionPane.YES_OPTION &&
-						titleTextField.getText().equals("")
-					) {
-					// Display Validation Error on Title
-					ErrorPane.displayError(getRootPane(), "Could not create Anti Habit Item: a title must be given to the item.");
-				}
-				else if(result == JOptionPane.YES_OPTION &&
-						!Utils.validateDateString(dateTextField.getText())
-					) {
-					// Display Validation Error on Due Date
-					ErrorPane.displayError(getRootPane(), "Could not create Anti Habit Item: invalid date format.");
-				} else {
-					System.out.println("Cancel");
+					int result = JOptionPane.showConfirmDialog(
+							getRootPane(), 
+							panel, 
+							"Create Anti Habit", 
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.QUESTION_MESSAGE,
+							new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
+					if(result == JOptionPane.YES_OPTION &&
+							!titleTextField.getText().equals("") &&
+							Utils.validateDateString(Utils.dateAsString(dateChooser.getDate()))
+						) {
+						// Happy Path
+						
+						// Create Anti Habit
+						String title = titleTextField.getText();
+						Date date = dateChooser.getDate();
+						AntiHabit antiHabit = new AntiHabit(title, date);
+						
+						// Add antiHabit to list
+						antiHabits.add(antiHabit);
+						
+						// Update Json
+						AntiHabitJsonManager.writeAntiHabitsToFile(antiHabits);
+						
+						// Revalidate GUI
+						revalidateHabitsPanel();
+					}
+					else if(result == JOptionPane.YES_OPTION &&
+							titleTextField.getText().equals("")
+						) {
+						// Display Validation Error on Title
+						ErrorPane.displayError(getRootPane(), "Could not create Anti Habit Item: a title must be given to the item.");
+					}
+					else if(result == JOptionPane.YES_OPTION &&
+							!Utils.validateDateString(Utils.dateAsString(dateChooser.getDate()))
+						) {
+						// Display Validation Error on Due Date
+						ErrorPane.displayError(getRootPane(), "Could not create Anti Habit Item: invalid date format.");
+					} else {
+						System.out.println("Cancel");
+					}
+				} catch (Exception ex) {
+					// If date format is not correct
+					ErrorPane.displayError(getRootPane(), "Unexpected date format provided. Please try again.");
 				}
 			}
 			

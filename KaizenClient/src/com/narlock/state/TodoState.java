@@ -41,6 +41,7 @@ import com.narlock.util.Debug;
 import com.narlock.util.ErrorPane;
 import com.narlock.util.FadingLabel;
 import com.narlock.util.Utils;
+import com.toedter.calendar.JDateChooser;
 
 public class TodoState extends State {
 	
@@ -63,7 +64,6 @@ public class TodoState extends State {
 	private JLabel epicsLabel;
 	
 	private JButton viewAllItemsButton;
-//	private JButton addEpicButton;
 	private AddEpicButton addEpicButton;
 	
 	private EpicItemPanel epicItemPanel;
@@ -284,87 +284,92 @@ public class TodoState extends State {
 			JTextField titleTextField = new JTextField(); //TODO Add name of associated todo item
 			JLabel priorityLabel = new JLabel("Priority");
 			JComboBox<String> priorityBox = new JComboBox<>(); // Future todo, add icons here
-			JLabel dueDateLabel = new JLabel("Due Date (yyyy-MM-dd)");
-			JTextField dueDateTextField = new JTextField();
+			JLabel dueDateLabel = new JLabel("Due Date");
+			JDateChooser dueDateChooser = new JDateChooser(null, "yyyy-MM-dd");
 			JLabel epicAssignLabel = new JLabel("Epic");
 			JComboBox<String> epicAssignBox = new JComboBox<>();
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				titleTextField.setText("");
-				dueDateTextField.setText("");
-				
-				// Auto-generated method stub
-				priorityBox.removeAllItems();
-				
-				priorityBox.addItem("Low");
-				priorityBox.addItem("Medium");
-				priorityBox.addItem("High");
-				priorityBox.addItem("Critical");
-				
-				// populate epic box with epics
-				epicAssignBox.removeAllItems();
-				epicAssignBox.addItem("");
-				for(Epic epic : todo.getEpics()) {
-					epicAssignBox.addItem(epic.getTitle());
-				}
-				
-				panel.add(titleLabel);
-				panel.add(titleTextField);
-				panel.add(priorityLabel);
-				panel.add(priorityBox);
-				panel.add(dueDateLabel);
-				panel.add(dueDateTextField);
-				panel.add(epicAssignLabel);
-				panel.add(epicAssignBox);
-				
-				int result = JOptionPane.showConfirmDialog(
-						getRootPane(), 
-						panel, 
-						"Create Todo Item", 
-						JOptionPane.OK_CANCEL_OPTION,
-						JOptionPane.QUESTION_MESSAGE,
-						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
-				if(result == JOptionPane.YES_OPTION &&
-						!titleTextField.getText().equals("") &&
-						Utils.validateDateString(dueDateTextField.getText())
-					) {
-					String todoTitle = titleTextField.getText();
-					String dateString = dueDateTextField.getText();
-					Date todoDate = Utils.stringToDate(dateString);
-					String epicString = (String) epicAssignBox.getSelectedItem();
-					long priority = priorityBox.getSelectedIndex();
-					debug.print("[todoTitle=" + todoTitle + ", dateString=" + dateString + ", epicString=" 
-								+ epicString + ", priority=" + priority + "]");
+				try {
+					titleTextField.setText("");
+					dueDateChooser.setDate(null);
 					
-					// Create Item
-					TodoItem todoItem = new TodoItem(todoTitle, todoDate, null, (long) priority, epicString);
+					// Auto-generated method stub
+					priorityBox.removeAllItems();
 					
-					// Add item to items listd
-					todo.getItems().add(todoItem);
-					sortTodo();
+					priorityBox.addItem("Low");
+					priorityBox.addItem("Medium");
+					priorityBox.addItem("High");
+					priorityBox.addItem("Critical");
 					
-					// Update Json
-					TodoJsonManager.writeTodoJsonToFile(todo);
+					// populate epic box with epics
+					epicAssignBox.removeAllItems();
+					epicAssignBox.addItem("");
+					for(Epic epic : todo.getEpics()) {
+						epicAssignBox.addItem(epic.getTitle());
+					}
 					
-					// Revalidate GUI
-					revalidateItemPanel();
-				}
-				else if(result == JOptionPane.OK_OPTION &&
-						titleTextField.getText().equals("")) {
-					// Display Validation Error on Title
-					ErrorPane.displayError(getRootPane(), "Could not create Todo Item: a title must be given to the item.");
-				} 
-				else if(result == JOptionPane.OK_OPTION &&
-						!Utils.validateDateString(dueDateTextField.getText())
+					panel.add(titleLabel);
+					panel.add(titleTextField);
+					panel.add(priorityLabel);
+					panel.add(priorityBox);
+					panel.add(dueDateLabel);
+					panel.add(dueDateChooser);
+					panel.add(epicAssignLabel);
+					panel.add(epicAssignBox);
+					
+					int result = JOptionPane.showConfirmDialog(
+							getRootPane(), 
+							panel, 
+							"Create Todo Item", 
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.QUESTION_MESSAGE,
+							new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
+					if(result == JOptionPane.YES_OPTION &&
+							!titleTextField.getText().equals("") &&
+							Utils.validateDateString(Utils.dateAsString(dueDateChooser.getDate()))
 						) {
-					// Display Validation Error on Due Date
-					ErrorPane.displayError(getRootPane(), "<html>Could not create Todo Item: invalid date format (yyyy-MM-dd).<br>"
-							+ "This includes providing the leading zero for the date.<br><br>"
-							+ "Example: April 2nd, 2023 would be 2023-04-02.</html>");
-				}
-				else {
-					System.out.println("Cancel");
+						String todoTitle = titleTextField.getText();
+						String dateString = Utils.dateAsString(dueDateChooser.getDate());
+						Date todoDate = Utils.stringToDate(dateString);
+						String epicString = (String) epicAssignBox.getSelectedItem();
+						long priority = priorityBox.getSelectedIndex();
+						debug.print("[todoTitle=" + todoTitle + ", dateString=" + dateString + ", epicString=" 
+									+ epicString + ", priority=" + priority + "]");
+						
+						// Create Item
+						TodoItem todoItem = new TodoItem(todoTitle, todoDate, null, (long) priority, epicString);
+						
+						// Add item to items list
+						todo.getItems().add(todoItem);
+						sortTodo();
+						
+						// Update Json
+						TodoJsonManager.writeTodoJsonToFile(todo);
+						
+						// Revalidate GUI
+						revalidateItemPanel();
+					}
+					else if(result == JOptionPane.OK_OPTION &&
+							titleTextField.getText().equals("")) {
+						// Display Validation Error on Title
+						ErrorPane.displayError(getRootPane(), "Could not create Todo Item: a title must be given to the item.");
+					} 
+					else if(result == JOptionPane.OK_OPTION &&
+							!Utils.validateDateString(Utils.dateAsString(dueDateChooser.getDate()))
+							) {
+						// Display Validation Error on Due Date
+						ErrorPane.displayError(getRootPane(), "<html>Could not create Todo Item: invalid date format (yyyy-MM-dd).<br>"
+								+ "This includes providing the leading zero for the date.<br><br>"
+								+ "Example: April 2nd, 2023 would be 2023-04-02.</html>");
+					}
+					else {
+						System.out.println("Cancel");
+					}
+				} catch (Exception ex) {
+					// If date format is not correct
+					ErrorPane.displayError(getRootPane(), "Unexpected date format provided. Please try again.");
 				}
 			}
 			
