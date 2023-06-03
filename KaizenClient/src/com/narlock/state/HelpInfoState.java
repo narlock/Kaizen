@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.narlock.panel.HelpPanel;
+import com.narlock.util.Constants;
 import com.narlock.util.ErrorPane;
 
 public class HelpInfoState extends State {
@@ -46,7 +47,7 @@ public class HelpInfoState extends State {
 	@Override
 	public void initPanelComponents() {
 		logoIconLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("KaizenLogo.png")));
-		versionLabel = new JLabel("v1.0.4");
+		versionLabel = new JLabel(Constants.VERSION);
 		versionLabel.setForeground(COMPONENT_FOREGROUND_COLOR);
 		versionLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		

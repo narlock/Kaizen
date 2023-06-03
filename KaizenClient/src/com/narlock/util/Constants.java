@@ -9,6 +9,9 @@ import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
 public final class Constants {
+	// Version Constant
+	public final static String VERSION = "v1.0.5";
+	
 	//Date Formatter
 	public final static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	
