@@ -75,7 +75,7 @@ public class TodoItemPanel extends JPanel {
             	for(int i = 0; i < todoItems.size(); i++) {
             		TodoItem todoItem = todoItems.get(i);
             		if(todoItem.getCompletedDate() == null && 
-            				(viewMode.equals("all")) || (viewMode.equals("today") && todoItem.getDueDate().equals(Utils.today())))
+            				((viewMode.equals("all")) || (viewMode.equals("today") && todoItem.getDueDate().equals(Utils.today()))))
         				this.add(createTodoItemPanel(todoItem), gbc);
             	}
             }
@@ -85,7 +85,7 @@ public class TodoItemPanel extends JPanel {
         		// Todo List
             	for(int i = 0; i < todoItems.size(); i++) {
             		TodoItem todoItem = todoItems.get(i);
-            		if(todoItem.getCompletedDate() != null && todoItem.getEpic().equals(state.epic) && 
+            		if(todoItem.getCompletedDate() == null && todoItem.getEpic().equals(state.epic) && 
             				((viewMode.equals("all")) || (viewMode.equals("today") && todoItem.getDueDate().equals(Utils.today())))) {
             			this.add(createTodoItemPanel(todoItem), gbc);
             		}
@@ -94,7 +94,7 @@ public class TodoItemPanel extends JPanel {
             	// Completed List
             	for(int i = 0; i < todoItems.size(); i++) {
             		TodoItem todoItem = todoItems.get(i);
-            		if(todoItem.getCompletedDate() == null && todoItem.getEpic().equals(state.epic) &&
+            		if(todoItem.getCompletedDate() != null && todoItem.getEpic().equals(state.epic) &&
             				((viewMode.equals("all")) || (viewMode.equals("today") && todoItem.getDueDate().equals(Utils.today())))) {
             			this.add(createTodoItemPanel(todoItem), gbc);
             		}

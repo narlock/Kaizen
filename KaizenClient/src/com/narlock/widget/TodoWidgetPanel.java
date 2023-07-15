@@ -36,6 +36,7 @@ public class TodoWidgetPanel extends JPanel {
 	
 	private Todo todo;
 	private List<TodoItem> todoItems;
+	private String viewMode;
 	
 	private JScrollPane itemsScrollPane;
 	
@@ -44,6 +45,7 @@ public class TodoWidgetPanel extends JPanel {
 		todo = TodoJsonManager.readJson();
 		sortTodo();
 		todoItems = todo.getItems();
+		viewMode = todo.getViewMode();
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		
@@ -54,7 +56,7 @@ public class TodoWidgetPanel extends JPanel {
 		// Title Panel
 		JPanel titlePanel = new JPanel();
 		titlePanel.setBackground(GUI_BACKGROUND_COLOR);
-		JLabel titleLabel = new JLabel("Todo List");
+		JLabel titleLabel = viewMode.equals("today") ? new JLabel("Today's Todo List") : new JLabel("Todo List");
 		titleLabel.setOpaque(false);
 		titleLabel.setFont(COMPONENT_FONT_SMALL_BOLD);
 		titleLabel.setBackground(COMPONENT_BACKGROUND_COLOR);
@@ -183,7 +185,9 @@ public class TodoWidgetPanel extends JPanel {
 		
 		// Add todoItems to panel
     	for(int i = 0; i < todoItems.size(); i++) {
-    		if(todoItems.get(i).getCompletedDate() == null) {
+    		TodoItem todoItem = todoItems.get(i);
+    		if(todoItem.getCompletedDate() == null && 
+    				(viewMode.equals("all")) || (viewMode.equals("today") && todoItem.getDueDate().equals(Utils.today()))) {
     			todoItemPanel.add(createTodoItemPanel(todoItems.get(i)), gbc);
     		}
     			
