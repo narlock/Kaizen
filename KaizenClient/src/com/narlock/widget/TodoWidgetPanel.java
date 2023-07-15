@@ -31,6 +31,7 @@ import com.narlock.json.TodoJsonManager;
 import com.narlock.util.ErrorPane;
 import com.narlock.util.TodoUtils;
 import com.narlock.util.Utils;
+import com.toedter.calendar.JDateChooser;
 
 public class TodoWidgetPanel extends JPanel {
 	
@@ -75,15 +76,15 @@ public class TodoWidgetPanel extends JPanel {
 			JTextField titleTextField = new JTextField();
 			JLabel priorityLabel = new JLabel("Priority");
 			JComboBox<String> priorityBox = new JComboBox<>();
-			JLabel dueDateLabel = new JLabel("Due Date (yyyy-MM-dd)");
-			JTextField dueDateTextField = new JTextField();
+			JLabel dueDateLabel = new JLabel("Due Date");
+			JDateChooser dueDateChooser = new JDateChooser(null, "yyyy-MM-dd");
 			JLabel epicAssignLabel = new JLabel("Epic");
 			JComboBox<String> epicAssignBox = new JComboBox<>();
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				titleTextField.setText("");
-				dueDateTextField.setText("");
+				dueDateChooser.setDate(null);
 				
 				// Auto-generated method stub
 				priorityBox.removeAllItems();
@@ -105,7 +106,7 @@ public class TodoWidgetPanel extends JPanel {
 				panel.add(priorityLabel);
 				panel.add(priorityBox);
 				panel.add(dueDateLabel);
-				panel.add(dueDateTextField);
+				panel.add(dueDateChooser);
 				panel.add(epicAssignLabel);
 				panel.add(epicAssignBox);
 				
@@ -118,10 +119,10 @@ public class TodoWidgetPanel extends JPanel {
 						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
 				if(result == JOptionPane.YES_OPTION &&
 						!titleTextField.getText().equals("") &&
-						Utils.validateDateString(dueDateTextField.getText())
+						Utils.validateDateString(Utils.dateAsString(dueDateChooser.getDate()))
 					) {
 					String todoTitle = titleTextField.getText();
-					String dateString = dueDateTextField.getText();
+					String dateString = Utils.dateAsString(dueDateChooser.getDate());
 					Date todoDate = Utils.stringToDate(dateString);
 					String epicString = (String) epicAssignBox.getSelectedItem();
 					long priority = priorityBox.getSelectedIndex();
@@ -145,7 +146,7 @@ public class TodoWidgetPanel extends JPanel {
 					ErrorPane.displayError(getRootPane(), "Could not create Todo Item: a title must be given to the item.");
 				} 
 				else if(result == JOptionPane.OK_OPTION &&
-						!Utils.validateDateString(dueDateTextField.getText())
+						!Utils.validateDateString(Utils.dateAsString(dueDateChooser.getDate()))
 						) {
 					// Display Validation Error on Due Date
 					ErrorPane.displayError(getRootPane(), "Could not create Todo Item: invalid date format.");
@@ -292,8 +293,8 @@ public class TodoWidgetPanel extends JPanel {
 			JTextField titleTextField = new JTextField(todoItem.getTitle()); //TODO Add name of associated todo item
 			JLabel priorityLabel = new JLabel("Priority");
 			JComboBox<String> priorityBox = new JComboBox<>(); // Future todo, add icons here
-			JLabel dueDateLabel = new JLabel("Due Date (yyyy-MM-dd)");
-			JTextField dueDateTextField = new JTextField(Utils.dateAsString(todoItem.getDueDate()));
+			JLabel dueDateLabel = new JLabel("Due Date");
+			JDateChooser dueDateChooser = new JDateChooser(null, "yyyy-MM-dd");
 			JLabel epicAssignLabel = new JLabel("Epic");
 			JComboBox<String> epicAssignBox = new JComboBox<>();
 
@@ -301,7 +302,7 @@ public class TodoWidgetPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				titleTextField.setText(todoItem.getTitle());
 				priorityBox.removeAllItems();
-				dueDateTextField.setText(Utils.dateAsString(todoItem.getDueDate()));
+				dueDateChooser.setDate(null);
 				epicAssignBox.removeAllItems();
 				
 				priorityBox.addItem("Low");
@@ -322,7 +323,7 @@ public class TodoWidgetPanel extends JPanel {
 				panel.add(priorityLabel);
 				panel.add(priorityBox);
 				panel.add(dueDateLabel);
-				panel.add(dueDateTextField);
+				panel.add(dueDateChooser);
 				panel.add(epicAssignLabel);
 				panel.add(epicAssignBox);
 				
@@ -335,10 +336,10 @@ public class TodoWidgetPanel extends JPanel {
 						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
 				if(result == JOptionPane.YES_OPTION &&
 						!titleTextField.getText().equals("") &&
-						Utils.validateDateString(dueDateTextField.getText())
+						Utils.validateDateString(Utils.dateAsString(dueDateChooser.getDate()))
 					) {
 					String todoTitle = titleTextField.getText();
-					String dateString = dueDateTextField.getText();
+					String dateString = Utils.dateAsString(dueDateChooser.getDate());
 					String epicString = (String) epicAssignBox.getSelectedItem();
 					long priority = priorityBox.getSelectedIndex();
 					System.out.println("[todoTitle=" + todoTitle + ", dateString=" + dateString + ", epicString=" 
@@ -362,7 +363,7 @@ public class TodoWidgetPanel extends JPanel {
 					ErrorPane.displayError(getRootPane(), "Could not update Todo Item: a title must be given to the item.");
 				} 
 				else if(result == JOptionPane.OK_OPTION &&
-						!Utils.validateDateString(dueDateTextField.getText())
+						!Utils.validateDateString(Utils.dateAsString(dueDateChooser.getDate()))
 						) {
 					// Display Validation Error on Due Date
 					ErrorPane.displayError(getRootPane(), "Could not update Todo Item: invalid date format.");

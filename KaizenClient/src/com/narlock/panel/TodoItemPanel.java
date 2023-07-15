@@ -34,6 +34,7 @@ import com.narlock.util.Constants;
 import com.narlock.util.ErrorPane;
 import com.narlock.util.TodoUtils;
 import com.narlock.util.Utils;
+import com.toedter.calendar.JDateChooser;
 
 public class TodoItemPanel extends JPanel {
 	
@@ -201,16 +202,16 @@ public class TodoItemPanel extends JPanel {
 			JTextField titleTextField = new JTextField(todoItem.getTitle()); //TODO Add name of associated todo item
 			JLabel priorityLabel = new JLabel("Priority");
 			JComboBox<String> priorityBox = new JComboBox<>(); // Future todo, add icons here
-			JLabel dueDateLabel = new JLabel("Due Date (yyyy-MM-dd)");
-			JTextField dueDateTextField = new JTextField(Utils.dateAsString(todoItem.getDueDate()));
+			JLabel dueDateLabel = new JLabel("Due Date");
+			JDateChooser dueDateChooser = new JDateChooser(null, "yyyy-MM-dd");
 			JLabel epicAssignLabel = new JLabel("Epic");
 			JComboBox<String> epicAssignBox = new JComboBox<>();
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				titleTextField.setText(todoItem.getTitle());
+				dueDateChooser.setDate(null);
 				priorityBox.removeAllItems();
-				dueDateTextField.setText(Utils.dateAsString(todoItem.getDueDate()));
 				epicAssignBox.removeAllItems();
 				
 				priorityBox.addItem("Low");
@@ -231,7 +232,7 @@ public class TodoItemPanel extends JPanel {
 				panel.add(priorityLabel);
 				panel.add(priorityBox);
 				panel.add(dueDateLabel);
-				panel.add(dueDateTextField);
+				panel.add(dueDateChooser);
 				panel.add(epicAssignLabel);
 				panel.add(epicAssignBox);
 				
@@ -244,10 +245,10 @@ public class TodoItemPanel extends JPanel {
 						new ImageIcon(getClass().getClassLoader().getResource("INFO_ERROR_ORANGE.png")));
 				if(result == JOptionPane.YES_OPTION &&
 						!titleTextField.getText().equals("") &&
-						Utils.validateDateString(dueDateTextField.getText())
+						Utils.validateDateString(Utils.dateAsString(dueDateChooser.getDate()))
 					) {
 					String todoTitle = titleTextField.getText();
-					String dateString = dueDateTextField.getText();
+					String dateString = Utils.dateAsString(dueDateChooser.getDate());
 					String epicString = (String) epicAssignBox.getSelectedItem();
 					long priority = priorityBox.getSelectedIndex();
 					System.out.println("[todoTitle=" + todoTitle + ", dateString=" + dateString + ", epicString=" 
@@ -271,7 +272,7 @@ public class TodoItemPanel extends JPanel {
 					ErrorPane.displayError(getRootPane(), "Could not update Todo Item: a title must be given to the item.");
 				} 
 				else if(result == JOptionPane.OK_OPTION &&
-						!Utils.validateDateString(dueDateTextField.getText())
+						!Utils.validateDateString(Utils.dateAsString(dueDateChooser.getDate()))
 						) {
 					// Display Validation Error on Due Date
 					ErrorPane.displayError(getRootPane(), "<html>Could not create Todo Item: invalid date format (yyyy-MM-dd).<br>"
