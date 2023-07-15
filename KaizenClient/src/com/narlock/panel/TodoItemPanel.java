@@ -37,10 +37,13 @@ import com.narlock.util.Utils;
 
 public class TodoItemPanel extends JPanel {
 	
+	private static final long serialVersionUID = 5548581808538951063L;
+	
 	private TodoState state;
 	private Todo todo;
 	private List<TodoItem> todoItems;
 	private List<Epic> epics;
+	private String viewMode; // "all" or "today"
 	
 	public TodoItemPanel(Todo todo, TodoState state) {
 		// Initialize member attributes
@@ -48,6 +51,7 @@ public class TodoItemPanel extends JPanel {
 		this.todo = todo;
 		this.todoItems = todo.getItems();
 		this.epics = todo.getEpics();
+		this.viewMode = todo.getViewMode();
 		
 		// Set Panel Layout
 		this.setBackground(Constants.GUI_BACKGROUND_COLOR);
@@ -58,27 +62,42 @@ public class TodoItemPanel extends JPanel {
         // Add todoItems to panel
         if(state.epic == null) {
         	if(state.showCompleted) {
+        		// Todo List
             	for(int i = 0; i < todoItems.size(); i++) {
-            		if(todoItems.get(i).getCompletedDate() != null)
-            			this.add(createTodoItemPanel(todoItems.get(i)), gbc);
+            		TodoItem todoItem = todoItems.get(i);
+            		if(todoItem.getCompletedDate() != null && 
+            				(viewMode.equals("all")) || (viewMode.equals("today") && todoItem.getDueDate().equals(Utils.today()))) {
+        				this.add(createTodoItemPanel(todoItem), gbc);
+            		}
             	}
             } else {
+            	// Completed List
             	for(int i = 0; i < todoItems.size(); i++) {
-            		if(todoItems.get(i).getCompletedDate() == null)
-            			this.add(createTodoItemPanel(todoItems.get(i)), gbc);
+            		TodoItem todoItem = todoItems.get(i);
+            		if(todoItem.getCompletedDate() == null && 
+            				(viewMode.equals("all")) || (viewMode.equals("today") && todoItem.getDueDate().equals(Utils.today())))
+        				this.add(createTodoItemPanel(todoItem), gbc);
             	}
             }
         }
         else {
         	if(state.showCompleted) {
+        		// Todo List
             	for(int i = 0; i < todoItems.size(); i++) {
-            		if(todoItems.get(i).getCompletedDate() != null && todoItems.get(i).getEpic().equals(state.epic))
-            			this.add(createTodoItemPanel(todoItems.get(i)), gbc);
+            		TodoItem todoItem = todoItems.get(i);
+            		if(todoItem.getCompletedDate() != null && todoItem.getEpic().equals(state.epic) && 
+            				((viewMode.equals("all")) || (viewMode.equals("today") && todoItem.getDueDate().equals(Utils.today())))) {
+            			this.add(createTodoItemPanel(todoItem), gbc);
+            		}
             	}
             } else {
+            	// Completed List
             	for(int i = 0; i < todoItems.size(); i++) {
-            		if(todoItems.get(i).getCompletedDate() == null && todoItems.get(i).getEpic().equals(state.epic))
-            			this.add(createTodoItemPanel(todoItems.get(i)), gbc);
+            		TodoItem todoItem = todoItems.get(i);
+            		if(todoItem.getCompletedDate() == null && todoItem.getEpic().equals(state.epic) &&
+            				((viewMode.equals("all")) || (viewMode.equals("today") && todoItem.getDueDate().equals(Utils.today())))) {
+            			this.add(createTodoItemPanel(todoItem), gbc);
+            		}
             	}
             }
         }

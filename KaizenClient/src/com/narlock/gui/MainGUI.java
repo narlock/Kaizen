@@ -506,6 +506,7 @@ public class MainGUI extends JFrame {
 		this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("KaizenIcon.png")).getImage());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(900, 700);
+//		this.setSize(1250, 700);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setVisible(true);

@@ -63,6 +63,7 @@ public class TodoState extends State {
 	private JPanel epicsTitlePanel;
 	private JLabel epicsLabel;
 	
+	private JButton viewTodaysItemsButton;
 	private JButton viewAllItemsButton;
 	private AddEpicButton addEpicButton;
 	
@@ -129,6 +130,8 @@ public class TodoState extends State {
 		epicsLabel = new JLabel("Epics");
 		initLabelVisual(epicsLabel);
 		
+		viewTodaysItemsButton = new JButton("   View Today's Items", new ImageIcon(getClass().getClassLoader().getResource("DATE.png")));
+		initButtonVisual(viewTodaysItemsButton);
 		viewAllItemsButton = new JButton("   View All Items", new ImageIcon(getClass().getClassLoader().getResource("SCROLL.png")));
 		initButtonVisual(viewAllItemsButton);
 		
@@ -150,24 +153,23 @@ public class TodoState extends State {
 		
 		sidePanel.add(sortDateButton, gbc);
 		sidePanel.add(sortPriorityButton, gbc);
-		sidePanel.add(Box.createVerticalStrut(25), gbc);
 		
-		JLabel lineLabel1 = new JLabel("____________________________");
+		String DIVIDER = (System.getProperty("os.name").startsWith("Linux") || System.getProperty("os.name").startsWith("Windows"))
+				? "──────────────────" : "━━━━━━━━━━";
+		
+		JLabel lineLabel1 = new JLabel(DIVIDER);
 		initLabelVisual(lineLabel1);
 		sidePanel.add(lineLabel1, gbc);
 		
-		sidePanel.add(Box.createVerticalStrut(25), gbc);
-		
 		sidePanel.add(viewTodoItemsButton, gbc);
 		sidePanel.add(viewCompletedItemsButton, gbc);
-		sidePanel.add(Box.createVerticalStrut(15), gbc);
 		
-		JLabel lineLabel2 = new JLabel("____________________________");
+		JLabel lineLabel2 = new JLabel(DIVIDER);
 		initLabelVisual(lineLabel2);
 		sidePanel.add(lineLabel2, gbc);
 		
-		sidePanel.add(Box.createVerticalStrut(25), gbc);
 		sidePanel.add(viewAllItemsButton, gbc);
+		sidePanel.add(viewTodaysItemsButton, gbc);
 		sidePanel.add(epicsTitlePanel, gbc);
 		sidePanel.add(epicsScrollPane, gbc);
 		
@@ -273,9 +275,26 @@ public class TodoState extends State {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				epic = null;
+				
+				todo.setViewMode("all");
+				TodoJsonManager.writeTodoJsonToFile(todo);
+				
 				revalidateItemPanel();
 			}
 			
+		});
+		
+		viewTodaysItemsButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				epic = null;
+				
+				todo.setViewMode("today");
+				TodoJsonManager.writeTodoJsonToFile(todo);
+				
+				revalidateItemPanel();
+			}
 		});
 		
 		addItemButton.addActionListener(new ActionListener() {

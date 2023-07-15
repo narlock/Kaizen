@@ -79,6 +79,7 @@ public class TodoJsonManager extends JsonManager {
 	
 	public static Todo jsonTodoObjectToTodo(JSONObject todoObject) {
 		String sortMode = (String) todoObject.get("sortMode");
+		String viewMode = (String) todoObject.get("viewMode");
 		
 		JSONArray epicsArray = (JSONArray) todoObject.get("epics");
 		List<Epic> epics = new ArrayList<Epic>();
@@ -96,13 +97,14 @@ public class TodoJsonManager extends JsonManager {
 			todoItems.add(todoItem);
 		}
 		
-		return new Todo(sortMode, epics, todoItems);
+		return new Todo(sortMode, viewMode, epics, todoItems);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static JSONObject todoToJsonTodoObject(Todo todo) {
 		JSONObject todoObject = new JSONObject();
 		todoObject.put("sortMode", todo.getSortMode());
+		todoObject.put("viewMode", todo.getViewMode());
 		
 		JSONArray epicsArray = new JSONArray();
 		for(Epic epic : todo.getEpics()) {

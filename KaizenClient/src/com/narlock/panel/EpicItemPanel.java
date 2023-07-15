@@ -23,10 +23,12 @@ import com.narlock.domain.TodoItem;
 import com.narlock.json.TodoJsonManager;
 import com.narlock.state.TodoState;
 import com.narlock.util.Constants;
+import com.narlock.util.Debug;
 import com.narlock.util.ErrorPane;
 
 public class EpicItemPanel extends JPanel {
 	private GridBagConstraints gbc;
+	private static final Debug debug = new Debug(true);
 	
 	private TodoState state;
 	private Todo todo;
@@ -76,6 +78,7 @@ public class EpicItemPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				state.epic = epic.getTitle();
+				debug.print("state.epic = " + state.epic);
 				state.revalidateItemPanel();
 			}
 			

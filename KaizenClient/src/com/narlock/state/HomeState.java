@@ -1,6 +1,11 @@
 package com.narlock.state;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -50,10 +55,22 @@ public class HomeState extends State {
 	public void initPanel() {
 		// TODO Auto-generated method stub
 		this.setLayout(new GridLayout(2,2));
+//		this.setLayout(new BorderLayout());
+//		JPanel leftPanel = new JPanel(new GridLayout(2, 1));
+//		leftPanel.add(widget);
+//		leftPanel.add(widget2);
+//		JPanel centerPanel = new JPanel();
+//		centerPanel.setBackground(Color.BLACK);
+//		JPanel rightPanel = new JPanel(new GridLayout(2, 1));
+//		rightPanel.add(widget3);
+//		rightPanel.add(widget4);
 		this.add(widget);
 		this.add(widget2);
 		this.add(widget3);
 		this.add(widget4);
+//		this.add(leftPanel, BorderLayout.WEST);
+//		this.add(centerPanel, BorderLayout.CENTER);
+//		this.add(rightPanel, BorderLayout.EAST);
 	}
 
 	public JPanel getWidgetFromString(String widgetString) {

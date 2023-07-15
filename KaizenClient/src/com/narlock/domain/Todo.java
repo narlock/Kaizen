@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Todo {
-	private String sortMode;
+	private String sortMode; // sort items by priority, date, and reverse of each
+	private String viewMode; // view all items, items for today
 	private List<Epic> epics;
 	private List<TodoItem> items;
 	
@@ -14,15 +15,27 @@ public class Todo {
 	 */
 	public Todo() {
 		this.sortMode = "date";
+		this.viewMode = "all";
 		this.epics = new ArrayList<Epic>();
 		this.items = new ArrayList<TodoItem>();
 	}
 	
-	public Todo(String sortMode, List<Epic> epics, List<TodoItem> items) {
+	/**
+	 * Load Todo Constructor
+	 * @param sortMode
+	 * @param viewMode
+	 * @param epics
+	 * @param items
+	 * 
+	 * Under the case where an attribute cannot be loaded,
+	 * it will be defaulted.
+	 */
+	public Todo(String sortMode, String viewMode, List<Epic> epics, List<TodoItem> items) {
 		super();
-		this.sortMode = sortMode;
-		this.epics = epics;
-		this.items = items;
+		this.sortMode = sortMode != null ? sortMode : "date";
+		this.viewMode = viewMode != null ? viewMode : "all";
+		this.epics = epics != null ? epics : new ArrayList<Epic>();
+		this.items = items != null ? items : new ArrayList<TodoItem>();
 	}
 
 	public String getSortMode() {
@@ -31,6 +44,14 @@ public class Todo {
 
 	public void setSortMode(String sortMode) {
 		this.sortMode = sortMode;
+	}
+	
+	public String getViewMode() {
+		return viewMode;
+	}
+	
+	public void setViewMode(String viewMode) {
+		this.viewMode = viewMode;
 	}
 
 	public List<Epic> getEpics() {
