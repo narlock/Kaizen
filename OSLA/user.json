@@ -1,0 +1,39 @@
+{
+    "profile": {
+        "username": "Firebal",
+        "joinDate": "2023-11-08",
+        "avatar": {
+            "properties": {
+                "skin": 0,
+                "hair": 0,
+                "shirt": 0,
+                "pants": 0,
+                "shoes": 0,
+                "misc": 0
+            },
+            "colors": {
+                "eye": [0, 0, 0],
+                "hair": [0, 0, 0]
+            },
+            "equipment": {
+                "weapon": 0,
+                "shield": 0
+            }
+        },
+        "background": 0,
+        "stats": {
+            "attack": 0,
+            "defense": 0,
+            "speed": 0,
+            "magicAttack": 0,
+            "magicDefense": 0
+        },
+        "xp": 0,
+        "coins": 0,
+        "achievements": "000000000000"
+    },
+    "preferences": {
+        "border": 0,
+        "appearance": "dark"
+    }
+}
