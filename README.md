@@ -25,6 +25,9 @@ by <a href="https://github.com/narlock">narlock</a>
 
 <hr>
 
+> [!IMPORTANT]  
+> This application is no longer being maintained. A more functional, LAN solution is being developed called [Kaizen LAN](https://github.com/narlock/KaizenLAN)
+
 ## Your Intentional and Minimalist Productivity and Self-Development Hub.
 
 **Kaizen**, also referred to in some places as OpenLife or Open Source Life Application (OSLA) started as a Node.js web server application that utilizes a MySQL database to manage data. This implementation is now called **KaizenWeb**. Beginning in 2023, a Java desktop application began development called **KaizenClient**, which implements similar features in a local Java package. Depending on which application is downloaded, there are different requirements needed.
@@ -34,9 +37,6 @@ Kaizen is a purposeful and minimalistic app that provides a variety of uncomplic
 - [KaizenClient](#kaizenclient)
   - [Features](#features)
   - [Setup KaizenClient](#setup-kaizenclient)
-- [KaizenWeb](#kaizenweb)
-  - [Features](#features-1)
-  - [Setup KaizenWeb](#setup-kaizenweb)
 - [Original Concept Idea](#original-concept-idea)
 
 # **KaizenClient**
