@@ -169,21 +169,6 @@ Kaizen is a purposeful and minimalistic app that provides a variety of uncomplic
       - For macOS, depending on the installation, the user may need to launch the application through the command line (assuming the application already has permissions). To run through the command line, navigate the terminal to the directory of Kaizen, then type the command `java -jar Kaizen.jar`. The application will now function properly.
       - If you encounter the ability to not save, or view any files, please try launching using the command line.
 
-# **KaizenWeb**
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
-
-## **Features**
-This feature description is currently a work in-progress.
-
-## **Setup KaizenWeb**
-This setup description is currently a work in-progress.
-
-<hr>
-
 ## Original Concept Idea
 
 I always found that creating some sort of consistency in my life to be somewhat of a challenge. Especially with forming habits like waking up early, making sure I'm drinking enough water, consuming a decent diet, achieving my study goals, spending enough time with friends & family... The list goes on. I have found that using multiple applications to try and build multiple different habits (i.e. a journal for journaling habit, a water reminder app to remind me to drink water, a to-do list app for my daily to-do) was a hassle. I thought it would be great to be able to pile all of those applications into a simple "Life Hub", meaning everything that I need to access is all in one place. No need to go from application to application - they're all in front of me.
